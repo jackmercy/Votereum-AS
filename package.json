@@ -1,10 +1,10 @@
 {
   "name": "voting-dapp",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --proxy-config proxy.config.json",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -21,8 +21,16 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
+    "express": "^4.16.3",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "mongoose": "^5.0.12",
+    "morgan": "^1.9.0",
     "rxjs": "^5.5.6",
+    "serve-favicon": "^2.4.5",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
@@ -33,6 +41,8 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
+    "gulp-dev": "^0.3.0",
+    "gulp-env": "^0.4.0",
     "jasmine-core": "~2.8.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~2.0.0",
@@ -44,5 +54,19 @@
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
     "typescript": "~2.5.3"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackmercy/voting-dapp.git"
+  },
+  "keywords": [
+    "blockchain"
+  ],
+  "author": "Jack - Lilly",
+  "bugs": {
+    "url": "https://github.com/jackmercy/voting-dapp/issues"
+  },
+  "homepage": "https://github.com/jackmercy/voting-dapp#readme"
 }
