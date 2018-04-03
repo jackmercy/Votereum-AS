@@ -1,3 +1,13 @@
-<p>
-  navbar works!
-</p>
+<nav class="navbar navbar-expand-lg custom-nav">
+    <button mat-button class="navbar-brand" [routerLink]="['guides']">
+        <img src="/assets/brand/untitled.svg" width="30" height="30" class="d-inline-block align-top middle-brand-text">
+        {{brandName}}
+    </button>
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
+            <button class="nav-item-text" [routerLink]="[menuItem.path]" mat-button>
+                {{menuItem.title}}
+            </button>
+        </li>
+    </ul>
+</nav>

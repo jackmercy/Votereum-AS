@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     onLogin() {
         this.isLoggedIn = this._coreService.login(this.citizenName.value, this.citizenID.value);
         if (this.isLoggedIn) {
-            this._router.navigate(['/home/']);
+            this._router.navigate(['/home/guides']);
         } else {
             this.snackBar.open('No user is found', 'Got it', {
                 duration: 5000,
