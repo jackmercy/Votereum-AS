@@ -1,41 +1,41 @@
 <div class="row justify-content-md-center form-layout">
   <div class="col-md-auto col-layout">
-      <form [formGroup]="loginFormGroup" class="from-gourp">
-          <div class="toolbar-box">
-              <mat-toolbar class="login-toolbar">
-                  <i class="material-icons">lock_outline</i>
-                  <span id="welcome" class="fill-remaining-space">
-                      Welcome to my page
-                  </span>
-              </mat-toolbar>
-          </div>
-          <!-- User -->
-          <mat-form-field class="full-width-input">
-              <input id="input-user" matInput placeholder="Username" formControlName="user">
-              <mat-error *ngIf="username.invalid">{{getUserErrorMessage()}}</mat-error>
-          </mat-form-field>
+        <form [formGroup]="loginFormGroup" class="from-gourp">
+            <div class="toolbar-box">
+                <mat-toolbar class="login-toolbar">
+                    <i class="material-icons">lock_outline</i>
+                    <span id="welcome" class="fill-remaining-space">
+                        Welcome to Voting Dapp
+                    </span>
+                </mat-toolbar>
+            </div>
+            <!-- Name -->
+            <mat-form-field class="full-width-input">
+                    <input id="input-user" matInput placeholder="Citizen's Name" formControlName="name">
+                    <mat-error *ngIf="citizenName.invalid">{{getNameErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-          <!-- Role -->
-          <mat-form-field class="full-width-input">
-              <input id="input-role" type="password" class="role" matInput placeholder="Role" formControlName="role">
-              <mat-error *ngIf="role.invalid">{{getRoleErrorMessage()}}</mat-error>
-          </mat-form-field>
+            <!-- ID -->
+            <mat-form-field class="full-width-input">
+                    <input id="input-id" type="password" matInput placeholder="Citizen's ID" formControlName="id">
+                    <mat-error *ngIf="citizenID.invalid">{{getIdErrorMessage()}}</mat-error>
+            </mat-form-field>
 
-          <!-- Sign in button -->
-          <div >
+            <!-- Sign in button -->
+            <div>
               <button id="sign-in-btn" mat-button (click)="onLogin()" class=" full-width-input"
-                      [disabled]="!loginFormGroup.valid || canDisableSignInButton">
-                  <span class="text-color-login-form">Sign In</span>
+                        [disabled]="!loginFormGroup.valid || canDisableSignInButton">
+                    <span class="text-color-login-form">Sign In</span>
               </button>
-          </div>
+            </div>
       </form>
   </div>
 </div>
 <div class="row">
   <div class="atom">
-      <div class="electron"></div>
-      <div class="electron"></div>
-      <div class="electron"></div>
+        <div class="electron"></div>
+        <div class="electron"></div>
+        <div class="electron"></div>
   </div>
 </div>
 

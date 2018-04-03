@@ -18,21 +18,7 @@ export class CoreService {
     constructor() { }
 
     login(username: string, role: string): boolean {
-        if (username === 'Helena' && role === 'master') {
-            const result = {
-                username: username,
-                role: role
-            };
-            this.user = result;
-            return true;
-        } else if (username === 'Khoai' && role === 'slave') {
-            const result = {
-                username: username,
-                role: role
-            };
-            this.user = result;
-            return true;
-        } else if (username === 'testing' && role === 'e2e') {
+        if (username === 'test' && role === 'test') {
             const result = {
                 username: username,
                 role: role
