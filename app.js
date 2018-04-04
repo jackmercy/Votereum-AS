@@ -1,9 +1,13 @@
 var express = require('express');
 var path = require('path');
-// var favicon = require('serve-favicon');
-// var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var logger = require('logger');
+var compress = require('compression');
+var appRoot = require('app-root-path');
+// var favicon = require('serve-favicon');
+// var logger = require('morgan');
+var router = require('./routes/index.route');
 // Import libary
 
 // Init variable
@@ -24,10 +28,15 @@ db = mongoose.connect('mongodb://localhost/voting-dapp')
 // app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true } ));
 app.use(bodyParser.json());
+app.use(compress());
 // Utility package
 
 // Serve UI 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(appRoot.path, 'dist')));
+
+app.get('*', function(req, res, next) {
+    res.sendFile(path.join(appRoot.path, 'dist/index.html'));
+});
 // Serve UI 
 
 
@@ -37,9 +46,9 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.get('/doto',function(req, res) {
   res.send('Doto plus');
 });
-
+app.use('/api', router);
 /* login route */
-/* var userModel = require('./models/User.model');
+/* var userModel = require('./models/user.model');
 var userRouter = require('./routes/user.route')(userModel);
 app.use('/api/login', userRouter); */
 /* get image route */
