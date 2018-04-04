@@ -36,8 +36,8 @@
     "mongoose": "^5.0.12",
     "morgan": "^1.9.0",
     "rxjs": "^5.5.6",
-    "serve-favicon": "^2.4.5",
-    "zone.js": "^0.8.19"
+    "serve-favicon": "^2.5.0",
+    "zone.js": "^0.8.25"
   },
   "devDependencies": {
     "@angular/cli": "~1.7.1",
@@ -45,7 +45,7 @@
     "@angular/language-service": "^5.2.0",
     "@types/jasmine": "~2.8.3",
     "@types/jasminewd2": "~2.0.2",
-    "@types/node": "~6.0.60",
+    "@types/node": "^6.0.104",
     "codelyzer": "^4.0.1",
     "gulp-dev": "^0.3.0",
     "gulp-env": "^0.4.0",

@@ -29,14 +29,23 @@ export class LoginComponent implements OnInit {
     }
 
     onLogin() {
-        this.isLoggedIn = this._coreService.login(this.citizenName.value, this.citizenID.value);
-        if (this.isLoggedIn) {
-            this._router.navigate(['/home/voting']);
-        } else {
-            this.snackBar.open('No user is found', 'Got it', {
-                duration: 5000,
-            });
-        }
+        this._coreService.login(this.citizenName.value, this.citizenID.value)
+            .subscribe(
+                data => {
+                    console.log(data);
+                    if(data.message) {
+                        this.snackBar.open(data.message , 'Got it', {
+                            duration: 3000,
+                        });
+                    } else if(data.name && data.id) {
+                        this._router.navigate(['/home/voting']);
+                    }
+                    
+                },
+                error => {
+                    console.log(error);
+                }
+            );
     }
 
     get citizenName() {

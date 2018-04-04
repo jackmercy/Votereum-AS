@@ -14,19 +14,16 @@ const httpOptions = {
 
 @Injectable()
 export class CoreService {
-    user: any;
-    constructor() { }
+    userUrl = '/api/users';
+    constructor(private _http: HttpClient) { }
 
-    login(username: string, role: string): boolean {
-        if (username === 'test' && role === 'test') {
-            const result = {
-                username: username,
-                role: role
-            };
-            this.user = result;
-            return true;
-        }
-        return false;
+    login(name: string, id: string): Observable<any> {
+        return this._http.post(this.userUrl+ '/login',JSON.stringify({name: name, id: id}),httpOptions)
+                    .map((response: Response) => {
+                        const user = response;
+                        /* write to session storage here */
+                        return user;
+                    })
     }
 
 }
