@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('voting-dapp App', () => {
+describe('H project testing', () => {
   let page: AppPage;
 
   beforeEach(() => {
@@ -9,6 +9,6 @@ describe('voting-dapp App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getParagraphText()).toEqual('Welcome to Voting Dapp');
   });
 });
