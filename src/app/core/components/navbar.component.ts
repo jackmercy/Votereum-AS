@@ -17,7 +17,7 @@ export const ROUTES: RouteInfo[] = [
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-    brandName = 'Suffragium';
+    brandName = 'Voilà';
     menuItems: any[];
     constructor() { }
 

@@ -1,5 +1,6 @@
 var express = require('express');
 var userRoutes = require('./user.route');
+var candidateRoutes = require('./candidate.route');
 // import authRoutes from './auth.route';
 
 var router = express.Router(); // eslint-disable-line new-cap
@@ -12,6 +13,8 @@ router.get('/check', (req, res) =>
 // mount user routes at /users
 router.use('/users', userRoutes);
 
+// mount candidate routes at /candidates
+router.use('/candidates', candidateRoutes);
 // mount auth routes at /auth
 // router.use('/auth', authRoutes);
 

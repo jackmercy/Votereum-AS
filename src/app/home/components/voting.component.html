@@ -1,3 +1,10 @@
-<p>
-  voting works!
-</p>
+<div class="container voting-grid">
+    <mat-grid-list cols="3" rowHeight="3:4.75" gutterSize="15px">
+        <mat-grid-tile *ngFor="let candidate of candidates">
+            <app-candidate [candidate]="candidate"></app-candidate>   
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+
+
+  

@@ -5,7 +5,7 @@
     </button>
     <ul class="nav">
         <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
-            <button class="nav-item-text" [routerLink]="[menuItem.path]" mat-button>
+            <button name="{{menuItem.title}}" class="nav-item-text" [routerLink]="[menuItem.path]" mat-button>
                 {{menuItem.title}}
             </button>
         </li>

@@ -32,14 +32,14 @@ export class LoginComponent implements OnInit {
         this._coreService.login(this.citizenName.value, this.citizenID.value)
             .subscribe(
                 data => {
-                    if(data.message) {
+                    if (data.message) {
                         this.snackBar.open(data.message , 'Got it', {
                             duration: 30000,
                         });
-                    } else if(data.name && data.id) {
+                    } else if (data.name && data.id) {
                         this._router.navigate(['/home/voting']);
                     }
-                    
+
                 },
                 error => {
                     console.log(error);

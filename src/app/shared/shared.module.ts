@@ -21,7 +21,8 @@ import {
     MatProgressSpinnerModule,
     MatToolbarModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatGridListModule
 } from '@angular/material';
 @NgModule({
   imports: [
@@ -50,7 +51,8 @@ import {
     MatSidenavModule,
     MatToolbarModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatGridListModule
   ],
 
   declarations: []

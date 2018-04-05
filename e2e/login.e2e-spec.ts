@@ -21,11 +21,10 @@ describe('sign in testing', () => {
 
         page.login('asdfsadf', '123124213');
 
-        var snackBar = page.getSnackBar();
-        var ec = protractor.ExpectedConditions;
+        const snackBar = page.getSnackBar();
+        const ec = protractor.ExpectedConditions;
         browser.driver.wait(ec.presenceOf(snackBar), 1500, 'wait for snack bar').then(function() {
             expect(page.getSnackBar().getText()).toEqual('No user is found\nGot it');
-        
             page.getSnackButton().click();
         });
 
