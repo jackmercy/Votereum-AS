@@ -37,6 +37,7 @@
     "morgan": "^1.9.0",
     "rxjs": "^5.5.6",
     "serve-favicon": "^2.5.0",
+    "web3": "^1.0.0-beta.33",
     "zone.js": "^0.8.25"
   },
   "devDependencies": {

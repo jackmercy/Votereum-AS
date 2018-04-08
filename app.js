@@ -8,6 +8,10 @@ var appRoot = require('app-root-path');
 // var favicon = require('serve-favicon');
 // var logger = require('morgan');
 var router = require('./routes/index.route');
+var Web3 = require('web3');
+var votingJson = require('./Voting');
+
+
 /* Import libary */
 
 /* Init variable */
@@ -17,10 +21,10 @@ var port = process.env.port || 3000;
 
 /* MongoDb */
 // mongoose.Promise = require('bluebird');
-var db;
+/*var db;
 db = mongoose.connect('mongodb://localhost/voting-dapp')
     .then(() =>  console.log('connection succesful to mongodb'))
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err));*/
 /* MongoDb */
 
 /* Utility package */
@@ -33,7 +37,7 @@ app.use(compress());
 /* Serve UI */
 app.use(express.static(path.join(appRoot.path, 'dist')));
 /* Serve UI */
-/* Routes */ 
+/* Routes */
 app.use('/api', router);
 /* Routes */
 
@@ -59,12 +63,25 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500); 
+  res.status(err.status || 500);
   res.render('error');
 });
 // gulp dev
 app.listen(port, function() {
     console.log('gulp is running on:' + port);
 });
+
+//Connecting to blockchain
+var abiDefinition;
+var VotingContract;
+global.web3 = new Web3("http://localhost:9545");
+
+//web3.personal.unlockAccount("0x6A4Ed48e93E564008074DB39279355A916454E60", "0x98410a02f8a0c1c29634bb85ab8e7740c3426983e0e0f3a9a7787ff487134d05");
+abiDefinition = votingJson.abi;
+VotingContract = new web3.eth.Contract(abiDefinition, '0x8cdaf0cd259887258bc13a92c0a6da92698644c0');
+
+//global.contractInstance = VotingContract.at('0x8cdaf0cd259887258bc13a92c0a6da92698644c0');
+//console.log(contractInstance);
+console.log('successfully connected to blockchain');
 
 module.exports = app;
