@@ -7,7 +7,9 @@ import appRoot from 'app-root-path';
 // import favicon from 'serve-favicon';
 import morgan from 'morgan';
 // import logger from 'logger';
-import router from './routes/index.route'
+import router from './routes/index.route';
+import Web3 from 'web3';
+import votingJson from './Voting';
 /* Import libary */
 
 /* Init variable */
@@ -34,7 +36,7 @@ app.use(compress());
 /* Serve UI */
 app.use(express.static(path.join(appRoot.path, 'dist')));
 /* Serve UI */
-/* Routes */ 
+/* Routes */
 app.use('/api', router);
 /* Routes */
 
@@ -60,12 +62,26 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500); 
+  res.status(err.status || 500);
   res.render('error');
 });
 // gulp dev
 app.listen(port, function() {
     console.log('server is running on:' + port);
 });
+
+
+//Connecting to blockchain
+var abiDefinition;
+var VotingContract;
+global.web3 = new Web3("http://localhost:9545");
+
+//web3.personal.unlockAccount("0x6A4Ed48e93E564008074DB39279355A916454E60", "0x98410a02f8a0c1c29634bb85ab8e7740c3426983e0e0f3a9a7787ff487134d05");
+abiDefinition = votingJson.abi;
+VotingContract = new web3.eth.Contract(abiDefinition, '0x8cdaf0cd259887258bc13a92c0a6da92698644c0');
+
+//global.contractInstance = VotingContract.at('0x8cdaf0cd259887258bc13a92c0a6da92698644c0');
+//console.log(contractInstance);
+console.log('successfully connected to blockchain');
 
 export default app;
