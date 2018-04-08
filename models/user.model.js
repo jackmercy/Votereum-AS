@@ -1,9 +1,8 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 /**
  * User Schema
  */
-var UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -39,4 +38,5 @@ UserSchema.statics = {
         return this.findOne({name: name, id: id});
     } */
 };
-module.exports = mongoose.model('User', UserSchema, 'user');
+
+export default mongoose.model('User', UserSchema, 'user');

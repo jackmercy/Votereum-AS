@@ -1,22 +1,22 @@
-var express = require('express');
-var path = require('path');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var logger = require('logger');
-var compress = require('compression');
-var appRoot = require('app-root-path');
-// var favicon = require('serve-favicon');
-// var logger = require('morgan');
-var router = require('./routes/index.route');
+import express from 'express';
+import path from 'path';
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import compress from 'compression';
+import appRoot from 'app-root-path';
+// import favicon from 'serve-favicon';
+import morgan from 'morgan';
+// import logger from 'logger';
+import router from './routes/index.route'
 /* Import libary */
 
 /* Init variable */
 var app = express();
-var port = process.env.port || 3000;
+var port = process.env.port || 5000;
 /* Init variable */
 
 /* MongoDb */
-// mongoose.Promise = require('bluebird');
+// mongoose.Promise from 'bluebird');
 var db;
 db = mongoose.connect('mongodb://localhost/voting-dapp')
     .then(() =>  console.log('connection succesful to mongodb'))
@@ -25,6 +25,7 @@ db = mongoose.connect('mongodb://localhost/voting-dapp')
 
 /* Utility package */
 // app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true } ));
 app.use(bodyParser.json());
 app.use(compress());
@@ -64,7 +65,7 @@ app.use(function(err, req, res, next) {
 });
 // gulp dev
 app.listen(port, function() {
-    console.log('gulp is running on:' + port);
+    console.log('server is running on:' + port);
 });
 
-module.exports = app;
+export default app;

@@ -1,9 +1,9 @@
-var express = require('express');
-var userRoutes = require('./user.route');
-var candidateRoutes = require('./candidate.route');
+import express from 'express';
+import userRoutes from './user.route';
+import candidateRoutes from './candidate.route';
 // import authRoutes from './auth.route';
 
-var router = express.Router(); // eslint-disable-line new-cap
+const router = express.Router(); // eslint-disable-line new-cap
 
 /** GET /health-check - Check service health */
 router.get('/check', (req, res) =>
@@ -18,4 +18,4 @@ router.use('/candidates', candidateRoutes);
 // mount auth routes at /auth
 // router.use('/auth', authRoutes);
 
-module.exports = router;
+export default router;

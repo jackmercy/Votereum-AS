@@ -1,6 +1,6 @@
-var Candidate = require('../models/candidate.model');
+import Candidate from '../models/candidate.model';
 
-var getCandidateList = function(req, res) {
+function getCandidateList(req, res) {
     Candidate.find({}, function(err, candidates) {
         if(err) {
             console.log('ERR');
@@ -16,6 +16,6 @@ var getCandidateList = function(req, res) {
     });
 }
 
-module.exports = {
+export default {
     getCandidateList
 }
