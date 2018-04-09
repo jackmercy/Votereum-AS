@@ -1,9 +1,10 @@
-var express = require('express');
-var candidateController = require('../controllers/candidate.controller');
+import express from 'express';
+import candidateController from '../controllers/candidate.controller';
 
-var router = express.Router();
+const router = express.Router();
 
 router.route('/list')
     .get(candidateController.getCandidateList);
 
-module.exports = router;
+export default router;
+

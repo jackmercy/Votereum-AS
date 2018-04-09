@@ -1,7 +1,7 @@
-var User = require('../models/user.model');
+import User from '../models/user.model';
 
-var postLogin = function(req, res) {
-    var user = new User(req.body);
+function postLogin(req, res) {
+    const user = new User(req.body);
 
     if(!req.body.name) {
         res.status(400);
@@ -34,6 +34,7 @@ var postLogin = function(req, res) {
 
 }
 
-module.exports = {
+
+export default {
     postLogin
 }

@@ -49,4 +49,4 @@ function getVotingList(req, res) {
     });
 }*/
 
-module.exports = { connect, voteCandidate, getVotingList };
+export default { connect, voteCandidate, getVotingList };

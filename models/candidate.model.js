@@ -1,10 +1,9 @@
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
 /**
  * Candidate schema
  */
-var CandidateSchema = new Schema({
+const CandidateSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -56,4 +55,4 @@ var CandidateSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Candidate', CandidateSchema, 'candidate');
+export default mongoose.model('Candidate', CandidateSchema, 'candidate');

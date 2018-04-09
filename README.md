@@ -1,12 +1,14 @@
 # VotingDapp
 
 This project is ... Idk
-
+## Requirement
+Node.js version 9.11.0
 ## Development 
 # Front-end
-Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run ui` for a dev server. Navigate to `localhost:4200/`. The app will automatically reload if you change any of the source files.
 # Back-end
-Run `mongod` and `gulp` for dev env.
+Run `mongod` and `npm start` for dev env.
+Express server will run at `localhost:5000`
 
 ## Code scaffolding
 

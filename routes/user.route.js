@@ -1,9 +1,9 @@
-var express = require('express');
-var userController = require('../controllers/user.controller');
+import express from 'express';
+import userController from '../controllers/user.controller';
 
 var router = express.Router();
 
 router.route('/login')
     .post(userController.postLogin);
 
-module.exports = router;
+export default router;

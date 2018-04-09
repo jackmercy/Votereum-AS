@@ -2,12 +2,12 @@
     <!-- <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
     </mat-card-header> -->
-    <img mat-card-image src="{{ candidate.avatar }}" alt="Photo of a candidate">
+    <img mat-card-image src="{{ candidate['avatar'] }}" alt="Photo of a candidate">
     <mat-card-content>
-        <mat-card-title>{{ candidate.name }}</mat-card-title>
-        <mat-card-subtitle>{{ candidate.party }}</mat-card-subtitle>
+        <mat-card-title>{{ candidate['name'] }}</mat-card-title>
+        <mat-card-subtitle>{{ candidate['party'] }}</mat-card-subtitle>
         <p class="brief-text">
-            {{ candidate.brief }}
+            {{ candidate['brief'] }}
         </p>
         <button mat-button class="btn-read-more">Read more</button>
     </mat-card-content>
