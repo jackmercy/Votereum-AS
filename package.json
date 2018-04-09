@@ -38,13 +38,14 @@
     "hammerjs": "^2.0.8",
     "mongoose": "^5.0.12",
     "morgan": "^1.9.0",
+    "popper": "^1.0.1",
     "rxjs": "^5.5.6",
     "serve-favicon": "^2.5.0",
     "web3": "^1.0.0-beta.33",
     "zone.js": "^0.8.25"
   },
   "devDependencies": {
-    "@angular/cli": "~1.7.1",
+    "@angular/cli": "~1.7.4",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@types/jasmine": "~2.8.3",
