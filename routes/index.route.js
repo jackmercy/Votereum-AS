@@ -1,6 +1,7 @@
 import express from 'express';
 import userRoutes from './user.route';
 import candidateRoutes from './candidate.route';
+import contractRoutes from './contract.route';
 // import authRoutes from './auth.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -15,6 +16,7 @@ router.use('/users', userRoutes);
 
 // mount candidate routes at /candidates
 router.use('/candidates', candidateRoutes);
+router.use('/contract', contractRoutes);
 // mount auth routes at /auth
 // router.use('/auth', authRoutes);
 

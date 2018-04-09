@@ -76,11 +76,8 @@ var abiDefinition;
 var VotingContract;
 global.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
 
-//web3.personal.unlockAccount("0x6A4Ed48e93E564008074DB39279355A916454E60", "0x98410a02f8a0c1c29634bb85ab8e7740c3426983e0e0f3a9a7787ff487134d05");
-//console.log(web3.personal.listWallets);
 abiDefinition = votingJson.abi;
-VotingContract = web3.eth.contract(abiDefinition);
-
+VotingContract = global.web3.eth.contract(abiDefinition);
 
 global.contractInstance = VotingContract.at('0x345ca3e014aaf5dca488057592ee47305d9b3e10');
 if (contractInstance) {
