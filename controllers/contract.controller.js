@@ -18,15 +18,14 @@ function connect(req, res) {
 
 }
 
-function voteCandidate(req, res) {
-    console.log(VotingContract);
+function voteforCandidate(req, res) {
     if (contractInstance) {
-        var hash = Voting.voteForCandidate('Rama', {from: web3.eth.accounts[0]});
-        console.log(hash);
-        res.write("       " + hash);
-        //getTransactionAddress(res, hash);
+        var hash = contractInstance.voteForCandidate('Rama', {from: web3.eth.accounts[0]});
+        if (hash) {
+            res.send(hash);
+            console.log(hash);
+        }
     }
-
 }
 
 function getVotingList(req, res) {
@@ -42,11 +41,16 @@ function getVotingList(req, res) {
 
 }
 
-/*function getTransactionAddress(res, hash) {
-    web3.eth.getTransaction(hash, (address) => {
-        res.write(address);
-        res.end();
-    });
-}*/
+function getCandidateVote(req, res) {
+    let candidateName = req.param('name');
+    var voteRecieved = contractInstance.totalVotesFor.call(candidateName);
+    res.write(`Name: ${candidateName} --> ${voteRecieved}\n`);
+}
 
-export default { connect, voteCandidate, getVotingList };
+function getTransactionReceipt(req, res, hash) {
+    web3.eth.getTransaction(hash, (receipt) => {
+        res.send(receipt);
+    });
+}
+
+export default { connect, voteforCandidate, getVotingList, getCandidateVote, getTransactionReceipt};
