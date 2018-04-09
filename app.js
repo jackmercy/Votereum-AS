@@ -76,9 +76,9 @@ var abiDefinition;
 var VotingContract;
 global.web3 = new Web3("http://localhost:9545");
 
-//web3.personal.unlockAccount("0x6A4Ed48e93E564008074DB39279355A916454E60", "0x98410a02f8a0c1c29634bb85ab8e7740c3426983e0e0f3a9a7787ff487134d05");
+// web3.personal.unlockAccount("0x627306090abaB3A6e1400e9345bC60c78a8BEf57", "c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3");
 abiDefinition = votingJson.abi;
-VotingContract = new web3.eth.Contract(abiDefinition, '0x8cdaf0cd259887258bc13a92c0a6da92698644c0');
+VotingContract = new web3.eth.Contract(abiDefinition, '0xf12b5dd4ead5f743c6baa640b0216200e89b60da');
 
 //global.contractInstance = VotingContract.at('0x8cdaf0cd259887258bc13a92c0a6da92698644c0');
 //console.log(contractInstance);
