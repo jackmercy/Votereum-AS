@@ -3,8 +3,8 @@ import ContractController from '../controllers/contract.controller';
 
 const router = express.Router();
 
-router.route('/voting')
-    .get(ContractController.voteforCandidate);
+router.route('/voteForCandidate')
+    .post(ContractController.voteForCandidate);
 
 router.route('/votingList')
     .get(ContractController.getVotingList);
