@@ -5,6 +5,7 @@ import { PublicComponent } from './components/public.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './components/login.component';
+import { RegisterComponent } from './components/register.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -12,6 +13,6 @@ import { LoginComponent } from './components/login.component';
     SharedModule
   ],
   exports: [],
-  declarations: [PublicComponent, LoginComponent]
+  declarations: [PublicComponent, LoginComponent, RegisterComponent]
 })
 export class PublicModule { }

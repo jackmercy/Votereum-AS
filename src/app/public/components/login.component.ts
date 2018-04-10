@@ -47,6 +47,10 @@ export class LoginComponent implements OnInit {
             );
     }
 
+    onSignUp() {
+        this._router.navigate(['/register']);
+    }
+
     get citizenName() {
         return this.loginFormGroup.get('name');
     }

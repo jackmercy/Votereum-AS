@@ -13,7 +13,8 @@ Express server will run at `localhost:5000`
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
+## Debug express
+Kill terminal that run `npm start` then run `npm run debug`
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.

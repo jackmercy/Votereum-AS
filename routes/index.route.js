@@ -12,10 +12,10 @@ router.get('/check', (req, res) =>
 );
 
 // mount user routes at /users
-router.use('/users', userRoutes);
+router.use('/user', userRoutes);
 
 // mount candidate routes at /candidates
-router.use('/candidates', candidateRoutes);
+router.use('/candidate', candidateRoutes);
 router.use('/contract', contractRoutes);
 // mount auth routes at /auth
 // router.use('/auth', authRoutes);

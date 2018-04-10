@@ -23,10 +23,14 @@
 
             <!-- Sign in button -->
             <div>
-              <button id="sign-in-btn" mat-button (click)="onLogin()" class=" full-width-input"
-                        [disabled]="!loginFormGroup.valid || canDisableSignInButton">
+                <button id="sign-in-btn" mat-button (click)="onLogin()" class=" full-width-input"
+                            [disabled]="!loginFormGroup.valid || canDisableSignInButton">
                     <span class="text-color-login-form">Sign In</span>
-              </button>
+                </button>
+                <div class="sign-up-text">
+                    Don't have an account? 
+                    <a class="sign-up" (click)="onSignUp()">Sign up</a>
+                </div>
             </div>
       </form>
   </div>
