@@ -33,6 +33,7 @@ function getVotingList(req, res) {
     if (contractInstance) {
         for (var index in candidateList) {
             var voteRecieved = contractInstance.totalVotesFor.call(candidateList[index]);
+            console.log(voteRecieved);
             //send data multiple times
             res.write(`Name: ${candidateList[index]} --> ${voteRecieved}\n`);
         }
@@ -44,13 +45,12 @@ function getVotingList(req, res) {
 function getCandidateVote(req, res) {
     let candidateName = req.param('name');
     var voteRecieved = contractInstance.totalVotesFor.call(candidateName);
-    res.write(`Name: ${candidateName} --> ${voteRecieved}\n`);
+    res.send(`Name: ${candidateName} --> ${voteRecieved}\n`);
 }
 
-function getTransactionReceipt(req, res, hash) {
-    web3.eth.getTransaction(hash, (receipt) => {
-        res.send(receipt);
-    });
+function getTransactionReceipt(req, res) {
+    let receipt = web3.eth.getTransactionReceipt(req.param('hash'));
+    res.send(receipt);
 }
 
 export default { connect, voteforCandidate, getVotingList, getCandidateVote, getTransactionReceipt};
