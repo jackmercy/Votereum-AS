@@ -9,7 +9,10 @@ router.route('/voting')
 router.route('/votingList')
     .get(ContractController.getVotingList);
 
-router.route('/vote/:name')
+router.route('/voteResult')
     .get(ContractController.getCandidateVote);
+
+router.route('/getVoteStatus')
+    .get(ContractController.getTransactionReceipt);
 
 export default router;
