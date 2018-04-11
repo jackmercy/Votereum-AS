@@ -21,15 +21,15 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.loginFormGroup = this._formBuilder.group({
-            name: ['', Validators.required],
-            id: ['', Validators.required]
+            citizendID: ['', Validators.required],
+            password: ['', Validators.required]
         });
         // this._coreService.getAllUser().subscribe( data => console.log(data));
         this.canDisableSignInButton = false;
     }
 
     onLogin() {
-        this._coreService.login(this.citizenName.value, this.citizenID.value)
+        this._coreService.login(this.citizenID.value, this.password.value)
             .subscribe(
                 data => {
                     if (data.message) {
@@ -47,20 +47,24 @@ export class LoginComponent implements OnInit {
             );
     }
 
-    get citizenName() {
-        return this.loginFormGroup.get('name');
+    onSignUp() {
+        this._router.navigate(['/register']);
     }
 
     get citizenID() {
-        return this.loginFormGroup.get('id');
+        return this.loginFormGroup.get('citizendID');
     }
 
-    getNameErrorMessage() {
-        return this.citizenName.hasError('required') ? 'Mandatory information' : '';
+    get password() {
+        return this.loginFormGroup.get('password');
     }
 
     getIdErrorMessage() {
         return this.citizenID.hasError('required') ? 'Mandatory information' : '';
+    }
+
+    getPasswordErrorMessage() {
+        return this.password.hasError('required') ? 'Mandatory information' : '';
     }
 
 }

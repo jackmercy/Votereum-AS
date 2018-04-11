@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /build
+/.compiled
 Voting.json
 # dependencies
 /node_modules

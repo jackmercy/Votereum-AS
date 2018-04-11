@@ -9,11 +9,23 @@ const UserSchema = new mongoose.Schema({
     },
     id: {
         type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
         required: true
     },
     role: {
         type: String,
         required: true
+    },
+    hash: [{
+        type: String,
+        max: 66
+    }],
+    isVote: {
+        type: Boolean
     }
 });
 /**
