@@ -29,7 +29,7 @@ function postLogin(req, res) {
             res.json(res_user);
         } else {
             const message = {
-                message: 'No user is found'
+                message: 'Invalid username or password'
             }
             res.json(message);
         }
