@@ -1,11 +1,3 @@
-/*import Web3 from 'web3';
-import fs from 'fs';
-import truffleContract from 'truffle-contract';
-import votingJson from './Voting.json';*/
-//Important: this controller is call once one of the following route in *.route.js is accessed
-
-//var contractInstance;
-//var web3;
 var candidateList = ["Rama", "Nick", "Jose"];
 //var transactionHash;
 
@@ -28,6 +20,7 @@ function voteforCandidates(req, res) {
             res.send(hash);
             console.log(hash);
         }
+        res.end();
     }
 }
 
@@ -59,7 +52,7 @@ function getTransactionReceipt(req, res) {
     res.json(receipt);
 }
 
-export default { 
+export default {
     connect,
     voteforCandidates,
     getVotingList,

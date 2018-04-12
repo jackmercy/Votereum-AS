@@ -1,3 +1,53 @@
-<p>
-  register works!
-</p>
+<div class="row justify-content-md-center form-layout">
+    <div class="col-md-auto col-layout">
+        <form [formGroup]="registerFormGroup" class="from-gourp">
+            <div class="toolbar-box">
+                <mat-toolbar class="login-toolbar">
+                    <i class="material-icons">lock_outline</i>
+                    <span id="welcome" class="fill-remaining-space">
+                        Welcome to Voting Dapp
+                    </span>
+                </mat-toolbar>
+            </div>
+
+            <!-- Name -->
+            <mat-form-field class="full-width-input">
+                <input id="input-name" matInput placeholder="Name" formControlName="name">
+                <mat-error *ngIf="name.invalid">{{getIdErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <!-- ID -->
+            <mat-form-field class="full-width-input">
+                <input id="input-id" matInput placeholder="Citizen's ID" formControlName="citizenID">
+                <mat-error *ngIf="citizenID.invalid">{{getIdErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <!-- Password -->
+            <mat-form-field class="full-width-input">
+                <input id="input-password" type="password" matInput placeholder="Password" formControlName="password">
+                <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <!-- Sign in button -->
+            <div>
+                <button id="sign-in-btn" mat-button (click)="onRegister()" class=" full-width-input"
+                        [disabled]="!registerFormGroup.valid || canDisableSignInButton">
+                    <span class="text-color-login-form">Sign In</span>
+                </button>
+                <div class="sign-up-text">
+                    Already have an account?
+                    <a class="sign-up" (click)="onLogin()">Login</a>
+                    now!
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="atom">
+        <div class="electron"></div>
+        <div class="electron"></div>
+        <div class="electron"></div>
+    </div>
+</div>
+
