@@ -39,9 +39,9 @@ export class RegisterComponent implements OnInit {
                         });
                     } else if (data) {
                         this.snackBar.open(data.message , 'Successfully registered!', {
-                            duration: 30000,
+                            duration: 5000,
                         });
-                        this._router.navigate(['/login']);
+                        this._router.navigate(['']);
                         console.log(data);
                     }
 
