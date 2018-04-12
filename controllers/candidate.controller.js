@@ -1,5 +1,7 @@
 import Candidate from '../models/candidate.model';
 
+
+/* GET: [/list] */
 function getCandidateList(req, res) {
     Candidate.find({}, function(err, candidates) {
         if(err) {

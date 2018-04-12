@@ -1,6 +1,12 @@
 import User from '../models/user.model';
 import { VERSION } from 'ts-node';
 
+
+/* POTS: [/login] */
+/* req JSON {
+    "id": "0432",
+    "password": "123456"
+} */
 function postLogin(req, res) {
     const user = new User(req.body);
 
@@ -37,6 +43,13 @@ function postLogin(req, res) {
 
 }
 
+
+/* POTS: [/register] */
+/* req JSON {
+    "name": "JK Lo",
+    "id": "0432",
+    "password": "123456"
+} */
 function postRegister(req, res) {
     const newUser = new User(req.body);
 

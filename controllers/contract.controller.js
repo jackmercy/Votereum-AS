@@ -9,7 +9,7 @@ import votingJson from './Voting.json';*/
 var candidateList = ["Rama", "Nick", "Jose"];
 //var transactionHash;
 
-import express from 'express'
+import express from 'express';
 
 
 //Connect to blockhain

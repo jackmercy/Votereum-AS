@@ -6,18 +6,16 @@ import contractRoutes from './contract.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
-/** GET /health-check - Check service health */
+/* Base route: [/api] */
+
+/** GET [/health-check]
+*  - Check service health */
 router.get('/check', (req, res) =>
   res.send('Hello hooman!')
 );
 
-// mount user routes at /users
 router.use('/user', userRoutes);
-
-// mount candidate routes at /candidates
 router.use('/candidate', candidateRoutes);
 router.use('/contract', contractRoutes);
-// mount auth routes at /auth
-// router.use('/auth', authRoutes);
 
 export default router;

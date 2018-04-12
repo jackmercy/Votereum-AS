@@ -2,7 +2,8 @@ import express from 'express';
 import ContractController from '../controllers/contract.controller';
 
 const router = express.Router();
-/* Prefix:  */
+/* Route: [/api/contract] */
+
 router.route('/voting')
     .post(ContractController.voteforCandidates);
 
