@@ -3,16 +3,17 @@ import ContractController from '../controllers/contract.controller';
 
 const router = express.Router();
 
-router.route('/voteForCandidate')
-    .post(ContractController.voteForCandidate);
+/* Prefix:  */
+router.route('/voting')
+    .post(ContractController.voteforCandidates);
 
 router.route('/votingList')
     .get(ContractController.getVotingList);
 
-router.route('/voteResult')
+router.route('/voteResult/:id')
     .get(ContractController.getCandidateVote);
 
-router.route('/getVoteStatus')
+router.route('/voteStatus/:hash')
     .get(ContractController.getTransactionReceipt);
 
 export default router;

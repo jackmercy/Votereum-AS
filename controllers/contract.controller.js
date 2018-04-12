@@ -1,47 +1,58 @@
-let candidateList = ["Rama", "Nick", "Jose"];
+var candidateList = ["Rama", "Nick", "Jose"];
 
-function voteForCandidate(req, res) {
-    let votedCandidates = req.body;
-    if (votedCandidates && votedCandidates.length > 0)
-    {
-        for (let candidate of votedCandidates) {
-            candidateList.find((person) => {
-               if (person === candidate) {
-                   let hash = contractInstance.voteForCandidate(candidate,
-                       {from: web3.eth.accounts[0]});
-                   if (hash) {
-                       res.write(hash);
-                   }
-               }
-            });
-        }
-        res.end();
-    }
+
+//Connect to blockhain
+function connect(req, res) {
+
 }
 
-function getVotingList(req, res) {
-    console.log(contractInstance);
+// NOTE: to get param value in /vote/:id use req.params.id
+
+/* POST: [/voting] */
+/* request JSON { "candidates": ["id1","id2", "id-N"] } */
+function voteforCandidates(req, res) {
     if (contractInstance) {
-        for (let index in candidateList) {
-            let voteRecieved = contractInstance.totalVotesFor.call(candidateList[index]);
-            console.log(voteRecieved);
-            //send data multiple times
-            res.write(`Name: ${candidateList[index]} --> ${voteRecieved}\n`);
+        var hash = contractInstance.voteForCandidates(req.body.candidates, {from: web3.eth.accounts[0]});
+        if(hash) {
+            res.send(hash);
+            console.log(hash);
         }
         res.end();
+    }
+}
+
+/* GET: [/votingList] */
+function getVotingList(req, res) {
+    if (contractInstance) {
+        const res_msg = {};
+        for (var index in candidateList) {
+            var voteRecieved = contractInstance.totalVotesFor.call(candidateList[index]);
+            res_msg[candidateList[index]] = voteRecieved;
+        }
+        res.json(res_msg);
     }
 
 }
 
+/* GET: [/voteResult/:id] */
 function getCandidateVote(req, res) {
-    let candidateName = req.param('name');
-    let voteRecieved = contractInstance.totalVotesFor.call(candidateName);
-    res.send(`Name: ${candidateName} --> ${voteRecieved}\n`);
+    let candidateId = req.params.id;
+    var voteRecieved = contractInstance.totalVotesFor.call(candidateId);
+    const res_msg = {};
+    res_msg[candidateId] = voteRecieved;
+    res.json(res_msg);
 }
 
+/* GET: [/voteStatus/:hash] */
 function getTransactionReceipt(req, res) {
-    let receipt = web3.eth.getTransactionReceipt(req.param('hash'));
-    res.send(receipt);
+    let receipt = web3.eth.getTransactionReceipt(req.params.hash);
+    res.json(receipt);
 }
 
-export default { voteForCandidate, getVotingList, getCandidateVote, getTransactionReceipt};
+export default {
+    connect,
+    voteforCandidates,
+    getVotingList,
+    getCandidateVote,
+    getTransactionReceipt
+};
