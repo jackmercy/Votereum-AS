@@ -46,9 +46,13 @@ function getCandidateVote(req, res) {
     res.json(res_msg);
 }
 
-/* GET: [/voteStatus/:hash] */
+/* POST: [/voteStatus] 
+    res JSON {
+        "hash": "0x1324143"
+    }
+*/
 function getTransactionReceipt(req, res) {
-    let receipt = web3.eth.getTransactionReceipt(req.params.hash);
+    let receipt = web3.eth.getTransactionReceipt(req.body.hash);
     res.json(receipt);
 }
 
