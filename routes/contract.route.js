@@ -13,7 +13,7 @@ router.route('/votingList')
 router.route('/voteResult/:id')
     .get(ContractController.getCandidateVote);
 
-router.route('/voteStatus/:hash')
-    .get(ContractController.getTransactionReceipt);
+router.route('/voteStatus')
+    .post(ContractController.getTransactionReceipt);
 
 export default router;
