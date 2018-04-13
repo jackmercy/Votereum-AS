@@ -5,7 +5,7 @@ const router = express.Router();
 /* Route: [/api/contract] */
 
 router.route('/voting')
-    .post(ContractController.voteforCandidates);
+    .post(ContractController.voteForCandidates);
 
 router.route('/votingList')
     .get(ContractController.getVotingList);

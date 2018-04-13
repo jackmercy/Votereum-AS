@@ -13,7 +13,7 @@ function connect(req, res) {
 
 /* POST: [/voting] */
 /* request JSON { "candidates": ["id1","id2", "id-N"] } */
-function voteforCandidates(req, res) {
+function voteForCandidates(req, res) {
     if (contractInstance) {
         var hash = contractInstance.voteForCandidates(req.body.candidates, {from: web3.eth.accounts[0]});
         if(hash) {
@@ -54,7 +54,7 @@ function getTransactionReceipt(req, res) {
 
 export default {
     connect,
-    voteforCandidates,
+    voteForCandidates,
     getVotingList,
     getCandidateVote,
     getTransactionReceipt
