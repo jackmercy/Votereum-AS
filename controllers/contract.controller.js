@@ -9,18 +9,41 @@ function connect(req, res) {
 
 }
 
+// contractInstance.updateCandidateList(candidateList);
+/* POST: [/createCandidateList] 
+    req JSON {
+        "candidateIDs": ["id1", "id2"]
+    }
+*/
+function createCandidateList(req, res) {
+    if (contractInstance) {
+        var list = req.body.candidateIDs;
+        var Txhash = contractInstance.updateCandidateList(list, {from: web3.eth.accounts[0], gas: 3000000});
+
+        if (Txhash) {
+            candidateList = list;
+            const res_msg = {
+                hash: Txhash,
+                candidateIDs: candidateList
+            }
+            res.json(res_msg);
+        }
+        // res.status(500);
+    }
+}
 // NOTE: to get param value in /vote/:id use req.params.id
 
 /* POST: [/voting] */
 /* request JSON { "candidates": ["id1","id2", "id-N"] } */
 function voteForCandidates(req, res) {
     if (contractInstance) {
-        var hash = contractInstance.voteForCandidates(req.body.candidates, {from: web3.eth.accounts[0]});
-        if(hash) {
-            res.send(hash);
-            console.log(hash);
+        var Txhash = contractInstance.voteForCandidates(req.body.candidates, {from: web3.eth.accounts[0]});
+        if(Txhash) {
+            const res_msg = {
+                hash: Txhash
+            }
+            res.json(res_msg);
         }
-        res.end();
     }
 }
 
@@ -57,6 +80,7 @@ function getTransactionReceipt(req, res) {
 }
 
 export default {
+    createCandidateList,
     connect,
     voteForCandidates,
     getVotingList,
