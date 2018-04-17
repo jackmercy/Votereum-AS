@@ -1,11 +1,11 @@
 <div class="container voting-grid">
     <mat-grid-list cols="3" rowHeight="3:4.75" gutterSize="15px">
         <mat-grid-tile *ngFor="let candidate of candidates">
-            <app-candidate [candidate]="candidate"></app-candidate>   
+            <app-candidate [candidate]="candidate" (voted)="onCandidateVoted($event)"></app-candidate>
         </mat-grid-tile>
     </mat-grid-list>
-    <button class="btn-lg btn-block" mat-raised-button>Vote</button>
+    <button class="btn-lg btn-block" mat-raised-button
+            (click)="voteSubmitClick()">Vote</button>
 </div>
 
 
-  

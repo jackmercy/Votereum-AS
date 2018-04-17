@@ -22,4 +22,10 @@ export class VotingComponent implements OnInit {
             );
     }
 
+    onCandidateVoted($event) {
+
+    }
+
+    voteSubmitClick() {}
+
 }

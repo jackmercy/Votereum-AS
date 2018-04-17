@@ -12,6 +12,7 @@
         <button mat-button class="btn-read-more">Read more</button>
     </mat-card-content>
     <mat-card-actions>
-        <mat-checkbox align="end" indeterminate="false">Vote</mat-checkbox>
+        <mat-checkbox align="end" indeterminate="false"
+                      (click)="candidateVotedCheck()">Vote</mat-checkbox>
     </mat-card-actions>
 </mat-card>

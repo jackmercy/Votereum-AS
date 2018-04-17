@@ -7,10 +7,15 @@ import { Component, OnInit,  EventEmitter, Input, Output } from '@angular/core';
 })
 export class CandidateComponent implements OnInit {
     @Input('candidate') candidate: Object;
+    @Output() voted: EventEmitter<string> = new EventEmitter<string>();
 
     constructor() { }
 
     ngOnInit() {
+    }
+
+    candidateVotedCheck() {
+        this.voted.emit(this.candidate['id']);
     }
 
 }
