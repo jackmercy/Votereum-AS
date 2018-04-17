@@ -7,10 +7,23 @@ import { Component, OnInit,  EventEmitter, Input, Output } from '@angular/core';
 })
 export class CandidateComponent implements OnInit {
     @Input('candidate') candidate: Object;
+    @Output() $onVoted = new EventEmitter<Object>();
+
+    voted: Boolean;
 
     constructor() { }
 
     ngOnInit() {
+        this.voted = false;
+    }
+
+    onVoteClicked() {
+        const result = {
+            voted: !this.voted,
+            candidateID: this.candidate['_id']
+        };
+        this.$onVoted.emit(result);
+        // console.log(result);
     }
 
 }

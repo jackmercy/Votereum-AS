@@ -82,6 +82,12 @@ function postRegister(req, res) {
 
 }
 
+/* POTS: [/updateHash] */
+/* req JSON {
+    "citizenId": "0432",
+    "hash": "0x123"
+} */
+
 export default {
     postLogin,
     postRegister

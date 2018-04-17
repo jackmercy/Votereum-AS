@@ -20,10 +20,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    hash: [{
+    hash: {
         type: String,
         max: 66
-    }],
+    },
     isVote: {
         type: Boolean
     }
