@@ -10,6 +10,10 @@ export class VotingComponent implements OnInit {
     candidates: Object;
     constructor(private _coreService: CoreService) { }
 
+    voting_result = {
+        candidates: []
+    };
+
     ngOnInit() {
         this._coreService.getCandidates()
             .subscribe(
@@ -22,10 +26,17 @@ export class VotingComponent implements OnInit {
             );
     }
 
-    onCandidateVoted($event) {
-
+    onVoted(result: Object) {
+        if (result['voted'] === true) {
+            this.voting_result.candidates.push(result['candidateID']);
+        }
     }
 
-    voteSubmitClick() {}
-
+    onVoteToBlockchain() {
+        /* Do check the list candidates is equal 4 or not */
+        this._coreService.votingBlock(this.voting_result)
+            .subscribe( hash => {
+                console.log(hash);
+            });
+    }
 }

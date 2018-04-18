@@ -16,6 +16,8 @@ const httpOptions = {
 export class CoreService {
     userUrl = '/api/user';
     candidateUrl = '/api/candidate';
+    contractUrl = '/api/contract';
+
     constructor(private _http: HttpClient) { }
 
     login(id: string, password: string): Observable<any> {
@@ -41,9 +43,15 @@ export class CoreService {
             JSON.stringify({name: name, id: id, password: password}), httpOptions)
             .map((response: Response) => {
                 const user = response;
-                /* write to session storage here */
                 return user;
             });
     }
 
+    votingBlock(result: Object): Observable<any> {
+        return this._http.post(this.contractUrl + '/voting',
+            JSON.stringify(result), httpOptions)
+            .map((res: Response) => {
+                return res;
+            });
+    }
 }

@@ -15,6 +15,10 @@ function connect(req, res) {
         "candidateIDs": ["id1", "id2"]
     }
 */
+
+/* Note: web3.eth.estimateGas
+    Executes a message call or transaction, which is directly executed in the VM of the node,
+    but never mined into the blockchain and returns the amount of the gas used. */
 function createCandidateList(req, res) {
     if (contractInstance) {
         var list = req.body.candidateIDs;

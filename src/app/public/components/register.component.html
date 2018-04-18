@@ -13,7 +13,7 @@
             <!-- Name -->
             <mat-form-field class="full-width-input">
                 <input id="input-name" matInput placeholder="Name" formControlName="name">
-                <mat-error *ngIf="name.invalid">{{getIdErrorMessage()}}</mat-error>
+                <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <!-- ID -->

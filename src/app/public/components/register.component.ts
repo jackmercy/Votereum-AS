@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
     }
 
     onLogin() {
-        this._router.navigate(['/login']);
+        this._router.navigate(['']);
     }
 
     get name() {
@@ -66,6 +66,10 @@ export class RegisterComponent implements OnInit {
 
     get password() {
         return this.registerFormGroup.get('password');
+    }
+
+    getNameErrorMessage() {
+        return this.name.hasError('required') ? 'Mandatory information' : '';
     }
 
     getIdErrorMessage() {
