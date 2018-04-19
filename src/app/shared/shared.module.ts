@@ -24,9 +24,11 @@ import {
     MatMenuModule,
     MatGridListModule
 } from '@angular/material';
+import { NotFoundComponent } from './components/not-found.component';
 @NgModule({
   imports: [
-      CommonModule
+      CommonModule,
+      RouterModule
   ],
   exports: [
     CommonModule,
@@ -52,9 +54,11 @@ import {
     MatToolbarModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatGridListModule
+    MatGridListModule,
+
+    NotFoundComponent
   ],
 
-  declarations: []
+  declarations: [NotFoundComponent]
 })
 export class SharedModule { }

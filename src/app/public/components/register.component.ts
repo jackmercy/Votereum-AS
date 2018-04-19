@@ -38,8 +38,8 @@ export class RegisterComponent implements OnInit {
                             duration: 30000,
                         });
                     } else if (data) {
-                        this.snackBar.open(data.message , 'Successfully registered!', {
-                            duration: 5000,
+                        this.snackBar.open('Successfully registered!' , 'OK', {
+                            duration: 3000,
                         });
                         this._router.navigate(['']);
                         console.log(data);

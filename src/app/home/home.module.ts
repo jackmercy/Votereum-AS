@@ -8,13 +8,21 @@ import { GuideComponent } from './components/guide.component';
 import { VotingComponent } from './components/voting.component';
 import { ScoreBoardComponent } from './components/score-board.component';
 import { CandidateComponent } from './components/candidate.component';
+import { VoteResultComponent } from './components/vote-result.component';
 @NgModule({
-  imports: [
-    CommonModule,
-    CoreModule,
-    SharedModule
-  ],
-  exports: [HomeComponent],
-  declarations: [HomeComponent, GuideComponent, VotingComponent, ScoreBoardComponent, CandidateComponent]
+    imports: [
+        CommonModule,
+        CoreModule,
+        SharedModule
+    ],
+    exports: [HomeComponent],
+    declarations: [
+        HomeComponent,
+        GuideComponent,
+        VotingComponent,
+        ScoreBoardComponent,
+        CandidateComponent,
+        VoteResultComponent
+    ]
 })
 export class HomeModule { }

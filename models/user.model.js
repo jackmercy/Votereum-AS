@@ -45,10 +45,8 @@ UserSchema.method({
  * Statics
  */
 
-UserSchema.statics = {
-    /* login(name, id) {
-        return this.findOne({name: name, id: id});
-    } */
-};
+UserSchema.statics.getUserByID = function(citizenId) {
+    return this.findOne({id: citizenId});
+}
 
 export default mongoose.model('User', UserSchema, 'user');
