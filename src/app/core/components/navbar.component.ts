@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CoreService } from '../services/core.service';
+import { Router } from '@angular/router';
 declare interface RouteInfo {
     path: string;
     title: string;
@@ -19,10 +20,15 @@ export const ROUTES: RouteInfo[] = [
 export class NavbarComponent implements OnInit {
     brandName = 'Voilà';
     menuItems: any[];
-    constructor() { }
+    constructor(private _coreService: CoreService,
+                private _router: Router) { }
 
     ngOnInit() {
         this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
 
+    onLogout() {
+        this._coreService.logout();
+        this._router.navigate(['']);
+    }
 }

@@ -82,13 +82,32 @@ function postRegister(req, res) {
 
 }
 
-/* POTS: [/updateHash] */
-/* req JSON {
-    "citizenId": "0432",
-    "hash": "0x123"
-} */
-
+/* POST: [/getUserHash] 
+    req JSON {
+        "citizenID": "0432"
+        JWT token in ver 2.0
+    }
+*/
+function postGetUserHash(req, res) {
+    User.findOne({id: req.body.citizenID}, function(err, _user) {
+        if(err) {
+            console.log('ERR');
+        } else if(_user) {
+            const message = {
+                hash: _user.hash
+            }
+            res.json(message);
+        } else {
+            const message = {
+                message: 'Invalid citizen ID'
+            }
+            res.json(message);
+        }
+    });
+}
+ 
 export default {
     postLogin,
-    postRegister
+    postRegister,
+    postGetUserHash
 }

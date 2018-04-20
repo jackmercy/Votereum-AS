@@ -26,8 +26,13 @@ export class CoreService {
             .map((response: Response) => {
                 const user = response;
                 /* write to session storage here */
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
                 return user;
             });
+    }
+
+    logout(): void {
+        sessionStorage.removeItem('currentUser');
     }
 
     getCandidates(): Observable<any> {

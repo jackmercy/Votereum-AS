@@ -11,4 +11,6 @@ router.route('/login')
 router.route('/register')
     .post(userController.postRegister);
 
+router.route('/getUserHash')
+    .post(userController.postGetUserHash);
 export default router;
