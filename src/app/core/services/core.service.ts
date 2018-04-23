@@ -59,4 +59,16 @@ export class CoreService {
                 return res;
             });
     }
+
+    /* NOTE: should move contract call to contract.service.ts */
+    getTxReceipt(txHash: string) {
+        return this._http.post(this.contractUrl + '/voteStatus',
+                JSON.stringify({hash: txHash}), httpOptions);
+    }
+
+    getBlock(blockHash: string) {
+        return this._http.post(this.contractUrl + '/getBlock',
+                JSON.stringify({block: blockHash}), httpOptions);
+    }
+
 }

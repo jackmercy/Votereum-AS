@@ -16,14 +16,6 @@ const CandidateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    totalVote: {
-        type: Number,
-        required: true
-    },
-    percentage: {
-        type: Number,
-        required: true
-    },
     isWinner: {
         type: Boolean,
         required: true
@@ -48,7 +40,6 @@ const CandidateSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    education: String,
     avatar: {
         type: String,
         required: true

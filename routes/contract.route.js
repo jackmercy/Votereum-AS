@@ -19,4 +19,6 @@ router.route('/voteResult/:id')
 router.route('/voteStatus')
     .post(ContractController.getTransactionReceipt);
 
+router.route('/getBlock')
+    .post(ContractController.getBlock);
 export default router;

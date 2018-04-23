@@ -39,19 +39,20 @@ export class UserService {
         return user ? user.role : '';
     }
 
-    getName() {
+    getName(): string {
         const user = JSON.parse(sessionStorage.getItem('currentUser'));
 
         return user ? user.name : '';
     }
 
-    getId() {
+    getId(): string {
         const user = JSON.parse(sessionStorage.getItem('currentUser'));
 
         return user ? user.id : '';
     }
 
-    getHash() {
+    /* Do we need it ? */
+    getHash(): string {
         const user = JSON.parse(sessionStorage.getItem('currentUser'));
 
         return user ? user.hash : '';

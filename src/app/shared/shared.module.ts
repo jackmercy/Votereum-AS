@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import {
     MatFormFieldModule,
     MatButtonModule,
@@ -22,7 +23,8 @@ import {
     MatToolbarModule,
     MatSnackBarModule,
     MatMenuModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDividerModule
 } from '@angular/material';
 import { NotFoundComponent } from './components/not-found.component';
 @NgModule({
@@ -55,6 +57,7 @@ import { NotFoundComponent } from './components/not-found.component';
     MatSnackBarModule,
     MatMenuModule,
     MatGridListModule,
+    MatDividerModule,
 
     NotFoundComponent
   ],

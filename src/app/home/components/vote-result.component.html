@@ -1,8 +1,31 @@
-<div class="row no-gutters justify-content-center">
-  <div class="col-4">
-    One of two columns
-  </div>
-  <div class="col-4">
-    One of two columns
-  </div>
+<div class="container-fluid wrapper pt-3">
+    <div class="row no-gutters justify-content-center"> 
+        <p class="text-center display-4">Transaction successful!</p>
+    </div>
+    <div class="row no-gutters justify-content-center">
+        <i class="far fa-check-circle fa-4x text-success pb-4 pt-2"></i>
+    </div>
+    <div class="row no-gutters justify-content-center">
+        <div class="col-7">
+            <mat-divider></mat-divider>
+            <table class="table borderless">
+                <tbody>
+                <tr>
+                    <th scope="row" class="text-right w-25">TxHash</th>
+                    <td class="text-left" *ngIf="txReceipt">{{ txReceipt.transactionHash }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="text-right">Status</th>
+                    <td class="text-left" *ngIf="txReceipt">{{ txReceipt.status }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="text-right">Date Issued</th>
+                    <td class="text-left" *ngIf="blockDetail">{{ blockDetail.timestamp }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    
 </div>

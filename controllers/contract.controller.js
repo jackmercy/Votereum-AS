@@ -35,7 +35,7 @@ function createCandidateList(req, res) {
             /* Handle contract call */
             if (contractInstance) {
                 var list = req.body.candidateIDs;
-                Txhash = contractInstance.updateCandidateList(list, {from: web3.eth.accounts[0], gas: 3000000});
+                Txhash = contractInstance.updateCandidateList(list, {from: web3.eth.accounts[1], gas: 100000});
 
                 if (Txhash) {
                     candidateList = list;
@@ -76,7 +76,7 @@ function voteForCandidates(req, res) {
             var Txhash;
             /* Handle contract call */
             if (contractInstance) {
-                Txhash = contractInstance.voteForCandidates(req.body.candidates, {from: web3.eth.accounts[0]});
+                Txhash = contractInstance.voteForCandidates(req.body.candidates, {from: web3.eth.accounts[1], gas: 1000000});
                 if(Txhash) {
                     const res_msg = {
                         hash: Txhash
@@ -145,11 +145,23 @@ function getTransactionReceipt(req, res) {
     res.json(receipt);
 }
 
+/* POST: [/getBlock] 
+    res JSON {
+        "block": "0x1324143"
+    }
+    block can be block number or block hash
+*/
+function getBlock(req, res) {
+    let block = web3.eth.getBlock(req.body.block, {from: web3.eth.accounts[1], gas: 1000000});
+    res.json(block);
+}
+
 export default {
     createCandidateList,
     connect,
     voteForCandidates,
     getVotingList,
     getCandidateVote,
-    getTransactionReceipt
+    getTransactionReceipt,
+    getBlock
 };

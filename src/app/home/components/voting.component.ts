@@ -44,7 +44,6 @@ export class VotingComponent implements OnInit {
         console.log(this.voting_result);
         this._coreService.votingBlock(this.voting_result)
             .subscribe( result => {
-                console.log(this._userService.isVoted());
                 if (result.hash) {
                     this._userService.updateUserHash(result.hash);
                     this._router.navigate(['/home/vote-result']);
