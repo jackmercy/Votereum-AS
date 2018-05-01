@@ -65,6 +65,13 @@ export class UserService {
         sessionStorage.setItem('currentUser', JSON.stringify(user));
     }
 
+    updateUserVote(isVoted: Boolean): void {
+        const user = JSON.parse(sessionStorage.getItem('currentUser'));
+        user.isVote = isVoted;
+
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
+    }
+
     getUserHash(citizenID: string): Observable<any> {
         return this._http.post(this.userUrl + '/getUserHash',
             JSON.stringify({citizenID: citizenID}), httpOptions)

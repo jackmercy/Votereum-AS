@@ -15,13 +15,13 @@ export class VoteResultComponent implements OnInit {
 
     ngOnInit() {
         const hash = this._userService.getHash();
-
         this._coreService.getTxReceipt(hash)
             .subscribe( receipt => {
                 this.txReceipt = receipt;
-                if (receipt['status'] === 1) {
+                const statusVal = Number(receipt['status']);
+                if (statusVal === 1) {
                     this.txReceipt['status'] = 'Success';
-                } else if (receipt['status'] === 0) {
+                } else if (statusVal === 0) {
                     this.txReceipt['status'] = 'Failure';
                 } else {
                     this.txReceipt['status'] = 'Pending';

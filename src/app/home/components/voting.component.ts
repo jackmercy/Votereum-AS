@@ -41,11 +41,16 @@ export class VotingComponent implements OnInit {
 
     onVoteToBlockchain() {
         /* Do check the list candidates is equal 4 or not */
-        console.log(this.voting_result);
-        this._coreService.votingBlock(this.voting_result)
+        if (this.voting_result.candidates.length > 4 ) {
+            this.snackBar.open('The maximum candidates you can vote for is 4 out of 6' , 'Got it', {
+                duration: 30000,
+            });
+        } else if (this.voting_result.candidates.length === 4 ) {
+           this._coreService.votingBlock(this.voting_result)
             .subscribe( result => {
                 if (result.hash) {
                     this._userService.updateUserHash(result.hash);
+                    this._userService.updateUserVote(result.isVote);
                     this._router.navigate(['/home/vote-result']);
                 } else if (result.message) {
                     this.snackBar.open(result.message , 'OK', {
@@ -53,5 +58,6 @@ export class VotingComponent implements OnInit {
                     });
                 }
             });
+        }
     }
 }

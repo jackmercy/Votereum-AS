@@ -94,7 +94,8 @@ function postGetUserHash(req, res) {
             console.log('ERR');
         } else if(_user) {
             const message = {
-                hash: _user.hash
+                hash: _user.hash,
+                isVote: _user.isVote
             }
             res.json(message);
         } else {

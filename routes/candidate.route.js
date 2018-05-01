@@ -8,5 +8,9 @@ const router = express.Router();
 router.route('/list')
     .get(candidateController.getCandidateList);
 
+router.route('/getCandidateById')
+    .post(candidateController.getCandidatesById);
+
+router.route('/create').post(candidateController.postCreateCandidate)
 export default router;
 

@@ -71,4 +71,12 @@ export class CoreService {
                 JSON.stringify({block: blockHash}), httpOptions);
     }
 
+    getCandidateListName(votingList: any) {
+        return this._http.post(this.candidateUrl + '/getCandidateById',
+            JSON.stringify(votingList), httpOptions);
+    }
+
+    getVotingData() {
+        return this._http.get(this.contractUrl + '/votingList', httpOptions);
+    }
 }

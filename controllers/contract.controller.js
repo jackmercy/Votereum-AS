@@ -1,4 +1,9 @@
-var candidateList = ['5ac5e52f320aa0188c43c3e9', '5acc1b34fbd6a43d3c138c98', '5acc1b43fbd6a43d3c138c99','5acc1b4cfbd6a43d3c138c9a'];
+var candidateList = ['5ad9535a561dfd00d0bb1e72',
+                    '5ad9535a561dfd00d0bb1e73',
+                    '5ad9535a561dfd00d0bb1e74',
+                    '5ad9535a561dfd00d0bb1e75',
+                    '5ad9535a561dfd00d0bb1e76',
+                    '5ad9535a561dfd00d0bb1e77'];
 //var transactionHash;
 
 import express from 'express';
@@ -79,7 +84,8 @@ function voteForCandidates(req, res) {
                 Txhash = contractInstance.voteForCandidates(req.body.candidates, {from: web3.eth.accounts[1], gas: 1000000});
                 if(Txhash) {
                     const res_msg = {
-                        hash: Txhash
+                        hash: Txhash,
+                        isVote: true
                     }
                     res.json(res_msg);
                 }
@@ -87,7 +93,7 @@ function voteForCandidates(req, res) {
             /* Update user information */
             var user = new User(_user);
             // dev -> always false.
-            // user.isVote = true; 
+            user.isVote = true;
             user.hash = Txhash;
             user.save();
         } else if(_user && _user.isVote === true && _user.role === 'citizen') {
