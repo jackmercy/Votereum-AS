@@ -69,7 +69,7 @@ function createCandidateList(req, res) {
 // NOTE: to get param value in /vote/:id use req.params.id
 
 /* POST: [/voting] */
-/* request JSON { 
+/* request JSON {
     "candidates": ["id1","id2", "id-N"],
     "citizenID": "0423"
 } */
@@ -87,6 +87,7 @@ function voteForCandidates(req, res) {
                         hash: Txhash,
                         isVote: true
                     }
+                    console.log(Txhash);
                     res.json(res_msg);
                 }
             }
@@ -129,7 +130,7 @@ function getVotingList(req, res) {
     }
 }
 
-/* GET: [/voteResult/:id] 
+/* GET: [/voteResult/:id]
     Public API
 */
 function getCandidateVote(req, res) {
@@ -140,7 +141,7 @@ function getCandidateVote(req, res) {
     res.json(res_msg);
 }
 
-/* POST: [/voteStatus] 
+/* POST: [/voteStatus]
     res JSON {
         "hash": "0x1324143"
     }
@@ -151,7 +152,7 @@ function getTransactionReceipt(req, res) {
     res.json(receipt);
 }
 
-/* POST: [/getBlock] 
+/* POST: [/getBlock]
     res JSON {
         "block": "0x1324143"
     }

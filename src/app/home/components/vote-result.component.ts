@@ -9,29 +9,40 @@ import { UserService } from '../../core/services/user.service';
 export class VoteResultComponent implements OnInit {
     txReceipt: any;
     blockDetail: any;
+    txHash: any;
 
     constructor(private _coreService: CoreService,
                 private _userService: UserService) { }
 
     ngOnInit() {
-        const hash = this._userService.getHash();
-        this._coreService.getTxReceipt(hash)
+        this.txHash = this._userService.getHash();
+
+        this._coreService.getTxReceipt(this.txHash)
             .subscribe( receipt => {
-                this.txReceipt = receipt;
-                const statusVal = Number(receipt['status']);
-                if (statusVal === 1) {
-                    this.txReceipt['status'] = 'Success';
-                } else if (statusVal === 0) {
-                    this.txReceipt['status'] = 'Failure';
+                if (receipt) {
+                    this.txReceipt = receipt;
+                    const statusVal = Number(receipt['status']);
+                    if (statusVal === 1) {
+                        this.txReceipt['status'] = 'Success';
+                    } else if (statusVal === 0) {
+                        this.txReceipt['status'] = 'Failure';
+                    }
+                    this._coreService.getBlock(receipt['blockHash'])
+                        .subscribe(block => {
+                            this.blockDetail = block;
+                            const time = new Date(block['timestamp']);
+                            this.blockDetail['timestamp'] = time;
+                        });
                 } else {
-                    this.txReceipt['status'] = 'Pending';
+                    this.txReceipt = {
+                        transactionHash: this.txHash,
+                        status: 'Pending'
+                    };
+                    this.blockDetail = {
+                        timestamp: ''
+                    };
                 }
-                this._coreService.getBlock(receipt['blockHash'])
-                    .subscribe(block => {
-                        this.blockDetail = block;
-                        const time = new Date(block['timestamp']);
-                        this.blockDetail['timestamp'] = time;
-                    });
+
             });
     }
 

@@ -78,7 +78,7 @@ global.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"))
 abiDefinition = votingJson.abi;
 VotingContract = global.web3.eth.contract(abiDefinition);
 
-global.contractInstance = VotingContract.at('0x2890cF9eE87Eda46d0ED1A1D7E80a4357b17C596');
+global.contractInstance = VotingContract.at('0x345ca3e014aaf5dca488057592ee47305d9b3e10');
 if (contractInstance) {
     console.log('successfully connected to blockchain');
 }
