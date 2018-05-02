@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
                 data => {
                     if (data.message) {
                         this.snackBar.open(data.message , 'Got it', {
-                            duration: 30000,
+                            duration: 3000,
                         });
                     } else if (data.name && data.id) {
                         this._router.navigate(['/home/voting']);
