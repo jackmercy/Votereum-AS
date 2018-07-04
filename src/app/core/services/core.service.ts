@@ -21,7 +21,7 @@ export class CoreService {
     constructor(private _http: HttpClient) { }
 
     login(id: string, password: string): Observable<any> {
-        return this._http.post(this.userUrl + '/login',
+        return this._http.post('http://localhost:5000/api/user/login',
             JSON.stringify({id: id, password: password}), httpOptions)
             .map((response: Response) => {
                 const user = response;
