@@ -3,9 +3,8 @@
         <form [formGroup]="loginFormGroup" class="from-gourp">
             <div class="toolbar-box">
                 <mat-toolbar class="login-toolbar">
-                    <i class="material-icons">lock_outline</i>
                     <span id="welcome" class="fill-remaining-space">
-                        Welcome to Voting Dapp
+                        Welcome to Ether-Vote
                     </span>
                 </mat-toolbar>
             </div>
@@ -25,7 +24,7 @@
             <div>
                 <button id="sign-in-btn" mat-button (click)="onLogin()" class=" full-width-input"
                             [disabled]="!loginFormGroup.valid || canDisableSignInButton">
-                    <span class="text-color-login-form">Sign In</span>
+                    <span class="text-color-login-form">Sign in</span>
                 </button>
                 <div class="sign-up-text">
                     Don't have an account? 
