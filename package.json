@@ -44,7 +44,6 @@
     "popper": "^1.0.1",
     "rxjs": "^5.5.6",
     "serve-favicon": "^2.5.0",
-    "web3": "^0.20.6",
     "zone.js": "^0.8.25"
   },
   "devDependencies": {

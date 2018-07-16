@@ -8,11 +8,7 @@ var candidateList = ['5ad9535a561dfd00d0bb1e72',
 
 import express from 'express';
 import User from '../models/user.model';
-
-//Connect to blockhain
-function connect(req, res) {
-
-}
+import votingJson from '../Voting';
 
 // contractInstance.updateCandidateList(candidateList);
 /* POST: [/createCandidateList]
@@ -73,14 +69,48 @@ function createCandidateList(req, res) {
     "candidates": ["id1","id2", "id-N"],
     "citizenID": "0423"
 } */
+
+
+
+function isAccountUnlocked(req, res) {
+    var voterAddress;
+    var privateKey = '98410a02f8a0c1c29634bb85ab8e7740c3426983e0e0f3a9a7787ff487134d05';
+    web3.eth.getAccounts().then(accounts => {
+        voterAddress = accounts[0];
+        web3.eth.personal.unlockAccount(voterAddress, privateKey, 600)
+            .then((response) => {
+                console.log(response);
+                return res.send(true);
+            }).catch((error) => {
+            console.log(error);
+            return res.send(false);
+        });
+    });
+}
+
 function voteForCandidates(req, res) {
+    var candids = ['Cadid1', 'Candid2'];
+    var voterAddress;
+    web3.eth.getAccounts().then(accounts => {
+        voterAddress = accounts[0];
+            votingContract.methods.voteForCandidates(candids).send({
+                from: voterAddress
+            }).on('receipt', (receipt) => {
+                console.log(receipt);
+            });
+
+    });
+
+}
+
+/*function voteForCandidates(req, res) {
     User.findOne({id: req.body.citizenID}, function(err, _user) {
         if(err) {
             console.log('ERR');
         } else if(_user && _user.isVote === false && _user.role === 'citizen') {
             var Txhash;
-            /* Handle contract call */
-            if (contractInstance) {
+            /!* Handle contract call *!/
+            if (contractInstance && isAccountUnlocked()) {
                 Txhash = contractInstance.voteForCandidates(req.body.candidates, {from: web3.eth.accounts[0], gas: 100000});
                 if(Txhash) {
                     const res_msg = {
@@ -91,7 +121,7 @@ function voteForCandidates(req, res) {
                     res.json(res_msg);
                 }
             }
-            /* Update user information */
+            /!* Update user information *!/
             var user = new User(_user);
             // dev -> always false.
             user.isVote = true;
@@ -114,7 +144,7 @@ function voteForCandidates(req, res) {
             res.json(message);
         }
     });
-}
+}*/
 
 /* GET: [/votingList]
     Public API
@@ -165,10 +195,10 @@ function getBlock(req, res) {
 
 export default {
     createCandidateList,
-    connect,
     voteForCandidates,
     getVotingList,
     getCandidateVote,
     getTransactionReceipt,
-    getBlock
+    getBlock,
+    isAccountUnlocked
 };

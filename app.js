@@ -18,10 +18,10 @@ var port = process.env.port || 5000;
 /* Init variable */
 
 /* MongoDb */
-var db;
+/*var db;
 db = mongoose.connect('mongodb://localhost/voting-dapp')
     .then(() =>  console.log('connection succesful to mongodb'))
-    .catch((err) => console.error(err));
+    .catch((err) => console.error(err));*/
 /* MongoDb */
 
 /* Utility package */
@@ -90,14 +90,13 @@ app.listen(port, function() {
 
 //Connecting to blockchain
 var abiDefinition;
-var VotingContract;
-global.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:9545"));
+var votingContract;
+global.web3 = new Web3('http://localhost:8545');
 
 abiDefinition = votingJson.abi;
-VotingContract = global.web3.eth.contract(abiDefinition);
+global.votingContract = new web3.eth.Contract(abiDefinition,'0xbc6c8fee5bbd195724cae29dc90ed459d7708fd2');
 
-global.contractInstance = VotingContract.at('0x2890cF9eE87Eda46d0ED1A1D7E80a4357b17C596');
-if (contractInstance) {
+if (web3) {
     console.log('successfully connected to blockchain');
 }
 else {

@@ -4,6 +4,9 @@ import ContractController from '../controllers/contract.controller';
 const router = express.Router();
 /* Route: [/api/contract] */
 
+router.route('/isAccountUnlocked')
+    .get(ContractController.isAccountUnlocked);
+
 router.route('/createCandidateList')
     .post(ContractController.createCandidateList);
 
