@@ -77,7 +77,8 @@ function isAccountUnlocked(req, res) {
     var privateKey = '98410a02f8a0c1c29634bb85ab8e7740c3426983e0e0f3a9a7787ff487134d05';
     web3.eth.getAccounts().then(accounts => {
         voterAddress = accounts[0];
-        web3.eth.personal.unlockAccount(voterAddress, privateKey, 600)
+        console.log(voterAddress);
+        web3.eth.personal.unlockAccount(voterAddress, privateKey, 60000000)
             .then((response) => {
                 console.log(response);
                 return res.send(true);
@@ -89,17 +90,21 @@ function isAccountUnlocked(req, res) {
 }
 
 function voteForCandidates(req, res) {
-    var candids = ['Cadid1', 'Candid2'];
+    var candids = ['Candid1', 'Candid2'];
     var voterAddress;
-    web3.eth.getAccounts().then(accounts => {
-        voterAddress = accounts[0];
-            votingContract.methods.voteForCandidates(candids).send({
-                from: voterAddress
-            }).on('receipt', (receipt) => {
-                console.log(receipt);
-            });
+    var newArray =  candids.map(value => web3.utils.fromAscii(value));
+    //console.log(newArray);
 
-    });
+        voterAddress = '0x6123cFfB3dDDfEA5e4445e1C1b5D53f0F502725C';
+        //console.log(voterAddress);
+            votingContract.methods.voteForCandidates(newArray).send({
+                from: voterAddress,
+                gas: 600000
+            }).then(function(transactionHash) {
+                console.log(transactionHash);
+            }).catch(function (error) {
+                console.log(error);
+            });
 
 }
 

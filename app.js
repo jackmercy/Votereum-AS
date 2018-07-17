@@ -91,10 +91,17 @@ app.listen(port, function() {
 //Connecting to blockchain
 var abiDefinition;
 var votingContract;
-global.web3 = new Web3('http://localhost:8545');
 
 abiDefinition = votingJson.abi;
-global.votingContract = new web3.eth.Contract(abiDefinition,'0xbc6c8fee5bbd195724cae29dc90ed459d7708fd2');
+
+//Testnet
+global.web3 = new Web3('http://localhost:8545');
+global.votingContract = new web3.eth.Contract(abiDefinition,'0xbdca24b079e714146fe40764c2d9b9f7995afc2a');
+
+//Ganache
+/*global.web3 = new Web3('http://localhost:9545');
+global.votingContract = new web3.eth.Contract(abiDefinition,'0x345ca3e014aaf5dca488057592ee47305d9b3e10');*/
+
 
 if (web3) {
     console.log('successfully connected to blockchain');
