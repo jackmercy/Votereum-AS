@@ -90,20 +90,21 @@ function isAccountUnlocked(req, res) {
 }
 
 function voteForCandidates(req, res) {
-    var candids =[];
-    // web3.utils.asciiToHex(candids);
-    let hexCandids = web3.utils.asciiToHex('Cadid1');
+    var candids = ['Candid1', 'Candid2'];
     var voterAddress;
-    console.log(hexCandids);
-    web3.eth.getAccounts().then(accounts => {
-        voterAddress = accounts[0];
-        votingContract.methods.voteForCandidates(hexCandids).send({
-            from: voterAddress,
-        });/* .on('error', (error) => {
-            console.log(error);
-        }); */
-    });
-    
+    var newArray =  candids.map(value => web3.utils.fromAscii(value));
+    //console.log(newArray);
+
+        voterAddress = '0x6123cFfB3dDDfEA5e4445e1C1b5D53f0F502725C';
+        //console.log(voterAddress);
+            votingContract.methods.voteForCandidates(newArray).send({
+                from: voterAddress,
+                gas: 600000
+            }).then(function(transactionHash) {
+                console.log(transactionHash);
+            }).catch(function (error) {
+                console.log(error);
+            });
 
 }
 
