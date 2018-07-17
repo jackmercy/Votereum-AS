@@ -8,6 +8,7 @@ var candidateList = ['5ad9535a561dfd00d0bb1e72',
 
 import express from 'express';
 import User from '../models/user.model';
+import Web3 from 'web3';
 import votingJson from '../Voting';
 
 // contractInstance.updateCandidateList(candidateList);
@@ -74,10 +75,10 @@ function createCandidateList(req, res) {
 
 function isAccountUnlocked(req, res) {
     var voterAddress;
-    var privateKey = '98410a02f8a0c1c29634bb85ab8e7740c3426983e0e0f3a9a7787ff487134d05';
+    var privateKey = '9f151ccd60bdfd3b729cb0e264e3590f52e7a2064e67d8a3e655c65ba294065d';
     web3.eth.getAccounts().then(accounts => {
         voterAddress = accounts[0];
-        web3.eth.personal.unlockAccount(voterAddress, privateKey, 600)
+        web3.eth.personal.unlockAccount(voterAddress, "", 60000000)
             .then((response) => {
                 console.log(response);
                 return res.send(true);
@@ -89,17 +90,20 @@ function isAccountUnlocked(req, res) {
 }
 
 function voteForCandidates(req, res) {
-    var candids = ['Cadid1', 'Candid2'];
+    var candids =[];
+    // web3.utils.asciiToHex(candids);
+    let hexCandids = web3.utils.asciiToHex('Cadid1');
     var voterAddress;
+    console.log(hexCandids);
     web3.eth.getAccounts().then(accounts => {
         voterAddress = accounts[0];
-            votingContract.methods.voteForCandidates(candids).send({
-                from: voterAddress
-            }).on('receipt', (receipt) => {
-                console.log(receipt);
-            });
-
+        votingContract.methods.voteForCandidates(hexCandids).send({
+            from: voterAddress,
+        });/* .on('error', (error) => {
+            console.log(error);
+        }); */
     });
+    
 
 }
 
