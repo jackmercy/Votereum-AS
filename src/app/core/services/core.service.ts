@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
-
-
+import { Observable, pipe } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 const httpOptions = {
@@ -23,12 +21,14 @@ export class CoreService {
     login(id: string, password: string): Observable<any> {
         return this._http.post('http://localhost:5000/api/user/login',
             JSON.stringify({id: id, password: password}), httpOptions)
-            .map((response: Response) => {
-                const user = response;
-                /* write to session storage here */
-                sessionStorage.setItem('currentUser', JSON.stringify(user));
-                return user;
-            });
+            .pipe(
+                map((response: Response) => {
+                    const user = response;
+                    /* write to session storage here */
+                    sessionStorage.setItem('currentUser', JSON.stringify(user));
+                    return user;
+                })
+            );
     }
 
     logout(): void {
@@ -37,27 +37,33 @@ export class CoreService {
 
     getCandidates(): Observable<any> {
         return this._http.get(this.candidateUrl + '/list', httpOptions)
-            .map((response: Response) => {
-                const candidates = response;
-                return candidates;
-            });
+            .pipe(
+                map((response: Response) => {
+                    const candidates = response;
+                    return candidates;
+                })
+            );
     }
 
     register(name: string, id: string, password: string): Observable<any> {
         return this._http.post(this.userUrl + '/register',
             JSON.stringify({name: name, id: id, password: password}), httpOptions)
-            .map((response: Response) => {
-                const user = response;
-                return user;
-            });
+            .pipe(
+                map((response: Response) => {
+                    const user = response;
+                    return user;
+                })
+            );
     }
 
     votingBlock(result: Object): Observable<any> {
         return this._http.post(this.contractUrl + '/voting',
             JSON.stringify(result), httpOptions)
-            .map((res: Response) => {
-                return res;
-            });
+            .pipe(
+                map((res: Response) => {
+                    return res;
+                })
+            );
     }
 
     /* NOTE: should move contract call to contract.service.ts */

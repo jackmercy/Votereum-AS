@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-
-
-
+import { map } from 'rxjs/operators';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -75,12 +72,14 @@ export class UserService {
     getUserHash(citizenID: string): Observable<any> {
         return this._http.post(this.userUrl + '/getUserHash',
             JSON.stringify({citizenID: citizenID}), httpOptions)
-            .map((res: Response) => {
-                const currentHash = this.getHash();
-                if (res && res['hash'] && res['hash'] !== currentHash) {
-                    this.updateUserHash(res['hash']);
-                }
-                return res;
-            });
+            .pipe(
+                map((res: Response) => {
+                    const currentHash = this.getHash();
+                    if (res && res['hash'] && res['hash'] !== currentHash) {
+                        this.updateUserHash(res['hash']);
+                    }
+                    return res;
+                })
+            );
     }
 }
