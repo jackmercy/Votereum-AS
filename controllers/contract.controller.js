@@ -93,18 +93,42 @@ function voteForCandidates(req, res) {
     var candids = ['Candid1', 'Candid2'];
     var voterAddress;
     var newArray =  candids.map(value => web3.utils.fromAscii(value));
-    //console.log(newArray);
+    var privateKey = '0xdb858c9df8501f7b79436b9a4d90a0cf3a3ef724e8137e79aafdbc3452166b3e';
 
-        voterAddress = '0x6123cFfB3dDDfEA5e4445e1C1b5D53f0F502725C';
-        //console.log(voterAddress);
-            votingContract.methods.voteForCandidates(newArray).send({
-                from: voterAddress,
-                gas: 600000
-            }).then(function(transactionHash) {
-                console.log(transactionHash);
-            }).catch(function (error) {
-                console.log(error);
+    voterAddress = '0x6123cFfB3dDDfEA5e4445e1C1b5D53f0F502725C';
+    var txtString = votingContract.methods.voteForCandidates(newArray).encodeABI();
+
+
+    web3.eth.estimateGas({
+        to: '0x6123cFfB3dDDfEA5e4445e1C1b5D53f0F502725C',
+        data: txtString
+    }).then(function (value) {
+        console.log(value);
+        var txtObject = {
+            to: '0xbdca24b079e714146fe40764c2d9b9f7995afc2a',
+            gas: (value+20000).toString(16),
+            data: txtString
+        };
+
+
+
+        web3.eth.accounts.signTransaction(txtObject, privateKey).then(function (object) {
+
+            web3.eth.sendSignedTransaction(object['rawTransaction']).on('receipt', function (receipt) {
+                //console.log(receipt);
             });
+        });
+    });
+
+
+/*    votingContract.methods.voteForCandidates(newArray).send({
+        from: voterAddress,
+        gas: 600000
+    }).then(function(transactionHash) {
+        console.log(transactionHash);
+    }).catch(function (error) {
+        console.log(error);
+    });*/
 
 }
 

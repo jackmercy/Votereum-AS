@@ -98,12 +98,18 @@ abiDefinition = votingJson.abi;
 global.web3 = new Web3('http://localhost:8545');
 global.votingContract = new web3.eth.Contract(abiDefinition,'0xbdca24b079e714146fe40764c2d9b9f7995afc2a');
 
+
+
 //Ganache
 /*global.web3 = new Web3('http://localhost:9545');
 global.votingContract = new web3.eth.Contract(abiDefinition,'0x345ca3e014aaf5dca488057592ee47305d9b3e10');*/
 
 
 if (web3) {
+/*    web3.eth.sendSignedTransaction('0xf8e980843b9aca00834c4b4094bdca24b079e714146fe40764c2d9b9f7995afc2a80b884e17b240a0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000243616e646964310000000000000000000000000000000000000000000000000043616e64696432000000000000000000000000000000000000000000000000002ba089d168aa339dcc58e891dfe4443c1d5d4415c39512971800419787c9c45f8986a065cc2028f198c08f13d4bdd8671e7a629c88249a91c22b22d4f409feac942aea')
+        .on('receipt', function (receipt) {
+            console.log(receipt);
+        });*/
     console.log('successfully connected to blockchain');
 }
 else {
