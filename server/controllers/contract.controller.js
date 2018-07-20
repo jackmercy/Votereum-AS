@@ -1,11 +1,3 @@
-var candidateList = ['5ad9535a561dfd00d0bb1e72',
-                    '5ad9535a561dfd00d0bb1e73',
-                    '5ad9535a561dfd00d0bb1e74',
-                    '5ad9535a561dfd00d0bb1e75',
-                    '5ad9535a561dfd00d0bb1e76',
-                    '5ad9535a561dfd00d0bb1e77'];
-//var transactionHash;
-
 import express from 'express';
 import User from '../models/user.model';
 import Web3 from 'web3';
@@ -19,7 +11,12 @@ import votingJson from '../Voting';
     }
     For admin only
 */
-
+var candidateList = ['5ad9535a561dfd00d0bb1e72',
+                    '5ad9535a561dfd00d0bb1e73',
+                    '5ad9535a561dfd00d0bb1e74',
+                    '5ad9535a561dfd00d0bb1e75',
+                    '5ad9535a561dfd00d0bb1e76',
+                    '5ad9535a561dfd00d0bb1e77'];
 /* Note: web3.eth.estimateGas
     Executes a message call or transaction, which is directly executed in the VM of the node,
     but never mined into the blockchain and returns the amount of the gas used. */

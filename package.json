@@ -6,7 +6,7 @@
     "ng": "ng",
     "ui": "ng serve --proxy-config proxy.config.json",
     "ui-prod": "ng build --prod",
-    "start": "nodemon app.js --exec babel-node",
+    "start": "nodemon server/app.js --exec babel-node",
     "build": "babel -d dist",
     "debug": "babel-node --inspect --inspect-brk=9215 app.js",
     "serve": "node dist/index.js",
@@ -80,14 +80,14 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jackmercy/voting-contract + https://github.com/jackmercy/voting-dapp.git"
+    "url": "https://github.com/jackmercy/Ether-Vote-AS + https://github.com/jackmercy/Ether-Vote-OBR"
   },
   "keywords": [
     "blockchain"
   ],
   "author": "Jack - Lilly",
   "bugs": {
-    "url": "https://github.com/jackmercy/voting-dapp/issues"
+    "url": "https://github.com/jackmercy/Ether-Vote-AS/issues"
   },
-  "homepage": "https://github.com/jackmercy/voting-dapp#readme"
+  "homepage": "https://github.com/jackmercy/Ether-Vote-AS"
 }
