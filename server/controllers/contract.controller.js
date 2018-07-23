@@ -1,7 +1,7 @@
 import express from 'express';
 import User from '../models/user.model';
 import Web3 from 'web3';
-import votingJson from '../Voting';
+
 
 // contractInstance.updateCandidateList(candidateList);
 /* POST: [/createCandidateList]
