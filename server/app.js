@@ -6,9 +6,14 @@ import compress from 'compression';
 import appRoot from 'app-root-path';
 // import favicon from 'serve-favicon';
 import morgan from 'morgan';
+import Web3 from 'web3';
 // import logger from 'logger';
 import router from './routes/index.route';
+
 import Web3 from 'web3';
+
+
+import votingJson from './Voting';
 
 /* Import libary */
 
@@ -18,10 +23,10 @@ var port = process.env.port || 5000;
 /* Init variable */
 
 /* MongoDb */
-/*var db;
-db = mongoose.connect('mongodb://localhost/voting-dapp')
+var db;
+db = mongoose.connect('mongodb://localhost/ether-vote-as')
     .then(() =>  console.log('connection succesful to mongodb'))
-    .catch((err) => console.error(err));*/
+    .catch((err) => console.error(err));
 /* MongoDb */
 
 /* Utility package */
