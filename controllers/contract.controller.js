@@ -9,7 +9,7 @@ var candidateList = ['5ad9535a561dfd00d0bb1e72',
 import express from 'express';
 import User from '../models/user.model';
 import Web3 from 'web3';
-import votingJson from '../Voting';
+
 
 // contractInstance.updateCandidateList(candidateList);
 /* POST: [/createCandidateList]
