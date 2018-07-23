@@ -5,38 +5,30 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { VotedGuard } from './core/guards/voted.guard';
 /* Core/Shared */
-import { NotFoundComponent } from './shared/components/not-found.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 /* Public */
-import { PublicComponent } from './public/components/public.component';
-import { LoginComponent } from './public/components/login.component';
-import { RegisterComponent } from './public/components/register.component';
+import { MasterPublicComponent } from './public/master-public/master-public.component';
+import { LoginComponent } from './public/login/login.component';
 /* Home */
-import { HomeComponent } from './home/components/home.component';
-import { GuideComponent } from './home/components/guide.component';
-import { VotingComponent } from './home/components/voting.component';
-import { ScoreBoardComponent } from './home/components/score-board.component';
-import { VoteResultComponent } from './home/components/vote-result.component';
+import { MasterComponent } from './home/master/master.component';
+import { VotingComponent } from './home/voting/voting.component';
+import { ScoreBoardComponent } from './home/score-board/score-board.component';
+import { VoteResultComponent } from './home/vote-result/vote-result.component';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
-                path: '', component: PublicComponent,
+                path: '', component: MasterPublicComponent,
                 children: [
                     {
                         path: '', component: LoginComponent
-                    },
-                    {
-                        path: 'register', component: RegisterComponent
                     }
                 ]
             },
             {
-                path: 'home', canActivate: [AuthGuard], component: HomeComponent,
+                path: 'home', canActivate: [AuthGuard], component: MasterComponent,
                 children: [
-                    {
-                        path: 'guides', component: GuideComponent
-                    },
                     {
                         path: 'voting', canActivate: [VotedGuard], component: VotingComponent
                     },

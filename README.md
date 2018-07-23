@@ -1,4 +1,4 @@
-# VotingDapp
+# ether-vote-as
 
 This project is ... Idk
 ## Requirement

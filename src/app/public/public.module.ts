@@ -1,18 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PublicComponent } from './components/public.component';
+import { MasterPublicComponent } from './master-public/master-public.component';
 /* Modules */
-import { CoreModule } from '../core/core.module';
+
 import { SharedModule } from '../shared/shared.module';
-import { LoginComponent } from './components/login.component';
-import { RegisterComponent } from './components/register.component';
+import { LoginComponent } from './login/login.component';
+
 @NgModule({
   imports: [
     CommonModule,
-    CoreModule,
     SharedModule
   ],
   exports: [],
-  declarations: [PublicComponent, LoginComponent, RegisterComponent]
+  declarations: [MasterPublicComponent, LoginComponent]
 })
 export class PublicModule { }

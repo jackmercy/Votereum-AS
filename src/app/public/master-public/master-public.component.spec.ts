@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GuideComponent } from './guide.component';
+import { MasterPublicComponent } from './master-public.component';
 
-describe('GuideComponent', () => {
-  let component: GuideComponent;
-  let fixture: ComponentFixture<GuideComponent>;
+describe('MasterPublicComponent', () => {
+  let component: MasterPublicComponent;
+  let fixture: ComponentFixture<MasterPublicComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GuideComponent ]
+      declarations: [ MasterPublicComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GuideComponent);
+    fixture = TestBed.createComponent(MasterPublicComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
