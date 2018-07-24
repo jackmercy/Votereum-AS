@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VotingComponent } from './voting.component';
+import { VotingComponent } from '@app/home/voting/voting.component';
 
 describe('VotingComponent', () => {
   let component: VotingComponent;

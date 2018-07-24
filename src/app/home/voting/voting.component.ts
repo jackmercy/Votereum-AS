@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CoreService } from '../../core/services/core.service';
-import { UserService } from '../../core/services/user.service';
+import { CoreService } from '@app/core/services/core.service';
+import { UserService } from '@app/core/services/user.service';
 import { MatSnackBar } from '@angular/material';
 @Component({
     selector: 'app-voting',

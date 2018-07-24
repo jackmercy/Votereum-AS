@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MasterComponent } from './master.component';
+import { MasterComponent } from '@app/home/master/master.component';
 
 describe('MasterPublicComponent', () => {
   let component: MasterComponent;

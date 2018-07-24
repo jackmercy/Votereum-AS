@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoreService } from '../../core/services/core.service';
+import { CoreService } from '@app/core/services/core.service';
 
 import { Chart } from 'chart.js';
 @Component({

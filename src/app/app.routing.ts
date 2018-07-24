@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
+import { AppComponent } from '@app/app.component';
 /* Guard */
-import { AuthGuard } from './core/guards/auth.guard';
-import { VotedGuard } from './core/guards/voted.guard';
+import { AuthGuard } from '@app/core/guards/auth.guard';
+import { VotedGuard } from '@app/core/guards/voted.guard';
 /* Core/Shared */
-import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { NotFoundComponent } from '@app/shared/not-found/not-found.component';
 /* Public */
-import { MasterPublicComponent } from './public/master-public/master-public.component';
-import { LoginComponent } from './public/login/login.component';
+import { MasterPublicComponent } from '@app/public/master-public/master-public.component';
+import { LoginComponent } from '@app/public/login/login.component';
 /* Home */
-import { MasterComponent } from './home/master/master.component';
-import { VotingComponent } from './home/voting/voting.component';
-import { ScoreBoardComponent } from './home/score-board/score-board.component';
-import { VoteResultComponent } from './home/vote-result/vote-result.component';
+import { MasterComponent } from '@app/home/master/master.component';
+import { VotingComponent } from '@app/home/voting/voting.component';
+import { ScoreBoardComponent } from '@app/home/score-board/score-board.component';
+import { VoteResultComponent } from '@app/home/vote-result/vote-result.component';
 
 @NgModule({
     imports: [

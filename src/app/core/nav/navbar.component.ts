@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoreService } from '../services/core.service';
+import { CoreService } from '@app/core/services/core.service';
 import { Router } from '@angular/router';
 declare interface RouteInfo {
     path: string;

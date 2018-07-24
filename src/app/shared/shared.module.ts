@@ -26,10 +26,10 @@ import {
     MatGridListModule,
     MatDividerModule
 } from '@angular/material';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { ConfirmDialogComponent } from './dialogs/confirm-dialog/confirm-dialog.component';
+import { NotFoundComponent } from '@app/shared/not-found/not-found.component';
+import { HeaderComponent } from '@app/shared/header/header.component';
+import { FooterComponent } from '@app/shared/footer/footer.component';
+import { ConfirmDialogComponent } from '@app/shared/dialogs/confirm-dialog/confirm-dialog.component';
 @NgModule({
     imports: [
         CommonModule,

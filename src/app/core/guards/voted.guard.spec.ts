@@ -1,6 +1,6 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 
-import { VotedGuard } from './voted.guard';
+import { VotedGuard } from '@app/core/guards/voted.guard';
 
 describe('VotedGuard', () => {
   beforeEach(() => {
