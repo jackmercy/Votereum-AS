@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { CoreService } from '@app/core/services/core.service';
+import { UserService } from '@services/user.service';
 import { MatSnackBar } from '@angular/material';
 @Component({
     selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
     isLoggedIn: any;
 
     constructor(private _formBuilder: FormBuilder,
-                private _coreService: CoreService,
+                private _userService: UserService,
                 private _router: Router,
                 public snackBar: MatSnackBar) { }
 
@@ -24,12 +24,11 @@ export class LoginComponent implements OnInit {
             citizendID: ['', Validators.required],
             password: ['', Validators.required]
         });
-        // this._coreService.getAllUser().subscribe( data => console.log(data));
         this.canDisableSignInButton = false;
     }
 
     onLogin() {
-        this._coreService.login(this.citizenID.value, this.password.value)
+        this._userService.login(this.citizenID.value, this.password.value)
             .subscribe(
                 data => {
                     if (data.message) {

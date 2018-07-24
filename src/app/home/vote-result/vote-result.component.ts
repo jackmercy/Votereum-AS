@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CoreService } from '@app/core/services/core.service';
-import { UserService } from '@app/core/services/user.service';
-
+import { UserService } from '@services/user.service';
+import { ContractService } from '@services/contract.service';
 
 @Component({
     selector: 'app-vote-result',
@@ -15,8 +14,8 @@ export class VoteResultComponent implements OnInit {
     txHash: any;
     listenCondition: any;
 
-    constructor(private _coreService: CoreService,
-                private _userService: UserService) { }
+    constructor(private _userService: UserService,
+                private _contractService: ContractService) { }
 
     ngOnInit() {
         this.listenCondition = false;
@@ -27,7 +26,7 @@ export class VoteResultComponent implements OnInit {
 
     onGetStatus() {
         console.log('on call get status');
-        this._coreService.getTxReceipt(this.txHash)
+        this._contractService.getTxReceipt(this.txHash)
             .subscribe( receipt => {
                 if (receipt) {
                     this.txReceipt = receipt;
@@ -39,7 +38,7 @@ export class VoteResultComponent implements OnInit {
                         this.txReceipt['status'] = 'Failure';
                         clearInterval(this.listenCondition);
                     }
-                    this._coreService.getBlock(receipt['blockHash'])
+                    this._contractService.getBlock(receipt['blockHash'])
                         .subscribe(block => {
                             this.blockDetail = block;
                             const time = new Date(block['timestamp']);

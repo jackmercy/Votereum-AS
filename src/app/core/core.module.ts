@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/core/guards/auth.guard';
 import { VotedGuard } from '@app/core/guards/voted.guard';
 
-import { CoreService } from '@app/core/services/core.service';
+import { CandidateService } from '@app/core/services/candidate.service';
 import { UserService } from '@app/core/services/user.service';
 import { ContractService } from '@app/core/services/contract.service';
 
@@ -28,7 +28,7 @@ import { throwIfAlreadyLoaded } from '@app/core/guards/module-import.guard';
         NavbarComponent
     ],
     providers: [
-        CoreService,
+        CandidateService,
         UserService,
         ContractService,
         AuthGuard,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CoreService } from '@app/core/services/core.service';
+import { CandidateService } from '@services/candidate.service';
+import { UserService } from '@services/user.service';
 import { Router } from '@angular/router';
 declare interface RouteInfo {
     path: string;
@@ -20,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
 export class NavbarComponent implements OnInit {
     brandName = 'Ether-Vote';
     menuItems: any[];
-    constructor(private _coreService: CoreService,
+    constructor(private _userService: UserService,
                 private _router: Router) { }
 
     ngOnInit() {
@@ -28,7 +29,7 @@ export class NavbarComponent implements OnInit {
     }
 
     onLogout() {
-        this._coreService.logout();
+        this._userService.logout();
         this._router.navigate(['']);
     }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CoreService } from '@app/core/services/core.service';
-
 import { Chart } from 'chart.js';
+
+import { ContractService } from '@services/contract.service';
+import { CandidateService } from '@services/candidate.service';
+
 @Component({
     selector: 'app-score-board',
     templateUrl: './score-board.component.html',
@@ -12,17 +14,18 @@ export class ScoreBoardComponent implements OnInit {
     votingData: any;
     candidateNames: any;
     listCandidateIds: any;
-    constructor(private _coreService: CoreService) { }
+    constructor(private _candidateService: CandidateService,
+                private _contractService: ContractService) { }
 
     ngOnInit() {
-        this._coreService.getVotingData()
+        this._contractService.getVotingData()
             .subscribe( data => {
                 this.votingData = this.convertChartjsData(data);
                 this.listCandidateIds = this.convertToArrayIds(data);
                 const msg = {
                     candidateIds: this.listCandidateIds
                 };
-                this._coreService.getCandidateListName(msg)
+                this._candidateService.getCandidateListName(msg)
                     .subscribe( names => {
                         this.candidateNames = names['candidateNames'];
                         this.initChart(true);

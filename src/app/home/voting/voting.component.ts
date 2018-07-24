@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CoreService } from '@app/core/services/core.service';
-import { UserService } from '@app/core/services/user.service';
+import { CandidateService } from '@services/candidate.service';
+import { UserService } from '@services/user.service';
+import { ContractService } from '@services/contract.service';
 import { MatSnackBar } from '@angular/material';
 @Component({
     selector: 'app-voting',
@@ -10,8 +11,9 @@ import { MatSnackBar } from '@angular/material';
 })
 export class VotingComponent implements OnInit {
     candidates: Object;
-    constructor(private _coreService: CoreService,
+    constructor(private _candidateService: CandidateService,
                 private _userService: UserService,
+                private _contractService: ContractService,
                 private _router: Router,
                 public snackBar: MatSnackBar) { }
 
@@ -21,7 +23,7 @@ export class VotingComponent implements OnInit {
     };
 
     ngOnInit() {
-        this._coreService.getCandidates()
+        this._candidateService.getCandidates()
             .subscribe(
                 data => {
                     this.candidates = data;
@@ -53,7 +55,7 @@ export class VotingComponent implements OnInit {
                 duration: 30000,
             });
         } else if (this.voting_result.candidates.length <= 4 ) {
-           this._coreService.votingBlock(this.voting_result)
+           this._contractService.votingBlock(this.voting_result)
             .subscribe( result => {
                 if (result.hash) {
                     this._userService.updateUserHash(result.hash);

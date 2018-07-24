@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AppComponent } from '@app/app.component';
+
 /* Guard */
 import { AuthGuard } from '@app/core/guards/auth.guard';
 import { VotedGuard } from '@app/core/guards/voted.guard';

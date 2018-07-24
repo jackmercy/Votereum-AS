@@ -8,9 +8,6 @@ var router = express.Router();
 router.route('/login')
     .post(userController.postLogin);
 
-router.route('/register')
-    .post(userController.postRegister);
-
 router.route('/getUserHash')
     .post(userController.postGetUserHash);
 export default router;
