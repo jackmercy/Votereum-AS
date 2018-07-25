@@ -1,5 +1,10 @@
-<app-navbar></app-navbar>
-<div class="container-fluid container-dapp h-100">
-    <!-- Main content -->
-    <router-outlet></router-outlet>
+<div class="wrapper">
+    <div class="sidebar">
+        <!-- TODO: add fixed sidebar-->
+        <app-navbar></app-navbar>
+    </div>
+    <div class="page-content">
+        <!-- Main content -->
+        <router-outlet></router-outlet>
+    </div>
 </div>
