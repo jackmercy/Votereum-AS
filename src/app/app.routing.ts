@@ -14,6 +14,9 @@ import { MasterComponent } from '@app/home/master/master.component';
 import { VotingComponent } from '@app/home/voting/voting.component';
 import { ScoreBoardComponent } from '@app/home/score-board/score-board.component';
 import { VoteResultComponent } from '@app/home/vote-result/vote-result.component';
+/* Reg Admin */
+import { MasterRegAdminComponent } from '@app/reg-admin/master-reg-admin/master-reg-admin.component';
+import { MasterEaAdminComponent } from '@app/ea-admin/master-ea-admin/master-ea-admin.component';
 
 @NgModule({
     imports: [
@@ -27,10 +30,10 @@ import { VoteResultComponent } from '@app/home/vote-result/vote-result.component
                 ]
             },
             {
-                path: 'home', canActivate: [AuthGuard], component: MasterComponent,
+                path: 'home', /* canActivate: [AuthGuard], */ component: MasterComponent,
                 children: [
                     {
-                        path: 'voting', canActivate: [VotedGuard], component: VotingComponent
+                        path: 'voting', /* canActivate: [VotedGuard], */ component: VotingComponent
                     },
                     {
                         path: 'score-board', component: ScoreBoardComponent
@@ -38,6 +41,18 @@ import { VoteResultComponent } from '@app/home/vote-result/vote-result.component
                     {
                         path: 'vote-result', component: VoteResultComponent
                     }
+                ]
+            },
+            {
+                path: 'reg-admin', component: MasterRegAdminComponent,
+                children: [
+
+                ]
+            },
+            {
+                path: 'ea-admin', component: MasterEaAdminComponent,
+                children: [
+
                 ]
             },
             {

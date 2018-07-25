@@ -8,6 +8,7 @@ export class AuthGuard implements CanActivate {
         private _userService: UserService) { }
 
     canActivate(): boolean {
+        /* TODO: check if user is admin or voter */
         if (!this._userService.isAuthorized()) {
             this._router.navigate(['']);
             return false;
