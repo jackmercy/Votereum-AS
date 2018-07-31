@@ -16,6 +16,8 @@ import { ScoreBoardComponent } from '@app/home/score-board/score-board.component
 import { VoteResultComponent } from '@app/home/vote-result/vote-result.component';
 /* Reg Admin */
 import { MasterRegAdminComponent } from '@app/reg-admin/master-reg-admin/master-reg-admin.component';
+import {VoterManagementComponent} from '@app/reg-admin/voter-management/voter-management.component';
+/* Ea Admin */
 import { MasterEaAdminComponent } from '@app/ea-admin/master-ea-admin/master-ea-admin.component';
 
 @NgModule({
@@ -46,7 +48,9 @@ import { MasterEaAdminComponent } from '@app/ea-admin/master-ea-admin/master-ea-
             {
                 path: 'reg-admin', component: MasterRegAdminComponent,
                 children: [
-
+                    {
+                        path: 'voter', component: VoterManagementComponent
+                    }
                 ]
             },
             {
