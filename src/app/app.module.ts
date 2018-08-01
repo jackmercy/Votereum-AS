@@ -8,19 +8,24 @@ import { AppRoutes } from '@app/app.routing';
 
 import { HomeModule } from '@app/home/home.module';
 import { PublicModule } from '@app/public/public.module';
+import { RegAdminModule } from './reg-admin/reg-admin.module';
+import { EAAdminModule } from '@app/ea-admin/ea-admin.module';
+
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    FormsModule,
-    HomeModule,
-    PublicModule,
-    AppRoutes
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        FormsModule,
+        HomeModule,
+        PublicModule,
+        RegAdminModule,
+        EAAdminModule,
+        AppRoutes
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

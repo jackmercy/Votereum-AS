@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg custom-nav">
+<!-- <nav class="navbar navbar-expand-lg custom-nav">
     <button mat-button class="navbar-brand" [routerLink]="['voting']">
         <img src="/assets/brand/untitled.svg" width="30" height="30" class="d-inline-block align-top middle-brand-text">
         {{brandName}}
@@ -15,4 +15,24 @@
             </button>
         </li>
     </ul>
+</nav> -->
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <h3>{{brandName}}</h3>
+    </div>
+
+    <ul class="nav-list-unstyled components">
+        <div class="user-session">
+            <p>Welcome User</p>
+        </div>
+        <li class="menu-item">
+            <a>Home</a>
+        </li>
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} menu-item">
+            <a class="item-text" [routerLink]="[menuItem.path]">
+                {{menuItem.title}}
+            </a>
+        </li>
+    </ul>
+
 </nav>

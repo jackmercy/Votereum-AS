@@ -16,8 +16,10 @@ import { ScoreBoardComponent } from '@app/home/score-board/score-board.component
 import { VoteResultComponent } from '@app/home/vote-result/vote-result.component';
 /* Reg Admin */
 import { MasterRegAdminComponent } from '@app/reg-admin/master-reg-admin/master-reg-admin.component';
+/* EA Admin */
 import { MasterEaAdminComponent } from '@app/ea-admin/master-ea-admin/master-ea-admin.component';
-
+import { TestContentComponent } from '@app/ea-admin/test-content/test-content.component';
+import { TestRoutingComponent } from '@app/ea-admin/test-routing/test-routing.component';
 @NgModule({
     imports: [
         RouterModule.forRoot([
@@ -52,7 +54,12 @@ import { MasterEaAdminComponent } from '@app/ea-admin/master-ea-admin/master-ea-
             {
                 path: 'ea-admin', component: MasterEaAdminComponent,
                 children: [
-
+                    {
+                        path: '', component: TestContentComponent
+                    },
+                    {
+                        path: 'test', component: TestRoutingComponent
+                    }
                 ]
             },
             {

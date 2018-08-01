@@ -9,8 +9,8 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: 'voting', title: 'Voting', class: '' },
-    { path: 'score-board', title: 'Scoreboard', class: '' }
+    { path: '', title: 'EA Admin', class: '' },
+    { path: 'test', title: 'Test Routing', class: '' }
 ];
 
 @Component({
@@ -19,7 +19,7 @@ export const ROUTES: RouteInfo[] = [
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-    brandName = 'Ether-Vote';
+    brandName = 'Ether Vote';
     menuItems: any[];
     constructor(private _userService: UserService,
                 private _router: Router) { }

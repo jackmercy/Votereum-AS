@@ -1,6 +1,8 @@
-.custom-nav {
-    background-color: #673ab7;
-    color: #fff;
+@import '~scss/variables';
+
+/* .custom-nav {
+    background-color: #fff;
+    color: #000;
 }
 
 .middle-brand-text {
@@ -9,4 +11,87 @@
 
 .nav-item-text {
     font-size: 16px;
+} */
+
+/* New sidebar */
+#sidebar {
+    overflow: visible;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    background: $primary-color;
+    color: $text-on-primary;
+    transition: all 0.3s;
+    /* custom font */
+    font-weight: 600;
+    font-size: 17px;
+    box-shadow: 4px 0 4px rgba(0,0,0,.1);
+    
+    .sidebar-header {
+        padding: 20px;
+        /* background: $primary-color;
+        color: $text-on-primary; */
+        background: $secondary-color;
+        color: $text-on-secondary;
+        border-bottom: 1px solid $primary-dark;
+        /* cursor: context-menu; */
+    }
+    .nav-list-unstyled {
+        padding-left: 0;
+        list-style: none;
+        p {
+            border-bottom: 1px solid $primary-dark;
+            padding-bottom: 20px;
+            padding-top: 20px;
+            padding-right: 10px;
+            padding-left: 15px;
+        }
+        .user-session {
+            color: $text-on-primary;
+            font-family: 'Poppins', sans-serif;
+            /*font-size: 1.1em;
+            font-weight: 300; */
+            line-height: 1.7em;
+        }
+        .menu-item a {
+            padding: 15px;
+            display: block;
+            cursor: pointer;
+            color: $text-on-primary;
+        }
+        .menu-item.active {
+            text-decoration: none;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+            .item-text {
+                color: $secondary-color !important;
+            }
+        }
+        .menu-item a:hover, a:focus {
+            color: $secondary-color;
+            background-color: $text-hover-on-primary;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+    }   
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+.page-content {
+    width: calc(100% - 250px);
+    padding: 40px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    position: absolute;
+    top: 0;
+    right: 0;
+    .active {
+        width: 100%;
+    }
 }
