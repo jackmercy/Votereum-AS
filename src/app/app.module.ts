@@ -8,9 +8,8 @@ import { AppRoutes } from '@app/app.routing';
 
 import { HomeModule } from '@app/home/home.module';
 import { PublicModule } from '@app/public/public.module';
-import { RegAdminModule } from './reg-admin/reg-admin.module';
-import { EAAdminModule } from '@app/ea-admin/ea-admin.module';
-
+import { RegAdminModule } from '@app/reg-admin/reg-admin.module';
+import {EAAdminModule} from '@app/ea-admin/ea-admin.module';
 @NgModule({
     declarations: [
         AppComponent
@@ -21,9 +20,9 @@ import { EAAdminModule } from '@app/ea-admin/ea-admin.module';
         FormsModule,
         HomeModule,
         PublicModule,
+        AppRoutes,
         RegAdminModule,
-        EAAdminModule,
-        AppRoutes
+        EAAdminModule
     ],
     providers: [],
     bootstrap: [AppComponent]

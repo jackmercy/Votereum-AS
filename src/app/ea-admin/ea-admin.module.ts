@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 /* Modules */
 import { CoreModule } from '@app/core/core.module';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule } from '@shared/shared.module';
 /* Components */
 import { MasterEaAdminComponent } from './master-ea-admin/master-ea-admin.component';
 import { RouterModule } from '@angular/router';
