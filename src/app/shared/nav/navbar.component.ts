@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CandidateService } from '@services/candidate.service';
-import { UserService } from '@services/user.service';
+import { CandidateService } from '../../core/services/candidate.service';
 import { Router } from '@angular/router';
+import { MessageService } from '@services/message.service';
 declare interface RouteInfo {
     path: string;
     title: string;
@@ -9,8 +9,8 @@ declare interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-    { path: '', title: 'EA Admin', class: '' },
-    { path: 'test', title: 'Test Routing', class: '' }
+    { path: 'control', title: 'EA Admin', class: '' },
+    { path: 'test-route', title: 'Test Routing', class: '' }
 ];
 
 @Component({
@@ -19,17 +19,24 @@ export const ROUTES: RouteInfo[] = [
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-    brandName = 'Ether Vote';
+
+    isSideBarActive: Boolean;
     menuItems: any[];
-    constructor(private _userService: UserService,
-                private _router: Router) { }
+
+    constructor(private _router: Router,
+                private _messageService: MessageService) { }
 
     ngOnInit() {
+        this._messageService.sideBarActive$.subscribe(
+            isActive => this.isSideBarActive = isActive
+        );
         this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
 
     onLogout() {
-        this._userService.logout();
+        /* this._userService.logout(); */
         this._router.navigate(['']);
     }
+
 }
+

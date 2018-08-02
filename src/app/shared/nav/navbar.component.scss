@@ -1,24 +1,10 @@
 @import '~scss/variables';
 
-/* .custom-nav {
-    background-color: #fff;
-    color: #000;
-}
-
-.middle-brand-text {
-    margin-top: 3px;
-}
-
-.nav-item-text {
-    font-size: 16px;
-} */
-
-/* New sidebar */
 #sidebar {
     overflow: visible;
     width: 250px;
     position: fixed;
-    top: 0;
+    top: 65px;
     left: 0;
     height: 100vh;
     z-index: 999;
@@ -29,14 +15,15 @@
     font-weight: 600;
     font-size: 17px;
     box-shadow: 4px 0 4px rgba(0,0,0,.1);
-    
+    /* hide sidebar */
+    margin-left: -250px;
     .sidebar-header {
-        padding: 20px;
+        padding: 20px 20px 0 20px;
         /* background: $primary-color;
         color: $text-on-primary; */
-        background: $secondary-color;
-        color: $text-on-secondary;
-        border-bottom: 1px solid $primary-dark;
+        background: $primary-color;
+        color: $text-on-primary;
+        /* border-bottom: 1px solid $primary-dark; */
         /* cursor: context-menu; */
     }
     .nav-list-unstyled {
@@ -79,19 +66,8 @@
     }   
 }
 
-#sidebar.active {
-    margin-left: -250px;
+#sidebar.active-sidebar {
+    margin-left: 0px;
 }
 
-.page-content {
-    width: calc(100% - 250px);
-    padding: 40px;
-    min-height: 100vh;
-    transition: all 0.3s;
-    position: absolute;
-    top: 0;
-    right: 0;
-    .active {
-        width: 100%;
-    }
-}
+

@@ -5,15 +5,15 @@ import { RouterModule } from '@angular/router';
 import { AuthGuard } from '@app/core/guards/auth.guard';
 import { VotedGuard } from '@app/core/guards/voted.guard';
 
-import { CandidateService } from '@app/core/services/candidate.service';
-import { UserService } from '@app/core/services/user.service';
-import { ContractService } from '@app/core/services/contract.service';
+import { CandidateService } from '@services/candidate.service';
+import { UserService } from '@services/user.service';
+import { ContractService } from '@services/contract.service';
+import { MessageService } from '@services/message.service';
 
 import { SharedModule } from '@app/shared/shared.module';
 
-import { NavbarComponent } from '@app/core/nav/navbar.component';
-
 import { throwIfAlreadyLoaded } from '@app/core/guards/module-import.guard';
+
 
 @NgModule({
     imports: [
@@ -22,15 +22,14 @@ import { throwIfAlreadyLoaded } from '@app/core/guards/module-import.guard';
         RouterModule
     ],
     declarations: [
-        NavbarComponent
     ],
     exports: [
-        NavbarComponent
     ],
     providers: [
         CandidateService,
         UserService,
         ContractService,
+        MessageService,
         AuthGuard,
         VotedGuard
   ]
