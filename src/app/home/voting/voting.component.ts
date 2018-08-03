@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CandidateService } from '@services/candidate.service';
-import { UserService } from '@services/user.service';
-import { ContractService } from '@services/contract.service';
-import { MatSnackBar } from '@angular/material';
+import { Router }            from '@angular/router';
+import { CandidateService }  from '@services/candidate.service';
+import { UserService }       from '@services/user.service';
+import { ContractService }   from '@services/contract.service';
+import { MatSnackBar }       from '@angular/material';
 @Component({
     selector: 'app-voting',
     templateUrl: './voting.component.html',

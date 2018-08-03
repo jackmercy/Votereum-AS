@@ -1,10 +1,21 @@
 <div class="wrapper">
-    <div class="sidebar">
-        <!-- TODO: add fixed sidebar-->
-        <app-navbar></app-navbar>
+    <!-- Top Bar -->
+    <app-header></app-header>
+    <!-- End of Top Bar -->
+    
+    <!-- Left menu -->
+    <div class="left-menu">
+        <app-navbar [routesItems]="routesItems"></app-navbar>
     </div>
-    <div class="page-content">
-        <!-- Main content -->
+    <!-- End of Left menu -->
+    
+    <!-- Dark Overlay element -->
+    <!-- <div class="overlay" [ngClass]='{"active":isSideBarActive}' (click)="onCloseSideBar()"></div> -->
+    <!-- End of Dark Overlay element -->
+
+    <!-- Main content -->
+    <div class="page-content" [ngClass]='{"hide-sidebar":!isSideBarActive}'>
         <router-outlet></router-outlet>
     </div>
+    <!-- End of Main content -->
 </div>

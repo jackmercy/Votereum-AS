@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '@app/core/services/user.service';
+import { CanActivate, Router } from '@angular/router';
+import { UserService }         from '@app/core/services/user.service';
 
 @Injectable()
 export class VotedGuard implements CanActivate {

@@ -1,0 +1,40 @@
+@import '~scss/variables';
+
+.custom-nav {
+    background-color: $secondary-color;
+    width: 100vw;
+    height: 64px;
+
+    /* box-sizing: border-box;  */// should in ul
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+    padding: 0 25px 0px 0px;
+}
+
+.text-color {
+    color: $text-on-secondary !important;
+}
+
+.nav-link {
+    color: $text-on-secondary !important;
+}
+
+.middle-brand-text {
+    margin-top: 3px;
+}
+
+.nav-item-text {
+    font-size: 16px;
+}
+
+/* Hamburger style */
+.hamburger {
+    height: 100%;
+    margin-right: 10px;
+    .material-icons {
+        color: $text-on-secondary;
+    }
+}
+/* Hamburger style */
+
+
+/* Item style */
