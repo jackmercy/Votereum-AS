@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
     MatFormFieldModule,
-    MatButtonModule,
     MatInputModule,
     MatCheckboxModule,
     MatIconModule,
@@ -30,6 +29,10 @@ import { NotFoundComponent } from '@app/shared/not-found/not-found.component';
 import { HeaderComponent } from '@app/shared/header/header.component';
 import { FooterComponent } from '@app/shared/footer/footer.component';
 import { ConfirmDialogComponent } from '@app/shared/dialogs/confirm-dialog/confirm-dialog.component';
+import {RegAdminService} from '@services/reg-admin.service';
+import { MatButtonModule } from '@angular/material/button';
+import { ObjectKeysPipe } from './pipes/object-keys.pipe';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -63,14 +66,15 @@ import { ConfirmDialogComponent } from '@app/shared/dialogs/confirm-dialog/confi
         MatDividerModule,
 
         NotFoundComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        ObjectKeysPipe
     ],
-
     declarations: [
         NotFoundComponent,
         HeaderComponent,
         FooterComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        ObjectKeysPipe
     ]
 })
 export class SharedModule { }

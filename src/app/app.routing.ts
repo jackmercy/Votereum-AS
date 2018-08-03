@@ -29,6 +29,7 @@ import { MasterEaAdminComponent } from '@app/ea-admin/master-ea-admin/master-ea-
                     {
                         path: '', component: LoginComponent
                     }
+
                 ]
             },
             {

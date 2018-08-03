@@ -11,6 +11,8 @@
       "@shared/*": ["app/shared/*"],
       "@home/*": ["app/home/*"],
       "@public/*": ["app/public/*"],
+      "@assets/*": ["assets/*"],
+      "@scss/*": ["scss/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,

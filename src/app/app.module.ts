@@ -10,6 +10,7 @@ import { HomeModule } from '@app/home/home.module';
 import { PublicModule } from '@app/public/public.module';
 import {RegAdminModule} from '@app/reg-admin/reg-admin.module';
 import {EAAdminModule} from '@app/ea-admin/ea-admin.module';
+import { SharedModule } from '@shared/shared.module';
 @NgModule({
     declarations: [
         AppComponent

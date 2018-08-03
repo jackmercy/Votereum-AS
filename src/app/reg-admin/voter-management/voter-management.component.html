@@ -6,6 +6,58 @@
         </div>
         <div class="content">
 
+            <div class="user-profile row">
+                <div class="col">
+                    <div class="search-user">
+                        <mat-form-field>
+                            <input matInput [formControl]="idFormControl" placeholder="Enter user ID number:">
+                        </mat-form-field>
+
+                        <button class="search-button" (click)="searchUser()" mat-stroked-button >Search</button>
+                    </div>
+
+                    <div class="password-button">
+                        <button mat-stroked-button
+                                 (click)="generatePassword()" >Generate Password</button>
+                        <button *ngIf="user && user.isPasswordChanged " mat-stroked-button >Request new password</button>
+                    </div>
+
+                    <div class="password-generate">
+                        <p>Password generated:</p>
+                        <p class="generated-password">{{ generatedPassword? generatedPassword : '---'}}</p>
+                    </div>
+                </div>
+
+                <!--User information-->
+                <div class="col">
+                    <p class="title">Citizen's Identity Information</p>
+                    <hr>
+                    <div class="row">
+
+                        <!--Picture-->
+                        <div class="col-5">
+                            <img class="img-fluid" src="http://via.placeholder.com/300x200">
+                        </div>
+
+                        <!--Personal information-->
+                        <div class="col-7">
+                            <div *ngFor="let key of userKeyDescription | objectKeys" class="row">
+                                <div class="col-5">
+                                    <p>{{ userKeyDescription[key] }}:</p>
+                                </div>
+                                <div class="col-7">
+                                    <p>{{ user['id'] ? user['id'] : '---' }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--Pic & info-->
+
+            </div>
+
         </div>
     </div>
 </div>
