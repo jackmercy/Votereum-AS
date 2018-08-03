@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,11 +25,11 @@ import {
     MatGridListModule,
     MatDividerModule
 } from '@angular/material';
-import { NotFoundComponent } from '@app/shared/not-found/not-found.component';
-import { HeaderComponent } from '@app/shared/header/header.component';
-import { FooterComponent } from '@app/shared/footer/footer.component';
+import { NotFoundComponent }      from '@app/shared/not-found/not-found.component';
+import { HeaderComponent }        from '@app/shared/header/header.component';
+import { FooterComponent }        from '@app/shared/footer/footer.component';
 import { ConfirmDialogComponent } from '@app/shared/dialogs/confirm-dialog/confirm-dialog.component';
-import { NavbarComponent } from '@shared/nav/navbar.component';
+import { NavbarComponent }        from '@shared/nav/navbar.component';
 @NgModule({
     imports: [
         CommonModule,

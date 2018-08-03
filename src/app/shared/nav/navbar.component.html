@@ -7,9 +7,9 @@
         <div class="user-session">
             <p>Welcome User</p>
         </div>
-        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} menu-item">
-            <a class="item-text" [routerLink]="[menuItem.path]">
-                {{menuItem.title}}
+        <li routerLinkActive="active" *ngFor="let routesItem of routesItems" class="{{routesItem.class}} menu-item">
+            <a class="item-text" [routerLink]="[routesItem.path]">
+                {{routesItem.title}}
             </a>
         </li>
     </ul>

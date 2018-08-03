@@ -1,22 +1,30 @@
-import { NgModule } from '@angular/core';
+import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MasterComponent } from '@app/home/master/master.component';
+import { RouterModule } from '@angular/router';
+import { FormsModule }  from '@angular/forms';
 /* Modules */
-import { CoreModule } from '@app/core/core.module';
-import { SharedModule } from '@app/shared/shared.module';
-import { VotingComponent } from '@app/home/voting/voting.component';
-import { ScoreBoardComponent } from '@app/home/score-board/score-board.component';
-import { CandidateComponent } from '@app/home/candidate/candidate.component';
-import { VoteResultComponent } from '@app/home/vote-result/vote-result.component';
+import { SharedModule }      from '@app/shared/shared.module';
+import { HomeRoutingModule } from '@app/home/home-routing.module';
+
+/* Components */
+import { HomeMasterComponent } from './master/master.component';
+import { VotingComponent }     from './voting/voting.component';
+import { ScoreBoardComponent } from './score-board/score-board.component';
+import { CandidateComponent }  from './candidate/candidate.component';
+import { VoteResultComponent } from './vote-result/vote-result.component';
 @NgModule({
     imports: [
         CommonModule,
-        CoreModule,
-        SharedModule
+        RouterModule,
+        FormsModule,
+
+        SharedModule,
+        HomeRoutingModule,
+
     ],
-    exports: [MasterComponent],
+    exports: [],
     declarations: [
-        MasterComponent,
+        HomeMasterComponent,
         VotingComponent,
         ScoreBoardComponent,
         CandidateComponent,

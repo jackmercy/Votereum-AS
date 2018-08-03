@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from '@services/message.service';
+import { MessageService }    from '@services/message.service';
 @Component({
     selector: 'app-master-ea-admin',
     templateUrl: './master-ea-admin.component.html',
@@ -7,7 +7,6 @@ import { MessageService } from '@services/message.service';
 })
 export class MasterEaAdminComponent implements OnInit {
     isSideBarActive: Boolean;
-
     constructor(private _messageService: MessageService) { }
 
     ngOnInit() {

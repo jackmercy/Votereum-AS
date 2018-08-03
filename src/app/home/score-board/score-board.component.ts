@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart }             from 'chart.js';
 
-import { ContractService } from '@services/contract.service';
+import { ContractService }  from '@services/contract.service';
 import { CandidateService } from '@services/candidate.service';
 
 @Component({

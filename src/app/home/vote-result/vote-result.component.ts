@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '@services/user.service';
-import { ContractService } from '@services/contract.service';
+import { UserService }       from '@services/user.service';
+import { ContractService }   from '@services/contract.service';
 
 @Component({
     selector: 'app-vote-result',

@@ -1,19 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { BrowserModule }           from '@angular/platform-browser';
+import { NgModule }                from '@angular/core';
+import { HttpClientModule }        from '@angular/common/http';
+import { FormsModule }             from '@angular/forms';
+import { Router, RouterModule }    from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { Router } from '@angular/router';
-
-import { AppComponent } from '@app/app.component';
+import { AppComponent }     from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
-
-import { HomeModule } from '@app/home/home.module';
-import { PublicModule } from '@app/public/public.module';
-import { RegAdminModule } from '@app/reg-admin/reg-admin.module';
-import {EAAdminModule} from '@app/ea-admin/ea-admin.module';
-import { SharedModule } from '@app/shared/shared.module';
+import { SharedModule }     from '@app/shared/shared.module';
+import { CoreModule }       from '@app/core/core.module';
 
 @NgModule({
     declarations: [
@@ -24,13 +19,11 @@ import { SharedModule } from '@app/shared/shared.module';
         BrowserAnimationsModule,
         HttpClientModule,
         FormsModule,
-        AppRoutingModule,
+        RouterModule,
 
-        SharedModule
-        /* RegAdminModule,
-        HomeModule,
-        PublicModule,
-        EAAdminModule*/
+        AppRoutingModule,
+        SharedModule,
+        CoreModule
     ],
     providers: [],
     bootstrap: [AppComponent]
