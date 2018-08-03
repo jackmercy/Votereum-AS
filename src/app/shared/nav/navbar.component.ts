@@ -9,7 +9,7 @@ import { RouteInfo } from '@config/interfaces/route-info.interface';
     styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-    @Input('routesItem') routesItem: RouteInfo[];
+    @Input('routesItems') routesItems: RouteInfo[];
 
     isSideBarActive: Boolean;
 
@@ -20,6 +20,7 @@ export class NavbarComponent implements OnInit {
         this._messageService.sideBarActive$.subscribe(
             isActive => this.isSideBarActive = isActive
         );
+        console.log(this.routesItems);
         /* this._router.events.filter(e => e instanceof RouterEvent).subscribe(
             e => {
                 this.currentModule = e['url'].toString();
