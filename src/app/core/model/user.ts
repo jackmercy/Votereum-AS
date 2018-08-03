@@ -3,9 +3,10 @@ export class User {
     firstName: string;
     lastName: string;
     gender: string;
-    birthDate: Date;
+    birthDate: string;
     homeTown: string;
     address: string;
     picture: string;
     isPasswordChanged: boolean;
+    
 }

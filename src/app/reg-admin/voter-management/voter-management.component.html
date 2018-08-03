@@ -7,6 +7,8 @@
         <div class="content">
 
             <div class="user-profile row">
+
+                <!--Search for user and Password generate-->
                 <div class="col">
                     <div class="search-user">
                         <mat-form-field>
@@ -35,8 +37,9 @@
                     <div class="row">
 
                         <!--Picture-->
-                        <div class="col-5">
-                            <img class="img-fluid" src="http://via.placeholder.com/300x200">
+                        <div class="col-5 citizen-image">
+                            <img *ngIf="user['picture']" class="img-fluid" src="{{ user['picture'] }}" alt="Citizen image">
+                            <img *ngIf="!user['picture']" class="img-fluid" src="/assets/images/no-citizen-image-available.jpg" alt="Citizen image">
                         </div>
 
                         <!--Personal information-->
@@ -46,7 +49,7 @@
                                     <p>{{ userKeyDescription[key] }}:</p>
                                 </div>
                                 <div class="col-7">
-                                    <p>{{ user['id'] ? user['id'] : '---' }}</p>
+                                    <p>{{ user[key] ? (key === 'birthDate' ? (user[key] | date: 'MM/dd/yyyy') : user[key]) : '---' }}</p>
                                 </div>
                             </div>
                         </div>

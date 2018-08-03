@@ -16,7 +16,8 @@ export class VoterManagementComponent implements OnInit {
     user: User;
     userKeyDescription: Object = {
         id: 'ID number',
-        name: 'Name',
+        firstName: 'Firstname',
+        lastName: 'Lastname',
         gender: 'Gender',
         birthDate: 'Date of birth',
         homeTown: 'Home town',
@@ -31,7 +32,6 @@ export class VoterManagementComponent implements OnInit {
         this.user = new User();
 
         this.idFormControl = new FormControl('', Validators.required);
-
     }
 
 
@@ -41,6 +41,9 @@ export class VoterManagementComponent implements OnInit {
 
     searchUser() {
         this.userId = this.idFormControl.value;
-        this._regAdminService.getUserInfo(this.userId).subscribe(data => this.user = <User> data);
+        this._regAdminService.getUserInfo(this.userId).subscribe(data => {
+            console.log(data);
+            this.user = <User> data;
+        });
     }
 }

@@ -40,8 +40,6 @@ import { ObjectKeysPipe } from './pipes/object-keys.pipe';
     imports: [
         CommonModule,
         RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
 
         MatButtonModule
     ],
@@ -65,6 +63,8 @@ import { ObjectKeysPipe } from './pipes/object-keys.pipe';
         MatMenuModule,
         MatGridListModule,
         MatDividerModule,
+        FormsModule,
+        ReactiveFormsModule,
 
         NotFoundComponent,
         ConfirmDialogComponent,
