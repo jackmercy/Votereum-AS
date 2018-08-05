@@ -1,46 +1,45 @@
 <div class="row justify-content-md-center form-layout">
   <div class="col-md-auto col-layout">
+        <div class="toolbar-box">
+            <mat-toolbar class="login-toolbar">
+                <span id="welcome" class="fill-remaining-space">
+                    {{ pageStrings.SIGN_IN | uppercase }}
+                </span>
+            </mat-toolbar>
+        </div>
         <form [formGroup]="loginFormGroup" class="from-gourp">
-            <div class="toolbar-box">
-                <mat-toolbar class="login-toolbar">
-                    <i class="material-icons">lock_outline</i>
-                    <span id="welcome" class="fill-remaining-space">
-                        Welcome to Voting Dapp
-                    </span>
-                </mat-toolbar>
+            <div class="user-icon">
+                <i class="fas fa-user-cog"></i>
             </div>
             <!-- Name -->
             <mat-form-field class="full-width-input">
-                    <input id="input-id" matInput placeholder="Citizen's ID" formControlName="citizendID">
-                    <mat-error *ngIf="citizenID.invalid">{{getIdErrorMessage()}}</mat-error>
+                <input id="input-id" matInput placeholder="{{ pageStrings.CITIZEN_ID }}" formControlName="citizendID">
+                <mat-error *ngIf="citizenID.invalid">{{getIdErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <!-- ID -->
             <mat-form-field class="full-width-input">
-                    <input id="input-password" type="password" matInput placeholder="Password" formControlName="password">
-                    <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                <input id="input-password" type="password" matInput placeholder="{{ pageStrings.PASSWORD }}" formControlName="password">
+                <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
             </mat-form-field>
 
             <!-- Sign in button -->
-            <div>
+            <div class="flex-center">
                 <button id="sign-in-btn" mat-button (click)="onLogin()" class=" full-width-input"
                             [disabled]="!loginFormGroup.valid || canDisableSignInButton">
-                    <span class="text-color-login-form">Sign In</span>
+                    <span class="text-color-login-form">{{ pageStrings.LOGIN_BUTTON_TEXT }}</span>
                 </button>
-                <div class="sign-up-text">
-                    Don't have an account? 
-                    <a class="sign-up" (click)="onSignUp()">Sign up</a>
-                     now!
+            </div>
+            <div class="sign-up-text">
+                <div class="checkbox session keep-signed">
+                    <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1">
+                    <label class="session-text" for="styled-checkbox-1">{{ pageStrings.KEEP_SIGNED_IN_TEXT | uppercase }}</label>
+                </div>
+                <mat-divider class="session-divider" [vertical]="true"></mat-divider>
+                <div class="session forget-pwd">
+                    <a class="session-text">{{ pageStrings.FORGET_PASSWORD | uppercase }}</a>
                 </div>
             </div>
       </form>
   </div>
 </div>
-<div class="row">
-  <div class="atom">
-        <div class="electron"></div>
-        <div class="electron"></div>
-        <div class="electron"></div>
-  </div>
-</div>
-

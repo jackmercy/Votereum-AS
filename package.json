@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "ui": "ng serve --proxy-config proxy.config.json",
+    "ui": "ng serve --aot --proxy-config proxy.config.json",
     "ui-prod": "ng build --prod",
     "start": "nodemon server/app.js --exec babel-node",
     "build": "babel -d dist",

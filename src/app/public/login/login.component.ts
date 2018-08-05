@@ -5,12 +5,14 @@ import { FormBuilder, FormGroup, Validators }  from '@angular/forms';
 
 import { UserService } from '@services/user.service';
 import { MatSnackBar } from '@angular/material';
+import { publicModuleStrings } from '@config/string.config';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+    pageStrings: any;
     loginFormGroup: FormGroup;
     canDisableSignInButton: boolean;
     isLoggedIn: any;
@@ -21,6 +23,7 @@ export class LoginComponent implements OnInit {
                 public snackBar: MatSnackBar) { }
 
     ngOnInit() {
+        this.pageStrings = publicModuleStrings;
         this.loginFormGroup = this._formBuilder.group({
             citizendID: ['', Validators.required],
             password: ['', Validators.required]
