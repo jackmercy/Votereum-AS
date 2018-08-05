@@ -7,6 +7,8 @@ import { RegAdminRoutingModule } from '@app/reg-admin/reg-admin-routing.module';
 /* Components */
 import { MasterRegAdminComponent }  from './master-reg-admin/master-reg-admin.component';
 import { VoterManagementComponent } from './voter-management/voter-management.component';
+import { RegAdminService } from '@services/reg-admin.service';
+import { ObjectKeysPipe } from '@shared/pipes/object-keys.pipe';
 
 @NgModule({
     imports: [
@@ -16,9 +18,13 @@ import { VoterManagementComponent } from './voter-management/voter-management.co
 
         RegAdminRoutingModule
     ],
+    providers: [
+        RegAdminService
+    ],
     declarations: [
         MasterRegAdminComponent,
         VoterManagementComponent
+
     ]
 })
 export class RegAdminModule { }

@@ -5,6 +5,7 @@ var router = express.Router();
 
 /* Route: [/api/citizen] */
 
-router.route('/check').get(citizenController.check);
+router.route('/').get(citizenController.check);
+router.route('/').post(citizenController.postCitizenById);
 
 export default router;

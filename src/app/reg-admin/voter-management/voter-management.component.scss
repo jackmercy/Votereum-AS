@@ -1,9 +1,57 @@
+@import '../../../scss/variables';
+
 $h1: 2rem;
 
 .voter-management {
     .header {
         font-size: $h1;
         width: 100%;
-        padding-left: 1rem;
+    }
+
+    .content {
+        .user-profile {
+            margin: 15px auto;
+            background-color: #fff;
+            box-shadow: 4px 0 4px rgba(0,0,0,.1);
+            padding: 20px;
+            width: 65%;
+
+            .title {
+                margin-bottom: 0;
+                font-size: 1.2rem;
+            display: inline-block;
+                text-align: center;
+                width: 100%;
+            }
+
+            .password-generate {
+                margin: 15px 0;
+                text-align: center;
+                font-size: 1.2rem;
+            }
+
+            .search-user {
+                mat-form-field {
+                    width: 75%;
+                }
+
+                .search-button {
+                    margin-left: 15px;
+                }
+            }
+
+            .password-button {
+                text-align: center;
+            }
+
+            .generated-password {
+                font-weight: bold;
+            }
+
+            .citizen-image {
+                text-align: center;
+            }
+        }
+
     }
 }

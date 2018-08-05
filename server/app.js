@@ -9,8 +9,8 @@ import morgan from 'morgan';
 import Web3 from 'web3';
 // import logger from 'logger';
 import router from './routes/index.route';
+import {GeneralConfig} from "./config/general.config";
 
-import votingJson from './Voting';
 
 /* Import libary */
 
@@ -21,7 +21,7 @@ var port = process.env.port || 5000;
 
 /* MongoDb */
 var db;
-db = mongoose.connect('mongodb://localhost/ether-vote-as')
+db = mongoose.connect(GeneralConfig.MONGODB_CONNECTION_STRING)
     .then(() =>  console.log('connection succesful to mongodb'))
     .catch((err) => console.error(err));
 /* MongoDb */
@@ -88,32 +88,5 @@ app.use(function(err, req, res, next) {
 app.listen(port, function() {
     console.log('server is running on:' + port);
 });
-
-
-//Connecting to blockchain
-
-var abiDefinition;
-var votingContract;
-
-abiDefinition = votingJson.abi;
-
-//Testnet
-global.web3 = new Web3('http://localhost:8545');
-global.votingContract = new web3.eth.Contract(abiDefinition,'0xbdca24b079e714146fe40764c2d9b9f7995afc2a');
-
-
-
-//Ganache
-/*global.web3 = new Web3('http://localhost:9545');
-global.votingContract = new web3.eth.Contract(abiDefinition,'0x345ca3e014aaf5dca488057592ee47305d9b3e10');*/
-
-
-if (web3) {
-    console.log('successfully connected to blockchain');
-}
-else {
-    console.log('error on connecting blockchain');
-}
-
 
 export default app;

@@ -8,7 +8,7 @@
     "ui-prod": "ng build --prod",
     "start": "nodemon server/app.js --exec babel-node",
     "build": "babel -d dist",
-    "debug": "babel-node --inspect --inspect-brk=9215 app.js",
+    "debug": "babel-node --inspect --inspect-brk=9215 server/app.js",
     "serve": "node dist/index.js",
     "test": "ng test",
     "lint": "ng lint",

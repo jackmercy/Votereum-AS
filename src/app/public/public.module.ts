@@ -14,7 +14,6 @@ import { LoginComponent }        from '@app/public/login/login.component';
     imports: [
         CommonModule,
         RouterModule,
-        ReactiveFormsModule,
 
         PublicRoutingModule,
         SharedModule

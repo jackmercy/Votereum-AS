@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
     MatFormFieldModule,
-    MatButtonModule,
     MatInputModule,
     MatCheckboxModule,
     MatIconModule,
@@ -23,19 +22,24 @@ import {
     MatSnackBarModule,
     MatMenuModule,
     MatGridListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatButtonModule
 } from '@angular/material';
+
+/*Component*/
 import { NotFoundComponent }      from '@app/shared/not-found/not-found.component';
 import { HeaderComponent }        from '@app/shared/header/header.component';
 import { FooterComponent }        from '@app/shared/footer/footer.component';
 import { ConfirmDialogComponent } from '@app/shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { NavbarComponent }        from '@shared/nav/navbar.component';
+
+/*Pipe*/
+import { ObjectKeysPipe } from './pipes/object-keys.pipe';
+
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
-        FormsModule,
-        ReactiveFormsModule,
 
         MatButtonModule
     ],
@@ -59,14 +63,19 @@ import { NavbarComponent }        from '@shared/nav/navbar.component';
         MatMenuModule,
         MatGridListModule,
         MatDividerModule,
+        FormsModule,
+        ReactiveFormsModule,
 
         NotFoundComponent,
+        ConfirmDialogComponent,
+        ObjectKeysPipe,
+
         NavbarComponent,
         HeaderComponent,
         FooterComponent,
         ConfirmDialogComponent
-    ],
 
+    ],
     declarations: [
         NotFoundComponent,
         NavbarComponent,
@@ -74,6 +83,7 @@ import { NavbarComponent }        from '@shared/nav/navbar.component';
         FooterComponent,
         ConfirmDialogComponent,
 
+        ObjectKeysPipe
     ]
 })
 export class SharedModule { }
