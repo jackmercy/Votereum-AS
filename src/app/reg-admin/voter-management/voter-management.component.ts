@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import {User} from '@core/model/user';
-import {RegAdminService} from '@services/reg-admin.service';
+import { User } from '@core/model/user';
+import { RegAdminService } from '@services/reg-admin.service';
 
 @Component({
     selector: 'app-voter-management',
@@ -23,27 +23,44 @@ export class VoterManagementComponent implements OnInit {
         homeTown: 'Home town',
         address: 'Address'
     };
+    isCitizenExist: boolean;
 
     constructor(private _formBuilder: FormBuilder,
                 private _regAdminService: RegAdminService) { }
 
     ngOnInit() {
-        this.userId = '123456555';
         this.user = new User();
+        this.isCitizenExist = false;
 
-        this.idFormControl = new FormControl('', Validators.required);
+        this.idFormControl = new FormControl('', [
+            Validators.required,
+            Validators.pattern('^[0-9]*$')
+        ]);
+
+        this.idFormControl.valueChanges.subscribe(data => {
+            if (this.isCitizenExist) {
+                this.isCitizenExist = !this.isCitizenExist;
+                this.generatedPassword = '';
+            }
+        });
     }
 
 
     generatePassword() {
-        this._regAdminService.getGeneratedPassword(this.userId).subscribe(data => this.generatedPassword = data['password']);
+        this._regAdminService.getGeneratedPassword(this.userId).subscribe(
+            data => {
+                console.log(data);
+                this.generatedPassword = data['password'];
+            });
     }
 
     searchUser() {
         this.userId = this.idFormControl.value;
-        this._regAdminService.getUserInfo(this.userId).subscribe(data => {
+        this._regAdminService.getCitizenInfo(this.userId).subscribe(data => {
             console.log(data);
             this.user = <User> data;
-        });
+            this.isCitizenExist = true;
+        }, error => this.isCitizenExist = false);
+        this.generatedPassword = '';
     }
 }

@@ -35,6 +35,7 @@ import { NavbarComponent }        from '@shared/nav/navbar.component';
 
 /*Pipe*/
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
+import { ErrorFieldComponent } from './error-field/error-field.component';
 
 @NgModule({
     imports: [
@@ -68,6 +69,7 @@ import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 
         NotFoundComponent,
         ConfirmDialogComponent,
+        ErrorFieldComponent,
         ObjectKeysPipe,
 
         NavbarComponent,
@@ -82,8 +84,9 @@ import { ObjectKeysPipe } from './pipes/object-keys.pipe';
         HeaderComponent,
         FooterComponent,
         ConfirmDialogComponent,
+        ObjectKeysPipe,
 
-        ObjectKeysPipe
+        ErrorFieldComponent
     ]
 })
 export class SharedModule { }

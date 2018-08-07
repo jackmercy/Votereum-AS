@@ -12,7 +12,7 @@ export class RegAdminService {
 
     constructor(private _http: HttpClient) { }
 
-    getUserInfo(_userId: string) {
+    getCitizenInfo(_userId: string) {
         return this._http.post(
             URI_CONFIG.BASE_CITIZEN_API + URI_CONFIG.CITIZEN_BY_ID,
             JSON.stringify({id: _userId}),
@@ -20,11 +20,10 @@ export class RegAdminService {
     }
 
     getGeneratedPassword(_userId: string): Observable<Object> {
-        if (_userId === '123456') {
-            return Observable.of({
-                message: 'This user has already changed their password!'
-            });
-        }
-        return Observable.of({ password: 'DdDHanKm5aKxv' });
+        return this._http.post(
+            URI_CONFIG.BASE_CITIZEN_API + URI_CONFIG.CITIZEN_GENERATE_PASSWORD,
+            JSON.stringify( { id: _userId }),
+            httpOptions
+        );
     }
 }
