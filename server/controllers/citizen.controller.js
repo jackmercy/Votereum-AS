@@ -1,5 +1,12 @@
 import Citizen from '../models/citizen.model';
+import PasswordGenerator from 'generate-password';
+import Crypto from 'crypto';
 
+
+/*
+Route: /api/citizen/check
+Method: GET
+*/
 function check(req, res) {
     res.send('successfully connect to /citizen route');
 }
@@ -23,17 +30,54 @@ function postCitizenById(req, res) {
                 res.status(200);
                 res.json(citizen);
             } else {
+                res.status(404);
                 const message = {
                     message: 'Invalid citizen ID!'
                 }
                 res.json(message);
             }
-        })
-
+        });
     }
+}
+
+
+
+function getGeneratedPassword() {
+    return PasswordGenerator.generate({
+        length: 10,
+        numbers: true
+    })
+}
+
+function isExist(_id) {
+    return Citizen.findOne({ id: _id }, function (err, citizen) {
+            return true
+    });
+
+}
+
+async function postGeneratePassword(req, res) {
+    const _id = req.body['id'];
+    const _defaultPassword = getGeneratedPassword();
+    const query = { id: _id };
+    const updateValues = {
+        $set:
+            { defaultPassword: Crypto.createHash('md5').update(_defaultPassword).digest('hex') }
+    };
+
+    if (_id) {
+        Citizen.updateOne(
+            query,
+            updateValues,
+            { overwrite: true, upsert: false },
+            function (err, rawResponse) {});
+    }
+
+    res.json({ password: _defaultPassword });
 }
 
 export default {
     check,
-    postCitizenById
+    postCitizenById,
+    postGeneratePassword
 }

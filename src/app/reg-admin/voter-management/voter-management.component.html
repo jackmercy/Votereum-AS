@@ -12,14 +12,17 @@
                 <div class="col">
                     <div class="search-user">
                         <mat-form-field>
-                            <input matInput [formControl]="idFormControl" placeholder="Enter user ID number:">
+                            <input matInput (keydown.enter)="searchUser()" [formControl]="idFormControl" placeholder="Enter citizen's ID number:">
+                            <mat-error>
+                                <app-error-field [errorCode]="idFormControl.errors"></app-error-field>
+                            </mat-error>
                         </mat-form-field>
 
                         <button class="search-button" (click)="searchUser()" mat-stroked-button >Search</button>
                     </div>
 
                     <div class="password-button">
-                        <button mat-stroked-button
+                        <button mat-stroked-button [disabled]="!isCitizenExist"
                                  (click)="generatePassword()" >Generate Password</button>
                         <button *ngIf="user && user.isPasswordChanged " mat-stroked-button >Request new password</button>
                     </div>
@@ -34,7 +37,14 @@
                 <div class="col">
                     <p class="title">Citizen's Identity Information</p>
                     <hr>
-                    <div class="row">
+
+                    <div class="row citizen-not-found" *ngIf="!isCitizenExist">
+                        <i class="material-icons">
+                            error_outline
+                        </i>
+                        <p>No citizen found</p>
+                    </div>
+                    <div class="row" *ngIf="isCitizenExist" >
 
                         <!--Picture-->
                         <div class="col-5 citizen-image">

@@ -21,5 +21,6 @@ export const URI_CONFIG = {
     VOTE_STATUS_URL: '/voteStatus',
     GET_BLOCK_URL: '/getBlock',
     /*citizen url*/
-    CITIZEN_BY_ID: ''
+    CITIZEN_BY_ID: '',
+    CITIZEN_GENERATE_PASSWORD: '/generatePassword'
 };

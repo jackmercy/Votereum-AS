@@ -15,6 +15,7 @@ $h1: 2rem;
             box-shadow: 4px 0 4px rgba(0,0,0,.1);
             padding: 20px;
             width: 65%;
+            height: 381px;
 
             .title {
                 margin-bottom: 0;
@@ -42,6 +43,7 @@ $h1: 2rem;
 
             .password-button {
                 text-align: center;
+                margin-top: 15px;
             }
 
             .generated-password {
@@ -50,6 +52,22 @@ $h1: 2rem;
 
             .citizen-image {
                 text-align: center;
+            }
+
+            .citizen-not-found {
+                text-align: center;
+                display: block;
+                height: fit-content;
+                margin-top: 50px;
+
+                .material-icons {
+                    font-size: 150px;
+                    color: $primary-darker;
+                }
+
+                p {
+                    font-size: 1.2rem;
+                }
             }
         }
 

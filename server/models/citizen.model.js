@@ -35,7 +35,12 @@ const CitizenSchema = new mongoose.Schema({
         required: true
     },
     isPasswordChanged: {
-        type: Boolean
+        type: Boolean,
+        required: true
+    },
+    defaultPassword: {
+        type: String,
+        required: false
     }
 });
 
