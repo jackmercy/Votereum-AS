@@ -4,8 +4,8 @@ export declare interface RouteInfo {
     class: string;
 }
 export const eaRoute: RouteInfo[] = [
-    { path: 'control', title: 'EA', class: '' },
-    { path: 'test-route', title: 'Test routing', class: '' }
+    { path: 'setup', title: 'Ballot Setup', class: '' },
+    { path: 'management', title: 'Ballot Management', class: '' }
 ];
 export const regRoute: RouteInfo[] = [
     { path: 'voter', title: 'Voter management', class: '' },

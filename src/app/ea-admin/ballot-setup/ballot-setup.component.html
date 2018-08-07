@@ -1,0 +1,73 @@
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button>
+<!-- TODO: add a Page Label component in shared module -->
+<mat-vertical-stepper class="card-shadow vertical-stepper" [linear]="isLinear" #stepper>
+    <!-- Ballot information -->
+    <mat-step [stepControl]="ballotInfoFormGroup">
+        <form class="vertical-form" [formGroup]="ballotInfoFormGroup">
+            <ng-template matStepLabel>Ballot information</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="ballotName" required>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Number of candidates" formControlName="numberOfCandidates" required>
+            </mat-form-field>
+            <div>
+                <button class="step-button-padding" mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <!-- End of Ballot information -->
+
+    <!-- Candidates  -->
+    <mat-step [stepControl]="candidateFormGroup">
+        <form class="vertical-form" [formGroup]="candidateFormGroup">
+            <ng-template matStepLabel>Candidates details</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="Address" formControlName="secondCtrl" required>
+            </mat-form-field>
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile02">
+                    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                </div>
+                <div class="input-group-append">
+                    <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+                </div>
+            </div>
+            <div>
+                <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+            
+        </form>
+    </mat-step>
+    <!-- End of Candidates -->
+
+    <!-- Phases -->
+    <mat-step [stepControl]="phasesSequenceFormGroup">
+        <form class="vertical-form" [formGroup]="phasesSequenceFormGroup">
+            <ng-template matStepLabel>Phases sequence</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="Address" formControlName="thirdCtrl" required>
+            </mat-form-field>
+            <div>
+                <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <!-- End of Phases -->
+
+    <!-- Done  -->
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+            You are now done.
+        <div>
+            <button class="step-button-padding" mat-stroked-button (click)="stepper.previous()">Back</button>
+            <button mat-flat-button color="warn" (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
+    <!-- End of Done  -->
+</mat-vertical-stepper>
