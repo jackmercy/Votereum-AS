@@ -44,6 +44,10 @@ body {
 .container-dapp {
     padding: 0;
 }
+.no-padding-bootstrap {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
 .wrapper {
     display: flex;
     width: 100%;

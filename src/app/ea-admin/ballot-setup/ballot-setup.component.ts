@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-
+/* import * as _moment          from 'moment';
+import { default as _rollupMoment }                      from 'moment'; */
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+/* 
+const moment = _rollupMoment || _moment; */
 @Component({
     selector: 'app-ballot-setup',
     templateUrl: './ballot-setup.component.html',
@@ -12,25 +15,28 @@ export class BallotSetupComponent implements OnInit {
     candidateFormGroup: FormGroup;
     phasesSequenceFormGroup: FormGroup;
 
+    typesOfShoes: string[] = ['Trump', 'Obama', 'Putin', 'Kim Jong Un'];
+
     constructor(private _formBuilder: FormBuilder) {}
 
     ngOnInit() {
         this.ballotInfoFormGroup = this._formBuilder.group({
-            ballotName: ['', Validators.required],
-            numberOfCandidates: [
-                '',
-                Validators.required,
-                Validators.max(6),
-                Validators.min(2)
-            ]
+            ballotName: ['', Validators.required]
         });
         this.candidateFormGroup = this._formBuilder.group({
-            secondCtrl: ['', Validators.required]
+            selectedCandidates: ['', Validators.required]
         });
         this.phasesSequenceFormGroup = this._formBuilder.group({
-            thirdCtrl: ['', Validators.required]
+            startRegPhase: ['', Validators.required],
+            endRegPhase: ['', Validators.required],
+            startVotingPhase: ['', Validators.required],
+            endVotingPhase: ['', Validators.required],
         });
 
+        // get timestamp from moment date format: ...controls['startRegPhase'].value.format('X');
     }
 
+    onTestValue() {
+        console.log();
+    }
 }

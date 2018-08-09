@@ -10,9 +10,6 @@
             <mat-form-field>
                 <input matInput placeholder="Name" formControlName="ballotName" required>
             </mat-form-field>
-            <mat-form-field>
-                <input matInput placeholder="Number of candidates" formControlName="numberOfCandidates" required>
-            </mat-form-field>
             <div>
                 <button class="step-button-padding" mat-stroked-button color="primary" matStepperNext>Next</button>
             </div>
@@ -23,24 +20,21 @@
     <!-- Candidates  -->
     <mat-step [stepControl]="candidateFormGroup">
         <form class="vertical-form" [formGroup]="candidateFormGroup">
-            <ng-template matStepLabel>Candidates details</ng-template>
-            <mat-form-field>
-                <input matInput placeholder="Address" formControlName="secondCtrl" required>
-            </mat-form-field>
-            <div class="input-group mb-3">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile02">
-                    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-                </div>
-                <div class="input-group-append">
-                    <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
-                </div>
-            </div>
+            <ng-template matStepLabel>Choose competitors</ng-template>
+            <mat-selection-list #shoes formControlName="selectedCandidates">
+                <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
+                  {{shoe}}
+                </mat-list-option>
+            </mat-selection-list>
+              
+            <p>
+                Candidates selected: {{shoes.selectedOptions.selected.length}}
+            </p>
+              
             <div>
                 <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
                 <button mat-stroked-button color="primary" matStepperNext>Next</button>
             </div>
-            
         </form>
     </mat-step>
     <!-- End of Candidates -->
@@ -49,9 +43,46 @@
     <mat-step [stepControl]="phasesSequenceFormGroup">
         <form class="vertical-form" [formGroup]="phasesSequenceFormGroup">
             <ng-template matStepLabel>Phases sequence</ng-template>
-            <mat-form-field>
-                <input matInput placeholder="Address" formControlName="thirdCtrl" required>
-            </mat-form-field>
+            <div class="container no-gutters no-padding-bootstrap">
+                <!-- Register phase -->
+                <div class="row">
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="startRegPhase" placeholder="Start register phase" formControlName="startRegPhase">
+                            <mat-datepicker-toggle matSuffix [for]="startRegPhase"></mat-datepicker-toggle>
+                            <mat-datepicker #startRegPhase></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="endRegPhase" placeholder="End register phase" formControlName="endRegPhase">
+                            <mat-datepicker-toggle matSuffix [for]="endRegPhase"></mat-datepicker-toggle>
+                            <mat-datepicker #endRegPhase></mat-datepicker>
+                        </mat-form-field>
+                    </div>         
+                </div>
+                <!-- End of Register phase -->
+
+                <!-- Voting phase -->
+                <div class="row">
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="startVotingPhase" placeholder="Start voting phase" formControlName="startVotingPhase">
+                            <mat-datepicker-toggle matSuffix [for]="startVotingPhase"></mat-datepicker-toggle>
+                            <mat-datepicker #startVotingPhase></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="endVotingPhase" placeholder="End voting phase" formControlName="endVotingPhase">
+                            <mat-datepicker-toggle matSuffix [for]="endVotingPhase"></mat-datepicker-toggle>
+                            <mat-datepicker #endVotingPhase></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- End of Voting phase -->
+            </div>
+            
             <div>
                 <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
                 <button mat-stroked-button color="primary" matStepperNext>Next</button>
@@ -63,9 +94,12 @@
     <!-- Done  -->
     <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-            You are now done.
-        <div>
+            <p>You are now done.</p>
+        <div class="row mb-3">
             <button class="step-button-padding" mat-stroked-button (click)="stepper.previous()">Back</button>
+            <button class="step-button-padding" mat-stroked-button color="primary">Set up now</button>
+        </div>
+        <div class="row">
             <button mat-flat-button color="warn" (click)="stepper.reset()">Reset</button>
         </div>
     </mat-step>
