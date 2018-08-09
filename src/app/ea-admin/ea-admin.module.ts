@@ -6,8 +6,9 @@ import { EaAdminRoutingModule } from '@app/ea-admin/ea-admin-routing.module';
 import { SharedModule }         from '@shared/shared.module';
 /* Components */
 import { MasterEaAdminComponent } from './master-ea-admin/master-ea-admin.component';
-import { TestContentComponent }   from './test-content/test-content.component';
-import { TestRoutingComponent }   from './test-routing/test-routing.component';
+import { BallotSetupComponent } from './ballot-setup/ballot-setup.component';
+import { ManagementComponent } from './management/management.component';
+
 
 
 @NgModule({
@@ -20,8 +21,9 @@ import { TestRoutingComponent }   from './test-routing/test-routing.component';
     ],
     declarations: [
         MasterEaAdminComponent,
-        TestContentComponent,
-        TestRoutingComponent
+        BallotSetupComponent,
+        ManagementComponent,
+
     ]
 })
 export class EAAdminModule { }

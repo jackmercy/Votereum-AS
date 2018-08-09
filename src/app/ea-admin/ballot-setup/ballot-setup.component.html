@@ -1,0 +1,107 @@
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+</button>
+<!-- TODO: add a Page Label component in shared module -->
+<mat-vertical-stepper class="card-shadow vertical-stepper" [linear]="isLinear" #stepper>
+    <!-- Ballot information -->
+    <mat-step [stepControl]="ballotInfoFormGroup">
+        <form class="vertical-form" [formGroup]="ballotInfoFormGroup">
+            <ng-template matStepLabel>Ballot information</ng-template>
+            <mat-form-field>
+                <input matInput placeholder="Name" formControlName="ballotName" required>
+            </mat-form-field>
+            <div>
+                <button class="step-button-padding" mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <!-- End of Ballot information -->
+
+    <!-- Candidates  -->
+    <mat-step [stepControl]="candidateFormGroup">
+        <form class="vertical-form" [formGroup]="candidateFormGroup">
+            <ng-template matStepLabel>Choose competitors</ng-template>
+            <mat-selection-list #shoes formControlName="selectedCandidates">
+                <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
+                  {{shoe}}
+                </mat-list-option>
+            </mat-selection-list>
+              
+            <p>
+                Candidates selected: {{shoes.selectedOptions.selected.length}}
+            </p>
+              
+            <div>
+                <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <!-- End of Candidates -->
+
+    <!-- Phases -->
+    <mat-step [stepControl]="phasesSequenceFormGroup">
+        <form class="vertical-form" [formGroup]="phasesSequenceFormGroup">
+            <ng-template matStepLabel>Phases sequence</ng-template>
+            <div class="container no-gutters no-padding-bootstrap">
+                <!-- Register phase -->
+                <div class="row">
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="startRegPhase" placeholder="Start register phase" formControlName="startRegPhase">
+                            <mat-datepicker-toggle matSuffix [for]="startRegPhase"></mat-datepicker-toggle>
+                            <mat-datepicker #startRegPhase></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="endRegPhase" placeholder="End register phase" formControlName="endRegPhase">
+                            <mat-datepicker-toggle matSuffix [for]="endRegPhase"></mat-datepicker-toggle>
+                            <mat-datepicker #endRegPhase></mat-datepicker>
+                        </mat-form-field>
+                    </div>         
+                </div>
+                <!-- End of Register phase -->
+
+                <!-- Voting phase -->
+                <div class="row">
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="startVotingPhase" placeholder="Start voting phase" formControlName="startVotingPhase">
+                            <mat-datepicker-toggle matSuffix [for]="startVotingPhase"></mat-datepicker-toggle>
+                            <mat-datepicker #startVotingPhase></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-6">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="endVotingPhase" placeholder="End voting phase" formControlName="endVotingPhase">
+                            <mat-datepicker-toggle matSuffix [for]="endVotingPhase"></mat-datepicker-toggle>
+                            <mat-datepicker #endVotingPhase></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <!-- End of Voting phase -->
+            </div>
+            
+            <div>
+                <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+            </div>
+        </form>
+    </mat-step>
+    <!-- End of Phases -->
+
+    <!-- Done  -->
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+        <div class="row mb-3">
+            <button class="step-button-padding" mat-stroked-button (click)="stepper.previous()">Back</button>
+            <button class="step-button-padding" mat-stroked-button color="primary">Set up now</button>
+        </div>
+        <div class="row">
+            <button mat-flat-button color="warn" (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
+    <!-- End of Done  -->
+</mat-vertical-stepper>
