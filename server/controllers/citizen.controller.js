@@ -56,6 +56,13 @@ function isExist(_id) {
 
 }
 
+/*
+Route: /api/citizen/generatePassword
+Method: POST
+{
+    id: '2222'
+}
+*/
 async function postGeneratePassword(req, res) {
     const _id = req.body['id'];
     const _defaultPassword = getGeneratedPassword();

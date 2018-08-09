@@ -1,10 +1,30 @@
-<div class="container voting-grid">
-    <mat-grid-list cols="3" rowHeight="3:4.75" gutterSize="15px">
-        <mat-grid-tile *ngFor="let candidate of candidates">
-            <app-candidate [candidate]="candidate" ($onVoted)="onVoted($event)">
-            </app-candidate>   
-        </mat-grid-tile>
-    </mat-grid-list>
+<div class="voting-grid">
+    <div class="items">
+        <!--A candidate-->
+        <div class="item" *ngFor="let candidate of candidates" (click)="onCandidateSelected(candidate)">
+            <div class="candidate">
+                <div class="image">
+                    <img  src="{{ candidate['picture' ]}}">
+                </div>
+                <div class="name">
+                    <p>{{ candidate['title'] + '. ' + candidate['firstName'] + ' ' + candidate['lastName'] | titlecase }}</p>
+                </div>
+                <hr>
+                <div class="quote">
+                    <p> {{ candidate['quote'] }}</p>
+                </div>
+            </div>
+            <div class="overlay" [ngClass]="{ 'active': candidate['isSelected'] }">
+                <div>
+                    <i class="material-icons">
+                        check_circle_outline
+                    </i>
+                    <p>Voted</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div class="row justify-content-center">
         <button class="btn-lg btn-block w-50" color="primary" (click)="onVoteToBlockchain()" mat-raised-button>Vote</button>
     </div>

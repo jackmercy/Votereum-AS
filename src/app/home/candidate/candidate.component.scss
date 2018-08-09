@@ -14,3 +14,24 @@
 .btn-read-more {
     margin-left: 65%;
 }
+
+.image {
+    height: 60%;
+    width: auto;
+
+    img {
+        max-height: 100%;
+
+    }
+}
+
+.candidate {
+    height: inherit;
+    padding: 1rem;
+
+    .name {
+        font-weight: bold;
+    }
+
+
+}
