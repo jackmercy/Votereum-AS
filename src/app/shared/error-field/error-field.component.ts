@@ -12,7 +12,8 @@ export class ErrorFieldComponent {
     constructor() { }
 
     validationMessage: any = {
-        required: 'Citizen\'s ID is required',
+        required: 'Mandatory information',
+        minlength: 'You must provide at least 2 characters for this field',
         pattern: 'Only number is allowed'
     };
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 /* import * as _moment          from 'moment';
 import { default as _rollupMoment }                      from 'moment'; */
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-/* 
+/*
 const moment = _rollupMoment || _moment; */
 @Component({
     selector: 'app-ballot-setup',
@@ -21,7 +21,10 @@ export class BallotSetupComponent implements OnInit {
 
     ngOnInit() {
         this.ballotInfoFormGroup = this._formBuilder.group({
-            ballotName: ['', Validators.required]
+            ballotName: ['', [
+                Validators.required,
+                Validators.minLength(2)]
+            ]
         });
         this.candidateFormGroup = this._formBuilder.group({
             selectedCandidates: ['', Validators.required]
@@ -37,6 +40,9 @@ export class BallotSetupComponent implements OnInit {
     }
 
     onTestValue() {
-        console.log();
+        /* console.log(shoes.selectedOptions.selected.length); */
+        console.log(this.ballotInfoFormGroup.get('ballotName').errors);
     }
+
+
 }
