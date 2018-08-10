@@ -10,7 +10,6 @@ import { HomeRoutingModule } from '@app/home/home-routing.module';
 import { HomeMasterComponent } from './master/master.component';
 import { VotingComponent }     from './voting/voting.component';
 import { ScoreBoardComponent } from './score-board/score-board.component';
-import { CandidateComponent }  from './candidate/candidate.component';
 import { VoteResultComponent } from './vote-result/vote-result.component';
 @NgModule({
     imports: [
@@ -27,7 +26,6 @@ import { VoteResultComponent } from './vote-result/vote-result.component';
         HomeMasterComponent,
         VotingComponent,
         ScoreBoardComponent,
-        CandidateComponent,
         VoteResultComponent
     ]
 })
