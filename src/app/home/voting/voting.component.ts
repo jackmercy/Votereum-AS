@@ -4,6 +4,9 @@ import { CandidateService }  from '@services/candidate.service';
 import { UserService }       from '@services/user.service';
 import { ContractService }   from '@services/contract.service';
 import { MatSnackBar }       from '@angular/material';
+import * as _                from 'lodash';
+import { MessageService }    from '@services/message.service';
+
 @Component({
     selector: 'app-voting',
     templateUrl: './voting.component.html',
@@ -93,16 +96,21 @@ export class VotingComponent implements OnInit {
         }
     ];
     candidates: Array<Object>;
+    votingResult = {
+        candidates: [],
+        citizenID: ''
+    };
+    isSideBarActive: Boolean;
+
+
     constructor(private _candidateService: CandidateService,
                 private _userService: UserService,
                 private _contractService: ContractService,
                 private _router: Router,
+                private _messageService: MessageService,
                 public snackBar: MatSnackBar) { }
 
-    voting_result = {
-        candidates: [],
-        citizenID: ''
-    };
+
 
     ngOnInit() {
 /*        this._candidateService.getCandidates()
@@ -114,36 +122,28 @@ export class VotingComponent implements OnInit {
                     console.log(error);
                 }
             );*/
+        this._messageService.sideBarActive$.subscribe(
+            isActive => this.isSideBarActive = isActive
+        );
 
         this.candidates = this.mock_candidates.map(candidate => {
             candidate['isSelected'] = false;
             return candidate;
         });
 
-        this.voting_result.citizenID =  this._userService.getId();
-    }
-
-    onVoted(result: Object) {
-        if (result['voted'] === true) {
-            this.voting_result.candidates.push(result['candidateID']);
-            console.log(this.voting_result);
-        } else if (result['voted'] === false) {
-            const index = this.voting_result.candidates.indexOf(result['candidateID']);
-            if (index > -1) {
-                this.voting_result.candidates.splice(index, 1);
-            }
-            console.log(this.voting_result);
-        }
+        this.votingResult.citizenID =  this._userService.getId();
     }
 
     onVoteToBlockchain() {
+        this.votingResult.candidates = _.filter(this.candidates, 'isSelected').map(candidate => candidate['id']);
         /* Do check the list candidates is equal 4 or not */
-        if (this.voting_result.candidates.length > 4 && this.voting_result.candidates.length <= 6) {
+        if (this.votingResult.candidates.length > 4 && this.votingResult.candidates.length <= 6) {
             this.snackBar.open('The maximum candidates you can vote for are 4 out of 6' , 'Got it', {
                 duration: 30000,
             });
-        } else if (this.voting_result.candidates.length <= 4 ) {
-           this._contractService.votingBlock(this.voting_result)
+        } else if (this.votingResult.candidates.length <= 4 ) {
+            console.log(this.votingResult);
+/*           this._contractService.votingBlock(this.votingResult)
             .subscribe( result => {
                 if (result.hash) {
                     this._userService.updateUserHash(result.hash);
@@ -154,7 +154,7 @@ export class VotingComponent implements OnInit {
                         duration: 30000,
                     });
                 }
-            });
+            });*/
         }
     }
 

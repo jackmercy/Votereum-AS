@@ -25,7 +25,8 @@
 
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center sticky-footer"
+         [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}">
         <button class="btn-lg btn-block w-50" color="primary" (click)="onVoteToBlockchain()" mat-raised-button>Vote</button>
     </div>
 </div>

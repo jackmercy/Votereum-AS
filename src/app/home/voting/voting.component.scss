@@ -47,7 +47,7 @@
         }
 
         .overlay {
-
+            cursor: pointer;
             position: absolute;
             top: 0;
             /* full screen */
@@ -56,7 +56,7 @@
             /* transparent black */
             background: $secondary-color;
             /* middle layer, i.e. appears below the sidebar */
-            z-index: 998;
+            z-index: 1;
             opacity: 0.5;
             /* animate the transition */
             transition: all 0.5s ease-in-out;
@@ -97,10 +97,17 @@
 
             div {
                 color: white;
+                opacity: 1;
             }
 
         }
 
     }
+}
+
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
 }
 

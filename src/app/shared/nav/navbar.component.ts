@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit {
         this._messageService.sideBarActive$.subscribe(
             isActive => this.isSideBarActive = isActive
         );
-        console.log(this.routesItems);
         /* this._router.events.filter(e => e instanceof RouterEvent).subscribe(
             e => {
                 this.currentModule = e['url'].toString();
