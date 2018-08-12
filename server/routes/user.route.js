@@ -5,9 +5,7 @@ var router = express.Router();
 
 /* Route: [/user] */
 
-router.route('/login')
+router.route('/auth')
     .post(userController.postLogin);
 
-router.route('/getUserHash')
-    .post(userController.postGetUserHash);
 export default router;

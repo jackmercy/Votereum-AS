@@ -9,7 +9,8 @@ import { AppComponent }     from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { SharedModule }     from '@app/shared/shared.module';
 import { CoreModule }       from '@app/core/core.module';
-
+import { JwtModule }        from '@auth0/angular-jwt';
+import { STRING_CONFIG }    from '@config/string.config';
 @NgModule({
     declarations: [
         AppComponent
@@ -23,7 +24,16 @@ import { CoreModule }       from '@app/core/core.module';
 
         AppRoutingModule,
         SharedModule,
-        CoreModule
+        CoreModule,
+
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                whitelistedDomains: ['localhost:5000/api/'],
+                blacklistedRoutes: ['localhost:5000/api/user/auth'],
+                skipWhenExpired: true
+            }
+        })
     ],
     providers: [],
     bootstrap: [AppComponent]
@@ -33,4 +43,8 @@ export class AppModule {
     constructor(router: Router) {
         console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
     }
+}
+
+export function tokenGetter() {
+    return sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
 }

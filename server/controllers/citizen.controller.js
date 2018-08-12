@@ -1,6 +1,7 @@
-import Citizen from '../models/citizen.model';
+import Citizen           from '../models/citizen.model';
+import User              from '../models/user.model';
 import PasswordGenerator from 'generate-password';
-import Crypto from 'crypto';
+import Crypto            from 'crypto';
 
 
 /*
@@ -83,8 +84,34 @@ async function postGeneratePassword(req, res) {
     res.json({ password: _defaultPassword });
 }
 
+/* POST: [/getUserHash] 
+    req JSON {
+        "citizenID": "0432"
+        JWT token in ver 2.0
+    }
+*/
+function postGetUserHash(req, res) {
+    User.findOne({id: req.body.citizenID}, function(err, _user) {
+        if(err) {
+            console.log('ERR');
+        } else if(_user) {
+            const message = {
+                hash: _user.hash,
+                isVote: _user.isVote
+            }
+            res.json(message);
+        } else {
+            const message = {
+                message: 'Invalid citizen ID'
+            }
+            res.json(message);
+        }
+    });
+}
+
 export default {
     check,
     postCitizenById,
-    postGeneratePassword
+    postGeneratePassword,
+    postGetUserHash
 }

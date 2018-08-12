@@ -7,7 +7,7 @@ export const URI_CONFIG = {
     BASE_CITIZEN_API: '/api/citizen',
     /* user url */
     GET_USER_HASH_URL: '/getUserHash',
-    LOGIN_URL: '/login',
+    AUTH_URL: '/auth',
     /* candidate url */
     CANDIDATE_LIST_URL: '/list',
     GET_CANDIDATE_BY_ID_URL: '/getCandidateById',

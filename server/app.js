@@ -15,28 +15,34 @@ import {GeneralConfig} from "./config/general.config";
 /* Import libary */
 
 /* Init variable */
-var app = express();
+global.app = express();
 var port = process.env.port || 5000;
 /* Init variable */
 
 /* MongoDb */
 var db;
-db = mongoose.connect(GeneralConfig.MONGODB_CONNECTION_STRING)
+db = mongoose.connect(GeneralConfig.MONGODB_CONNECTION_STRING, { useNewUrlParser: true } )
     .then(() =>  console.log('connection succesful to mongodb'))
     .catch((err) => console.error(err));
 /* MongoDb */
 
-/* Utility package */
+app.set('jwtSecret', GeneralConfig.SECRET); // secret variable
+
+// =======================
+// configuration =========
+// =======================
+
 // app.use(logger('dev'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true } ));
 app.use(bodyParser.json());
 app.use(compress());
-/* Utility package */
 
-/* Serve UI */
+
+/* Serve UI ---------------------*/
 app.use(express.static(path.join(appRoot.path, 'dist')));
-/* Serve UI */
+/* Serve UI ---------------------*/
+
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
@@ -55,26 +61,26 @@ app.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-/* Routes */
+
+/* Routes ---------------------- */
 app.use('/api', router);
-/* Routes */
+/* Routes ---------------------- */
 
-/* Url Rewriting */
+/* Url Rewriting ----------------*/
 app.get('*', function(req, res, next) {
-    res.sendFile(path.join(appRoot.path, 'dist/index.html'));
+    res.sendFile(path.join(appRoot.path, '../dist/index.html'));
 });
-/* Url Rewriting */
+/* Url Rewriting ----------------*/
 
 
-/* dev */
-// catch 404 and forward to error handler
+// error handler ==================
+/* catch 404 and forward to error handler */
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
@@ -84,7 +90,13 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-// start server on port
+// error handler ==================
+
+
+
+// ================================
+// Start the server ===============
+// ================================
 app.listen(port, function() {
     console.log('server is running on:' + port);
 });

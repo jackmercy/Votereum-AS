@@ -1,8 +1,8 @@
 import User from '../models/user.model';
 import { VERSION } from 'ts-node';
+import jwt from 'jsonwebtoken';
 
-
-/* POTS: [/login] */
+/* POTS: [/auth] */
 /* req JSON {
     "id": "0432",
     "password": "123456"
@@ -24,15 +24,21 @@ function postLogin(req, res) {
         if(err) {
             console.log('ERR');
         } else if(user) {
-            res.status(200);
-            const res_user = {
+
+            const payload = {
                 name: user.name,
                 id: user.id,
                 role: user.role,
                 hash: user.hash,
-                isVote: user.isVote
+                isVote: user.isVote,
             }
-            res.json(res_user);
+
+            var token = jwt.sign(payload, app.get('jwtSecret'), {
+                expiresIn: 3600 // expires in 1 hour
+            });
+
+            res.status(200);
+            res.json({token: token});
         } else {
             const message = {
                 message: 'Invalid username or password'
@@ -82,33 +88,9 @@ function postRegister(req, res) {
 
 }
 
-/* POST: [/getUserHash] 
-    req JSON {
-        "citizenID": "0432"
-        JWT token in ver 2.0
-    }
-*/
-function postGetUserHash(req, res) {
-    User.findOne({id: req.body.citizenID}, function(err, _user) {
-        if(err) {
-            console.log('ERR');
-        } else if(_user) {
-            const message = {
-                hash: _user.hash,
-                isVote: _user.isVote
-            }
-            res.json(message);
-        } else {
-            const message = {
-                message: 'Invalid citizen ID'
-            }
-            res.json(message);
-        }
-    });
-}
+
  
 export default {
     postLogin,
-    postRegister,
-    postGetUserHash
+    postRegister
 }

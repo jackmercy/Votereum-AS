@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 export const STRING_CONFIG = {
-    CURRENT_USER: 'currentUser',
+    ACCESS_TOKEN: 'access_token',
     HASH: 'hash'
 };
 export const httpOptions = {

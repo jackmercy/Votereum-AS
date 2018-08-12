@@ -1,4 +1,4 @@
-import express from 'express';
+import express           from 'express';
 import citizenController from '../controllers/citizen.controller';
 
 var router = express.Router();
@@ -8,5 +8,6 @@ var router = express.Router();
 router.route('/').get(citizenController.check);
 router.route('/').post(citizenController.postCitizenById);
 router.route('/generatePassword').post(citizenController.postGeneratePassword);
+router.route('/getUserHash').post(citizenController.postGetUserHash);
 
 export default router;

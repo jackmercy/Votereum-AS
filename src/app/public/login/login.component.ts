@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators }  from '@angular/forms';
 import { UserService } from '@services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { publicModuleStrings } from '@config/string.config';
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
                         this.snackBar.open(data.message , 'Got it', {
                             duration: 3000,
                         });
-                    } else if (data.name && data.id) {
+                    } else if (data.token) {
                         this._router.navigate(['/home/voting']);
                     }
 
