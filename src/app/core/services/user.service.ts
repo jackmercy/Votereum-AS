@@ -13,6 +13,7 @@ export class UserService {
 
     URI_CONFIG;
     STRING_CONFIG;
+    helper = new JwtHelperService();
 
     constructor(private _http: HttpClient) { }
 
@@ -23,15 +24,19 @@ export class UserService {
                 map((response: Response) => {
                     const res = response;
                     /* write to session storage here */
-
+                    const decodedToken = this.helper.decodeToken(res['token']);
+                    const payload = {
+                        isVote: decodedToken.isVote
+                    };
                     sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
+                    sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
                     return res;
                 })
             );
     }
 
     logout(): void {
-        sessionStorage.removeItem(STRING_CONFIG.ACCESS_TOKEN);
+        sessionStorage.removeItem(STRING_CONFIG.CURRENT_USER);
     }
 
     /* register(name: string, id: string, password: string): Observable<any> {
@@ -46,64 +51,61 @@ export class UserService {
     } */
 
     isAuthorized(): boolean {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const token = sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
 
-        return user ? true : false;
+        return token ? true : false;
     }
 
     isVoted(): boolean {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
 
         return user.isVote;
     }
 
     getRole(): string {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const token = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const decodedToken = this.helper.decodeToken(token);
 
-        return user ? user.role : '';
+        return decodedToken ? decodedToken.role : '';
     }
 
     getName(): string {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const token = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const decodedToken = this.helper.decodeToken(token);
 
-        return user ? user.name : '';
+        return decodedToken ? decodedToken.name : '';
     }
 
     getId(): string {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const token = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const decodedToken = this.helper.decodeToken(token);
 
-        return user ? user.id : '';
+        return decodedToken ? decodedToken.id : '';
     }
 
-    getHash(): string {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+    getHash(): String {
+        const hash = JSON.parse(sessionStorage.getItem(STRING_CONFIG.HASH));
 
-        return user ? user.hash : '';
+        return hash;
     }
 
-    updateUserHash(newHash: string): void {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
-        user.hash = newHash;
-
-        sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(user));
+    updateUserHash(hash: String): void {
+        sessionStorage.setItem(STRING_CONFIG.HASH, JSON.stringify(hash));
     }
 
     updateUserVote(isVoted: Boolean): void {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
+        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
         user.isVote = isVoted;
 
-        sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(user));
+        sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
     }
 
+    /* Unused func */
     getUserHash(citizenID: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_HASH_URL,
             JSON.stringify({citizenID: citizenID}), httpOptions)
             .pipe(
                 map((res: Response) => {
-                    const currentHash = this.getHash();
-                    if (res && res[STRING_CONFIG.HASH] && res[STRING_CONFIG.HASH] !== currentHash) {
-                        this.updateUserHash(res[STRING_CONFIG.HASH]);
-                    }
                     return res;
                 })
             );

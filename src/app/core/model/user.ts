@@ -8,5 +8,5 @@ export class User {
     address: string;
     picture: string;
     isPasswordChanged: boolean;
-    
+
 }

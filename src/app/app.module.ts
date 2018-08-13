@@ -46,5 +46,7 @@ export class AppModule {
 }
 
 export function tokenGetter() {
-    return sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
+    const token = sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
+
+    return token;
 }

@@ -90,7 +90,7 @@ async function postGeneratePassword(req, res) {
         JWT token in ver 2.0
     }
 */
-function postGetUserHash(req, res) {
+function postGetCitizenHash(req, res) {
     User.findOne({id: req.body.citizenID}, function(err, _user) {
         if(err) {
             console.log('ERR');
@@ -113,5 +113,5 @@ export default {
     check,
     postCitizenById,
     postGeneratePassword,
-    postGetUserHash
+    postGetCitizenHash
 }

@@ -25,7 +25,6 @@ export class VoteResultComponent implements OnInit {
     }
 
     onGetStatus() {
-        console.log('on call get status');
         this._contractService.getTxReceipt(this.txHash)
             .subscribe( receipt => {
                 if (receipt) {

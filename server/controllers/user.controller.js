@@ -29,7 +29,6 @@ function postLogin(req, res) {
                 name: user.name,
                 id: user.id,
                 role: user.role,
-                hash: user.hash,
                 isVote: user.isVote,
             }
 
