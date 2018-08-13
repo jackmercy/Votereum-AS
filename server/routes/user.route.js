@@ -8,4 +8,7 @@ var router = express.Router();
 router.route('/auth')
     .post(userController.postLogin);
 
+router.route('/register')
+    .post(userController.postRegister);
+
 export default router;

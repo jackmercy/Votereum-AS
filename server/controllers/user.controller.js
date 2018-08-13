@@ -1,6 +1,10 @@
 import User from '../models/user.model';
 import { VERSION } from 'ts-node';
 import jwt from 'jsonwebtoken';
+import bcrypt  from 'bcrypt';
+
+/* const variable */
+const saltRounds = 10;
 
 /* POTS: [/auth] */
 /* req JSON {
@@ -8,7 +12,7 @@ import jwt from 'jsonwebtoken';
     "password": "123456"
 } */
 function postLogin(req, res) {
-    const user = new User(req.body);
+    const _user = new User(req.body);
 
     if(!req.body.password) {
         res.status(400);
@@ -20,29 +24,40 @@ function postLogin(req, res) {
 
     // handle login request in mongodb - should move those lines into model method
     // see documentation at : http://mongoosejs.com/docs/guide.html
-    User.findOne({id: user.id, password: user.password}, function(err, user) {
+    User.findOne({id: req.body.id}, function(err, user) {
         if(err) {
             console.log('ERR');
         } else if(user) {
 
-            const payload = {
-                name: user.name,
-                id: user.id,
-                role: user.role,
-                isVote: user.isVote,
-            }
-
-            var token = jwt.sign(payload, app.get('jwtSecret'), {
-                expiresIn: 3600 // expires in 1 hour
+            bcrypt.compare(req.body.password, user.hashPassword, function(err, _result) {
+                if (err) throw (err);
+                // result == true
+                if (_result) {
+                    const payload = {
+                        name: user.name,
+                        id: user.id,
+                        role: user.role,
+                        isVote: user.isVote,
+                    }
+        
+                    var token = jwt.sign(payload, app.get('jwtSecret'), {
+                        expiresIn: 3600 // expires in 1 hour
+                    });
+        
+                    res.status(200);
+                    res.json({token: token});
+                } else {
+                    res.json({
+                        message: 'Invalid username or password'
+                    });
+                }
             });
 
-            res.status(200);
-            res.json({token: token});
         } else {
-            const message = {
+
+            res.json({
                 message: 'Invalid username or password'
-            }
-            res.json(message);
+            });
         }
     });
 
@@ -76,12 +91,19 @@ function postRegister(req, res) {
             }
             res.json(message);
         } else if(user.length === 0) {
-            newUser.role = 'citizen';
-            newUser.hash = '0x';
-            newUser.isVote = false;
-            newUser.save();
+            bcrypt.hash(req.body.password, saltRounds, function(err, _hash) {
+                if(err) throw (err);
+                // Store hash in your password DB.
+                console.log(`this is your hash ${_hash}`);
+                newUser.hashPassword = _hash;
+                newUser.role = 'citizen';
+                newUser.hash = '0x';
+                newUser.isVote = false;
+                newUser.save();
+            });
+            
             res.status(201);
-            res.json(newUser);
+            res.json({message: 'success'});
         }
     });
 
@@ -93,3 +115,4 @@ export default {
     postLogin,
     postRegister
 }
+

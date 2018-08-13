@@ -10,13 +10,13 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 /* Base route: [/api] */
 
+router.use('/user', userRoutes);
+
 /** GET [/health-check]
 *  - Check service health */
 router.get('/check', (req, res) =>
   res.send('Hello hooman!')
 );
-
-router.use('/user', userRoutes);
 
 // route middleware to verify a token
 router.use(function(req, res, next) {
