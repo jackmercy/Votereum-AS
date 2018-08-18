@@ -13,6 +13,7 @@ import { MessageService }    from '@services/message.service';
     styleUrls: ['./voting.component.scss']
 })
 export class VotingComponent implements OnInit {
+    /* TODO: add citizen_id on vote => send token, AS check token -> citizen_id */
     mock_candidates: Array<Object> = [
         {
             'id': '1120',

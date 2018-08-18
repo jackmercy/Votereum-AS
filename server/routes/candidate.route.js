@@ -1,4 +1,4 @@
-import express from 'express';
+import express             from 'express';
 import candidateController from '../controllers/candidate.controller';
 
 const router = express.Router();

@@ -1,9 +1,9 @@
-import express from 'express';
-import jwt from 'jsonwebtoken';
-import userRoutes from './user.route';
+import express         from 'express';
+import jwt             from 'jsonwebtoken';
+import userRoutes      from './user.route';
 import candidateRoutes from './candidate.route';
-import contractRoutes from './contract.route';
-import citizenRoutes from './citizen.route';
+import contractRoutes  from './contract.route';
+import citizenRoutes   from './citizen.route';
 // import authRoutes from './auth.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -32,8 +32,8 @@ router.use(function(req, res, next) {
             if (err) {
                 return res.json({ success: false, message: 'Failed to authenticate token.' });    
             } else {
-              // if everything is good, save to request for use in other routes
-                req.decoded = decoded;    
+                // if everything is good, save to request for use in other routes (e.g check user's role)
+                req.token = decoded;    
                 next();
             }
         });

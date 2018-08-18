@@ -1,4 +1,4 @@
-import express from 'express';
+import express            from 'express';
 import ContractController from '../controllers/contract.controller';
 
 const router = express.Router();

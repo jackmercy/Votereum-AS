@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    id: {
+    citizenId: {
         type: String,
         required: true,
         unique: true

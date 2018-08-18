@@ -15,7 +15,7 @@ export class VoterManagementComponent implements OnInit {
     generatedPassword: string;
     user: User;
     userKeyDescription: Object = {
-        id: 'ID number',
+        Id_number: 'ID number',
         firstName: 'Firstname',
         lastName: 'Lastname',
         gender: 'Gender',

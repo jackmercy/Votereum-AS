@@ -17,9 +17,9 @@ export class UserService {
 
     constructor(private _http: HttpClient) { }
 
-    login(id: string, password: string): Observable<any> {
+    login(citizenId: string, password: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.AUTH_URL,
-            JSON.stringify({id: id, password: password}), httpOptions)
+            JSON.stringify({citizenId: citizenId, password: password}), httpOptions)
             .pipe(
                 map((response: Response) => {
                     const res = response;
@@ -80,7 +80,7 @@ export class UserService {
         const token = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
         const decodedToken = this.helper.decodeToken(token);
 
-        return decodedToken ? decodedToken.id : '';
+        return decodedToken ? decodedToken.citizenId : '';
     }
 
     getHash(): String {
@@ -101,9 +101,9 @@ export class UserService {
     }
 
     /* Unused func */
-    getUserHash(citizenID: string): Observable<any> {
+    getUserHash(citizenId: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_HASH_URL,
-            JSON.stringify({citizenID: citizenID}), httpOptions)
+            JSON.stringify({citizenId: citizenId}), httpOptions)
             .pipe(
                 map((res: Response) => {
                     return res;

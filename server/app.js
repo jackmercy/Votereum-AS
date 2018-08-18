@@ -1,14 +1,14 @@
-import express from 'express';
-import path from 'path';
+import express    from 'express';
+import path       from 'path';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import compress from 'compression';
-import appRoot from 'app-root-path';
+import mongoose   from 'mongoose';
+import compress   from 'compression';
+import appRoot    from 'app-root-path';
 // import favicon from 'serve-favicon';
-import morgan from 'morgan';
-import Web3 from 'web3';
-// import logger from 'logger';
-import router from './routes/index.route';
+import morgan     from 'morgan';
+import Web3       from 'web3';
+// import logger  from 'logger';
+import router     from './routes/index.route';
 import {GeneralConfig} from "./config/general.config";
 
 
@@ -22,7 +22,7 @@ var port = process.env.port || 5000;
 /* MongoDb */
 var db;
 db = mongoose.connect(GeneralConfig.MONGODB_CONNECTION_STRING, { useNewUrlParser: true } )
-    .then(() =>  console.log('connection succesful to mongodb'))
+    .then(() =>  console.log('connection successful to mongodb'))
     .catch((err) => console.error(err));
 /* MongoDb */
 

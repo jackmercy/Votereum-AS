@@ -1,5 +1,5 @@
 import Candidate from '../models/candidate.model';
-import mongoose from 'mongoose';
+import mongoose  from 'mongoose';
 
 var ObjectId = mongoose.Types.ObjectId;
 

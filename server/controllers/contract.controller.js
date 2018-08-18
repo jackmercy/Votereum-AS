@@ -1,7 +1,8 @@
 import express from 'express';
-import User from '../models/user.model';
-import Web3 from 'web3';
+import User    from '../models/user.model';
+import Web3    from 'web3';
 
+/* TODO: add citizen_id on vote => send token, AS check token -> citizen_id */
 
 // contractInstance.updateCandidateList(candidateList);
 /* POST: [/createCandidateList]

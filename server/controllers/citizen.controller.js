@@ -17,14 +17,14 @@ function check(req, res) {
 Route: /api/citizen
 Method: POST
 {
-    id: '2222'
+    Id_number: '2222'
 }
 */
 function postCitizenById(req, res) {
-    const _id = req.body['id'];
+    const _id = req.body['Id_number'];
 
     if (_id) {
-        Citizen.findOne({id: _id}, function (err, citizen) {
+        Citizen.findOne({Id_number: _id}, function (err, citizen) {
             if(err) {
                 console.log('ERR');
             } else if(citizen) {
@@ -61,13 +61,13 @@ function isExist(_id) {
 Route: /api/citizen/generatePassword
 Method: POST
 {
-    id: '2222'
+    Id_number: '2222'
 }
 */
 async function postGeneratePassword(req, res) {
-    const _id = req.body['id'];
+    const _id = req.body['Id_number'];
     const _defaultPassword = getGeneratedPassword();
-    const query = { id: _id };
+    const query = { Id_number: _id };
     const updateValues = {
         $set:
             { defaultPassword: Crypto.createHash('md5').update(_defaultPassword).digest('hex') }
@@ -86,7 +86,7 @@ async function postGeneratePassword(req, res) {
 
 /* POST: [/getUserHash] 
     req JSON {
-        "citizenID": "0432"
+        "citizen_id": "0432"
         JWT token in ver 2.0
     }
 */

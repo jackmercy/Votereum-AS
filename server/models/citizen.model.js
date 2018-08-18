@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const CitizenSchema = new mongoose.Schema({
+    Id_number: {
+        type: String,
+        required: true,
+        unique: true
+    },
     firstName: {
         type: String,
         required: true
@@ -8,11 +13,6 @@ const CitizenSchema = new mongoose.Schema({
     lastName: {
         type: String,
         required: true
-    },
-    id: {
-        type: String,
-        required: true,
-        unique: true
     },
     gender: {
         type: String,
@@ -34,13 +34,9 @@ const CitizenSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    isPasswordChanged: {
+    hasSystemAccount: {
         type: Boolean,
         required: true
-    },
-    defaultPassword: {
-        type: String,
-        required: false
     }
 });
 

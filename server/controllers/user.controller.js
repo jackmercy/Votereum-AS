@@ -1,14 +1,13 @@
-import User from '../models/user.model';
-import { VERSION } from 'ts-node';
-import jwt from 'jsonwebtoken';
-import bcrypt  from 'bcrypt';
+import User   from '../models/user.model';
+import jwt    from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 /* const variable */
 const saltRounds = 10;
 
 /* POTS: [/auth] */
 /* req JSON {
-    "id": "0432",
+    "citizenId": "0432",
     "password": "123456"
 } */
 function postLogin(req, res) {
@@ -17,14 +16,14 @@ function postLogin(req, res) {
     if(!req.body.password) {
         res.status(400);
         res.send('Password is required');
-    } else if(!req.body.id) {
+    } else if(!req.body.citizenId) {
         res.status(400);
-        res.send('ID is required');
+        res.send('Citizen ID is required');
     }
 
     // handle login request in mongodb - should move those lines into model method
     // see documentation at : http://mongoosejs.com/docs/guide.html
-    User.findOne({id: req.body.id}, function(err, user) {
+    User.findOne({citizenId: req.body.citizenId}, function(err, user) {
         if(err) {
             console.log('ERR');
         } else if(user) {
@@ -35,7 +34,7 @@ function postLogin(req, res) {
                 if (_result) {
                     const payload = {
                         name: user.name,
-                        id: user.id,
+                        citizenId: user.citizenId,
                         role: user.role,
                         isVote: user.isVote,
                     }
@@ -67,7 +66,7 @@ function postLogin(req, res) {
 /* POTS: [/register] */
 /* req JSON {
     "name": "JK Lo",
-    "id": "0432",
+    "citizenId": "0432",
     "password": "123456"
 } */
 function postRegister(req, res) {
@@ -76,15 +75,15 @@ function postRegister(req, res) {
     if(!req.body.password) {
         res.status(400);
         res.send('Password is required');
-    } else if(!req.body.id) {
+    } else if(!req.body.citizenId) {
         res.status(400);
-        res.send('ID is required');
+        res.send('Citizen ID is required');
     } else if(!req.body.name) {
         res.status(400);
         res.send('Name is required');
     }
 
-    User.find({id: req.body.id}, function(err, user) {
+    User.find({id: req.body.citizenId}, function(err, user) {
         if (err || user.length > 0) {
             const message = {
                 message: 'Duplicate citizen ID'
@@ -94,7 +93,6 @@ function postRegister(req, res) {
             bcrypt.hash(req.body.password, saltRounds, function(err, _hash) {
                 if(err) throw (err);
                 // Store hash in your password DB.
-                console.log(`this is your hash ${_hash}`);
                 newUser.hashPassword = _hash;
                 newUser.role = 'citizen';
                 newUser.hash = '0x';
