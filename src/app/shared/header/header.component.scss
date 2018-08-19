@@ -1,5 +1,9 @@
 @import '~scss/variables';
-
+.fancy-font {
+    font-family: 'Lobster', cursive;
+    font-size: 32px;
+    padding-left: 10px;
+}
 .custom-nav {
     background-color: $secondary-color;
     width: 100vw;

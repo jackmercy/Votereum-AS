@@ -17,7 +17,7 @@ export class VotingComponent implements OnInit {
     mock_candidates: Array<Object> = [
         {
             'id': '1120',
-            'title': 'ms',
+            'title': 'mr',
             'firstName': 'dana',
             'lastName': 'walters',
             'picture': 'https://upload.wikimedia.org/wikipedia/commons/2/26/MacCollins.JPG',
@@ -26,10 +26,18 @@ export class VotingComponent implements OnInit {
         {
             'id': '1125',
             'title': 'mr',
-            'firstName': 'wallace',
-            'lastName': 'jensen',
-            'picture': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Bill_Huizenga,_Official_Portrait,_112th_Congress.jpg',
+            'firstName': 'dwayne',
+            'lastName': 'johnson',
+            'picture': 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Dwayne_Johnson_2%2C_2013.jpg',
             'quote': 'When you reach the end of your rope, tie a knot in it and hang on.'
+        },
+        {
+            'id': '1135',
+            'title': 'ms',
+            'firstName': 'ellen',
+            'lastName': 'DeGeneres',
+            'picture': 'https://upload.wikimedia.org/wikipedia/commons/b/b8/Ellen_DeGeneres_2011.jpg',
+            'quote': 'Let us sacrifice our today so that our children can have a better tomorrow.'
         },
         {
             'id': '1130',
@@ -38,14 +46,6 @@ export class VotingComponent implements OnInit {
             'lastName': 'wilson',
             'picture': 'https://images.wisegeek.com/man-in-gray-suit.jpg',
             'quote': 'There is nothing permanent except change.'
-        },
-        {
-            'id': '1135',
-            'title': 'mr',
-            'firstName': 'mathew',
-            'lastName': 'andrews',
-            'picture': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Bill_Huizenga,_Official_Portrait,_112th_Congress.jpg',
-            'quote': 'Let us sacrifice our today so that our children can have a better tomorrow.'
         },
         {
             'id': '1140',
@@ -58,42 +58,38 @@ export class VotingComponent implements OnInit {
         {
             'id': '1145',
             'title': 'ms',
-            'firstName': 'harper',
-            'lastName': 'mitchell',
-            'picture': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Bill_Huizenga,_Official_Portrait,_112th_Congress.jpg',
+            'firstName': 'Ryan',
+            'lastName': 'Reynolds',
+            // tslint:disable-next-line:max-line-length
+            'picture': 'https://upload.wikimedia.org/wikipedia/commons/1/14/Deadpool_2_Japan_Premiere_Red_Carpet_Ryan_Reynolds_%28cropped%29.jpg',
             'quote': 'Let us sacrifice our today so that our children can have a better tomorrow.'
         },
         {
-            'id': '1150',
-            'title': 'miss',
-            'firstName': 'celina',
-            'lastName': 'johnson',
-            'picture': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Bill_Huizenga,_Official_Portrait,_112th_Congress.jpg',
+            'id': '1145',
+            'title': 'ms',
+            'firstName': 'Ryan',
+            'lastName': 'Reynolds',
+            // tslint:disable-next-line:max-line-length
+            'picture': 'https://upload.wikimedia.org/wikipedia/commons/1/14/Deadpool_2_Japan_Premiere_Red_Carpet_Ryan_Reynolds_%28cropped%29.jpg',
             'quote': 'Let us sacrifice our today so that our children can have a better tomorrow.'
         },
         {
-            'id': '1155',
-            'title': 'miss',
-            'firstName': 'susan',
-            'lastName': 'ruiz',
-            'picture': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Bill_Huizenga,_Official_Portrait,_112th_Congress.jpg',
-            'quote': 'There is no charm equal to tenderness of heart.'
+            'id': '1145',
+            'title': 'ms',
+            'firstName': 'Ryan',
+            'lastName': 'Reynolds',
+            // tslint:disable-next-line:max-line-length
+            'picture': 'https://upload.wikimedia.org/wikipedia/commons/1/14/Deadpool_2_Japan_Premiere_Red_Carpet_Ryan_Reynolds_%28cropped%29.jpg',
+            'quote': 'Let us sacrifice our today so that our children can have a better tomorrow.'
         },
         {
-            'id': '1160',
-            'title': 'miss',
-            'firstName': 'delores',
-            'lastName': 'morrison',
-            'picture': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Bill_Huizenga,_Official_Portrait,_112th_Congress.jpg',
-            'quote': 'There is no charm equal to tenderness of heart.'
-        },
-        {
-            'id': '1165',
-            'title': 'miss',
-            'firstName': 'addison',
-            'lastName': 'shelton',
-            'picture': 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Bill_Huizenga,_Official_Portrait,_112th_Congress.jpg',
-            'quote': 'There is no charm equal to tenderness of heart.'
+            'id': '1145',
+            'title': 'ms',
+            'firstName': 'Ryan',
+            'lastName': 'Reynolds',
+            // tslint:disable-next-line:max-line-length
+            'picture': 'https://upload.wikimedia.org/wikipedia/commons/1/14/Deadpool_2_Japan_Premiere_Red_Carpet_Ryan_Reynolds_%28cropped%29.jpg',
+            'quote': 'Let us sacrifice our today so that our children can have a better tomorrow.'
         }
     ];
     candidates: Array<Object>;
