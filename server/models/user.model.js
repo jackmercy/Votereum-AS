@@ -3,10 +3,6 @@ import mongoose from 'mongoose';
  * User Schema
  */
 const UserSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
     citizenId: {
         type: String,
         required: true,
@@ -25,6 +21,9 @@ const UserSchema = new mongoose.Schema({
         max: 66
     },
     isVote: {
+        type: Boolean
+    },
+    isFirstTimeLogIn: {
         type: Boolean
     }
 });

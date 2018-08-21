@@ -26,10 +26,10 @@ router.use(function(req, res, next) {
 
     // decode token
     if (token) {
-
         // verifies secret and checks exp
-        jwt.verify(token, app.get('superSecret'), function(err, decoded) {      
+        jwt.verify(token, app.get('jwtSecret'), function(err, decoded) {      
             if (err) {
+                console.error(err);
                 return res.json({ success: false, message: 'Failed to authenticate token.' });    
             } else {
                 // if everything is good, save to request for use in other routes (e.g check user's role)

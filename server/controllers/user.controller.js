@@ -91,13 +91,16 @@ function postRegister(req, res) {
             res.json(message);
         } else if(user.length === 0) {
             bcrypt.hash(req.body.password, saltRounds, function(err, _hash) {
-                if(err) throw (err);
-                // Store hash in your password DB.
-                newUser.hashPassword = _hash;
-                newUser.role = 'citizen';
-                newUser.hash = '0x';
-                newUser.isVote = false;
-                newUser.save();
+                if(err) {
+                    throw (err);
+                } else {
+                    // Store hash in your password DB.
+                    newUser.hashPassword = _hash;
+                    newUser.role = 'citizen';
+                    newUser.hash = '0x';
+                    newUser.isVote = false;
+                    newUser.save();
+                }
             });
             
             res.status(201);
