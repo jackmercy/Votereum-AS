@@ -1,7 +1,7 @@
 import express from 'express';
 import User    from '../models/user.model';
 import Web3    from 'web3';
-
+import amqp    from 'amqplib/callback_api';
 /* TODO: add citizen_id on vote => send token, AS check token -> citizen_id */
 
 // contractInstance.updateCandidateList(candidateList);
@@ -72,8 +72,8 @@ function createCandidateList(req, res) {
 
 
 function isAccountUnlocked(req, res) {
-    var voterAddress;
-    var privateKey = '9f151ccd60bdfd3b729cb0e264e3590f52e7a2064e67d8a3e655c65ba294065d';
+    /* var voterAddress;
+    //var privateKey = '9f151ccd60bdfd3b729cb0e264e3590f52e7a2064e67d8a3e655c65ba294065d';
     web3.eth.getAccounts().then(accounts => {
         voterAddress = accounts[0];
         web3.eth.personal.unlockAccount(voterAddress, "", 60000000)
@@ -83,6 +83,43 @@ function isAccountUnlocked(req, res) {
             }).catch((error) => {
             console.log(error);
             return res.send(false);
+        });
+    }); */
+    var voterAddress = '0x8836D199c0aB6dc64101127a4B15f756F815914c';
+
+    amqp.connect('amqp://localhost', function(err, conn) {
+        conn.createChannel(function(err, ch) {
+            /* when we supply queue name as an empty string,
+            we create a non-durable queue with a generated name */
+            ch.assertQueue('', {exclusive: true}, function(err, q) {
+                var corr = generateUuid();
+                var voterObj = {
+                    address: voterAddress
+                }
+                console.log('[AMQP] Request: isAccountUnlocked'); 
+
+                ch.sendToQueue(
+                    'citizen_queue', /* queue */
+                    new Buffer(JSON.stringify(voterObj)), /* content */
+                    /* option */
+                    {
+                        correlationId: corr, replyTo: q.queue
+                    } 
+                );
+
+                ch.consume(q.queue, function(msg) {
+                        if (msg.properties.correlationId == corr) {
+                            console.log(' [AMQP] Got response: isAccountUnlocked');
+                            res.send(msg.content.toString());
+                            /* setTimeout(function() {
+                                conn.close(); 
+                            }, 1000); */
+                            conn.close(); 
+                        }
+                    }, 
+                    { noAck: true }
+                );
+            });
         });
     });
 }
