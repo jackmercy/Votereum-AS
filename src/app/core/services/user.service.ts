@@ -5,7 +5,8 @@ import { map }        from 'rxjs/operators';
 import { URI_CONFIG } from '@config/uri.config';
 import { STRING_CONFIG, httpOptions } from '@config/string.config';
 
-import { JwtHelperService }           from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { BallotService }    from '@services/ballot.service';
 @Injectable()
 export class UserService {
 
@@ -15,7 +16,8 @@ export class UserService {
     STRING_CONFIG;
     helper = new JwtHelperService();
 
-    constructor(private _http: HttpClient) { }
+    constructor(private _http: HttpClient,
+                private _ballotService: BallotService) { }
 
     login(citizenId: string, password: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.AUTH_URL,
@@ -82,7 +84,13 @@ export class UserService {
 
         return decodedToken ? decodedToken.citizenId : '';
     }
-
+    
+/*    hasTheRightToVote(): boolean {
+        this._ballotService.getBallotInfo().subscribe
+    }
+    */
+    
+    /* Unused func */
     getHash(): String {
         const hash = JSON.parse(sessionStorage.getItem(STRING_CONFIG.HASH));
 
@@ -99,8 +107,7 @@ export class UserService {
 
         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
     }
-
-    /* Unused func */
+    
     getUserHash(citizenId: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_HASH_URL,
             JSON.stringify({citizenId: citizenId}), httpOptions)

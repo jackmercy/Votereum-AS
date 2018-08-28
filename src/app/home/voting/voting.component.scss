@@ -110,4 +110,15 @@
     bottom: 0;
     z-index: 2;
 }
+.sticky-ether-account {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.75);
+    z-index: 2;
+    width: 100vw;
+    color: white;
+    margin: -40px;
+    padding: 20px 40px;
+}
+
+
 

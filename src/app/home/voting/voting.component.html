@@ -1,7 +1,21 @@
+<!--Sticky notif-->
+<div class="row justify-content-center sticky-ether-account" *ngIf="!hasEtherAccount">
+
+    <div class="">
+        You haven't set up your blockchain account. You may not be eligible to submit your
+        ballot when the time comes.
+    </div>
+    <div class="col-3">
+        kk
+    </div>
+
+</div>
 <div class="voting-grid">
     <div class="items">
         <!--A candidate-->
         <div class="item" *ngFor="let candidate of candidates" (click)="onCandidateSelected(candidate)">
+
+            <!--A candidate information-->
             <div class="candidate">
                 <div class="image">
                     <img  src="{{ candidate['picture' ]}}">
@@ -14,6 +28,8 @@
                     <p> {{ candidate['quote'] }}</p>
                 </div>
             </div>
+
+            <!--Overlay upon voted-->
             <div class="overlay" [ngClass]="{ 'active': candidate['isSelected'] }">
                 <div>
                     <i class="material-icons">
@@ -25,8 +41,9 @@
 
         </div>
     </div>
+
     <div class="row justify-content-center sticky-footer"
-         [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}">
+         [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}" *ngIf="hasEtherAccount">
         <button class="btn-lg btn-block w-50" color="primary" (click)="onVoteToBlockchain()" mat-raised-button>Vote</button>
     </div>
 </div>
