@@ -30,6 +30,7 @@
     "@angular/router": "6.0.9",
     "@auth0/angular-jwt": "^2.0.0",
     "@types/chart.js": "^2.7.14",
+    "amqplib": "^0.5.2",
     "app-root-path": "^2.0.1",
     "bcrypt": "^3.0.0",
     "body-parser": "^1.18.2",
