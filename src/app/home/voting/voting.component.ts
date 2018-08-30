@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router }            from '@angular/router';
-import { CandidateService }  from '@services/candidate.service';
-import { UserService }       from '@services/user.service';
-import { ContractService }   from '@services/contract.service';
-import { MatSnackBar }       from '@angular/material';
-import * as _                from 'lodash';
-import { MessageService }    from '@services/message.service';
+import { Component, OnInit }                      from '@angular/core';
+import { Router }                                 from '@angular/router';
+import { CandidateService }                       from '@services/candidate.service';
+import { UserService }                            from '@services/user.service';
+import { ContractService }                        from '@services/contract.service';
+import { MatSnackBar }                            from '@angular/material';
+import * as _                                     from 'lodash';
+import { MessageService }                         from '@services/message.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { AccountDialogComponent }                 from '@home/account-dialog/account-dialog.component';
 
 @Component({
     selector: 'app-voting',
@@ -106,7 +108,8 @@ export class VotingComponent implements OnInit {
                 private _contractService: ContractService,
                 private _router: Router,
                 private _messageService: MessageService,
-                public snackBar: MatSnackBar) { }
+                public snackBar: MatSnackBar,
+                public dialog: MatDialog) { }
 
 
 
@@ -164,4 +167,15 @@ export class VotingComponent implements OnInit {
     onCandidateSelected(candidate: Object) {
         this.toggleItemSelection(candidate);
     }
+
+    onSetupAccountClicked() {
+        const dialogRef = this.dialog.open(AccountDialogComponent, {
+            width: 'fit-content',
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+
+        });
+    }
+
 }

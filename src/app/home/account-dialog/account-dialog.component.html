@@ -1,0 +1,40 @@
+<div class="col-md-auto col-layout">
+    <div class="toolbar-box">
+        <mat-toolbar class="login-toolbar">
+                <span id="welcome" class="fill-remaining-space">
+                    SET UP BLOCKCHAIN ACCOUNT
+                </span>
+        </mat-toolbar>
+    </div>
+    <form [formGroup]="accountForm" class="from-gourp">
+        <div class="user-icon">
+            <i class="fas fa-user-cog"></i>
+        </div>
+        <!-- confirmPassword -->
+        <mat-form-field class="full-width-input">
+            <input matInput placeholder="Password" formControlName="password">
+            <mat-error *ngIf="citizenID.invalid">{{getIdErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <!-- Confirm confirmPassword -->
+        <mat-form-field class="full-width-input">
+            <input id="input-confirmPassword" type="confirmPassword" matInput
+                   placeholder="Confirm Password" formControlName="confirmPassword">
+            <mat-error *ngIf="confirmPassword.invalid">{{getconfirmPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <!-- Sign in button -->
+        <div class="flex-center">
+            <button id="sign-in-btn" mat-button (click)="onSetupClicked()" class=" full-width-input"
+                    [disabled]="!accountForm.valid || canDisableSetupButton">
+                <span class="text-color-login-form"> SET UP ACCOUNT </span>
+            </button>
+        </div>
+        <div class="sign-up-text">
+            <div class="checkbox session keep-signed">
+                <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1">
+                <label class="session-text" for="styled-checkbox-1">IMPORTANT: This password </label>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,12 +1,13 @@
 <!--Sticky notif-->
-<div class="row justify-content-center sticky-ether-account" *ngIf="!hasEtherAccount">
-
-    <div class="">
+<div class="row justify-content-center sticky-ether-account"
+     [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}"
+     *ngIf="!hasEtherAccount">
+    <div class="col">
         You haven't set up your blockchain account. You may not be eligible to submit your
         ballot when the time comes.
     </div>
     <div class="col-3">
-        kk
+        <button class="btn btn-outline-light" (click)="onSetupAccountClicked()">Set up Blockchain Account</button>
     </div>
 
 </div>

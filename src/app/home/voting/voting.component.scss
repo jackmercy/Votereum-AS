@@ -118,6 +118,23 @@
     color: white;
     margin: -40px;
     padding: 20px 40px;
+    text-align: center;
+
+    button {
+        &:hover {
+            color: black;
+            background-color: white;
+        }
+    }
+
+    .btn-outline-light:not(:disabled):not(.disabled):active:focus,
+    .btn-outline-light:focus {
+        box-shadow: none;
+    }
+}
+
+/deep/ .mat-dialog-container {
+    padding: 0!important;
 }
 
 
