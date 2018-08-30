@@ -11,6 +11,15 @@ import Web3       from 'web3';
 import router     from './routes/index.route';
 import {GeneralConfig} from "./config/general.config";
 
+/* SSL */
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+var privateKey  = fs.readFileSync('./ssl/server.key', 'utf8');
+var certificate = fs.readFileSync('./ssl/server.crt', 'utf8');
+
+var credentials = {key: privateKey, cert: certificate};
+/* SSL */
 
 /* Import libary */
 
@@ -104,8 +113,20 @@ global.generateUuid = function() {
 // ================================
 // Start the server ===============
 // ================================
-app.listen(port, function() {
+var httpServer = http.createServer(app, function(req, res) {
+    console.log(`this is req url ${req.headers['host']} ${req.url}`);
+    res.writeHead(307, { "Location": "https://" + req.headers['host'] + req.url }); 
+    res.end();
+});
+var httpsServer = https.createServer(credentials, app);
+httpServer.listen(port, function() {
     console.log('server is running on:' + port);
 });
+httpsServer.listen(5443, function() {
+    console.log('server is running on: 5443');
+});
+/* app.listen(port, function() {
+    console.log('server is running on:' + port);
+}); */
 
 export default app;

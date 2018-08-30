@@ -49,7 +49,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ether-vote-as:build"
+            "browserTarget": "ether-vote-as:build",
+            "ssl": true,
+            "sslKey": "./ssl/server.key",
+            "sslCert": "./ssl/server.crt"
           },
           "configurations": {
             "production": {
