@@ -7,7 +7,7 @@ var router = express.Router();
 
 router.route('/').get(citizenController.check);
 router.route('/').post(citizenController.postCitizenById);
-router.route('/generatePassword').post(citizenController.postGeneratePassword);
+router.route('/postGenerateNewPassword').post(citizenController.postGenerateNewPassword);
 router.route('/getUserHash').post(citizenController.postGetCitizenHash);
 router.route('/generateUserAccount').post(citizenController.postGenerateUserAccount);
 export default router;

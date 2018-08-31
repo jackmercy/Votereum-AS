@@ -68,7 +68,8 @@ Method: POST
 }
 */
 function postGenerateUserAccount(req, res) {
-    var user = User.countDocuments({'Id_number': req.body.Id_number}).exec();
+    var _id = req.body.Id_number;
+    var user = User.countDocuments({'Id_number': _id}).exec();
 
     user.then( n => {
         if (n === 0) {
@@ -81,25 +82,46 @@ function postGenerateUserAccount(req, res) {
                     console.log(err);
                 } else {
                     // Store hash in your password DB.
-                    newUser.citizenId = req.body.Id_number;
-                    newUser.hashPassword = _defaultPassword;
+                    newUser.citizenId = _id;
+                    newUser.hashPassword = _hash;
                     newUser.role = 'citizen';
                     newUser.hash = '0x';
                     newUser.isVote = false;
                     newUser.isFirstTimeLogIn = false;
                     newUser.save();
+                    /*  After successful store new User account
+                        Update hasSystemAccount value in Citizen*/
+                        /* Update hasSystemAccount */
+                    const query = { Id_number: _id };
+                    const updateValues = {
+                        $set:
+                            { hasSystemAccount: true }
+                    };
+
+                    if (_id) {
+                        Citizen.updateOne(
+                            query,
+                            updateValues,
+                            { overwrite: true, upsert: false },
+                            function (err, rawResponse) {});
+                    }
                 }
+                
             });
             res.json({
-                message: `Created new user with id ${req.body.Id_number}`,
+                err: false,
+                message: 'success',
+                userId: _id,
                 defaultPassword: _defaultPassword
             });
         } else if (n >= 1) {
             res.json({
+                err: true,
                 message: 'Citizen have already had system account'
             });
         } else {
             res.json({
+                err: true,
                 message: 'Something wrong with the server'
             });
         }
@@ -115,24 +137,37 @@ Method: POST
 }
 */
 /* TODO: generate pwd then add salt -> user can log in their account for the first time */
-async function postGeneratePassword(req, res) {
+async function postGenerateNewPassword(req, res) {
     const _id = req.body['Id_number'];
-    const _defaultPassword = getGeneratedPassword();
+    const _newDefaultPassword = getGeneratedPassword();
     const query = { Id_number: _id };
-    const updateValues = {
-        $set:
-            { defaultPassword: Crypto.createHash('md5').update(_defaultPassword).digest('hex') }
-    };
-
+    
     if (_id) {
-        Citizen.updateOne(
-            query,
-            updateValues,
-            { overwrite: true, upsert: false },
-            function (err, rawResponse) {});
+        User.findOne(query, function(err, user) {
+            if(err) {
+                console.log(err);
+            } else {
+                bcrypt.hash(_newDefaultPassword, saltRounds, function(err, _hash) {
+                    const updateValues = {
+                        $set:
+                            { hashPassword: _hash }
+                    };
+                    Citizen.updateOne(
+                        query,
+                        updateValues,
+                        { overwrite: true, upsert: false },
+                        function (err, rawResponse) {}
+                    );
+
+                    res.json({
+                        err: false,
+                        password: _newDefaultPassword
+                    });
+                });
+            }
+        });
     }
 
-    res.json({ password: _defaultPassword });
 }
 
 /* POST: [/getUserHash] 
@@ -164,7 +199,7 @@ function postGetCitizenHash(req, res) {
 export default {
     check,
     postCitizenById,
-    postGeneratePassword,
+    postGenerateNewPassword,
     postGetCitizenHash,
     postGenerateUserAccount
 }

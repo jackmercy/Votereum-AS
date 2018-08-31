@@ -20,17 +20,35 @@
 
                         <button class="search-button" (click)="searchUser()" mat-stroked-button >Search</button>
                     </div>
-
-                    <div class="password-button">
-                        <button mat-stroked-button [disabled]="!isCitizenExist"
-                                 (click)="generatePassword()" >Generate Password</button>
-                        <button *ngIf="user && user.isPasswordChanged " mat-stroked-button >Request new password</button>
+                    <!-- Generate new passwod -->
+                    <div *ngIf="hasSystemAccount">
+                        <div class="password-button">
+                            <button mat-stroked-button [disabled]="!isCitizenExist"
+                                     (click)="generateNewPassword()" >Generate new password</button>
+                            <button *ngIf="user && user.isPasswordChanged " mat-stroked-button >Request new password</button>
+                        </div>
+    
+                        <div class="password-generate">
+                            <p>New password generated:</p>
+                            <p class="generated-password">{{ generatedNewPassword? generatedNewPassword : '---'}}</p>
+                        </div>
                     </div>
+                    <!-- End of Generate new passwod -->
 
-                    <div class="password-generate">
-                        <p>Password generated:</p>
-                        <p class="generated-password">{{ generatedPassword? generatedPassword : '---'}}</p>
+                    <!-- Generate system account -->
+                    <div *ngIf="!hasSystemAccount">
+                        <div class="password-button">
+                            <button mat-stroked-button [disabled]="!isCitizenExist"
+                                     (click)="generateSystemAccount()" >Generate system account</button>
+                        </div>
+    
+                        <div class="password-generate">
+                            <p>New account generated:</p>
+                            <p class="generated-password">{{ generatedUserId? generatedUserId : '---'}}</p>
+                            <p class="generated-password">{{ generatedUserPassword? generatedUserPassword : '---'}}</p>
+                        </div>
                     </div>
+                    <!-- End of Generate system account -->
                 </div>
 
                 <!--User information-->

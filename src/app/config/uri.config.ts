@@ -22,5 +22,6 @@ export const URI_CONFIG = {
     GET_BLOCK_URL: '/getBlock',
     /*citizen url*/
     CITIZEN_BY_ID: '',
-    CITIZEN_GENERATE_PASSWORD: '/generatePassword'
+    CITIZEN_GENERATE_PASSWORD: '/postGenerateNewPassword',
+    CITIZEN_GENERATE_SYSTEM_ACCOUNT: '/generateUserAccount'
 };

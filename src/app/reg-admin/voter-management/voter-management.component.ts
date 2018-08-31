@@ -12,8 +12,11 @@ export class VoterManagementComponent implements OnInit {
 
     userId: string;
     idFormControl: FormControl;
-    generatedPassword: string;
+    generatedNewPassword: string;
+    generatedUserId: String;
+    generatedUserPassword: String;
     user: User;
+    hasSystemAccount: Boolean;
     userKeyDescription: Object = {
         Id_number: 'ID number',
         firstName: 'Firstname',
@@ -21,7 +24,7 @@ export class VoterManagementComponent implements OnInit {
         gender: 'Gender',
         birthDate: 'Date of birth',
         homeTown: 'Home town',
-        address: 'Address'
+        address: 'Address',
     };
     isCitizenExist: boolean;
 
@@ -40,17 +43,31 @@ export class VoterManagementComponent implements OnInit {
         this.idFormControl.valueChanges.subscribe(data => {
             if (this.isCitizenExist) {
                 this.isCitizenExist = !this.isCitizenExist;
-                this.generatedPassword = '';
+                this.generatedNewPassword = '';
             }
         });
+        this.hasSystemAccount = false;
     }
 
 
-    generatePassword() {
-        this._regAdminService.getGeneratedPassword(this.userId).subscribe(
+    generateNewPassword() {
+        this._regAdminService.getGeneratedNewPassword(this.userId).subscribe(
             data => {
-                console.log(data);
-                this.generatedPassword = data['password'];
+                if (!data['err']) {
+                    this.generatedNewPassword = data['password'];
+                }
+            });
+    }
+
+    generateSystemAccount() {
+        this._regAdminService.generateUserSystemAccount(this.userId).subscribe(
+            data => {
+                if (!data['err']) {
+                    this.generatedUserId = data['userId'];
+                    this.generatedUserPassword = data['defaultPassword'];
+                } else if (data['err']) {
+                    console.log(data['message']);
+                }
             });
     }
 
@@ -60,7 +77,10 @@ export class VoterManagementComponent implements OnInit {
             console.log(data);
             this.user = <User> data;
             this.isCitizenExist = true;
+            this.hasSystemAccount = data['hasSystemAccount'];
         }, error => this.isCitizenExist = false);
-        this.generatedPassword = '';
+        this.generatedNewPassword = '';
+        this.generatedUserId = '';
+        this.generatedUserPassword = '';
     }
 }

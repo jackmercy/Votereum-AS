@@ -84,12 +84,11 @@ export class UserService {
 
         return decodedToken ? decodedToken.citizenId : '';
     }
-    
+
 /*    hasTheRightToVote(): boolean {
         this._ballotService.getBallotInfo().subscribe
     }
     */
-    
     /* Unused func */
     getHash(): String {
         const hash = JSON.parse(sessionStorage.getItem(STRING_CONFIG.HASH));
@@ -107,7 +106,7 @@ export class UserService {
 
         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
     }
-    
+
     getUserHash(citizenId: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_HASH_URL,
             JSON.stringify({citizenId: citizenId}), httpOptions)
