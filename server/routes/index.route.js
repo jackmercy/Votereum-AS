@@ -5,6 +5,7 @@ import candidateRoutes from './candidate.route';
 import contractRoutes  from './contract.route';
 import citizenRoutes   from './citizen.route';
 import ballotRoutes    from './ballot.route';
+import bcAccountRoutes from './blockchain-account.route';
 // import authRoutes from './auth.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -55,5 +56,6 @@ router.use('/candidate', candidateRoutes);
 router.use('/contract', contractRoutes);
 router.use('/citizen', citizenRoutes);
 router.use('/ballot', ballotRoutes);
+router.use('/blockchainAccount', bcAccountRoutes);
 
 export default router;
