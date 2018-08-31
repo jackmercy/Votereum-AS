@@ -88,6 +88,7 @@ function postGenerateUserAccount(req, res) {
                     newUser.hash = '0x';
                     newUser.isVote = false;
                     newUser.isFirstTimeLogIn = false;
+                    newUser.hasBlockchainAccount = false;
                     newUser.save();
                     /*  After successful store new User account
                         Update hasSystemAccount value in Citizen*/
