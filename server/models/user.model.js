@@ -25,6 +25,10 @@ const UserSchema = new mongoose.Schema({
     },
     isFirstTimeLogIn: {
         type: Boolean
+    },
+    hasBlockchainAccount: {
+        type: Boolean,
+        required: true
     }
 });
 /**
