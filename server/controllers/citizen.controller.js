@@ -1,7 +1,6 @@
 import Citizen           from '../models/citizen.model';
 import User              from '../models/user.model';
 import PasswordGenerator from 'generate-password';
-import Crypto            from 'crypto';
 import bcrypt            from 'bcrypt';
 
 /* const variable */
@@ -104,7 +103,8 @@ function postGenerateUserAccount(req, res) {
                             query,
                             updateValues,
                             { overwrite: true, upsert: false },
-                            function (err, rawResponse) {});
+                            function (err, rawResponse) {}
+                        );
                     }
                 }
                 
@@ -147,7 +147,7 @@ async function postGenerateNewPassword(req, res) {
         User.findOne(query, function(err, user) {
             if(err) {
                 console.log(err);
-            } else {
+            } else if (user) {
                 bcrypt.hash(_newDefaultPassword, saltRounds, function(err, _hash) {
                     const updateValues = {
                         $set:
@@ -164,6 +164,11 @@ async function postGenerateNewPassword(req, res) {
                         err: false,
                         password: _newDefaultPassword
                     });
+                });
+            } else {
+                res.json({
+                    err: true,
+                    message: 'Something wrong with the server or user id is not exist'
                 });
             }
         });
