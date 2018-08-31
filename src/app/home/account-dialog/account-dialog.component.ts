@@ -1,9 +1,11 @@
-import { Component, Inject, OnInit }                  from '@angular/core';
-import { FormBuilder, FormGroup, Validators }         from '@angular/forms';
-import { Router }                                     from '@angular/router';
-import { publicModuleStrings }                        from '@config/string.config';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { UserService }                                from '@services/user.service';
+import { Component, Inject, OnInit }                           from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router }                                              from '@angular/router';
+import { publicModuleStrings }                                 from '@config/string.config';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar }          from '@angular/material';
+import { UserService }                                         from '@services/user.service';
+import Web3                                                    from 'web3';
+import { WEB3 }                                                from '@core/web3-token';
 
 
 @Component({
@@ -16,47 +18,46 @@ export class AccountDialogComponent implements OnInit {
     pageStrings: any;
     accountForm: FormGroup;
     canDisableSetupButton: boolean;
-    isLoggedIn: any;
+    error: string;
+    isSuccess: boolean;
 
     constructor(private _formBuilder: FormBuilder,
                 private _userService: UserService,
                 private _router: Router,
                 public snackBar: MatSnackBar,
                 public dialogRef: MatDialogRef<AccountDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: any) { }
+                @Inject(MAT_DIALOG_DATA) public data: any,
+                @Inject(WEB3) private web3: Web3) { }
 
     ngOnInit() {
         this.accountForm = this._formBuilder.group({
             password: ['', Validators.required],
-            confirmPassword: ['', Validators.required]
+            confirmPassword: ['', Validators.required],
+            checked: [false]
         });
-        this.canDisableSetupButton = false;
+        this.canDisableSetupButton = true;
+        this.isSuccess = false;
     }
 
     onSetupClicked() {
-        this._userService.login(this.citizenID.value, this.confirmPassword.value)
-        .subscribe(
-            data => {
-                if (data.message) {
-                    this.snackBar.open(data.message , 'Got it', {
-                        duration: 3000,
-                    });
-                } else if (data.token) {
-                    this._router.navigate(['/home/voting']);
-                }
-
-            },
-            error => {
-                console.log(error);
-            }
-        );
+        this.web3.eth.personal.newAccount(this.password.value).then((_address) => {
+            const account = {
+                address: _address,
+                password: this.password.value,
+                citizenId: this._userService.getId()
+            };
+            this._userService.setupChainAccount(account)
+            .subscribe(() => this.isSuccess = true,
+                (error) => this.error = error.message
+            );
+        }).catch((error) => this.error = error.message );
     }
 
-    onSignUp() {
-        this._router.navigate(['/register']);
+    onCancelClicked() {
+        this.dialogRef.close();
     }
 
-    get citizenID() {
+    get password() {
         return this.accountForm.get('password');
     }
 
@@ -64,13 +65,7 @@ export class AccountDialogComponent implements OnInit {
         return this.accountForm.get('confirmPassword');
     }
 
-    getIdErrorMessage() {
-        return this.citizenID.hasError('required') ? 'Mandatory information' : '';
+    getErrorMessage(control: AbstractControl) {
+        return control.hasError('required') ? 'Mandatory information' : '';
     }
-
-    getconfirmPasswordErrorMessage() {
-        return this.confirmPassword.hasError('required') ? 'Mandatory information' : '';
-    }
-
-
 }

@@ -112,7 +112,8 @@ export const CUSTOM_FORMATS = {
     providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
 
-        {provide: MAT_DATE_FORMATS, useValue: CUSTOM_FORMATS},
+        {provide: MAT_DATE_FORMATS, useValue: CUSTOM_FORMATS}
+
     ]
 })
 export class SharedModule { }

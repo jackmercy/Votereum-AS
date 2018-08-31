@@ -11,4 +11,7 @@ router.route('/auth')
 router.route('/register')
     .post(userController.postRegister);
 
+router.route('/chainAccount')
+    .post(userController.postChainAccount);
+
 export default router;

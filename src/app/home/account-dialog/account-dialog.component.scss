@@ -25,7 +25,6 @@
 }
 
 .from-gourp {
-    height: 380px;
     padding: 50px 40px 20px 40px;
     background-color: $primary-light;
     /* box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); */
@@ -34,20 +33,32 @@
 
 .full-width-input {
     width: 100%;
+    border-radius: 2px;
     &.mat-button {
         /* border-radius: 25px; */
-        margin-top: 40px;
+        margin-top: 1rem;
         background-color: $login-primary-color;
         color: $text-on-secondary;
     }
+}
 
+.btn-primary:disabled {
+    background-color: $primary-darker;
+    border-color: $primary-darker;
+}
+
+.cancel {
+    margin-left: 5px;
+}
+.setup {
+    margin-right: 5px;
 }
 
 .flex-center {
     display: flex;
     justify-content: center;
     #sign-in-btn {
-        border-radius: 5px;
+        border-radius: 2px;
         width: 100%;
     }
 }
@@ -73,9 +84,8 @@
 }
 
 .sign-up-text {
-    display: flex;
-    margin-top: 60px;
-    text-align: center;
+    margin-top: 10px;
+    font-size: 0.9rem;
     .sign-up {
         cursor: pointer;
         text-decoration: underline;
@@ -89,8 +99,6 @@
         }
     }
     .keep-signed {
-        padding-left: 20px;
-        padding-right: 20px;
     }
     .forget-pwd {
         padding-left: 20px;
