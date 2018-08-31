@@ -6,7 +6,8 @@
                 </span>
         </mat-toolbar>
     </div>
-    <form [formGroup]="accountForm" class="from-gourp" *ngIf="!error && !isSuccess">
+    <!--*ngIf="!error && !isSuccess"-->
+    <form [formGroup]="accountForm" class="from-gourp" *ngIf="false">
         <div class="user-icon">
             <i class="fas fa-user-cog"></i>
         </div>
@@ -49,15 +50,21 @@
         </div>
     </form>
 
-    <div *ngIf="error && !isSuccess">
-        <p>Error message: {{ error}}</p>
-        <p>Try again later!</p>
-    </div>
+    <div class="info-message">
+        <div *ngIf="error && !isSuccess">
+            <p>Error message: {{ error}}</p>
+            <p>Try again later!</p>
+        </div>
 
-    <div *ngIf="isSuccess">
-        Successfully set up blockchain account!
+        <div *ngIf="isSuccess">
+            Successfully set up blockchain account!
+
+        </div>
+
         <button (click)="onCancelClicked()" class="full-width-input setup btn btn-primary">
             <span class="text-color-login-form">CLOSE</span>
         </button>
     </div>
+
+
 </div>

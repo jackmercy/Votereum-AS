@@ -37,6 +37,7 @@ export class AccountDialogComponent implements OnInit {
         });
         this.canDisableSetupButton = true;
         this.isSuccess = false;
+        this.error = 'Error has occured';
     }
 
     onSetupClicked() {
