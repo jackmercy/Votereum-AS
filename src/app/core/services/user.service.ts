@@ -89,6 +89,12 @@ export class UserService {
         this._ballotService.getBallotInfo().subscribe
     }
     */
+
+    setupChainAccount(account: Object) {
+        return this._http.post(URI_CONFIG.BASE_USER_API + '/chainAccount',
+            JSON.stringify(account), httpOptions);
+    }
+
     /* Unused func */
     getHash(): String {
         const hash = JSON.parse(sessionStorage.getItem(STRING_CONFIG.HASH));

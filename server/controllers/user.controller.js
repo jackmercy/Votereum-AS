@@ -38,11 +38,11 @@ function postLogin(req, res) {
                         role: user.role,
                         isVote: user.isVote,
                     }
-        
+
                     var token = jwt.sign(payload, app.get('jwtSecret'), {
                         expiresIn: 3600 // expires in 1 hour
                     });
-        
+
                     res.status(200);
                     res.json({token: token});
                 } else {
@@ -102,7 +102,7 @@ function postRegister(req, res) {
                     newUser.save();
                 }
             });
-            
+
             res.status(201);
             res.json({message: 'success'});
         }
@@ -110,10 +110,24 @@ function postRegister(req, res) {
 
 }
 
+/* POTS: [/register] */
+/* req JSON {
+    "address": "JK Lo",
+    "citizenId": "0432",
+    "password": "123456"
+} */
+function postChainAccount(req, res) {
+    const account = req.body;
+    console.log(account);
+    res.send('Success');
+}
 
- 
+
+
+
 export default {
     postLogin,
-    postRegister
+    postRegister,
+    postChainAccount
 }
 

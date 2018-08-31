@@ -1,0 +1,63 @@
+<div class="col-md-auto col-layout">
+    <div class="toolbar-box">
+        <mat-toolbar class="login-toolbar">
+                <span id="welcome" class="fill-remaining-space">
+                    SET UP BLOCKCHAIN ACCOUNT
+                </span>
+        </mat-toolbar>
+    </div>
+    <form [formGroup]="accountForm" class="from-gourp" *ngIf="!error && !isSuccess">
+        <div class="user-icon">
+            <i class="fas fa-user-cog"></i>
+        </div>
+        <!-- Password -->
+        <mat-form-field class="full-width-input">
+            <input type="password" matInput placeholder="Password" formControlName="password">
+            <mat-error *ngIf="password.invalid">{{getErrorMessage(password)}}</mat-error>
+        </mat-form-field>
+
+        <!-- Confirm password -->
+        <mat-form-field class="full-width-input">
+            <input type="password" id="input-confirmPassword" matInput
+                   placeholder="Confirm Password" formControlName="confirmPassword">
+            <mat-error *ngIf="confirmPassword.invalid">{{getErrorMessage(confirmPassword)}}</mat-error>
+        </mat-form-field>
+        <div class="sign-up-text">
+            <div>
+                <label class="session-text" >
+                    IMPORTANT: Please write it down and keep in a safe place.
+                    You cannot change or recover this password once it is lost. In case of losing password, you can
+                    only request for a new blockchain account in Registration Phrase.
+                </label>
+            </div>
+            <div class="checkbox session keep-signed">
+                <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1"
+                       formControlName="checked">
+                <label for="styled-checkbox-1"> I have read and agree with the condition above.</label>
+            </div>
+        </div>
+
+        <!-- Sign in button -->
+        <div class="flex-center">
+            <button id="sign-in-btn" (click)="onSetupClicked()" class="full-width-input setup btn btn-primary"
+                    [disabled]="!accountForm.valid">
+                <span class="text-color-login-form"> SET UP ACCOUNT </span>
+            </button>
+            <button (click)="onCancelClicked()" class="full-width-input cancel btn btn-primary">
+                <span class="text-color-login-form"> CANCEL </span>
+            </button>
+        </div>
+    </form>
+
+    <div *ngIf="error && !isSuccess">
+        <p>Error message: {{ error}}</p>
+        <p>Try again later!</p>
+    </div>
+
+    <div *ngIf="isSuccess">
+        Successfully set up blockchain account!
+        <button (click)="onCancelClicked()" class="full-width-input setup btn btn-primary">
+            <span class="text-color-login-form">CLOSE</span>
+        </button>
+    </div>
+</div>

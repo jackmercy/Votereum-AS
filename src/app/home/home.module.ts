@@ -11,6 +11,7 @@ import { HomeMasterComponent } from './master/master.component';
 import { VotingComponent }     from './voting/voting.component';
 import { ScoreBoardComponent } from './score-board/score-board.component';
 import { VoteResultComponent } from './vote-result/vote-result.component';
+import { AccountDialogComponent } from './account-dialog/account-dialog.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -26,7 +27,11 @@ import { VoteResultComponent } from './vote-result/vote-result.component';
         HomeMasterComponent,
         VotingComponent,
         ScoreBoardComponent,
-        VoteResultComponent
+        VoteResultComponent,
+        AccountDialogComponent
+    ],
+    entryComponents: [
+        AccountDialogComponent
     ]
 })
 export class HomeModule { }
