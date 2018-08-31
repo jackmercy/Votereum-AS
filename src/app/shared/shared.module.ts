@@ -85,6 +85,7 @@ export const CUSTOM_FORMATS = {
         MatMenuModule,
         MatGridListModule,
         MatDividerModule,
+        MatProgressSpinnerModule,
         FormsModule,
         ReactiveFormsModule,
 

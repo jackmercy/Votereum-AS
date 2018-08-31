@@ -110,9 +110,14 @@
 .info-message {
     padding: 40px;
 
-    div {
-        margin-bottom: 40px;
+    button {
+        margin-top: 40px;
     }
+
+    mat-spinner {
+        margin: 0 auto
+    }
+
 }
 
 

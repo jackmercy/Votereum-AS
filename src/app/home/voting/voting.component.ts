@@ -133,7 +133,7 @@ export class VotingComponent implements OnInit {
         });
 
         this.votingResult.citizenID =  this._userService.getId();
-        this.hasBlockchainAccount = false;
+        this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
     }
 
     onVoteToBlockchain() {
@@ -174,7 +174,10 @@ export class VotingComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-
+            if (result) {
+                // this._router.navigate(['/home/voting']);
+                location.reload();
+            }
         });
     }
 

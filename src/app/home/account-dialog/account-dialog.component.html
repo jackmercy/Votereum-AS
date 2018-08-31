@@ -6,8 +6,8 @@
                 </span>
         </mat-toolbar>
     </div>
-    <!--*ngIf="!error && !isSuccess"-->
-    <form [formGroup]="accountForm" class="from-gourp" *ngIf="false">
+    <!--*ngIf="!error && !isSuccess && !isLoading"-->
+    <form [formGroup]="accountForm" class="from-gourp" *ngIf="!error && !isSuccess && !isLoading">
         <div class="user-icon">
             <i class="fas fa-user-cog"></i>
         </div>
@@ -38,32 +38,37 @@
             </div>
         </div>
 
-        <!-- Sign in button -->
+        <!-- Button group -->
         <div class="flex-center">
             <button id="sign-in-btn" (click)="onSetupClicked()" class="full-width-input setup btn btn-primary"
                     [disabled]="!accountForm.valid">
                 <span class="text-color-login-form"> SET UP ACCOUNT </span>
             </button>
-            <button (click)="onCancelClicked()" class="full-width-input cancel btn btn-primary">
+            <button (click)="onCancelClicked(false)" class="full-width-input cancel btn btn-primary">
                 <span class="text-color-login-form"> CANCEL </span>
             </button>
         </div>
     </form>
 
-    <div class="info-message">
-        <div *ngIf="error && !isSuccess">
+    <div class="info-message" *ngIf="isSuccess || error ">
+        <div *ngIf="error && !isLoading">
             <p>Error message: {{ error}}</p>
             <p>Try again later!</p>
+            <button (click)="onCancelClicked(false)" class="full-width-input setup btn btn-primary">
+                <span class="text-color-login-form">CLOSE</span>
+            </button>
         </div>
 
-        <div *ngIf="isSuccess">
+        <div *ngIf="isSuccess && !isLoading">
             Successfully set up blockchain account!
-
+            <button (click)="onCancelClicked(true)" class="full-width-input setup btn btn-primary">
+                <span class="text-color-login-form">CLOSE</span>
+            </button>
         </div>
+    </div>
 
-        <button (click)="onCancelClicked()" class="full-width-input setup btn btn-primary">
-            <span class="text-color-login-form">CLOSE</span>
-        </button>
+    <div class="info-message" *ngIf="isLoading">
+        <mat-spinner mode="indeterminate"></mat-spinner>
     </div>
 
 

@@ -64,6 +64,16 @@ export class UserService {
         return user.isVote;
     }
 
+    // This is temporary
+    hasBlockchainAccount(): boolean {
+        return JSON.parse(sessionStorage.getItem('hasBlockchainAccount')).hasBlockchainAccount;
+    }
+
+    setHasBlockchainAccount(value) {
+        sessionStorage.setItem('hasBlockchainAccount',
+            JSON.stringify({ hasBlockchainAccount: value }));
+    }
+
     getRole(): string {
         const token = JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN));
         const decodedToken = this.helper.decodeToken(token);
@@ -92,7 +102,10 @@ export class UserService {
 
     setupChainAccount(account: Object) {
         return this._http.post(URI_CONFIG.BASE_USER_API + '/chainAccount',
-            JSON.stringify(account), httpOptions);
+            JSON.stringify(account), httpOptions).pipe(
+                map((response: Response) =>
+                    console.log(response)
+                ));
     }
 
     /* Unused func */

@@ -118,8 +118,8 @@ function postRegister(req, res) {
 } */
 function postChainAccount(req, res) {
     const account = req.body;
-    console.log(account);
-    res.send('Success');
+    //console.log(account);
+    res.json({message: 'success'});
 }
 
 
