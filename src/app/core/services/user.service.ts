@@ -20,6 +20,7 @@ export class UserService {
                 private _ballotService: BallotService) { }
 
     login(citizenId: string, password: string): Observable<any> {
+        sessionStorage.clear();
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.AUTH_URL,
             JSON.stringify({citizenId: citizenId, password: password}), httpOptions)
             .pipe(
@@ -27,6 +28,7 @@ export class UserService {
                     const res = response;
                     /* write to session storage here */
                     const decodedToken = this.helper.decodeToken(res['token']);
+                    /* TODO: get citizen details (populate mongoose user + citizen) */
                     const payload = {
                         isVote: decodedToken.isVote
                     };
@@ -39,6 +41,7 @@ export class UserService {
 
     logout(): void {
         sessionStorage.removeItem(STRING_CONFIG.CURRENT_USER);
+        sessionStorage.removeItem(STRING_CONFIG.ACCESS_TOKEN);
     }
 
     /* register(name: string, id: string, password: string): Observable<any> {
