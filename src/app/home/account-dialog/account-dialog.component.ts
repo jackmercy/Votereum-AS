@@ -20,6 +20,8 @@ export class AccountDialogComponent implements OnInit {
     canDisableSetupButton: boolean;
     error: string;
     isSuccess: boolean;
+    isLoading: boolean;
+
 
     constructor(private _formBuilder: FormBuilder,
                 private _userService: UserService,
@@ -37,9 +39,12 @@ export class AccountDialogComponent implements OnInit {
         });
         this.canDisableSetupButton = true;
         this.isSuccess = false;
+        this.isLoading = false;
+        this.error = '';
     }
 
     onSetupClicked() {
+        this.isLoading = true;
         this.web3.eth.personal.newAccount(this.password.value).then((_address) => {
             const account = {
                 address: _address,
@@ -47,15 +52,27 @@ export class AccountDialogComponent implements OnInit {
                 citizenId: this._userService.getId()
             };
             this._userService.setupChainAccount(account)
-            .subscribe(() => this.isSuccess = true,
-                (error) => this.error = error.message
+            .subscribe(() => {
+                    this.isSuccess = true;
+                    this.isLoading = false;
+                    // This should be removed after hasBlockchainAccount check is implemented
+                    this._userService.setHasBlockchainAccount(true);
+                },
+                (error) => {
+                    this.error = error.message;
+                    this.isLoading = false;
+                }
             );
-        }).catch((error) => this.error = error.message );
+        }).catch((error) => {
+            this.error = error.message;
+            this.isLoading = false;
+        });
     }
 
-    onCancelClicked() {
-        this.dialogRef.close();
+    onCancelClicked(willRedirect: boolean) {
+        this.dialogRef.close(willRedirect);
     }
+    
 
     get password() {
         return this.accountForm.get('password');

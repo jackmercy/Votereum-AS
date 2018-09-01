@@ -100,7 +100,7 @@ export class VotingComponent implements OnInit {
         citizenID: ''
     };
     isSideBarActive: Boolean;
-    hasEtherAccount: Boolean;
+    hasBlockchainAccount: Boolean;
 
 
     constructor(private _candidateService: CandidateService,
@@ -133,7 +133,7 @@ export class VotingComponent implements OnInit {
         });
 
         this.votingResult.citizenID =  this._userService.getId();
-        this.hasEtherAccount = false;
+        this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
     }
 
     onVoteToBlockchain() {
@@ -174,7 +174,10 @@ export class VotingComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-
+            if (result) {
+                // this._router.navigate(['/home/voting']);
+                location.reload();
+            }
         });
     }
 

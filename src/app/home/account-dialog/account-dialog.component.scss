@@ -106,6 +106,21 @@
     }
 
 }
+
+.info-message {
+    padding: 40px;
+
+    button {
+        margin-top: 40px;
+    }
+
+    mat-spinner {
+        margin: 0 auto
+    }
+
+}
+
+
 /* Checkbox */
 /* .styled-checkbox {
     // Box.
