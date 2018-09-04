@@ -19,14 +19,14 @@ function check(req, res) {
 Route: /api/citizen
 Method: POST
 {
-    Id_number: '2222'
+    citizenId: '2222'
 }
 */
 function postCitizenById(req, res) {
-    const _id = req.body['Id_number'];
+    const _id = req.body['citizenId'];
 
     if (_id) {
-        Citizen.findOne({Id_number: _id}, function (err, citizen) {
+        Citizen.findOne({citizenId: _id}, function (err, citizen) {
             if(err) {
                 console.log(err);
             } else if(citizen) {
@@ -63,12 +63,12 @@ function isExist(_id) {
 Route: /api/citizen/generateUserAccount
 Method: POST
 {
-    Id_number: '2222'
+    citizenId: '2222'
 }
 */
 function postGenerateUserAccount(req, res) {
-    var _id = req.body.Id_number;
-    var user = User.countDocuments({'Id_number': _id}).exec();
+    var _id = req.body.citizenId;
+    var user = User.countDocuments({'citizenId': _id}).exec();
 
     user.then( n => {
         if (n === 0) {
@@ -92,7 +92,7 @@ function postGenerateUserAccount(req, res) {
                     /*  After successful store new User account
                         Update hasSystemAccount value in Citizen*/
                         /* Update hasSystemAccount */
-                    const query = { Id_number: _id };
+                    const query = { citizenId: _id };
                     const updateValues = {
                         $set:
                             { hasSystemAccount: true }
@@ -134,14 +134,14 @@ function postGenerateUserAccount(req, res) {
 Route: /api/citizen/generatePassword
 Method: POST
 {
-    Id_number: '2222'
+    citizenId: '2222'
 }
 */
 /* TODO: generate pwd then add salt -> user can log in their account for the first time */
 async function postGenerateNewPassword(req, res) {
-    const _id = req.body['Id_number'];
+    const _id = req.body['citizenId'];
     const _newDefaultPassword = getGeneratedPassword();
-    const query = { Id_number: _id };
+    const query = { citizenId: _id };
     
     if (_id) {
         User.findOne(query, function(err, user) {

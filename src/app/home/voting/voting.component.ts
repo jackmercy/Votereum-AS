@@ -175,7 +175,6 @@ export class VotingComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                // this._router.navigate(['/home/voting']);
                 location.reload();
             }
         });

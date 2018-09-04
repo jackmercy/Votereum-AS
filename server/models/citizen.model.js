@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const CitizenSchema = new mongoose.Schema({
-    Id_number: {
+    citizenId: {
         type: String,
         required: true,
         unique: true

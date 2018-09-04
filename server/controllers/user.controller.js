@@ -122,9 +122,6 @@ function postChainAccount(req, res) {
     res.json({message: 'success'});
 }
 
-
-
-
 export default {
     postLogin,
     postRegister,
