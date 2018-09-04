@@ -21,7 +21,7 @@ router.get('/check', (req, res) =>
 );
 
 // route middleware to verify a token
-/*router.use(function(req, res, next) {
+router.use(function(req, res, next) {
 
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -29,6 +29,7 @@ router.get('/check', (req, res) =>
     // decode token
     if (token) {
         // verifies secret and checks exp
+        console.log(`[.] Token is ${token}`);
         jwt.verify(token, app.get('jwtSecret'), function(err, decoded) {
             if (err) {
                 console.error(err);
@@ -50,12 +51,14 @@ router.get('/check', (req, res) =>
         });
 
     }
-});*/
+});
 // End of route middleware to verify a token
 router.use('/candidate', candidateRoutes);
 router.use('/contract', contractRoutes);
 router.use('/citizen', citizenRoutes);
 router.use('/ballot', ballotRoutes);
 router.use('/blockchainAccount', bcAccountRoutes);
-
+router.get('/checkToken', (req, res) =>
+    res.send('Hello hooman! with token')
+);
 export default router;

@@ -6,9 +6,12 @@ export const STRING_CONFIG = {
 };
 export const httpOptions = {
     headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'x-access-token': sessionStorage.getItem('access_token') ? JSON.parse(sessionStorage.getItem('access_token')) : ''
     })
 };
+
+
 export const publicModuleStrings = {
     SIGN_IN: 'sign in',
     CITIZEN_ID: 'Citizen\'s ID',
