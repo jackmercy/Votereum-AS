@@ -20,3 +20,9 @@ export const publicModuleStrings = {
     KEEP_SIGNED_IN_TEXT: 'keep me signed in',
     FORGET_PASSWORD: 'forget password?'
 };
+
+export const roleConfig = {
+    CITIZEN: 'citizen',
+    RA : 'reg-admin', // registration admin
+    EA : 'election-admin'
+};

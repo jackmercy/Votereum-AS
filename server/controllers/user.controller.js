@@ -37,6 +37,8 @@ function postLogin(req, res) {
                         citizenId: user.citizenId,
                         role: user.role,
                         isVote: user.isVote,
+                        isFirstTimeLogIn:  user.isFirstTimeLogIn,
+                        hasBlockchainAccount: user.hasBlockchainAccount
                     }
 
                     var token = jwt.sign(payload, app.get('jwtSecret'), {
@@ -99,6 +101,8 @@ function postRegister(req, res) {
                     newUser.role = 'citizen';
                     newUser.hash = '0x';
                     newUser.isVote = false;
+                    newUser.isFirstTimeLogIn = false;
+                    newUser.hasBlockchainAccount = false;
                     newUser.save();
                 }
             });

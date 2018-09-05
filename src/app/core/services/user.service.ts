@@ -30,7 +30,9 @@ export class UserService {
                     const decodedToken = this.helper.decodeToken(res['token']);
                     /* TODO: get citizen details (populate mongoose user + citizen) */
                     const payload = {
-                        isVote: decodedToken.isVote
+                        isVote: decodedToken.isVote,
+                        isFirstTimeLogIn: decodedToken.isFirstTimeLogIn,
+                        hasBlockchainAccount: decodedToken.hasBlockchainAccount
                     };
                     sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
                     sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
@@ -67,11 +69,13 @@ export class UserService {
         return user.isVote;
     }
 
-    // This is temporary
     hasBlockchainAccount(): boolean {
-        return JSON.parse(sessionStorage.getItem('hasBlockchainAccount')).hasBlockchainAccount;
+        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+
+        return user.hasBlockchainAccount;
     }
 
+    /* refactor */
     setHasBlockchainAccount(value) {
         sessionStorage.setItem('hasBlockchainAccount',
             JSON.stringify({ hasBlockchainAccount: value }));
