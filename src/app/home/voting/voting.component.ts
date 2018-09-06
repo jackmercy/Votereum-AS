@@ -134,6 +134,7 @@ export class VotingComponent implements OnInit {
 
         this.votingResult.citizenID =  this._userService.getId();
         this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
+        console.log(this.hasBlockchainAccount);
     }
 
     onVoteToBlockchain() {
@@ -165,7 +166,9 @@ export class VotingComponent implements OnInit {
     }
 
     onCandidateSelected(candidate: Object) {
-        this.toggleItemSelection(candidate);
+        if (this.hasBlockchainAccount) {
+            this.toggleItemSelection(candidate);
+        }
     }
 
     onSetupAccountClicked() {

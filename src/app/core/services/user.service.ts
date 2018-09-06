@@ -57,6 +57,23 @@ export class UserService {
             );
     } */
 
+    updateUserInfoLocal(citizenId: string): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_INFO_URL,
+            JSON.stringify({citizenId: citizenId}), httpOptions)
+        .pipe(
+            map((response: Response) => {
+                const user = response['data'];
+                /* TODO: get citizen details (populate mongoose user + citizen) */
+                const payload = {
+                    isVote: user.isVote,
+                    isFirstTimeLogIn: user.isFirstTimeLogIn,
+                    hasBlockchainAccount: user.hasBlockchainAccount
+                };
+                sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+            })
+        );
+    }
+
     isAuthorized(): boolean {
         const token = sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
 
@@ -108,7 +125,7 @@ export class UserService {
     */
 
     setupChainAccount(account: Object) {
-        return this._http.post(URI_CONFIG.BASE_USER_API + '/chainAccount',
+        return this._http.post(URI_CONFIG.BASE_BLOCKCHAIN_API + '/storeAccount',
             JSON.stringify(account), httpOptions).pipe(
                 map((response: Response) =>
                     console.log(response)
