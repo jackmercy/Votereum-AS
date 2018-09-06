@@ -53,18 +53,21 @@ export class AccountDialogComponent implements OnInit {
             };
             this._userService.setupChainAccount(account)
             .subscribe(() => {
-                    this.isSuccess = true;
-                    this.isLoading = false;
-                    // This should be removed after hasBlockchainAccount check is implemented
-                    this._userService.setHasBlockchainAccount(true);
+                    this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(_ => {
+                        this.isSuccess = true;
+                        this.isLoading = false;
+                    }, error => {
+                        this.error = error.error.message;
+                        this.isLoading =    false;
+                    });
                 },
                 (error) => {
-                    this.error = error.message;
-                    this.isLoading = false;
+                    this.error = error.error.message;
+                    this.isLoading =    false;
                 }
             );
         }).catch((error) => {
-            this.error = error.message;
+            this.error = error.error.message;
             this.isLoading = false;
         });
     }
@@ -72,7 +75,7 @@ export class AccountDialogComponent implements OnInit {
     onCancelClicked(willRedirect: boolean) {
         this.dialogRef.close(willRedirect);
     }
-    
+
 
     get password() {
         return this.accountForm.get('password');

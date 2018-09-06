@@ -5,9 +5,11 @@ export const URI_CONFIG = {
     BASE_CONTRACT_API: '/api/contract',
     BASE_CANDIDATE_API: 'api/candidate',
     BASE_CITIZEN_API: '/api/citizen',
+    BASE_BLOCKCHAIN_API: '/api/blockchainAccount',
     /* user url */
     GET_USER_HASH_URL: '/getUserHash',
     AUTH_URL: '/auth',
+    GET_USER_INFO_URL: '/getUserInfo',
     /* candidate url */
     CANDIDATE_LIST_URL: '/list',
     GET_CANDIDATE_BY_ID_URL: '/getCandidateById',

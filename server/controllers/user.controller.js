@@ -48,15 +48,18 @@ function postLogin(req, res) {
                     res.status(200);
                     res.json({token: token});
                 } else {
+                    res.status(400);
                     res.json({
+                        error: true,
                         message: 'Invalid username or password'
                     });
                 }
             });
 
         } else {
-
+            res.status(400);
             res.json({
+                error: true,
                 message: 'Invalid username or password'
             });
         }
@@ -114,21 +117,47 @@ function postRegister(req, res) {
 
 }
 
-/* POTS: [/register] */
+/* POTS: [/getUserInfo] */
 /* req JSON {
-    "address": "JK Lo",
-    "citizenId": "0432",
-    "password": "123456"
+    "citizenId": "0432"
 } */
-function postChainAccount(req, res) {
-    const account = req.body;
-    //console.log(account);
-    res.json({message: 'success'});
+function postUserInfo(req, res) {
+    const _user = new User(req.body);
+
+    if(!req.body.citizenId) {
+        res.status(400);
+        res.send('Citizen ID is required');
+    }
+
+    // handle login request in mongodb - should move those lines into model method
+    // see documentation at : http://mongoosejs.com/docs/guide.html
+    User.findOne({citizenId: req.body.citizenId}, function(err, user) {
+        if(err) {
+            console.log('ERR');
+        } else if(user) {
+            const payload = {
+                name: user.name,
+                citizenId: user.citizenId,
+                role: user.role,
+                isVote: user.isVote,
+                isFirstTimeLogIn:  user.isFirstTimeLogIn,
+                hasBlockchainAccount: user.hasBlockchainAccount
+            };
+
+            res.status(200);
+            res.json({data: payload});
+        } else {
+            res.status(400);
+            res.json({
+                message: 'Invalid username or password'
+            });
+        }
+    });
 }
 
 export default {
     postLogin,
     postRegister,
-    postChainAccount
+    postUserInfo
 }
 

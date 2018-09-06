@@ -73,7 +73,7 @@ function postStoreBlockchainAccount(req, res) {
             res.json({
                 err: true,
                 message: 'Something wrong with the server'
-            });
+        });
         }
     });
     
