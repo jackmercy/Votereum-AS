@@ -33,7 +33,7 @@ function postLogin(req, res) {
                 // result == true
                 if (_result) {
                     const payload = {
-                        name: user.name,
+                        name: user.name, /* Username should get from citizen */
                         citizenId: user.citizenId,
                         role: user.role,
                         isVote: user.isVote,

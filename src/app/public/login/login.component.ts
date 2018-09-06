@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
-
-import { FormBuilder, FormGroup, Validators }  from '@angular/forms';
+import { JwtHelperService }  from '@auth0/angular-jwt';
 
 import { UserService } from '@services/user.service';
 import { MatSnackBar } from '@angular/material';
-import { publicModuleStrings } from '@config/string.config';
 
+import { FormBuilder, FormGroup, Validators }  from '@angular/forms';
+import { publicModuleStrings, roleConfig }     from '@config/string.config';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     loginFormGroup: FormGroup;
     canDisableSignInButton: boolean;
     isLoggedIn: any;
+    helper = new JwtHelperService();
 
     constructor(private _formBuilder: FormBuilder,
                 private _userService: UserService,
@@ -41,7 +42,15 @@ export class LoginComponent implements OnInit {
                             duration: 3000,
                         });
                     } else if (data.token) {
-                        this._router.navigate(['/home/voting']);
+                        /* Navigate base on role */
+                        const decodedToken = this.helper.decodeToken(data.token);
+                        if (decodedToken.role === roleConfig.CITIZEN) {
+                            this._router.navigate(['/home/voting']);
+                        } else if (decodedToken.role === roleConfig.EA) {
+                            this._router.navigate(['/ea-admin/management']);
+                        } else if (decodedToken.role === roleConfig.RA) {
+                            this._router.navigate(['/reg-admin/voter']);
+                        }
                     }
 
                 },

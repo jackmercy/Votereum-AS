@@ -43,6 +43,7 @@ import { NavbarComponent }        from '@shared/nav/navbar.component';
 /*Pipe*/
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 import { ErrorFieldComponent } from './error-field/error-field.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 export const CUSTOM_FORMATS = {
     parse: {
@@ -108,7 +109,9 @@ export const CUSTOM_FORMATS = {
         ConfirmDialogComponent,
         ObjectKeysPipe,
 
-        ErrorFieldComponent
+        ErrorFieldComponent,
+
+        UnauthorizedComponent
     ],
     providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
