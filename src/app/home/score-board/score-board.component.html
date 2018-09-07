@@ -1,3 +1,8 @@
 <div class="container-fluid wrapper score-grid no-gutters">
-    <canvas id="canvas">{{ chart }}</canvas>
+    <ul>
+        <li *ngFor="let _result of result">
+            <p>Candidate Id: {{ _result.candidateId }}</p>
+            <p>{{ _result.voteCount }}</p>
+        </li>
+    </ul>
 </div>

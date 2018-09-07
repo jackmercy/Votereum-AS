@@ -35,6 +35,8 @@ router.route('/hasRight')
 
 /*------------------EA-----------------*/
 
+
+/*-----------------Public----------------------*/
 router.route('/candidate/result')
     .post(BallotController.postCandidateResult);
 
