@@ -10,7 +10,7 @@ export class CitizenGuard implements CanActivate {
     canActivate(): boolean {
         /* TODO: check if user's role is citizen or not */
         if (this._userService.getRole() !== roleConfig.CITIZEN) {
-            /* this._router.navigate(['']); */
+            this._router.navigate(['/home/unauthorized']);
             /* navigate to unauthorized page */
             return false;
         }

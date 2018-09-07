@@ -26,24 +26,25 @@ export class UserService {
             .pipe(
                 map((response: Response) => {
                     const res = response;
-                    /* write to session storage here */
-                    const decodedToken = this.helper.decodeToken(res['token']);
-                    /* TODO: get citizen details (populate mongoose user + citizen) */
-                    const payload = {
-                        isVote: decodedToken.isVote,
-                        isFirstTimeLogIn: decodedToken.isFirstTimeLogIn,
-                        hasBlockchainAccount: decodedToken.hasBlockchainAccount
-                    };
-                    sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
-                    sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+                    if (res['token']) {
+                        /* write to session storage here */
+                        const decodedToken = this.helper.decodeToken(res['token']);
+                        /* TODO: get citizen details (populate mongoose user + citizen) */
+                        const payload = {
+                            isVote: decodedToken.isVote,
+                            isFirstTimeLogIn: decodedToken.isFirstTimeLogIn,
+                            hasBlockchainAccount: decodedToken.hasBlockchainAccount
+                        };
+                        sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
+                        sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+                    }
                     return res;
                 })
             );
     }
 
     logout(): void {
-        sessionStorage.removeItem(STRING_CONFIG.CURRENT_USER);
-        sessionStorage.removeItem(STRING_CONFIG.ACCESS_TOKEN);
+        sessionStorage.clear();
     }
 
     /* register(name: string, id: string, password: string): Observable<any> {

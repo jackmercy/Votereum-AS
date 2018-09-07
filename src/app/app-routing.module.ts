@@ -2,8 +2,8 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 /* Guard */
-import { AuthGuard }  from '@app/core/guards/auth.guard';
-import { VotedGuard } from '@app/core/guards/voted.guard';
+import { AuthGuard }         from '@app/core/guards/auth.guard';
+
 /* Core/Shared */
 import { NotFoundComponent } from '@app/shared/not-found/not-found.component';
 
@@ -15,17 +15,17 @@ const moduleRoutes: Routes = [
     },
     {
         path: 'ea-admin',
-        /* canActivate: [AuthGuard], */
+        canActivate: [AuthGuard],
         loadChildren: './ea-admin/ea-admin.module#EAAdminModule',
     },
     {
         path: 'reg-admin',
-        /* canActivate: [AuthGuard], */
+        canActivate: [AuthGuard],
         loadChildren: './reg-admin/reg-admin.module#RegAdminModule',
     },
     {
         path: 'home',
-        /* canActivate: [AuthGuard], */
+        canActivate: [AuthGuard],
         loadChildren: './home/home.module#HomeModule',
     },
     { path: '**', component: NotFoundComponent }

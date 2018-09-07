@@ -8,7 +8,9 @@ import { SharedModule } from '@app/shared/shared.module';
 /* Guard */
 import { AuthGuard }    from '@app/core/guards/auth.guard';
 import { VotedGuard }   from '@app/core/guards/voted.guard';
-
+import { CitizenGuard } from '@app/core/guards/citizen.guard';
+import { EaGuard }      from '@app/core/guards/ea.guard';
+import { RaGuard }      from '@app/core/guards/ra.guard';
 /* Services */
 import { CandidateService } from '@services/candidate.service';
 import { UserService }      from '@services/user.service';
@@ -35,8 +37,11 @@ import { throwIfAlreadyLoaded } from '@app/core/guards/module-import.guard';
         ContractService,
         MessageService,
         AuthGuard,
-        VotedGuard
-  ]
+        VotedGuard,
+        CitizenGuard,
+        EaGuard,
+        RaGuard
+    ]
 })
 export class CoreModule {
     constructor( @Optional() @SkipSelf() parentModule: CoreModule) {

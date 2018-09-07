@@ -10,10 +10,10 @@ export class EaGuard implements CanActivate {
     canActivate(): boolean {
         /* TODO: check if user's role is election admin or not */
         if (this._userService.getRole() !== roleConfig.EA) {
-            /* this._router.navigate(['']); */
+            this._router.navigate(['/ea-admin/unauthorized']);
             /* navigate to unauthorized page */
             return false;
         }
-        return false;
+        return true;
     }
 }

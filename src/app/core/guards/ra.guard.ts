@@ -10,10 +10,10 @@ export class RaGuard implements CanActivate {
     canActivate(): boolean {
         /* TODO: check if user's role is election admin or not */
         if (this._userService.getRole() !== roleConfig.RA) {
-            /* this._router.navigate(['']); */
+            this._router.navigate(['/reg-admin/unauthorized']);
             /* navigate to unauthorized page */
             return false;
         }
-        return false;
+        return true;
     }
 }
