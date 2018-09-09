@@ -126,7 +126,10 @@ function postUserInfo(req, res) {
 
     if(!req.body.citizenId) {
         res.status(400);
-        res.send('Citizen ID is required');
+        res.json({error: true, message: 'Citizen ID is required'});
+    } else if (!citizenGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
     }
 
     // handle login request in mongodb - should move those lines into model method

@@ -29,6 +29,7 @@ export class UserService {
                     if (res['token']) {
                         /* write to session storage here */
                         const decodedToken = this.helper.decodeToken(res['token']);
+                        console.log(decodedToken);
                         /* TODO: get citizen details (populate mongoose user + citizen) */
                         const payload = {
                             isVote: decodedToken.isVote,
