@@ -5,11 +5,27 @@ import mongoose from 'mongoose';
  */
 const CandidateSchema = new mongoose.Schema({
     _id:  mongoose.Schema.Types.ObjectId ,
-    name: {
+    id: {
         type: String,
         required: true
     },
-    party: {
+    title: {
+        type: String,
+        required: true
+    },
+    first: {
+        type: String,
+        required: true
+    },
+    last: {
+        type: String,
+        required: true
+    },
+    quote: {
+        type: String,
+        required: true
+    },
+/*    party: {
         type: String,
         required: true
     },
@@ -40,7 +56,7 @@ const CandidateSchema = new mongoose.Schema({
     birthday: {
         type: Date,
         required: true
-    },
+    },*/
     avatar: {
         type: String,
         required: true

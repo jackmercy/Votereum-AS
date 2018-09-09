@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild }                  from '@angular/core';
 /* import * as _moment          from 'moment';
 import { default as _rollupMoment }                      from 'moment'; */
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { MatSelectionList, MatStepper }                  from '@angular/material';
 /*
 const moment = _rollupMoment || _moment; */
 @Component({
@@ -14,6 +15,8 @@ export class BallotSetupComponent implements OnInit {
     ballotInfoFormGroup: FormGroup;
     candidateFormGroup: FormGroup;
     phasesSequenceFormGroup: FormGroup;
+
+    @ViewChild('shoes') private selectionList: MatSelectionList;
 
     typesOfShoes: string[] = ['Trump', 'Obama', 'Putin', 'Kim Jong Un'];
 
@@ -35,6 +38,7 @@ export class BallotSetupComponent implements OnInit {
             startVotingPhase: ['', Validators.required],
             endVotingPhase: ['', Validators.required],
         });
+        console.log(this.selectionList);
 
         // get timestamp from moment date format: ...controls['startRegPhase'].value.format('X');
     }

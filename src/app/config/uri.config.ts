@@ -7,6 +7,7 @@ export const URI_CONFIG = {
     BASE_CITIZEN_API: '/api/citizen',
     BASE_BLOCKCHAIN_API: '/api/blockchainAccount',
     BASE_BALLOT_API: '/api/ballot',
+    BASE_EA_API: '/api/ea',
     /* user url */
     GET_USER_HASH_URL: '/getUserHash',
     AUTH_URL: '/auth',

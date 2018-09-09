@@ -6,6 +6,7 @@ import contractRoutes  from './contract.route';
 import citizenRoutes   from './citizen.route';
 import ballotRoutes    from './ballot.route';
 import bcAccountRoutes from './blockchain-account.route';
+import eaRoutes from './election-admin.route';
 // import authRoutes from './auth.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -21,7 +22,7 @@ router.get('/check', (req, res) =>
 );
 
 // route middleware to verify a token
-router.use(function(req, res, next) {
+/*router.use(function(req, res, next) {
 
     // check header or url parameters or post parameters for token
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -51,13 +52,14 @@ router.use(function(req, res, next) {
         });
 
     }
-});
+});*/
 // End of route middleware to verify a token
 router.use('/candidate', candidateRoutes);
 router.use('/contract', contractRoutes);
 router.use('/citizen', citizenRoutes);
 router.use('/ballot', ballotRoutes);
 router.use('/blockchainAccount', bcAccountRoutes);
+router.use('/ea', eaRoutes);
 router.get('/checkToken', (req, res) =>
     res.send('Hello hooman! with token')
 );
