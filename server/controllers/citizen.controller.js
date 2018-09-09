@@ -11,7 +11,7 @@ Route: /api/citizen/check
 Method: GET
 */
 function check(req, res) {
-    if (!citizenGuard(req.token)) {
+    if (!RaGuard(req.token)) {
         res.status(403);
         res.json({error: true, message: 'You do not have permission to access this API'});
     } else {
@@ -28,7 +28,7 @@ Method: POST
 }
 */
 function postCitizenById(req, res) {
-    if (!citizenGuard(req.token)) {
+    if (!RaGuard(req.token) || CitizenGuard(req.token)) {
         res.status(403);
         res.json({error: true, message: 'You do not have permission to access this API'});
     }
@@ -76,7 +76,7 @@ Method: POST
 }
 */
 function postGenerateUserAccount(req, res) {
-    if (!citizenGuard(req.token)) {
+    if (!RaGuard(req.token)) {
         res.status(403);
         res.json({error: true, message: 'You do not have permission to access this API'});
     }
@@ -152,7 +152,7 @@ Method: POST
 */
 /* TODO: generate pwd then add salt -> user can log in their account for the first time */
 async function postGenerateNewPassword(req, res) {
-    if (!citizenGuard(req.token)) {
+    if (!RaGuard(req.token)) {
         res.status(403);
         res.json({error: true, message: 'You do not have permission to access this API'});
     }

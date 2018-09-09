@@ -34,7 +34,7 @@ router.use(function(req, res, next) {
             if (err) {
                 console.error(err);
                 return res.json({ error: true, message: 'Failed to authenticate token.' });
-            } else if(!expirationGuard(decoded)) {
+            } else if(!ExpirationGuard(decoded)) {
                 return res.json({ error: true, message: 'Token is expired' });
             } else {
                 // if everything is good, save to request for use in other routes (e.g check user's role)

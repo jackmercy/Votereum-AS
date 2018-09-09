@@ -113,18 +113,18 @@ global.generateUuid = function() {
     });
 }
 
-global.getTimestampNow = function() {
+global.GetTimestampNow = function() {
     return Math.floor(Date.now() / 1000) | 0;
 }
 /* Guard => return true if token is valid */
-global.expirationGuard = function(decodedToken) {
+global.ExpirationGuard = function(decodedToken) {
     if (decodedToken['exp'] < getTimestampNow()) {
         return false;
     }
     return true;
 }
 
-global.citizenGuard = function(decodedToken) {
+global.CitizenGuard = function(decodedToken) {
     if (decodedToken['role'] === RoleConfig.CITIZEN) {
         return true;
     }
