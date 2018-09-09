@@ -103,6 +103,10 @@ function handlePostRequest(method, res, data) {
 }
 */
 function getBallotInfo(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handleGetRequest('getBallotInfo', res);
 }
 
@@ -128,12 +132,20 @@ Condition: startRegPhase < endRegPhase < startVotingPhase < endVotingPhase
 "0xb69748c2df17e870b48366ca06942140071b5cb0d0f7757791134336dfa80716"
 */
 function postBallotInfo(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handlePostRequest('postBallotInfo', res, req.body);
 }
 
 
 /* - POST: [/api/ballot/close]*/
 function postCloseBallot(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handlePostRequest('postCloseBallot', res, req.body);
 }
 
@@ -147,6 +159,10 @@ function postCloseBallot(req, res) {
 "0xb69748c2df17e870b48366ca06942140071b5cb0d0f7757791134336dfa80716"
 */
 function postCandidates(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handlePostRequest('postCandidates', res, req.body);
 }
 
@@ -159,6 +175,10 @@ function postCandidates(req, res) {
 }
 */
 function getIsFinalized(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handleGetRequest('getIsFinalized', res);
 }
 
@@ -175,6 +195,10 @@ function getIsFinalized(req, res) {
 }
 */
 function postFinalizeBallot(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handlePostRequest('postFinalizeBallot', res, req.body);
 }
 
@@ -191,6 +215,10 @@ function postFinalizeBallot(req, res) {
 }
 */
 function postGiveRightToVote(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handlePostRequest('postGiveRightToVote', res, req.body);
 }
 
@@ -206,6 +234,10 @@ function postGiveRightToVote(req, res) {
 }
 */
 function postHasRightToVote(req, res) {
+    if (!CitizenGuard(req.token) ||!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handlePostRequest('postHasRightToVote', res, req.body);
 }
 
@@ -229,6 +261,10 @@ function postHasRightToVote(req, res) {
 }
 */
 function postCandidateResult(req, res) {
+    if (!citizenGuard(req.token) || !EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     handlePostRequest('postCandidateResult', res, req.body)
 }
 

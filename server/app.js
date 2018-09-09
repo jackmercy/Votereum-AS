@@ -9,7 +9,9 @@ import morgan     from 'morgan';
 import Web3       from 'web3';
 // import logger  from 'logger';
 import router     from './routes/index.route';
-import {GeneralConfig} from "./config/general.config";
+import { GeneralConfig } from "./config/general.config";
+import { RoleConfig }    from './config/role.config';
+import { retry }         from 'rxjs/operators';
 
 /* SSL */
 var fs = require('fs');
@@ -101,13 +103,50 @@ app.use(function(err, req, res, next) {
 });
 // error handler ==================
 
-
+// ================================
+// global function ================
+// ================================
 global.generateUuid = function() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
         return v.toString(16);
     });
 }
+
+global.GetTimestampNow = function() {
+    return Math.floor(Date.now() / 1000) | 0;
+}
+/* Guard => return true if token is valid */
+global.ExpirationGuard = function(decodedToken) {
+    if (decodedToken['exp'] < getTimestampNow()) {
+        return false;
+    }
+    return true;
+}
+
+global.CitizenGuard = function(decodedToken) {
+    if (decodedToken['role'] === RoleConfig.CITIZEN) {
+        return true;
+    }
+    return false;
+}
+
+global.EaGuard = function(decodedToken) {
+    if (decodedToken['role'] === RoleConfig.EA) {
+        return true;
+    }
+    return false;
+}
+
+global.RaGuard = function(decodedToken) {
+    if (decodedToken['role'] === RoleConfig.RA) {
+        return true;
+    }
+    return false;
+}
+
+
+/* global function ================ */
 
 
 // ================================

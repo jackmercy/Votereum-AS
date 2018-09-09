@@ -11,7 +11,12 @@ Route: /api/citizen/check
 Method: GET
 */
 function check(req, res) {
-    res.send('successfully connect to /citizen route');
+    if (!RaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    } else {
+        res.send('successfully connect to /citizen route');
+    }
 }
 
 
@@ -23,6 +28,10 @@ Method: POST
 }
 */
 function postCitizenById(req, res) {
+    if (!RaGuard(req.token) || CitizenGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     const _id = req.body['citizenId'];
 
     if (_id) {
@@ -67,6 +76,10 @@ Method: POST
 }
 */
 function postGenerateUserAccount(req, res) {
+    if (!RaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     var _id = req.body.citizenId;
     var user = User.countDocuments({'citizenId': _id}).exec();
 
@@ -139,6 +152,10 @@ Method: POST
 */
 /* TODO: generate pwd then add salt -> user can log in their account for the first time */
 async function postGenerateNewPassword(req, res) {
+    if (!RaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     const _id = req.body['citizenId'];
     const _newDefaultPassword = getGeneratedPassword();
     const query = { citizenId: _id };
@@ -183,6 +200,10 @@ async function postGenerateNewPassword(req, res) {
     }
 */
 function postGetCitizenHash(req, res) {
+    if (!citizenGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     User.findOne({id: req.body.citizenID}, function(err, _user) {
         if(err) {
             console.log(err);

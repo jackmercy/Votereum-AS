@@ -5,6 +5,10 @@ var ObjectId = mongoose.Types.ObjectId;
 
 /* GET: [/list] */
 function getCandidateList(req, res) {
+    if (!citizenGuard(req.token) || !EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     Candidate.find({}, function(err, candidates) {
         if(err) {
             console.log('ERR');
@@ -24,6 +28,10 @@ function getCandidateList(req, res) {
         "candidateIds": ["0234","242"]
     } */
 function getCandidatesById(req, res) {
+    if (!citizenGuard(req.token) || !EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     var listIds = req.body.candidateIds;
     const candidateIds = listIds.map( id => { 
         id = new ObjectId(id);
@@ -48,6 +56,10 @@ function getCandidatesById(req, res) {
 }
 
 function postCreateCandidate(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     const newCandidate = new Candidate(req.body);
 
     Candidate.find({name: req.body.name}, function(err, candidate) {

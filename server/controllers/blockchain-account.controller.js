@@ -13,6 +13,10 @@ const saltRounds = 10;
     }
 */
 function postStoreBlockchainAccount(req, res) {
+    if (!CitizenGuard(req.token)) {
+        res.status(403);
+        res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     var _id = req.body.citizenId;
     const query = { citizenId: _id };
     var bcAccount = BlockchainAccount.countDocuments(query).exec();

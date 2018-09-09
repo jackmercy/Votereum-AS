@@ -34,7 +34,9 @@ router.get('/check', (req, res) =>
         jwt.verify(token, app.get('jwtSecret'), function(err, decoded) {
             if (err) {
                 console.error(err);
-                return res.json({ success: false, message: 'Failed to authenticate token.' });
+                return res.json({ error: true, message: 'Failed to authenticate token.' });
+            } else if(!ExpirationGuard(decoded)) {
+                return res.json({ error: true, message: 'Token is expired' });
             } else {
                 // if everything is good, save to request for use in other routes (e.g check user's role)
                 req.token = decoded;
