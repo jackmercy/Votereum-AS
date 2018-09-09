@@ -3,6 +3,7 @@ import { Chart }             from 'chart.js';
 
 import { ContractService }  from '@services/contract.service';
 import { CandidateService } from '@services/candidate.service';
+import { BallotService }    from '@services/ballot.service';
 
 @Component({
     selector: 'app-score-board',
@@ -14,11 +15,18 @@ export class ScoreBoardComponent implements OnInit {
     votingData: any;
     candidateNames: any;
     listCandidateIds: any;
+    result: any;
+
+
     constructor(private _candidateService: CandidateService,
-                private _contractService: ContractService) { }
+                private _contractService: ContractService,
+                private _ballotService: BallotService) { }
 
     ngOnInit() {
-        this._contractService.getVotingData()
+        // console.log(this._ballotService.getBallotResult().s);
+        this._ballotService.getBallotResult().subscribe(value =>
+            this.result = value );
+/*        this._contractService.getVotingData()
             .subscribe( data => {
                 this.votingData = this.convertChartjsData(data);
                 this.listCandidateIds = this.convertToArrayIds(data);
@@ -30,10 +38,10 @@ export class ScoreBoardComponent implements OnInit {
                         this.candidateNames = names['candidateNames'];
                         this.initChart(true);
                     });
-            });
+            });*/
     }
 
-    initChart(isOk: Boolean) {
+/*    initChart(isOk: Boolean) {
         if (isOk) {
             this.chart = new Chart('canvas', {
                 type: 'bar',
@@ -98,5 +106,5 @@ export class ScoreBoardComponent implements OnInit {
             }
         }
         return result;
-    }
+    }*/
 }

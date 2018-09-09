@@ -137,26 +137,6 @@ function postCloseBallot(req, res) {
     handlePostRequest('postCloseBallot', res, req.body);
 }
 
-
-/*
-- GET: [/api/ballot]
-- Response:
-{
-    "ballotName": "President Election",
-    "startRegPhase": "1543050000",
-    "endRegPhase": "1543080000",
-    "startVotingPhase": "1540370700",
-    "endVotingPhase": "1543049100",
-    "isFinalized": false,
-    "registeredVoterCount": "0",
-    "votedVoterCount": "0"
-}
-*/
-function getCandidates(req, res) {
-    handleGetRequest('getCandidates', res);
-}
-
-
 /*
 - POST: [/api/ballot/candidate]
 - req.body:
@@ -232,6 +212,7 @@ function postHasRightToVote(req, res) {
 
 /*-----------End EA Section------------*/
 
+/*-----------Public Section---------------*/
 /*
 - POST: [/api/ballot/candidate/result]
 - req.body:
@@ -250,6 +231,25 @@ function postHasRightToVote(req, res) {
 function postCandidateResult(req, res) {
     handlePostRequest('postCandidateResult', res, req.body)
 }
+
+
+/*
+- GET: [/api/ballot/candidate]
+- Response:
+{
+    "candidateIds": [
+        "1",
+        "2",
+        "3",
+        "4"
+    ]
+}
+*/
+function getCandidates(req, res) {
+    handleGetRequest('getCandidates', res);
+}
+
+
 
 export default {
     getBallotInfo,
