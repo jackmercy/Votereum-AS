@@ -15,14 +15,14 @@ export class RegAdminService {
     getCitizenInfo(_userId: string) {
         return this._http.post(
             URI_CONFIG.BASE_CITIZEN_API + URI_CONFIG.CITIZEN_BY_ID,
-            JSON.stringify({Id_number: _userId}),
+            JSON.stringify({citizenId: _userId}),
             httpOptions);
     }
 
     getGeneratedNewPassword(_userId: string): Observable<Object> {
         return this._http.post(
             URI_CONFIG.BASE_CITIZEN_API + URI_CONFIG.CITIZEN_GENERATE_PASSWORD,
-            JSON.stringify( { Id_number: _userId }),
+            JSON.stringify( { citizenId: _userId }),
             httpOptions
         );
     }
@@ -30,7 +30,7 @@ export class RegAdminService {
     generateUserSystemAccount(_userId: string): Observable<Object> {
         return this._http.post(
             URI_CONFIG.BASE_CITIZEN_API + URI_CONFIG.CITIZEN_GENERATE_SYSTEM_ACCOUNT,
-            JSON.stringify( { Id_number: _userId }),
+            JSON.stringify( { citizenId: _userId }),
             httpOptions
         );
     }

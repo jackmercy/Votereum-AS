@@ -78,7 +78,10 @@ export class VoterManagementComponent implements OnInit {
             this.user = <User> data;
             this.isCitizenExist = true;
             this.hasSystemAccount = data['hasSystemAccount'];
-        }, error => this.isCitizenExist = false);
+        }, error => {
+            this.isCitizenExist = false;
+            console.log(error);
+        });
         this.generatedNewPassword = '';
         this.generatedUserId = '';
         this.generatedUserPassword = '';

@@ -22,23 +22,23 @@ router.get('/check', (req, res) =>
 );
 
 // route middleware to verify a token
-/*router.use(function(req, res, next) {
+router.use(function(req, res, next) {
 
     // check header or url parameters or post parameters for token
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
+    var token =/*  req.body.token || req.query.token ||  */req.headers['x-access-token'];
+    console.log(`[x] token is ${token}`);
     // decode token
     if (token) {
         // verifies secret and checks exp
-        console.log(`[.] Token is ${token}`);
         jwt.verify(token, app.get('jwtSecret'), function(err, decoded) {
             if (err) {
                 console.error(err);
                 return res.json({ error: true, message: 'Failed to authenticate token.' });
             } else if(!ExpirationGuard(decoded)) {
-                return res.json({ error: true, message: 'Token is expired' });
+                return res.status(400).json({ error: true, message: 'Token is expired' });
             } else {
                 // if everything is good, save to request for use in other routes (e.g check user's role)
+                console.log('everything is good');
                 req.token = decoded;
                 next();
             }
@@ -49,12 +49,12 @@ router.get('/check', (req, res) =>
         // if there is no token
         // return an error
         return res.status(403).send({
-            success: false,
+            error: true,
             message: 'No token provided.'
         });
 
     }
-});*/
+});
 // End of route middleware to verify a token
 router.use('/candidate', candidateRoutes);
 router.use('/contract', contractRoutes);

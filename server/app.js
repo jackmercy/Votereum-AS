@@ -118,7 +118,10 @@ global.GetTimestampNow = function() {
 }
 /* Guard => return true if token is valid */
 global.ExpirationGuard = function(decodedToken) {
-    if (decodedToken['exp'] < getTimestampNow()) {
+    var tsNow = GetTimestampNow();
+    var exp = decodedToken['exp'];
+    var check = exp - tsNow;
+    if (check < 0) {
         return false;
     }
     return true;
