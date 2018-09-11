@@ -64,5 +64,9 @@ export class BallotService {
             return {unsubscribe() {}};
         });
     }
+
+    postBallotInfo(ballotInfo: Object): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_BALLOT_API + '/', JSON.stringify(ballotInfo), httpOptions);
+    }
 }
 

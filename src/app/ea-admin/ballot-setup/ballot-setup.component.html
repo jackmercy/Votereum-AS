@@ -16,7 +16,6 @@
             </mat-form-field>
             <div>
                 <button class="step-button-padding" mat-stroked-button color="primary" matStepperNext  [disabled]="!ballotInfoFormGroup.valid">Next</button>
-                <button class="step-button-padding" mat-stroked-button color="primary" (click)="onTestValue()">Next</button>
             </div>
         </form>
     </mat-step>
@@ -26,16 +25,14 @@
     <mat-step [stepControl]="candidateFormGroup">
         <form class="vertical-form" [formGroup]="candidateFormGroup">
             <ng-template matStepLabel>Choose competitors</ng-template>
-            <mat-selection-list #shoes formControlName="selectedCandidates">
-                <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
-                  {{shoe}}
+            <mat-selection-list #selectionList formControlName="selectedCandidates">
+                <mat-list-option *ngFor="let candidate of candidates" [value]="candidate['candidateId']">
+                     {{ (candidate['title'] + ' ' + candidate['firstName'] + ' ' + candidate['lastName']) | titlecase }}
                 </mat-list-option>
             </mat-selection-list>
-            
-            <p>
-                Candidates selected: {{shoes.selectedOptions.selected.length}}
-            </p>
-              
+
+            <p> Selected candidate: {{ selectionList.selectedOptions.selected.length }} </p>
+
             <div>
                 <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
                 <button mat-stroked-button color="primary" matStepperNext>Next</button>
@@ -50,18 +47,20 @@
         <form class="vertical-form" [formGroup]="phasesSequenceFormGroup">
             <ng-template matStepLabel>Phases sequence</ng-template>
             <div class="container no-gutters no-padding-bootstrap">
+                <p>The phase timeline order should be: <br> Start register phase -> End register phase -> Start voting phase -> End voting phase</p>
                 <!-- Register phase -->
+                <p style="margin-bottom: 0;"> Register Phase</p>
                 <div class="row">
                     <div class="col-6">
                         <mat-form-field>
-                            <input matInput [matDatepicker]="startRegPhase" placeholder="Start register phase" formControlName="startRegPhase">
+                            <input matInput [matDatepicker]="startRegPhase" placeholder="1. Start register phase" formControlName="startRegPhase">
                             <mat-datepicker-toggle matSuffix [for]="startRegPhase"></mat-datepicker-toggle>
                             <mat-datepicker #startRegPhase></mat-datepicker>
                         </mat-form-field>
                     </div>
                     <div class="col-6">
                         <mat-form-field>
-                            <input matInput [matDatepicker]="endRegPhase" placeholder="End register phase" formControlName="endRegPhase">
+                            <input matInput [matDatepicker]="endRegPhase" placeholder="2. End register phase" formControlName="endRegPhase">
                             <mat-datepicker-toggle matSuffix [for]="endRegPhase"></mat-datepicker-toggle>
                             <mat-datepicker #endRegPhase></mat-datepicker>
                         </mat-form-field>
@@ -70,17 +69,18 @@
                 <!-- End of Register phase -->
 
                 <!-- Voting phase -->
+                <p style="margin-bottom: 0;"> Voting Phase </p>
                 <div class="row">
                     <div class="col-6">
                         <mat-form-field>
-                            <input matInput [matDatepicker]="startVotingPhase" placeholder="Start voting phase" formControlName="startVotingPhase">
+                            <input matInput [matDatepicker]="startVotingPhase" placeholder="3. Start voting phase" formControlName="startVotingPhase">
                             <mat-datepicker-toggle matSuffix [for]="startVotingPhase"></mat-datepicker-toggle>
                             <mat-datepicker #startVotingPhase></mat-datepicker>
                         </mat-form-field>
                     </div>
                     <div class="col-6">
                         <mat-form-field>
-                            <input matInput [matDatepicker]="endVotingPhase" placeholder="End voting phase" formControlName="endVotingPhase">
+                            <input matInput [matDatepicker]="endVotingPhase" placeholder="4. End voting phase" formControlName="endVotingPhase">
                             <mat-datepicker-toggle matSuffix [for]="endVotingPhase"></mat-datepicker-toggle>
                             <mat-datepicker #endVotingPhase></mat-datepicker>
                         </mat-form-field>
@@ -103,7 +103,7 @@
             <p>You are now done.</p>
         <div class="row mb-3">
             <button class="step-button-padding" mat-stroked-button (click)="stepper.previous()">Back</button>
-            <button class="step-button-padding" mat-stroked-button color="primary">Set up now</button>
+            <button class="step-button-padding" mat-stroked-button color="primary" (click)="onSetupClicked()">Set up now</button>
         </div>
         <div class="row">
             <button mat-flat-button color="warn" (click)="stepper.reset()">Reset</button>
