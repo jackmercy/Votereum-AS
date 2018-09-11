@@ -13,7 +13,7 @@ Method: GET
 function check(req, res) {
     if (!RaGuard(req.token)) {
         res.status(403);
-        res.json({error: true, message: 'You do not have permission to access this API'});
+        return res.json({error: true, message: 'You do not have permission to access this API'});
     } else {
         res.send('successfully connect to /citizen route');
     }
@@ -28,9 +28,8 @@ Method: POST
 }
 */
 function postCitizenById(req, res) {
-    if (!RaGuard(req.token) || CitizenGuard(req.token)) {
-        res.status(403);
-        res.json({error: true, message: 'You do not have permission to access this API'});
+    if (!RaGuard(req.token) || !CitizenGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
     const _id = req.body['citizenId'];
 
@@ -78,7 +77,7 @@ Method: POST
 function postGenerateUserAccount(req, res) {
     if (!RaGuard(req.token)) {
         res.status(403);
-        res.json({error: true, message: 'You do not have permission to access this API'});
+        return res.json({error: true, message: 'You do not have permission to access this API'});
     }
     var _id = req.body.citizenId;
     var user = User.countDocuments({'citizenId': _id}).exec();
@@ -154,7 +153,7 @@ Method: POST
 async function postGenerateNewPassword(req, res) {
     if (!RaGuard(req.token)) {
         res.status(403);
-        res.json({error: true, message: 'You do not have permission to access this API'});
+        return res.json({error: true, message: 'You do not have permission to access this API'});
     }
     const _id = req.body['citizenId'];
     const _newDefaultPassword = getGeneratedPassword();
@@ -202,7 +201,7 @@ async function postGenerateNewPassword(req, res) {
 function postGetCitizenHash(req, res) {
     if (!citizenGuard(req.token)) {
         res.status(403);
-        res.json({error: true, message: 'You do not have permission to access this API'});
+        return res.json({error: true, message: 'You do not have permission to access this API'});
     }
     User.findOne({id: req.body.citizenID}, function(err, _user) {
         if(err) {

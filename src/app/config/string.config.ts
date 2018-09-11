@@ -7,7 +7,8 @@ export const STRING_CONFIG = {
 export const httpOptions = {
     headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'x-access-token': sessionStorage.getItem('access_token') ? JSON.parse(sessionStorage.getItem('access_token')) : ''
+        'x-access-token': sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN)
+                            ? JSON.parse(sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN)) : ''
     })
 };
 
