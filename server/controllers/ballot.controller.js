@@ -2,89 +2,7 @@ import amqp    from 'amqplib/callback_api';
 import Web3    from 'web3';
 
 
-/*---------- Amqp Utils--------*/
-//method = method name
-function handleGetRequest(method, res) {
-    var ballotQueue = 'ballot_queue.' + method;
-    amqp.connect('amqp://localhost', function(err, conn) {
-        conn.createChannel(function(err, ch) {
-            /* when we supply queue name as an empty string,
-            we create a non-durable queue with a generated name */
-            ch.assertQueue('', {exclusive: true}, function(err, q) {
-                var corr = generateUuid();
 
-                console.log('[AMQP] Request: ' + method);
-
-                ch.sendToQueue(
-                    ballotQueue, /* queue */
-                    new Buffer (''), /* content */
-                    /* option */
-                    {
-                        correlationId: corr, replyTo: q.queue
-                    }
-                );
-
-                ch.consume(q.queue, function(msg) {
-                        if (msg.properties.correlationId == corr) {
-                            console.log(' [AMQP] Got response: ' + method);
-
-                            var data = JSON.parse(msg.content.toString());
-                            if (data['error']) {
-                                res.status(500);
-                            }
-                            res.json(data['message']);
-
-                            conn.close();
-                        }
-                    },
-                    { noAck: true }
-                );
-            });
-        });
-    });
-}
-
-//data = req.body
-function handlePostRequest(method, res, data) {
-    var ballotQueue = 'ballot_queue.' + method;
-    amqp.connect('amqp://localhost', function(err, conn) {
-        conn.createChannel(function(err, ch) {
-            /* when we supply queue name as an empty string,
-            we create a non-durable queue with a generated name */
-            ch.assertQueue('', {exclusive: true}, function(err, q) {
-                var corr = generateUuid();
-
-                console.log('[AMQP] Request: ' + method);
-
-                ch.sendToQueue(
-                    ballotQueue, /* queue */
-                    new Buffer (JSON.stringify(data)), /* content */
-                    /* option */
-                    {
-                        correlationId: corr, replyTo: q.queue
-                    }
-                );
-
-                ch.consume(q.queue, function(msg) {
-                        if (msg.properties.correlationId == corr) {
-                            console.log(' [AMQP] Got response: ' + method);
-
-                            var data = JSON.parse(msg.content.toString());
-                            if (data['error']) {
-                                res.status(500);
-                            }
-                            res.json(data['message']);
-
-                            conn.close();
-                        }
-                    },
-                    { noAck: true }
-                );
-            });
-        });
-    });
-}
-/*---------- End Amqp Utils--------*/
 
 
 /*-----------EA Section------------*/
@@ -276,7 +194,89 @@ function getCandidates(req, res) {
     handleGetRequest('getCandidates', res);
 }
 
+/*---------- Amqp Utils--------*/
+//method = method name
+function handleGetRequest(method, res) {
+    var ballotQueue = 'ballot_queue.' + method;
+    amqp.connect('amqp://localhost', function(err, conn) {
+        conn.createChannel(function(err, ch) {
+            /* when we supply queue name as an empty string,
+            we create a non-durable queue with a generated name */
+            ch.assertQueue('', {exclusive: true}, function(err, q) {
+                var corr = generateUuid();
 
+                console.log('[AMQP] Request: ' + method);
+
+                ch.sendToQueue(
+                    ballotQueue, /* queue */
+                    new Buffer (''), /* content */
+                    /* option */
+                    {
+                        correlationId: corr, replyTo: q.queue
+                    }
+                );
+
+                ch.consume(q.queue, function(msg) {
+                        if (msg.properties.correlationId == corr) {
+                            console.log(' [AMQP] Got response: ' + method);
+
+                            var data = JSON.parse(msg.content.toString());
+                            if (data['error']) {
+                                res.status(500);
+                            }
+                            res.json(data['message']);
+
+                            conn.close();
+                        }
+                    },
+                    { noAck: true }
+                );
+            });
+        });
+    });
+}
+
+//data = req.body
+function handlePostRequest(method, res, data) {
+    var ballotQueue = 'ballot_queue.' + method;
+    amqp.connect('amqp://localhost', function(err, conn) {
+        conn.createChannel(function(err, ch) {
+            /* when we supply queue name as an empty string,
+            we create a non-durable queue with a generated name */
+            ch.assertQueue('', {exclusive: true}, function(err, q) {
+                var corr = generateUuid();
+
+                console.log('[AMQP] Request: ' + method);
+
+                ch.sendToQueue(
+                    ballotQueue, /* queue */
+                    new Buffer (JSON.stringify(data)), /* content */
+                    /* option */
+                    {
+                        correlationId: corr, replyTo: q.queue
+                    }
+                );
+
+                ch.consume(q.queue, function(msg) {
+                        if (msg.properties.correlationId == corr) {
+                            console.log(' [AMQP] Got response: ' + method);
+
+                            var data = JSON.parse(msg.content.toString());
+                            if (data['error']) {
+                                res.status(500);
+                            }
+                            res.json(data['message']);
+
+                            conn.close();
+                        }
+                    },
+                    { noAck: true }
+                );
+            });
+        });
+    });
+}
+/*---------- End Amqp Utils--------*/
 
 export default {
     getBallotInfo,

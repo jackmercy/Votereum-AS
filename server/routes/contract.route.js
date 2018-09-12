@@ -1,5 +1,5 @@
 import express            from 'express';
-import ContractController from '../controllers/contract.controller';
+import ContractController from '../controllers/contract.controller-legacy';
 
 const router = express.Router();
 /* Route: [/api/contract] */

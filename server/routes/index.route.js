@@ -26,7 +26,7 @@ router.use(function(req, res, next) {
 
     // check header or url parameters or post parameters for token
     var token =/*  req.body.token || req.query.token ||  */req.headers['x-access-token'];
-    console.log(`[x] token is ${token}`);
+    /* console.log(`[x] token is ${token}`); */
     // decode token
     if (token) {
         // verifies secret and checks exp
@@ -38,7 +38,6 @@ router.use(function(req, res, next) {
                 return res.status(400).json({ error: true, message: 'Token is expired' });
             } else {
                 // if everything is good, save to request for use in other routes (e.g check user's role)
-                console.log('everything is good');
                 req.token = decoded;
                 next();
             }
@@ -57,12 +56,14 @@ router.use(function(req, res, next) {
 });
 // End of route middleware to verify a token
 router.use('/candidate', candidateRoutes);
-router.use('/contract', contractRoutes);
 router.use('/citizen', citizenRoutes);
 router.use('/ballot', ballotRoutes);
 router.use('/blockchainAccount', bcAccountRoutes);
 router.use('/ea', eaRoutes);
-router.get('/checkToken', (req, res) =>
-    res.send('Hello hooman! with token')
+router.get('/checkToken', (req, res) => {
+        var callback = function() { console.log('[x] ETA work') };
+        StartRegPhase("election", callback);
+        res.send('Hello hooman! with token');
+    }  
 );
 export default router;

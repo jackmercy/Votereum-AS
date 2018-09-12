@@ -6,13 +6,13 @@ import compress   from 'compression';
 import appRoot    from 'app-root-path';
 // import favicon from 'serve-favicon';
 import morgan     from 'morgan';
-import Web3       from 'web3';
 // import logger  from 'logger';
 import router     from './routes/index.route';
 import { GeneralConfig } from "./config/general.config";
-import { RoleConfig }    from './config/role.config';
 import { retry }         from 'rxjs/operators';
-
+/* Utilities */
+import * as UtilityFunction from './utility/utilities.func';
+/* Utilities */
 /* SSL */
 var fs = require('fs');
 var http = require('http');
@@ -27,7 +27,9 @@ var credentials = {key: privateKey, cert: certificate};
 
 /* Init variable */
 global.app = express();
+
 var port = process.env.port || 5000;
+var sPort = 5443;
 /* Init variable */
 
 /* MongoDb */
@@ -104,55 +106,6 @@ app.use(function(err, req, res, next) {
 // error handler ==================
 
 // ================================
-// global function ================
-// ================================
-global.generateUuid = function() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-    });
-}
-
-global.GetTimestampNow = function() {
-    return Math.floor(Date.now() / 1000) | 0;
-}
-/* Guard => return true if token is valid */
-global.ExpirationGuard = function(decodedToken) {
-    var tsNow = GetTimestampNow();
-    var exp = decodedToken['exp'];
-    var check = exp - tsNow;
-    if (check < 0) {
-        return false;
-    }
-    return true;
-}
-
-global.CitizenGuard = function(decodedToken) {
-    if (decodedToken['role'] === RoleConfig.CITIZEN) {
-        return true;
-    }
-    return false;
-}
-
-global.EaGuard = function(decodedToken) {
-    if (decodedToken['role'] === RoleConfig.EA) {
-        return true;
-    }
-    return false;
-}
-
-global.RaGuard = function(decodedToken) {
-    if (decodedToken['role'] === RoleConfig.RA) {
-        return true;
-    }
-    return false;
-}
-
-
-/* global function ================ */
-
-
-// ================================
 // Start the server ===============
 // ================================
 var httpServer = http.createServer(app, function(req, res) {
@@ -165,10 +118,7 @@ httpServer.listen(port, function() {
     console.log('server is running on:' + port);
 });
 httpsServer.listen(5443, function() {
-    console.log('server is running on: 5443');
+    console.log('server is running on:' + sPort);
 });
-/* app.listen(port, function() {
-    console.log('server is running on:' + port);
-}); */
 
-export default app;
+export default app; 
