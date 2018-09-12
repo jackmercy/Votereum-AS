@@ -15,18 +15,22 @@ export class BallotService {
 
     constructor(private _http: HttpClient) {
     }
-
-    getBallotInfo(): Object {
-        return Observable.of({
-            'ballotName':           'President Election',
-            'startRegPhase':        '1543050000',
-            'endRegPhase':          '1543080000',
-            'startVotingPhase':     '1540370700',
-            'endVotingPhase':       '1543049100',
-            'isFinalized':          false,
-            'registeredVoterCount': '0',
-            'votedVoterCount':      '0'
-        });
+    /*
+    - GET: [/api/ballot]
+    - Response:
+    {
+        "ballotName": "President Election",
+        "startRegPhase": "1543050000",
+        "endRegPhase": "1543080000",
+        "startVotingPhase": "1540370700",
+        "endVotingPhase": "1543049100",
+        "isFinalized": false,
+        "registeredVoterCount": "0",
+        "votedVoterCount": "0"
+    }
+    */
+    getBallotInfo(): Observable<Object> {
+        return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/', httpOptions);
     }
 
     getCandidateIds(): Observable<any> {
@@ -63,6 +67,18 @@ export class BallotService {
 
             return {unsubscribe() {}};
         });
+    }
+
+    postBallotInfo(ballotInfo: Object): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_BALLOT_API + '/',
+            JSON.stringify(ballotInfo),
+            httpOptions);
+    }
+
+    resetTime(_phrase: string): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_BALLOT_API + '/resetTime',
+            JSON.stringify({ phrase: _phrase }),
+            httpOptions);
     }
 }
 

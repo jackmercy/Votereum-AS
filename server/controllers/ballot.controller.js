@@ -152,6 +152,41 @@ function postHasRightToVote(req, res) {
 }
 
 
+/*
+- GET: [/api/ballot/voterAddressList]
+- Response:
+{
+    "voterAddressList": [
+        "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410",
+        "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
+        "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
+    ]
+}
+*/
+function getVoterAddressList(req, res) {
+    if (!EaGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+    handleGetRequest('getVoterAddressList', res);
+
+}
+
+/*
+- POST: [/api/ballot/resetTime]
+- req.body:
+{
+    "phrase": "startRegPhase"
+}
+- res:
+"0xb69748c2df17e870b48366ca06942140071b5cb0d0f7757791134336dfa80716"
+*/
+function postResetTime(req, res) {
+    if (!EaGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+    handlePostRequest('postResetTime', res, req.body);
+}
+
 /*-----------End EA Section------------*/
 
 /*-----------Public Section---------------*/
@@ -288,6 +323,7 @@ export default {
     postCandidates,
     postGiveRightToVote,
     postHasRightToVote,
+    postResetTime,
 
     postCandidateResult
 }
