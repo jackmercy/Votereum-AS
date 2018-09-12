@@ -1,3 +1,39 @@
-<p>
-  management works!
-</p>
+<div *ngIf="ballotInfo">
+    <div>
+        <p>
+            Ballot Management
+        </p>
+        <hr>
+        <div>
+            <p *ngFor="let key of (ballotInfo | objectKeys)">
+                <span style="font-weight: bold;">{{ key }}: </span>
+                <span>{{ ballotInfo[key] }}</span>
+            </p>
+        </div>
+
+        <div>
+
+        </div>
+    </div>
+    <div>
+        <p>
+            User Management
+        </p>
+        <hr>
+    </div>
+    <div>
+        <p>
+            Ballot Overview
+        </p>
+        <hr>
+    </div>
+    <div>
+        <button mat-raised-button>Fund account with ether</button>
+        <button mat-raised-button>Finalize</button>
+    </div>
+    <div>
+        <button mat-raised-button [disabled]="canDisableButton(key)"
+                (click)="resetTime(key)"
+                *ngFor="let key of phase | objectKeys">{{ phase[key] }}</button>
+    </div>
+</div>

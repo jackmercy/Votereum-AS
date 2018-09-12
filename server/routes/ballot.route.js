@@ -33,6 +33,9 @@ router.route('/giveRight')
 router.route('/hasRight')
     .post(BallotController.postHasRightToVote);
 
+router.route('/resetTime')
+    .post(BallotController.postResetTime);
+
 /*------------------EA-----------------*/
 
 
