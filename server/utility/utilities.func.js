@@ -2,9 +2,10 @@ import { RoleConfig }    from '../config/role.config';
 import Ballot            from '../models/ballot.model';
 
 /* Timeout for each phase */
-global.RegPhase;
-global.FundingPhase;
-global.VotingPhase;
+global.startRegPhase;
+global.endRegPhase;
+global.startVotingPhase;
+global.endVotingPhase;
 /* Timeout for each phase */
 
 // ================================
@@ -69,24 +70,24 @@ global.StartRegPhase = function(_ballotName, callback) {
             let startRegTime = ballot.startRegPhase;
             let eta = ETAtime(startRegTime, GetTimestampNow());
             // auto start phase
-            global.RegPhase = setTimeout(callback, eta);
+            global.startRegPhase = setTimeout(callback, eta);
         }
     });
 }
 
-global.StartFundingPhase = function(_ballotName, callback) {
+global.EndRegPhase = function(_ballotName, callback) {
     var query = { ballotName: _ballotName };
     Ballot.findOne(query, function(err, ballot) {
         if (err) {
             console.log(err);
         } else if(ballot) {
-            var endRegTime = ballot.endRegPhase + 3600000; // end reg phase + 1 hour
-            var eta = ETAtime(endRegTime, GetTimestampNow());
-            setTimeout(callback, eta);
+            let endRegPhase = ballot.endRegPhase;
+            let eta = ETAtime(GetTimestampNow(), endRegPhase);
+            // auto end phase
+            global.endRegPhase = setTimeout(callback, eta);
         }
     });
 }
-
 
 global.StartVotingPhase = function(_ballotName, callback) {
     var query = { ballotName: _ballotName };
@@ -96,21 +97,39 @@ global.StartVotingPhase = function(_ballotName, callback) {
         } else if(ballot) {
             var startVotingPhase = ballot.startVotingPhase;
             var eta = ETAtime(startVotingPhase, GetTimestampNow());
-            global.RegPhase = setTimeout(callback, eta);
+            global.startVotingPhase = setTimeout(callback, eta);
         }
     });
 }
 
-global.CancelRegPhase = function() {
-    clearTimeout(global.RegPhase);
+global.EndVotingPhase = function(_ballotName, callback) {
+    var query = { ballotName: _ballotName };
+    Ballot.findOne(query, function(err, ballot) {
+        if (err) {
+            console.log(err);
+        } else if(ballot) {
+            let endVotingPhase = ballot.endVotingPhase;
+            let eta = ETAtime(GetTimestampNow(), endVotingPhase);
+            // auto end phase
+            global.endVotingPhase = setTimeout(callback, eta);
+        }
+    });
 }
 
-global.CancelFundingPhase = function() {
-    clearTimeout(global.FundingPhase);
+global.CancelStartRegPhase = function() {
+    clearTimeout(global.startRegPhase);
 }
 
-global.CancelVotingPhase = function() {
-    clearTimeout(global.VotingPhase);
+global.CancelEndRegPhase = function() {
+    clearTimeout(global.endRegPhase);
+}
+
+global.CancelStartVotingPhase = function() {
+    clearTimeout(global.startVotingPhase);
+}
+
+global.CancelEndVotingPhase = function() {
+    clearTimeout(global.endVotingPhase);
 }
 
 

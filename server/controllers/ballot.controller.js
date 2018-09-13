@@ -1,6 +1,6 @@
 import amqp    from 'amqplib/callback_api';
 import Web3    from 'web3';
-
+import Ballot  from '../models/ballot.model';
 
 
 
@@ -52,6 +52,19 @@ function postBallotInfo(req, res) {
     if (!EaGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
+    const ballotInfo = new Ballot(req.body);
+    let query = { ballotName: req.body.ballotName };
+    Ballot.find(query, function(err, ballot) {
+        if (err || ballot.length > 0) {
+            console.log(err);
+            res.status(400).json({
+                message: 'Duplicate ballot'
+            });
+        } else if(ballot.length === 0) {
+            ballotInfo.save();
+        }
+        
+    });
     handlePostRequest('postBallotInfo', res, req.body);
 }
 
