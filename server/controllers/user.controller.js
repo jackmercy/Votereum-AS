@@ -2,6 +2,7 @@ import User   from '../models/user.model';
 import jwt    from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
+
 /* const variable */
 const saltRounds = 10;
 
@@ -127,7 +128,7 @@ function postUserInfo(req, res) {
     if(!req.body.citizenId) {
         res.status(400);
         res.json({error: true, message: 'Citizen ID is required'});
-    } else if (!citizenGuard(req.token)) {
+    } else if (!CitizenGuard(req.token) || !RaGuard(req.token)) {
         res.status(403);
         res.json({error: true, message: 'You do not have permission to access this API'});
     }

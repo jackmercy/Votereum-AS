@@ -1,11 +1,13 @@
-import { Injectable }  from '@angular/core';
-import { Observable }  from 'rxjs/Observable';
-import { HttpClient }  from '@angular/common/http';
-import { URI_CONFIG }  from '@config/uri.config';
-import { httpOptions } from '@config/string.config';
-import { map }         from 'rxjs/operators';
-import { forkJoin }    from 'rxjs/observable/forkJoin';
-import { observable }  from 'rxjs/internal-compatibility';
+import { Inject, Injectable } from '@angular/core';
+import { Observable }         from 'rxjs/Observable';
+import { HttpClient }         from '@angular/common/http';
+import { URI_CONFIG }         from '@config/uri.config';
+import { httpOptions }        from '@config/string.config';
+import { map }                from 'rxjs/operators';
+import { forkJoin }           from 'rxjs/observable/forkJoin';
+import { observable }         from 'rxjs/internal-compatibility';
+import { WEB3 }               from '@core/web3-token';
+import Web3                   from 'web3';
 
 
 @Injectable({
@@ -13,7 +15,8 @@ import { observable }  from 'rxjs/internal-compatibility';
 })
 export class BallotService {
 
-    constructor(private _http: HttpClient) {
+    constructor(private _http: HttpClient,
+                @Inject(WEB3) private web3: Web3) {
     }
     /*
     - GET: [/api/ballot]
@@ -79,6 +82,10 @@ export class BallotService {
         return this._http.post(URI_CONFIG.BASE_BALLOT_API + '/resetTime',
             JSON.stringify({ phrase: _phrase }),
             httpOptions);
+    }
+    
+    getTxReceipt(txHash: string): Promise<any> {
+        return this.web3.eth.getTransactionReceipt(txHash);
     }
 }
 

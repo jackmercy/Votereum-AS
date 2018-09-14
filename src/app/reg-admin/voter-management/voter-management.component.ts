@@ -18,7 +18,7 @@ export class VoterManagementComponent implements OnInit {
     user: User;
     hasSystemAccount: Boolean;
     userKeyDescription: Object = {
-        Id_number: 'ID number',
+        citizenId: 'ID number',
         firstName: 'Firstname',
         lastName: 'Lastname',
         gender: 'Gender',
