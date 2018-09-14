@@ -158,7 +158,7 @@ function postGiveRightToVote(req, res) {
 }
 */
 function postHasRightToVote(req, res) {
-    if (!CitizenGuard(req.token) ||!EaGuard(req.token)) {
+    if (!CitizenGuard(req.token)  && !EaGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
     handlePostRequest('postHasRightToVote', res, req.body);
@@ -219,7 +219,7 @@ function postResetTime(req, res) {
 }
 */
 function postCandidateResult(req, res) {
-    if (!citizenGuard(req.token) || !EaGuard(req.token)) {
+    if (!citizenGuard(req.token) && !EaGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
     handlePostRequest('postCandidateResult', res, req.body)

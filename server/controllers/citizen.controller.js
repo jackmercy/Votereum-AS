@@ -28,7 +28,7 @@ Method: POST
 }
 */
 function postCitizenById(req, res) {
-    if (!RaGuard(req.token) || !CitizenGuard(req.token)) {
+    if (!RaGuard(req.token) && !CitizenGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
     const _id = req.body['citizenId'];
