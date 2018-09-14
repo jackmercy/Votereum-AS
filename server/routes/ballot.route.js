@@ -36,6 +36,9 @@ router.route('/hasRight')
 router.route('/resetTime')
     .post(BallotController.postResetTime);
 
+router.route('/claimStoredAmount')
+    .post(BallotController.postClaimStoredAmount);
+
 /*------------------EA-----------------*/
 
 
