@@ -5,7 +5,7 @@ var ObjectId = mongoose.Types.ObjectId;
 
 /* GET: [/list] */
 function getCandidateList(req, res) {
-    if (!citizenGuard(req.token) || !EaGuard(req.token)) {
+    if (!citizenGuard(req.token) && !EaGuard(req.token)) {
         res.status(403);
         return res.json({error: true, message: 'You do not have permission to access this API'});
     }
@@ -28,7 +28,7 @@ function getCandidateList(req, res) {
         "candidateIds": ["0234","242"]
     } */
 function getCandidatesById(req, res) {
-    if (!citizenGuard(req.token) || !EaGuard(req.token)) {
+    if (!citizenGuard(req.token) && !EaGuard(req.token)) {
         res.status(403);
         return res.json({error: true, message: 'You do not have permission to access this API'});
     }
