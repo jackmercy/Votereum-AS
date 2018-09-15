@@ -31,6 +31,7 @@ router.use(function(req, res, next) {
     if (token) {
         // verifies secret and checks exp
         jwt.verify(token, app.get('jwtSecret'), function(err, decoded) {
+            console.log(`[x] token is ${decoded.role}`);
             if (err) {
                 console.error(err);
                 return res.json({ error: true, message: 'Failed to authenticate token.' });

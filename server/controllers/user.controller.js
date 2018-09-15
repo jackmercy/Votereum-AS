@@ -11,14 +11,14 @@ const saltRounds = 10;
     "password": "123456"
 } */
 function postLogin(req, res) {
-    const _user = new User(req.body);
+    console.log(req.body.citizenId + req.body.password);
 
     if(!req.body.password) {
         res.status(400);
-        res.send('Password is required');
+        return res.send('Password is required');
     } else if(!req.body.citizenId) {
         res.status(400);
-        res.send('Citizen ID is required');
+        return res.send('Citizen ID is required');
     }
 
     // handle login request in mongodb - should move those lines into model method
@@ -46,10 +46,10 @@ function postLogin(req, res) {
                     });
 
                     res.status(200);
-                    res.json({token: token});
+                    return res.json({token: token});
                 } else {
                     res.status(400);
-                    res.json({
+                    return res.json({
                         error: true,
                         message: 'Invalid username or password'
                     });
@@ -58,7 +58,7 @@ function postLogin(req, res) {
 
         } else {
             res.status(400);
-            res.json({
+            return res.json({
                 error: true,
                 message: 'Invalid username or password'
             });
@@ -126,10 +126,10 @@ function postUserInfo(req, res) {
 
     if(!req.body.citizenId) {
         res.status(400);
-        res.json({error: true, message: 'Citizen ID is required'});
+        return res.json({error: true, message: 'Citizen ID is required'});
     } else if (!citizenGuard(req.token)) {
         res.status(403);
-        res.json({error: true, message: 'You do not have permission to access this API'});
+        return res.json({error: true, message: 'You do not have permission to access this API'});
     }
 
     // handle login request in mongodb - should move those lines into model method
@@ -148,10 +148,10 @@ function postUserInfo(req, res) {
             };
 
             res.status(200);
-            res.json({data: payload});
+            return res.json({data: payload});
         } else {
             res.status(400);
-            res.json({
+            return res.json({
                 message: 'Invalid username or password'
             });
         }

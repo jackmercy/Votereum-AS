@@ -3,16 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { map }        from 'rxjs/operators';
 import { URI_CONFIG } from '@config/uri.config';
 import { Observable, pipe }           from 'rxjs';
-import { STRING_CONFIG, httpOptions } from '@config/string.config';
+import { STRING_CONFIG }  from '@config/string.config';
+import { MessageService } from '@services/message.service';
 
 @Injectable()
 export class CandidateService {
     contractUrl = '/api/contract';
 
-    constructor(private _http: HttpClient) { }
+    constructor(private _http: HttpClient,
+                private _messageService: MessageService) { }
 
     getCandidates(): Observable<any> {
-        return this._http.get(URI_CONFIG.BASE_CANDIDATE_API + URI_CONFIG.CANDIDATE_LIST_URL, httpOptions)
+        return this._http.get(URI_CONFIG.BASE_CANDIDATE_API + URI_CONFIG.CANDIDATE_LIST_URL,
+                            { headers: this._messageService.getHttpOptions() })
             .pipe(
                 map((response: Response) => {
                     const candidates = response;
@@ -23,6 +26,6 @@ export class CandidateService {
     /* confused function */
     getCandidateListName(votingList: any) {
         return this._http.post(URI_CONFIG.BASE_CANDIDATE_API + URI_CONFIG.GET_CANDIDATE_BY_ID_URL,
-            JSON.stringify(votingList), httpOptions);
+            JSON.stringify(votingList), { headers: this._messageService.getHttpOptions() });
     }
 }

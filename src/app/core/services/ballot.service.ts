@@ -2,18 +2,18 @@ import { Injectable }  from '@angular/core';
 import { Observable }  from 'rxjs/Observable';
 import { HttpClient }  from '@angular/common/http';
 import { URI_CONFIG }  from '@config/uri.config';
-import { httpOptions } from '@config/string.config';
 import { map }         from 'rxjs/operators';
 import { forkJoin }    from 'rxjs/observable/forkJoin';
 import { observable }  from 'rxjs/internal-compatibility';
-
+import { MessageService } from '@services/message.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class BallotService {
 
-    constructor(private _http: HttpClient) {
+    constructor(private _http: HttpClient,
+                private _messageService: MessageService) {
     }
     /*
     - GET: [/api/ballot]
@@ -30,11 +30,11 @@ export class BallotService {
     }
     */
     getBallotInfo(): Observable<Object> {
-        return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/', httpOptions);
+        return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/', { headers: this._messageService.getHttpOptions() });
     }
 
     getCandidateIds(): Observable<any> {
-        return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/candidate', httpOptions);
+        return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/candidate', { headers: this._messageService.getHttpOptions() });
     }
 
     getBallotResult(): Observable<any> {
@@ -49,7 +49,7 @@ export class BallotService {
                         this._http.post(
                             URI_CONFIG.BASE_BALLOT_API + '/candidate/result',
                             JSON.stringify({ candidateId: _candidateId }),
-                            httpOptions
+                            { headers: this._messageService.getHttpOptions() }
                         ).pipe(
                             map(_result => {
                                 const candidateResult = {
@@ -72,13 +72,13 @@ export class BallotService {
     postBallotInfo(ballotInfo: Object): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_BALLOT_API + '/',
             JSON.stringify(ballotInfo),
-            httpOptions);
+            { headers: this._messageService.getHttpOptions() });
     }
 
     resetTime(_phrase: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_BALLOT_API + '/resetTime',
             JSON.stringify({ phrase: _phrase }),
-            httpOptions);
+            { headers: this._messageService.getHttpOptions() });
     }
 }
 

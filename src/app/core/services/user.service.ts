@@ -3,10 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map }        from 'rxjs/operators';
 import { URI_CONFIG } from '@config/uri.config';
-import { STRING_CONFIG, httpOptions } from '@config/string.config';
 
+import { STRING_CONFIG }    from '@config/string.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BallotService }    from '@services/ballot.service';
+import { MessageService }   from '@services/message.service';
+
 @Injectable()
 export class UserService {
 
@@ -17,16 +19,18 @@ export class UserService {
     helper = new JwtHelperService();
 
     constructor(private _http: HttpClient,
-                private _ballotService: BallotService) { }
+                private _ballotService: BallotService,
+                private _messageService: MessageService) { }
 
     login(citizenId: string, password: string): Observable<any> {
         sessionStorage.clear();
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.AUTH_URL,
-            JSON.stringify({citizenId: citizenId, password: password}), httpOptions)
+            JSON.stringify({citizenId: citizenId, password: password}), { headers: this._messageService.getHttpOptions() })
             .pipe(
                 map((response: Response) => {
                     const res = response;
                     if (res['token']) {
+                        this._messageService.changeLoginStatus(true);
                         /* write to session storage here */
                         const decodedToken = this.helper.decodeToken(res['token']);
                         console.log(decodedToken);
@@ -45,12 +49,13 @@ export class UserService {
     }
 
     logout(): void {
+        this._messageService.changeLoginStatus(false);
         sessionStorage.clear();
     }
 
     /* register(name: string, id: string, password: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + '/register',
-            JSON.stringify({name: name, id: id, password: password}), httpOptions)
+            JSON.stringify({name: name, id: id, password: password}), { headers: this._messageService.getHttpOptions() })
             .pipe(
                 map((response: Response) => {
                     const user = response;
@@ -61,7 +66,7 @@ export class UserService {
 
     updateUserInfoLocal(citizenId: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_INFO_URL,
-            JSON.stringify({citizenId: citizenId}), httpOptions)
+            JSON.stringify({citizenId: citizenId}), { headers: this._messageService.getHttpOptions() })
         .pipe(
             map((response: Response) => {
                 const user = response['data'];
@@ -128,10 +133,12 @@ export class UserService {
 
     setupChainAccount(account: Object) {
         return this._http.post(URI_CONFIG.BASE_BLOCKCHAIN_API + '/storeAccount',
-            JSON.stringify(account), httpOptions).pipe(
-                map((response: Response) =>
-                    console.log(response)
-                ));
+            JSON.stringify(account), { headers: this._messageService.getHttpOptions() })
+                .pipe(
+                    map((response: Response) =>
+                        console.log(response)
+                    )
+                );
     }
 
     /* Unused func */
@@ -154,7 +161,7 @@ export class UserService {
 
     getUserHash(citizenId: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_HASH_URL,
-            JSON.stringify({citizenId: citizenId}), httpOptions)
+            JSON.stringify({citizenId: citizenId}), { headers: this._messageService.getHttpOptions() })
             .pipe(
                 map((res: Response) => {
                     return res;

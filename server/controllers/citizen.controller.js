@@ -35,6 +35,7 @@ function postCitizenById(req, res) {
 
     if (_id) {
         Citizen.findOne({citizenId: _id}, function (err, citizen) {
+            console.log(citizen);
             if(err) {
                 console.log(err);
             } else if(citizen) {
