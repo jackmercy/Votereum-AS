@@ -6,7 +6,7 @@
         <hr>
         <div>
             <p *ngFor="let key of (ballotInfo | objectKeys)">
-                <span style="font-weight: bold;">{{ key }}: </span>
+                <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
                 <span>{{ ballotInfo[key] }}</span>
             </p>
         </div>
@@ -28,12 +28,15 @@
         <hr>
     </div>
     <div>
-        <button mat-raised-button>Fund account with ether</button>
-        <button mat-raised-button>Finalize</button>
     </div>
     <div>
-        <button mat-raised-button [disabled]="canDisableButton(key)"
-                (click)="resetTime(key)"
-                *ngFor="let key of phase | objectKeys">{{ phase[key] }}</button>
+        <button mat-raised-button [disabled]="canDisableButton(phase['key'])"
+                (click)="resetTime(phase['key'])"
+                *ngFor="let phase of phases">
+            <span class="d-inline-block"> {{ phase['label'] }} </span>
+            <span *ngIf="phase['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                <mat-spinner  [diameter]="20" mode="indeterminate"></mat-spinner>
+            </span>
+        </button>
     </div>
 </div>

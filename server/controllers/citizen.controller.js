@@ -42,7 +42,7 @@ function postCitizenById(req, res) {
                 res.status(200);
                 res.json(citizen);
             } else {
-                res.status(404);
+                res.status(400);
                 const message = {
                     message: 'Invalid citizen ID!'
                 }
@@ -200,7 +200,7 @@ async function postGenerateNewPassword(req, res) {
     }
 */
 function postGetCitizenHash(req, res) {
-    if (!citizenGuard(req.token)) {
+    if (!CitizenGuard(req.token) || !RaGuard(req.token)) {
         res.status(403);
         return res.json({error: true, message: 'You do not have permission to access this API'});
     }

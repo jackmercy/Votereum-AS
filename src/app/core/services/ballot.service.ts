@@ -1,11 +1,15 @@
-import { Injectable }  from '@angular/core';
-import { Observable }  from 'rxjs/Observable';
-import { HttpClient }  from '@angular/common/http';
-import { URI_CONFIG }  from '@config/uri.config';
-import { map }         from 'rxjs/operators';
-import { forkJoin }    from 'rxjs/observable/forkJoin';
-import { observable }  from 'rxjs/internal-compatibility';
-import { MessageService } from '@services/message.service';
+import { Inject, Injectable } from '@angular/core';
+import { Observable }         from 'rxjs/Observable';
+import { HttpClient }         from '@angular/common/http';
+import { URI_CONFIG }         from '@config/uri.config';
+import { httpOptions }        from '@config/string.config';
+import { map }                from 'rxjs/operators';
+import { forkJoin }           from 'rxjs/observable/forkJoin';
+import { observable }         from 'rxjs/internal-compatibility';
+import { WEB3 }               from '@core/web3-token';
+import Web3                   from 'web3';
+import { MessageService }     from '@services/message.service';
+
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +17,8 @@ import { MessageService } from '@services/message.service';
 export class BallotService {
 
     constructor(private _http: HttpClient,
-                private _messageService: MessageService) {
+                private _messageService: MessageService,
+                @Inject(WEB3) private web3: Web3) {
     }
     /*
     - GET: [/api/ballot]
@@ -79,6 +84,10 @@ export class BallotService {
         return this._http.post(URI_CONFIG.BASE_BALLOT_API + '/resetTime',
             JSON.stringify({ phrase: _phrase }),
             { headers: this._messageService.getHttpOptions() });
+    }
+
+    getTxReceipt(txHash: string): Promise<any> {
+        return this.web3.eth.getTransactionReceipt(txHash);
     }
 }
 

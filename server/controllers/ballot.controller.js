@@ -69,7 +69,15 @@ function postBallotInfo(req, res) {
 }
 
 
-/* - POST: [/api/ballot/close]*/
+/* - POST: [/api/ballot/close]
+- req.body:
+Condition: startRegPhase < endRegPhase < startVotingPhase < endVotingPhase
+{
+    "phrase": "close"
+}
+- res:
+"0xb69748c2df17e870b48366ca06942140071b5cb0d0f7757791134336dfa80716"
+ */
 function postCloseBallot(req, res) {
     if (!EaGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
@@ -199,6 +207,23 @@ function postResetTime(req, res) {
     }
     handlePostRequest('postResetTime', res, req.body);
 }
+
+/*
+- POST: [/api/ballot/claimStoredAmount]
+- req.body:
+{
+    "phrase": "claim"
+}
+- res:
+"0xb69748c2df17e870b48366ca06942140071b5cb0d0f7757791134336dfa80716"
+*/
+function postClaimStoredAmount(req, res) {
+    if (!EaGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+    handlePostRequest('postClaimStoredAmount', res, req.body);
+}
+
 
 /*-----------End EA Section------------*/
 
@@ -337,6 +362,7 @@ export default {
     postGiveRightToVote,
     postHasRightToVote,
     postResetTime,
+    postClaimStoredAmount,
 
     postCandidateResult
 }
