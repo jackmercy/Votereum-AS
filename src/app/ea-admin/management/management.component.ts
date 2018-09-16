@@ -23,6 +23,11 @@ export class ManagementComponent implements OnInit {
     };
     phases: Array<Object> = [
         {
+            key: 'startRegPhase',
+            label: 'Start reg day',
+            isLoading: false
+        },
+        {
             key: 'endRegPhase',
             label: 'End reg day',
             isLoading: false,
@@ -76,7 +81,10 @@ export class ManagementComponent implements OnInit {
         this.finalizeDialogRef.componentInstance.electionName = this.ballotInfo['ballotName'];
 
         this.finalizeDialogRef.afterClosed().subscribe(result => {
-            console.log(result);
+            if (result) {
+                // handle result => start voting phase
+                this.resetTime('startRegPhase');
+            }
         });
     }
 

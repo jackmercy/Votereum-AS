@@ -46,7 +46,7 @@
         </button>
         <button mat-raised-button [disabled]="canDisableButton(phase['key'])"
                 (click)="resetTime(phase['key'])"
-                *ngFor="let phase of phases">
+                *ngFor="let phase of phases | slice:1">
             <span class="d-inline-block"> {{ phase['label'] }} </span>
             <span *ngIf="phase['isLoading']" class="d-inline-block" style="margin-left: 5px;">
                 <mat-spinner  [diameter]="20" mode="indeterminate"></mat-spinner>
