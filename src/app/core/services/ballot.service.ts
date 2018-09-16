@@ -89,5 +89,12 @@ export class BallotService {
     getTxReceipt(txHash: string): Promise<any> {
         return this.web3.eth.getTransactionReceipt(txHash);
     }
+
+    postFinalizeBallot(_phrase: String): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_BALLOT_API + URI_CONFIG.FINALIZE_BALLOT,
+                JSON.stringify({phrase: _phrase}),
+                { headers: this._messageService.getHttpOptions() }
+            );
+    }
 }
 

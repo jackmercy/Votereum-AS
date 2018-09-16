@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BallotService }     from '@services/ballot.service';
-import { MatSnackBar }       from '@angular/material';
+import {
+    MatDialog,
+    MAT_DIALOG_DATA,
+    MatDialogRef,
+    MatSnackBar }                  from '@angular/material';
+import { FinalizeDialogComponent } from '../finalize-dialog/finalize-dialog.component';
 import * as _ from 'lodash';
 
 @Component({
@@ -9,13 +14,14 @@ import * as _ from 'lodash';
     styleUrls: ['./management.component.scss']
 })
 export class ManagementComponent implements OnInit {
+    finalizeDialogRef: MatDialogRef<FinalizeDialogComponent>;
     ballotInfo: any;
+    startPhase: Object = {
+        key: 'startRegPhase',
+        label: 'Start reg day',
+        isLoading: false
+    };
     phases: Array<Object> = [
-        {
-            key: 'startRegPhase',
-            label: 'Start reg day',
-            isLoading: false
-        },
         {
             key: 'endRegPhase',
             label: 'End reg day',
@@ -47,7 +53,8 @@ export class ManagementComponent implements OnInit {
     interval: any;
 
     constructor(private _ballotService: BallotService,
-                public _snackBar: MatSnackBar) { }
+                public _snackBar: MatSnackBar,
+                public dialog: MatDialog) { }
 
     ngOnInit() {
         this._ballotService.getBallotInfo().subscribe(
@@ -61,12 +68,24 @@ export class ManagementComponent implements OnInit {
         return Date.now() / 1000 > this.ballotInfo[phrase];
     }
 
+    onStartPhaseClicked() {
+        this.finalizeDialogRef = this.dialog.open(FinalizeDialogComponent, {
+            width: 'fit-content',
+            disableClose: false
+        });
+        this.finalizeDialogRef.componentInstance.electionName = this.ballotInfo['ballotName'];
+
+        this.finalizeDialogRef.afterClosed().subscribe(result => {
+            console.log(result);
+        });
+    }
+
     resetTime(_phase: string) {
         const phase = _.find(this.phases, { key: _phase });
 
         if (!this.interval) {
             phase.isLoading = true;
-            
+
 
             this._ballotService.resetTime(_phase).subscribe(data => {
                 this.interval = setInterval(() => this.onGetStatus(data, _phase), 12000);

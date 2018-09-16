@@ -1,0 +1,54 @@
+<div class="col-md-auto col-layout">
+    <div class="toolbar-box">
+        <mat-toolbar class="login-toolbar">
+            <span id="welcome" class="fill-remaining-space">
+                FINALIZE BALLOT
+            </span>
+        </mat-toolbar>
+    </div>
+    <!--*ngIf="!error && !isSuccess && !isLoading"-->
+    <div class="form-gourp" *ngIf="!error && !isSuccess && !isLoading">
+        <div class="user-icon">
+            <i class="fas fa-user-cog"></i>
+        </div>
+        <div class="sign-up-text">
+            <div>
+                <label class="session-text" >
+                    IMPORTANT: Please finalize your ballot setup first.
+                    Once you hit the finalize button, the ballot setup - {{electionName}} cannot change or edit it anymore.
+                </label>
+            </div>
+        </div>
+
+        <!-- Button group -->
+        <div class="flex-center">
+            <button (click)="onCancelClicked(false)" class="full-width-input cancel btn btn-primary">
+                <span class="text-color-login-form"> Cancel </span>
+            </button>
+            <button id="sign-in-btn" (click)="onFinalizeClicked()" class="full-width-input setup btn btn-primary">
+                <span class="text-color-login-form"> Finalize </span>
+            </button>
+        </div>
+    </div>
+
+    <div class="info-message" *ngIf="isSuccess || error ">
+        <div *ngIf="error && !isLoading">
+            <p>Error message: {{ error}}</p>
+            <p>Try again later!</p>
+            <button (click)="onCancelClicked(false)" class="full-width-input setup btn btn-primary">
+                <span class="text-color-login-form">Close</span>
+            </button>
+        </div>
+
+        <div *ngIf="isSuccess && !isLoading">
+            Successfully set up the {{electionName}}!
+            <button (click)="onCancelClicked(true)" class="full-width-input setup btn btn-primary">
+                <span class="text-color-login-form">Close</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="info-message" *ngIf="isLoading">
+        <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
+</div>

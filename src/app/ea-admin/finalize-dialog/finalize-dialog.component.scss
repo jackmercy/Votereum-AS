@@ -1,0 +1,128 @@
+@import './src/scss/variables';
+
+.login-toolbar {
+    background-color: $login-primary-color;
+    color: $text-on-secondary;
+    height: inherit;
+    padding-left: 40px;
+    font-size: 25px;
+    font-weight: 300;
+    /* box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15); */
+}
+
+.form-layout {
+    margin-top: 100px;
+}
+
+.col-layout {
+    width: 450px;
+    padding: 0;
+}
+.toolbar-box {
+    /* margin-top: -60px;
+    margin-bottom: 30px; */
+    height: 127px;
+}
+.form-gourp {
+    padding: 50px 40px 20px 40px;
+    background-color: $primary-light;
+    /* box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12); */
+}
+
+
+.btn-primary:disabled {
+    background-color: $primary-darker;
+    border-color: $primary-darker;
+}
+
+.cancel {
+    margin-left: 5px;
+}
+.setup {
+    margin-right: 5px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    #sign-in-btn {
+        border-radius: 2px;
+        width: 100%;
+    }
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid #fec107;
+    background-color: #fec107;
+    border-radius: 50%;
+    margin-top: -75px;
+    margin-left: 293px;
+    box-shadow: 0 4px 4px rgba(10,16,20,.24), 0 0 2px rgba(10,16,20,.12);
+    .fa-user-cog {
+        font-weight: 600;
+        color: $text-on-secondary;
+        vertical-align: middle;
+        padding-top: 14px;
+        padding-left: 3px;
+    }
+}
+
+.sign-up-text {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    .sign-up {
+        cursor: pointer;
+        text-decoration: underline;
+        color: $text-on-primary;
+    }
+    .session {
+        .session-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: $primary-darker;
+        }
+    }
+    .keep-signed {
+    }
+    .forget-pwd {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+}
+
+.info-message {
+    padding: 40px;
+
+    button {
+        margin-top: 40px;
+    }
+
+    mat-spinner {
+        margin: 0 auto
+    }
+
+}
+
+
+/* Checkbox */
+/* .styled-checkbox {
+    // Box.
+    & + label:before {
+        border-width: 2px;
+        border-style: solid;
+        border-color: #a9a9a9;
+        border-radius: 2px;
+        content: '';
+        margin-right: 10px;
+        display: inline-block;
+        vertical-align: text-top;
+        width: 20px;
+        height: 20px;
+        background: white;
+    }
+} */

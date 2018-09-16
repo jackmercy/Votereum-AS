@@ -8,6 +8,7 @@ import { SharedModule }         from '@shared/shared.module';
 import { MasterEaAdminComponent } from './master-ea-admin/master-ea-admin.component';
 import { BallotSetupComponent } from './ballot-setup/ballot-setup.component';
 import { ManagementComponent } from './management/management.component';
+import { FinalizeDialogComponent } from './finalize-dialog/finalize-dialog.component';
 
 
 
@@ -23,7 +24,10 @@ import { ManagementComponent } from './management/management.component';
         MasterEaAdminComponent,
         BallotSetupComponent,
         ManagementComponent,
-
+        FinalizeDialogComponent
+    ],
+    entryComponents: [
+        FinalizeDialogComponent
     ]
 })
 export class EAAdminModule { }

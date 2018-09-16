@@ -46,4 +46,7 @@ export class MessageService {
         return headers;
     }
 
+    getLoginStatus(): Boolean {
+        return this.isLoginSource.getValue();
+    }
 }

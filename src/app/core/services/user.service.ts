@@ -81,19 +81,20 @@ export class UserService {
         );
     }
 
-    isAuthorized(): boolean {
+    isAuthorized(): Boolean {
         const token = sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
+        const isAuth = this._messageService.getLoginStatus();
 
-        return token ? true : false;
+        return isAuth;
     }
 
-    isVoted(): boolean {
+    isVoted(): Boolean {
         const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
 
         return user.isVote;
     }
 
-    hasBlockchainAccount(): boolean {
+    hasBlockchainAccount(): Boolean {
         const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
 
         return user.hasBlockchainAccount;
@@ -126,7 +127,7 @@ export class UserService {
         return decodedToken ? decodedToken.citizenId : '';
     }
 
-/*    hasTheRightToVote(): boolean {
+/*    hasTheRightToVote(): Boolean {
         this._ballotService.getBallotInfo().subscribe
     }
     */

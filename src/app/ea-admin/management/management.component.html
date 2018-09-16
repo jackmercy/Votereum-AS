@@ -30,6 +30,20 @@
     <div>
     </div>
     <div>
+        <!-- <button mat-raised-button [disabled]="canDisableButton(startPhase['key'])"
+                (click)="onStartPhaseClicked()">
+            <span class="d-inline-block"> {{ startPhase['label'] }} </span>
+            <span *ngIf="startPhase['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                <mat-spinner  [diameter]="20" mode="indeterminate"></mat-spinner>
+            </span>
+        </button> -->
+        <button mat-raised-button
+                (click)="onStartPhaseClicked()">
+            <span class="d-inline-block"> {{ startPhase['label'] }} </span>
+            <span *ngIf="startPhase['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                <mat-spinner  [diameter]="20" mode="indeterminate"></mat-spinner>
+            </span>
+        </button>
         <button mat-raised-button [disabled]="canDisableButton(phase['key'])"
                 (click)="resetTime(phase['key'])"
                 *ngFor="let phase of phases">
