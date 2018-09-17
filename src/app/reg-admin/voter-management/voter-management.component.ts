@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar }       from '@angular/material';
+import { User }              from '@core/model/user';
+import { RegAdminService }   from '@services/reg-admin.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { User } from '@core/model/user';
-import { RegAdminService } from '@services/reg-admin.service';
-
 @Component({
     selector: 'app-voter-management',
     templateUrl: './voter-management.component.html',
@@ -29,7 +29,8 @@ export class VoterManagementComponent implements OnInit {
     isCitizenExist: boolean;
 
     constructor(private _formBuilder: FormBuilder,
-                private _regAdminService: RegAdminService) { }
+                private _regAdminService: RegAdminService,
+                public snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.user = new User();
@@ -56,7 +57,14 @@ export class VoterManagementComponent implements OnInit {
                 if (!data['err']) {
                     this.generatedNewPassword = data['password'];
                 }
-            });
+            },
+            error => {
+                const msg = error.error.message;
+                this.snackBar.open(msg , 'Got it', {
+                    duration: 3000,
+                });
+            }
+        );
     }
 
     generateSystemAccount() {
@@ -68,7 +76,14 @@ export class VoterManagementComponent implements OnInit {
                 } else if (data['err']) {
                     console.log(data['message']);
                 }
-            });
+            },
+            error => {
+                const msg = error.error.message;
+                this.snackBar.open(msg , 'Got it', {
+                    duration: 3000,
+                });
+            }
+        );
     }
 
     searchUser() {

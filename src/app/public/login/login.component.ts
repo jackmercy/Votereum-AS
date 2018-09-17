@@ -37,11 +37,7 @@ export class LoginComponent implements OnInit {
         this._userService.login(this.citizenID.value, this.password.value)
             .subscribe(
                 data => {
-                    if (data.message) {
-                        this.snackBar.open(data.message , 'Got it', {
-                            duration: 3000,
-                        });
-                    } else if (data.token) {
+                    if (data.token) {
                         /* Navigate base on role */
                         const decodedToken = this.helper.decodeToken(data.token);
                         if (decodedToken.role === roleConfig.CITIZEN) {
@@ -55,7 +51,10 @@ export class LoginComponent implements OnInit {
 
                 },
                 error => {
-                    console.log(error);
+                    const msg = error.error.message;
+                    this.snackBar.open(msg , 'Got it', {
+                        duration: 3000,
+                    });
                 }
             );
     }

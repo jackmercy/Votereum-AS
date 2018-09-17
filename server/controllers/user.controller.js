@@ -30,9 +30,13 @@ function postLogin(req, res) {
         } else if(user) {
 
             bcrypt.compare(req.body.password, user.hashPassword, function(err, _result) {
-                if (err) throw (err);
-                // result == true
-                if (_result) {
+                if (err) {
+                    res.status(500).json({
+                        error: true,
+                        message: 'Internal server error'
+                    });
+                } else if (_result) {
+                    // result == true
                     const payload = {
                         name: user.name, /* Username should get from citizen */
                         citizenId: user.citizenId,
