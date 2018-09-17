@@ -42,7 +42,7 @@ export class MessageService {
                 'Content-Type': 'application/json'
             });
         }
-        console.log(headers);
+        // console.log(headers);
         return headers;
     }
 

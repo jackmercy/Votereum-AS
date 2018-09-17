@@ -94,7 +94,7 @@ export class BallotSetupComponent implements OnInit {
 
         this.confirmDialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this._router.navigate(['/management']);
+                this._router.navigate(['/ea-admin/management']);
             }
         });
     }

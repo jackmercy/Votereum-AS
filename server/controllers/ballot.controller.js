@@ -61,11 +61,12 @@ function postBallotInfo(req, res) {
                 message: 'Duplicate ballot'
             });
         } else if(ballot.length === 0) {
+            handlePostRequest('postBallotInfo', res, req.body);
             ballotInfo.save();
         }
         
     });
-    handlePostRequest('postBallotInfo', res, req.body);
+
 }
 
 
