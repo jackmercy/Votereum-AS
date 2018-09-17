@@ -1,10 +1,18 @@
 import { Component, OnInit, ViewChild }                  from '@angular/core';
+import {
+    MatDialog,
+    MAT_DIALOG_DATA,
+    MatDialogRef,
+    MatSnackBar }                                        from '@angular/material';
 /* import * as _moment          from 'moment';
 import { default as _rollupMoment }                      from 'moment'; */
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
-import { MatSelectionList, MatStepper }                  from '@angular/material';
-import { ElectionAdminService }                          from '@services/election-admin.service';
-import { BallotService }                                 from '@services/ballot.service';
+import { MatSelectionList, MatStepper } from '@angular/material';
+import { ElectionAdminService }         from '@services/election-admin.service';
+import { BallotService }                from '@services/ballot.service';
+import { SetupConfirmDialogComponent }  from '@app/ea-admin/setup-confirm-dialog/setup-confirm-dialog.component';
+import { FinalizeDialogComponent }      from '@app/ea-admin/finalize-dialog/finalize-dialog.component';
+import { Router }                       from '@angular/router';
 /*
 const moment = _rollupMoment || _moment; */
 @Component({
@@ -18,10 +26,9 @@ export class BallotSetupComponent implements OnInit {
     candidateFormGroup: FormGroup;
     phasesSequenceFormGroup: FormGroup;
     candidates: Array<Object>;
+    confirmDialogRef: MatDialogRef<SetupConfirmDialogComponent>;
 
     @ViewChild('selectionList') private candidateList: MatSelectionList;
-
-
 
     typesOfShoes: Object[] = [{
         name: 'sod'
@@ -31,7 +38,9 @@ export class BallotSetupComponent implements OnInit {
 
     constructor(private _formBuilder: FormBuilder,
                 private _eaService: ElectionAdminService,
-                private _ballotService: BallotService) {}
+                private _ballotService: BallotService,
+                private _dialog: MatDialog,
+                private _router: Router) {}
 
     ngOnInit() {
         this.ballotInfoFormGroup = this._formBuilder.group({
@@ -75,8 +84,18 @@ export class BallotSetupComponent implements OnInit {
             ballotInfoGroup,
             phaseSequenceGroup,
             candidateListGroup);
-        this._ballotService.postBallotInfo(payload).subscribe(data => console.log(data));
+
+        this.confirmDialogRef = this._dialog.open(SetupConfirmDialogComponent, {
+            width: 'fit-content',
+            disableClose: false,
+            data: payload
+        });
+
+
+        this.confirmDialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this._router.navigate(['/management']);
+            }
+        });
     }
-
-
 }

@@ -9,6 +9,7 @@ import { MasterEaAdminComponent } from './master-ea-admin/master-ea-admin.compon
 import { BallotSetupComponent } from './ballot-setup/ballot-setup.component';
 import { ManagementComponent } from './management/management.component';
 import { FinalizeDialogComponent } from './finalize-dialog/finalize-dialog.component';
+import { SetupConfirmDialogComponent } from './setup-confirm-dialog/setup-confirm-dialog.component';
 
 
 
@@ -24,10 +25,12 @@ import { FinalizeDialogComponent } from './finalize-dialog/finalize-dialog.compo
         MasterEaAdminComponent,
         BallotSetupComponent,
         ManagementComponent,
-        FinalizeDialogComponent
+        FinalizeDialogComponent,
+        SetupConfirmDialogComponent
     ],
     entryComponents: [
-        FinalizeDialogComponent
+        FinalizeDialogComponent,
+        SetupConfirmDialogComponent
     ]
 })
 export class EAAdminModule { }

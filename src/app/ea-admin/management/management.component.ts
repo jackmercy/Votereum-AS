@@ -99,7 +99,7 @@ export class ManagementComponent implements OnInit {
                 this.interval = setInterval(() => this.onGetStatus(data, _phase), 12000);
             });
         } else {
-            const snackBar = this._snackBar.open(
+        this._snackBar.open(
                 'Please wait until the current operation finishes!',
                 'OK', {
                     duration: 2000,
@@ -126,7 +126,7 @@ export class ManagementComponent implements OnInit {
                     const snackBar = this._snackBar.open(
                         'Your operation has failed. Please try again',
                         'OK', {
-                            duration: 5000,
+                            duration: 3000,
                         });
 
                     this.phases[_phase].isLoading = false;

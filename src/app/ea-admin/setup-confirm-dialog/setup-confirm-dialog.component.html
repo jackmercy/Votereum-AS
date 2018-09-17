@@ -1,0 +1,52 @@
+<div class="col-md-auto px-0 col-layout">
+    <div class="toolbar-box">
+        <mat-toolbar class="login-toolbar">
+            <span id="welcome" class="fill-remaining-space">
+                BALLOT SETUP CONFIRMATION
+            </span>
+        </mat-toolbar>
+    </div>
+    <!--*ngIf="!error && !isSuccess && !isLoading"-->
+    <div class="form-gourp" *ngIf="!error && !isSuccess && !isLoading">
+        <div class="sign-up-text">
+            <div>
+                <label class="session-text" >
+                    IMPORTANT: Please re-check before submitting. Once set up, ballot information cannot be edited.
+                    Do you want to proceed?
+                </label>
+            </div>
+        </div>
+
+        <!-- Button group -->
+        <div class="flex-center">
+            <button (click)="onCancelClicked(false)" class="full-width-input cancel-btn btn btn-primary">
+                <span class="text-color-login-form"> Cancel </span>
+            </button>
+            <button id="sign-in-btn" (click)="onSetupClicked()" class="full-width-input setup-btn btn btn-primary">
+                <span class="text-color-login-form"> Proceed </span>
+            </button>
+        </div>
+    </div>
+
+    <div class="info-message" *ngIf="isSuccess || error ">
+        <div *ngIf="error && !isLoading">
+            <p>Error message: {{ error}}</p>
+            <p>Try again later!</p>
+            <button (click)="onCancelClicked(false)" class="full-width-input setup btn btn-primary">
+                <span class="text-color-login-form">Close</span>
+            </button>
+        </div>
+
+        <div *ngIf="isSuccess && !isLoading">
+            Successfully set up the ballot!
+            <button (click)="onCancelClicked(true)" class="full-width-input setup btn btn-primary">
+                <span class="text-color-login-form">Close</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="info-message" *ngIf="isLoading">
+        <p> Establishing the ballot. Please wait...</p>
+        <mat-spinner mode="indeterminate"></mat-spinner>
+    </div>
+</div>
