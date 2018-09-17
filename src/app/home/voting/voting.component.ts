@@ -156,6 +156,12 @@ export class VotingComponent implements OnInit {
                     this.snackBar.open(result.message , 'OK', {
                         duration: 30000,
                     });
+                },
+                error => {
+                    const msg = error.error.message;
+                    this.snackBar.open(msg , 'Got it', {
+                        duration: 3000,
+                    });
                 }
             });*/
         }
@@ -176,11 +182,19 @@ export class VotingComponent implements OnInit {
             width: 'fit-content',
         });
 
-        dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                location.reload();
+        dialogRef.afterClosed().subscribe(
+                result => {
+                    if (result) {
+                        location.reload();
+                    }
+            },
+            error => {
+                const msg = error.error.message;
+                this.snackBar.open(msg , 'Got it', {
+                    duration: 3000,
+                });
             }
-        });
+        );
     }
 
 }

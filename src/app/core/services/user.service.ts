@@ -53,6 +53,23 @@ export class UserService {
         sessionStorage.clear();
     }
 
+    get keepSignInStatus(): Boolean {
+        return JSON.parse(localStorage.getItem('keepSignIn') || 'false');
+    }
+
+    get isLoggedIn(): Boolean {
+        return this.keepSignInStatus;
+    }
+
+    set keepSignInStatus(value: Boolean) {
+        localStorage.setItem('keepSignIn', value.toString());
+    }
+
+
+    isKeepSignIn(value: Boolean) {
+        this.keepSignInStatus = value;
+    }
+
     /* register(name: string, id: string, password: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + '/register',
             JSON.stringify({name: name, id: id, password: password}), { headers: this._messageService.getHttpOptions() })
@@ -84,8 +101,16 @@ export class UserService {
     isAuthorized(): Boolean {
         const token = sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
         const isAuth = this._messageService.getLoginStatus();
+        const isKeepLogIn = this.keepSignInStatus;
 
-        return isAuth;
+        if (isAuth) {
+            return true;
+        } else if (isAuth === false && isKeepLogIn === true) {
+            return token ? true : false;
+        } else if (isAuth === false && isKeepLogIn === false) {
+            return false;
+        }
+        return false;
     }
 
     isVoted(): Boolean {

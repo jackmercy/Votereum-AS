@@ -80,12 +80,20 @@ export class ManagementComponent implements OnInit {
         });
         this.finalizeDialogRef.componentInstance.electionName = this.ballotInfo['ballotName'];
 
-        this.finalizeDialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                // handle result => start voting phase
-                this.resetTime(this.phases[2]['key']);
+        this.finalizeDialogRef.afterClosed().subscribe(
+            result => {
+                if (result) {
+                    // handle result => start voting phase
+                    this.resetTime(this.phases[2]['key']);
+                }
+            },
+            error => {
+                const msg = error.error.message;
+                this._snackBar.open(msg , 'OK', {
+                    duration: 3000,
+                });
             }
-        });
+        );
     }
 
     resetTime(_phase: string) {

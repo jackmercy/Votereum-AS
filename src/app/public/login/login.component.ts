@@ -28,21 +28,21 @@ export class LoginComponent implements OnInit {
         this.pageStrings = publicModuleStrings;
         this.loginFormGroup = this._formBuilder.group({
             citizendID: ['', Validators.required],
-            password: ['', Validators.required]
+            password: ['', Validators.required],
+            keepSignIn: [false]
         });
         this.canDisableSignInButton = false;
     }
 
     onLogin() {
+        // get value of keep sign in check box
+        this._userService.isKeepSignIn(this.keepSignIn.value);
+
         this._userService.login(this.citizenID.value, this.password.value)
             .subscribe(
                 data => {
-                    if (data.message) {
-                        this.snackBar.open(data.message , 'Got it', {
-                            duration: 3000,
-                        });
-                    } else if (data.token) {
-                        /* Navigate base on role */
+                    if (data.token) {
+                        // Navigate base on role
                         const decodedToken = this.helper.decodeToken(data.token);
                         if (decodedToken.role === roleConfig.CITIZEN) {
                             this._router.navigate(['/home/voting']);
@@ -55,7 +55,10 @@ export class LoginComponent implements OnInit {
 
                 },
                 error => {
-                    console.log(error);
+                    const msg = error.error.message;
+                    this.snackBar.open(msg , 'Got it', {
+                        duration: 3000,
+                    });
                 }
             );
     }
@@ -70,6 +73,10 @@ export class LoginComponent implements OnInit {
 
     get password() {
         return this.loginFormGroup.get('password');
+    }
+
+    get keepSignIn() {
+        return this.loginFormGroup.get('keepSignIn');
     }
 
     getIdErrorMessage() {
