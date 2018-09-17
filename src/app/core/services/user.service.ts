@@ -42,6 +42,7 @@ export class UserService {
                         };
                         sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
                         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+                        this.isLoggedIn = true;
                     }
                     return res;
                 })
@@ -51,24 +52,17 @@ export class UserService {
     logout(): void {
         this._messageService.changeLoginStatus(false);
         sessionStorage.clear();
-    }
-
-    get keepSignInStatus(): Boolean {
-        return JSON.parse(localStorage.getItem('keepSignIn') || 'false');
+        localStorage.removeItem('isLoggedIn');
     }
 
     get isLoggedIn(): Boolean {
-        return this.keepSignInStatus;
+        return JSON.parse(localStorage.getItem('isLoggedIn') || 'false');
     }
 
-    set keepSignInStatus(value: Boolean) {
-        localStorage.setItem('keepSignIn', value.toString());
+    set isLoggedIn(value: Boolean) {
+        localStorage.setItem('isLoggedIn', value.toString());
     }
 
-
-    isKeepSignIn(value: Boolean) {
-        this.keepSignInStatus = value;
-    }
 
     /* register(name: string, id: string, password: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + '/register',
@@ -101,15 +95,20 @@ export class UserService {
     isAuthorized(): Boolean {
         const token = sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
         const isAuth = this._messageService.getLoginStatus();
-        const isKeepLogIn = this.keepSignInStatus;
-
+        const isLoggedIn = this.isLoggedIn;
         if (isAuth) {
             return true;
-        } else if (isAuth === false && isKeepLogIn === true) {
-            return token ? true : false;
-        } else if (isAuth === false && isKeepLogIn === false) {
+        } else if (isAuth === false && isLoggedIn === true) {
+            if (token) {
+                this._messageService.changeLoginStatus(true);
+
+                return true;
+            }
+            return false;
+        } else if (isAuth === false && isLoggedIn === false) {
             return false;
         }
+
         return false;
     }
 
@@ -152,7 +151,7 @@ export class UserService {
         return decodedToken ? decodedToken.citizenId : '';
     }
 
-/*    hasTheRightToVote(): Boolean {
+    /* hasTheRightToVote(): Boolean {
         this._ballotService.getBallotInfo().subscribe
     }
     */
