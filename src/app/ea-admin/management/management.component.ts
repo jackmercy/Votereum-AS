@@ -83,7 +83,7 @@ export class ManagementComponent implements OnInit {
         this.finalizeDialogRef.afterClosed().subscribe(result => {
             if (result) {
                 // handle result => start voting phase
-                this.resetTime('startRegPhase');
+                this.resetTime(this.phases[2]['key']);
             }
         });
     }
@@ -135,8 +135,5 @@ export class ManagementComponent implements OnInit {
             }
         });
     }
-
-
-
 
 }
