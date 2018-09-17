@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     onLogin() {
         // get value of keep sign in check box
-        this._userService.isKeepSignIn(this.keepSignIn.value);
+        /* this._userService.isKeepSignIn(this.keepSignIn.value); */
 
         this._userService.login(this.citizenID.value, this.password.value)
             .subscribe(
