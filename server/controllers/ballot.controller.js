@@ -7,19 +7,30 @@ import Ballot  from '../models/ballot.model';
 
 /*-----------EA Section------------*/
 /*
-- GET: [/api/ballot]
+- GET: [/api/contract]
 - Response:
 {
-    "ballotName": "President Election",
-    "startRegPhase": "1543050000",
-    "endRegPhase": "1543080000",
-    "startVotingPhase": "1540370700",
-    "endVotingPhase": "1543049100",
-    "isFinalized": false,
-    "registeredVoterCount": "0",
-    "votedVoterCount": "0"
-}
-*/
+    "ballotOverview" : {
+        "ballotInfo": {
+            "ballotName": "President Election",
+            "isFinalized": false,
+            "amount": 6000000000,
+            "storedAmount": 60000000000
+        },
+        "phaseInfo": {
+            "startRegPhase": "1543050000",
+            "endRegPhase": "1543080000",
+            "startVotingPhase": "1540370700",
+            "endVotingPhase": "1543049100",
+        },
+        "voterInfo": {
+             "registeredVoterCount": "0",
+             "votedVoterCount": "0",
+             "fundedVoterCount": "0",
+        }
+
+    }
+}*/
 function getBallotInfo(req, res) {
     if (!EaGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
