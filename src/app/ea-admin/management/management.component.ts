@@ -69,6 +69,7 @@ export class ManagementComponent implements OnInit {
                 this.voterInfo = data['voterInfo'];
                 console.log(data);
             });
+        this._ballotService.getBallotResult().subscribe();
         this.interval = false;
     }
 

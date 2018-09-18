@@ -41,7 +41,21 @@ export class BallotService {
     getCandidateIds(): Observable<any> {
         return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/candidate', { headers: this._messageService.getHttpOptions() });
     }
-
+    
+    /*
+    - GET: [/api/ballot]
+    - Response:
+    {
+        "ballotName": "President Election",
+        "startRegPhase": "1543050000",
+        "endRegPhase": "1543080000",
+        "startVotingPhase": "1540370700",
+        "endVotingPhase": "1543049100",
+        "isFinalized": false,
+        "registeredVoterCount": "0",
+        "votedVoterCount": "0"
+    }
+    */
     getBallotResult(): Observable<any> {
         return new Observable(( _observable ) => {
             const observables: Array<Observable<Object>> = [];
@@ -58,8 +72,8 @@ export class BallotService {
                         ).pipe(
                             map(_result => {
                                 const candidateResult = {
-                                    candidateId: _candidateId,
-                                    voteCount:   _result['voteCount']
+                                    name: _candidateId,
+                                    value:   _result['voteCount']
                                 };
                                 return candidateResult;
                             })
