@@ -12,6 +12,21 @@
                     <app-error-field [errorCode]="ballotInfoFormGroup.get('ballotName').errors" ></app-error-field>
                 </mat-error>
             </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Fund Amount" formControlName="fundAmount">
+                <mat-error>
+                    <app-error-field [errorCode]="ballotInfoFormGroup.get('fundAmount').errors" ></app-error-field>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Max number of candidates that can be voted" formControlName="maxCandidate">
+                <mat-error>
+                    <app-error-field [errorCode]="ballotInfoFormGroup.get('maxCandidate').errors" ></app-error-field>
+                </mat-error>
+            </mat-form-field>
+
             <div>
                 <button class="step-button-padding" mat-stroked-button color="primary" matStepperNext  [disabled]="!ballotInfoFormGroup.valid">Next</button>
             </div>

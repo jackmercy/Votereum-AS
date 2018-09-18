@@ -47,6 +47,13 @@ export class BallotSetupComponent implements OnInit {
             ballotName: ['', [
                 Validators.required,
                 Validators.minLength(2)]
+            ],
+            fundAmount: ['',
+                Validators.required
+            ],
+            maxCandidate: ['',
+                Validators.required,
+
             ]
         });
 
@@ -70,10 +77,10 @@ export class BallotSetupComponent implements OnInit {
     onSetupClicked() {
         const ballotInfoGroup = this.ballotInfoFormGroup.getRawValue();
         const phaseSequenceGroup = {
-            startRegPhase: this.phasesSequenceFormGroup.get('startRegPhase').value.format('X'),
-            endRegPhase: this.phasesSequenceFormGroup.get('endRegPhase').value.format('X'),
-            startVotingPhase: this.phasesSequenceFormGroup.get('startVotingPhase').value.format('X'),
-            endVotingPhase: this.phasesSequenceFormGroup.get('endVotingPhase').value.format('X'),
+            startRegPhase: this.phasesSequenceFormGroup.get('startRegPhase').value.format('x'),
+            endRegPhase: this.phasesSequenceFormGroup.get('endRegPhase').value.format('x'),
+            startVotingPhase: this.phasesSequenceFormGroup.get('startVotingPhase').value.format('x'),
+            endVotingPhase: this.phasesSequenceFormGroup.get('endVotingPhase').value.format('x'),
         };
         const candidateListGroup = {
             candidateIds: this.candidateList.selectedOptions.selected

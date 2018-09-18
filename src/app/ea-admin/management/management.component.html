@@ -1,62 +1,83 @@
 <div *ngIf="ballotInfo">
-    <div>
+    <div class="ballot-section">
         <p>
             Ballot Management
         </p>
         <hr>
         <div>
-            <p *ngFor="let key of (ballotInfo | objectKeys)">
+            <p *ngFor="let key of (ballotInfo | objectKeys) | slice: 0:3">
                 <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
                 <span>{{ ballotInfo[key] }}</span>
             </p>
+            <p *ngFor="let key of (ballotInfo | objectKeys) | slice: 3">
+                <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
+                <span>{{ (ballotInfo[key] / 1000000000) | number: '1.0-3'}} GWei</span>
+            </p>
         </div>
+
+        <br>
 
         <div>
+            <p *ngFor="let phase of (phaseInfo | objectKeys)">
+                <span style="font-weight: bold;">{{ getLabel(phase) }}: </span>
+                <span>{{ phaseInfo[phase] | date: 'fullDate'}}</span>
+            </p>
+        </div>
 
+        <div class="phase-group-button">
+
+            <button mat-raised-button [disabled]="canDisableButton(phases[0]['key']) || phases[0]['isLoading']"
+                    (click)="resetTime(phases[0]['key'])">
+                <span class="d-inline-block">{{ phases[0]['label'] }}</span>
+                <span *ngIf="phases[0]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+            </span>
+            </button>
+
+            <button mat-raised-button [disabled]="canDisableButton(phases[1]['key']) || phases[1]['isLoading']"
+                    (click)="resetTime(phases[1]['key'])">
+                <span class="d-inline-block">{{ phases[1]['label'] }}</span>
+                <span *ngIf="phases[1]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+            </span>
+            </button>
+
+            <button mat-raised-button [disabled]="canDisableButton(phases[2]['key']) || phases[2]['isLoading']"
+                    (click)="onStartPhaseClicked()">
+                <span class="d-inline-block">{{ phases[2]['label'] }}</span>
+                <span *ngIf="phases[2]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+            </span>
+            </button>
+
+            <button mat-raised-button [disabled]="canDisableButton(phases[3]['key']) || phases[3]['isLoading']"
+                    (click)="resetTime(phases[3]['key'])">
+                <span class="d-inline-block">{{ phases[3]['label'] }}</span>
+                <span *ngIf="phases[3]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+            </span>
+            </button>
         </div>
     </div>
-    <div>
+
+    <div class="ballot-section">
         <p>
             User Management
         </p>
         <hr>
+        <div>
+            <p *ngFor="let key of (voterInfo | objectKeys)">
+                <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
+                <span>{{ voterInfo[key] }}</span>
+            </p>
+        </div>
     </div>
-    <div>
+
+    <div class="ballot-section">
         <p>
             Ballot Overview
         </p>
         <hr>
     </div>
-    <div>
-    </div>
-    <div class="phase-group-button">
-        <button mat-raised-button [disabled]="canDisableButton(phases[0]['key'])"
-                (click)="resetTime(phases[0]['key'])">
-            <span class="d-inline-block">{{ phases[0]['label'] }}</span>
-            <span *ngIf="phases[0]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
-                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
-            </span>
-        </button>
-        <button mat-raised-button [disabled]="canDisableButton(phases[1]['key'])"
-                (click)="resetTime(phases[1]['key'])">
-            <span class="d-inline-block">{{ phases[1]['label'] }}</span>
-            <span *ngIf="phases[1]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
-                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
-            </span>
-        </button>
-        <button mat-raised-button [disabled]="canDisableButton(phases[2]['key'])"
-                (click)="onStartPhaseClicked()">
-            <span class="d-inline-block">{{ phases[2]['label'] }}</span>
-            <span *ngIf="phases[2]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
-                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
-            </span>
-        </button>
-        <button mat-raised-button [disabled]="canDisableButton(phases[3]['key'])"
-                (click)="resetTime(phases[3]['key'])">
-            <span class="d-inline-block">{{ phases[3]['label'] }}</span>
-            <span *ngIf="phases[3]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
-                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
-            </span>
-        </button>
-    </div>
+
 </div>

@@ -45,6 +45,8 @@ function getBallotInfo(req, res) {
 Condition: startRegPhase < endRegPhase < startVotingPhase < endVotingPhase
 {
     "ballotName": "President Election",
+    "fundAmount": 1000000,
+    "maxCandidate": 3,
     "startRegPhase": "1540370700",
     "endRegPhase": "1543049100",
     "startVotingPhase": "1543050000",

@@ -16,11 +16,9 @@ import * as _ from 'lodash';
 export class ManagementComponent implements OnInit {
     finalizeDialogRef: MatDialogRef<FinalizeDialogComponent>;
     ballotInfo: any;
-    startPhase: Object = {
-        key: 'startRegPhase',
-        label: 'Start reg day',
-        isLoading: false
-    };
+    phaseInfo: any;
+    voterInfo: any;
+
     phases: Array<Object> = [
         {
             key: 'startRegPhase',
@@ -46,6 +44,8 @@ export class ManagementComponent implements OnInit {
     ballotInfoLabels: Object = {
         ballotName: 'Ballot name',
         isFinalized: 'Finalized',
+        address: 'Ballot address',
+        amount: 'Fund amount',
         registeredVoterCount: 'Number of registered citizen',
         votedVoterCount: 'Number of voted citizen',
         fundedVoterCount: 'Number of funded citizen',
@@ -63,21 +63,37 @@ export class ManagementComponent implements OnInit {
 
     ngOnInit() {
         this._ballotService.getBallotInfo().subscribe(
-            data =>
-                this.ballotInfo = data);
+            data => {
+                this.ballotInfo = data['ballotInfo'];
+                this.phaseInfo = data['phaseInfo'];
+                this.voterInfo = data['voterInfo'];
+                console.log(data);
+            });
         this.interval = false;
     }
 
     // Disable when now is greater than fetched time
     canDisableButton(phrase: string) {
-        return Date.now() / 1000 > this.ballotInfo[phrase];
+        const date = this.phaseInfo[phrase];
+        console.log(Date.now() / 1000 > this.phaseInfo[phrase]);
+        return Date.now() / 1000 > this.phaseInfo[phrase];
     }
 
     onStartPhaseClicked() {
+        if (this.interval) {
+            this._snackBar.open(
+                'Please wait until the current operation finishes!',
+                'OK', {
+                    duration: 2000,
+                });
+            return;
+        }
+
         this.finalizeDialogRef = this.dialog.open(FinalizeDialogComponent, {
             width: 'fit-content',
             disableClose: false
         });
+
         this.finalizeDialogRef.componentInstance.electionName = this.ballotInfo['ballotName'];
 
         this.finalizeDialogRef.afterClosed().subscribe(
@@ -99,20 +115,21 @@ export class ManagementComponent implements OnInit {
     resetTime(_phase: string) {
         const phase = _.find(this.phases, { key: _phase });
 
-        if (!this.interval) {
-            phase.isLoading = true;
-
-
-            this._ballotService.resetTime(_phase).subscribe(data => {
-                this.interval = setInterval(() => this.onGetStatus(data, _phase), 12000);
-            });
-        } else {
-        this._snackBar.open(
+        if (this.interval) {
+            this._snackBar.open(
                 'Please wait until the current operation finishes!',
                 'OK', {
                     duration: 2000,
                 });
+            return;
         }
+
+        phase.isLoading = true;
+
+        this._ballotService.resetTime(_phase).subscribe(data => {
+            this.interval = setInterval(() => this.onGetStatus(data, _phase), 12000);
+        });
+
     }
 
     getLabel(key: string) {
