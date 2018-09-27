@@ -1,6 +1,7 @@
 import User              from '../models/user.model';
 import BlockchainAccount from '../models/blockchain-account.model';
 import bcrypt            from 'bcrypt';
+import ballotController from './ballot.controller';
 
 /* const variable */
 const saltRounds = 10;
@@ -80,6 +81,8 @@ function postStoreBlockchainAccount(req, res) {
         });
         }
     });
+    ballotController.postGiveRightToVote(req, res);
+
     
 }
 

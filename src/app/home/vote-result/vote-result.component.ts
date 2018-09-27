@@ -21,9 +21,9 @@ export class VoteResultComponent implements OnInit {
 
     ngOnInit() {
         this.listenCondition = false;
-        this.txHash = this._userService.getHash();
+        /* this.txHash = this._userService.getHash();
         this.onGetStatus();
-        this.listenCondition = setInterval(() => this.onGetStatus(), 12000);
+        this.listenCondition = setInterval(() => this.onGetStatus(), 12000); */
     }
 
     onGetStatus() {
