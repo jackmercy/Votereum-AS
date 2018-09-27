@@ -66,7 +66,7 @@ export class BallotService {
                 candidateIds.map(_candidateId =>
                     observables.push(
                         this._http.post(
-                            URI_CONFIG.BASE_BALLOT_API + '/candidate/result',
+                            URI_CONFIG.BASE_BALLOT_API + '/result',
                             JSON.stringify({ candidateId: _candidateId }),
                             { headers: this._messageService.getHttpOptions() }
                         ).pipe(

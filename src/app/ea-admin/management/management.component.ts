@@ -75,8 +75,6 @@ export class ManagementComponent implements OnInit {
 
     // Disable when now is greater than fetched time
     canDisableButton(phrase: string) {
-        const date = this.phaseInfo[phrase];
-        console.log(Date.now() / 1000 > this.phaseInfo[phrase]);
         return Date.now() / 1000 > this.phaseInfo[phrase];
     }
 
@@ -115,6 +113,15 @@ export class ManagementComponent implements OnInit {
 
     resetTime(_phase: string) {
         const phase = _.find(this.phases, { key: _phase });
+
+        if (_phase === 'startRegPhase' && this.ballotInfo['storedAmount'] < this.ballotInfo['amount']) {
+            this._snackBar.open(
+                'Please fund ballot with an amount of Ether before starting!',
+                'OK', {
+                    duration: 2000,
+                });
+            return;
+        }
 
         if (this.interval) {
             this._snackBar.open(

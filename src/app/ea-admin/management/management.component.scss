@@ -5,3 +5,17 @@
 .ballot-section {
     margin-bottom: 2rem;
 }
+
+.phase-group-button {
+    button {
+        margin: 10px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
