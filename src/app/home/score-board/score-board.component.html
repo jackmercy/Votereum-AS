@@ -1,8 +1,15 @@
 <div class="container-fluid wrapper score-grid no-gutters">
-    <ul>
-        <li *ngFor="let _result of result">
-            <p>Candidate Id: {{ _result.candidateId }}</p>
-            <p>{{ _result.voteCount }}</p>
-        </li>
-    </ul>
+    <ngx-charts-bar-vertical
+        [scheme]="colorScheme"
+        [results]="single"
+        [gradient]="gradient"
+        [xAxis]="showXAxis"
+        [yAxis]="showYAxis"
+        [legend]="showLegend"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [xAxisLabel]="xAxisLabel"
+        [yAxisLabel]="yAxisLabel"
+        (select)="onSelect($event)">
+    </ngx-charts-bar-vertical>
 </div>
