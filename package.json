@@ -30,6 +30,7 @@
     "@angular/router": "6.0.9",
     "@auth0/angular-jwt": "^2.0.0",
     "@babel/preset-env": "^7.0.0",
+    "@swimlane/ngx-charts": "^9.0.0",
     "@types/chart.js": "^2.7.14",
     "amqplib": "^0.5.2",
     "app-root-path": "^2.0.1",

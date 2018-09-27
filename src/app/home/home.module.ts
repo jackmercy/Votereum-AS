@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule }  from '@angular/forms';
 /* Modules */
+import { NgxChartsModule }   from '@swimlane/ngx-charts';
 import { SharedModule }      from '@app/shared/shared.module';
 import { HomeRoutingModule } from '@app/home/home-routing.module';
 
@@ -17,6 +18,7 @@ import { AccountDialogComponent } from './account-dialog/account-dialog.componen
         CommonModule,
         RouterModule,
         FormsModule,
+        NgxChartsModule,
 
         SharedModule,
         HomeRoutingModule,
