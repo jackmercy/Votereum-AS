@@ -72,18 +72,18 @@ function postLogin(req, res) {
 
 /* POTS: [/change-password] */
 /* req JSON {
-    "citizenId": "0432",
     "newPassword": "123456"
 } */
 function postChangePassword(req, res) {
+    if (!CitizenGuard(req.token)) {
+        res.status(403);
+        return res.json({error: true, message: 'You do not have permission to access this API'});
+    }
     if(!req.body.newPassword) {
         res.status(400);
         return res.send('Password is required');
-    } else if(!req.body.citizenId) {
-        res.status(400);
-        return res.send('Citizen ID is required');
     }
-    const _id = req.body.citizenId;
+    const _id = req.token.citizenId;
     const query = { citizenId: _id };
 
     User.find(query, function(err, user) {
