@@ -2,6 +2,7 @@ import User              from '../models/user.model';
 import BlockchainAccount from '../models/blockchain-account.model';
 import bcrypt            from 'bcrypt';
 import ballotController from './ballot.controller';
+import _ from 'lodash';
 
 /* const variable */
 const saltRounds = 10;
@@ -51,39 +52,47 @@ function postStoreBlockchainAccount(req, res) {
                                 { overwrite: true, upsert: false },
                                 function (err, rawResponse) {}
                             );
-                            // res status 200
+
+                            var _req = _.cloneDeep(req);
+                            _req.body = {
+                                voterAddress: req.body.address
+                            };
+
+                            ballotController.postGiveRightToVote(_req, res);
+
+/*                            // res status 200
                             res.json({
                                 err: false,
                                 message: 'successful store new blockchain account',
                                 address: req.body.address
-                            });
+                            });*/
                         }
                     });
                 } else if (user && user.hasBlockchainAccount === true) {
                     res.status(400);
                     res.json({
-                        err: true,
+                        error: true,
                         message: 'Citizen have already had blockchain account'
                     });
                 }
             });
+
         } else if (n >= 1) {
             res.status(400);
             res.json({
-                err: true,
+                error: true,
                 message: 'Citizen have already had blockchain account'
             });
         } else {
             res.status(500);
             res.json({
-                err: true,
+                error: true,
                 message: 'Something wrong with the server'
         });
         }
     });
-    ballotController.postGiveRightToVote(req, res);
 
-    
+
 }
 
 export default {

@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map }        from 'rxjs/operators';
+import { map, retry } from 'rxjs/operators';
 import { URI_CONFIG } from '@config/uri.config';
 
 import { STRING_CONFIG }    from '@config/string.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BallotService }    from '@services/ballot.service';
 import { MessageService }   from '@services/message.service';
+import { throwError }       from 'rxjs/internal/observable/throwError';
+import { forkJoin }         from 'rxjs/observable/forkJoin';
+
+
 
 @Injectable()
 export class UserService {
@@ -76,7 +80,7 @@ export class UserService {
     } */
 
     updateUserInfoLocal(citizenId: string): Observable<any> {
-        return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_INFO_URL,
+        return this._http.post(URI_CONFIG.BASE_USER_API + '/getUserInfo',
             JSON.stringify({citizenId: citizenId}), { headers: this._messageService.getHttpOptions() })
         .pipe(
             map((response: Response) => {
@@ -156,15 +160,31 @@ export class UserService {
     }
     */
 
-    setupChainAccount(account: Object) {
-        return this._http.post(URI_CONFIG.BASE_BLOCKCHAIN_API + '/storeAccount',
-            JSON.stringify(account), { headers: this._messageService.getHttpOptions() })
-                .pipe(
-                    map((response: Response) =>
-                        console.log(response)
-                    )
-                );
+/*    setupChainAccount(account: Object): Observable<any> {
+        // Handle error later
+        return new Observable((_observable) => {
+            const storeAccount = this._http.post(
+                URI_CONFIG.BASE_BLOCKCHAIN_API + '/storeAccount',
+                JSON.stringify(account),
+                { headers: this._messageService.getHttpOptions() });
+
+            const giveRight = this._http.post(
+                URI_CONFIG.BASE_BALLOT_API + '/giveRight',
+                account['address'],
+                { headers: this._messageService.getHttpOptions() });
+
+            forkJoin(storeAccount, giveRight).subscribe(_ => _observable.next(), error => _observable.error(error));
+        });
+
+    }*/
+
+    setupChainAccount(account: Object): Observable<any> {
+        return this._http.post(
+            URI_CONFIG.BASE_BLOCKCHAIN_API + '/storeAccount',
+            JSON.stringify(account),
+            { headers: this._messageService.getHttpOptions() });
     }
+
 
     /* Unused func */
     getHash(): String {

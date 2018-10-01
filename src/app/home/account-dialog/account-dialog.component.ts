@@ -53,21 +53,16 @@ export class AccountDialogComponent implements OnInit {
             };
             this._userService.setupChainAccount(account)
             .subscribe(() => {
-                    this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(_ => {
-                        this.isSuccess = true;
-                        this.isLoading = false;
-                    }, error => {
-                        this.error = error.error.message;
-                        this.isLoading =    false;
-                    });
+                    this.isSuccess = true;
+                    this.isLoading = false;
                 },
                 (error) => {
-                    this.error = error.error.message;
+                    this.error = error.error.message || error.message;
                     this.isLoading =    false;
                 }
             );
         }).catch((error) => {
-            this.error = error.error.message;
+            this.error = error.message;
             this.isLoading = false;
         });
     }

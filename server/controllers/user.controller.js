@@ -132,7 +132,7 @@ function postUserInfo(req, res) {
     if(!req.body.citizenId) {
         res.status(400);
         return res.json({error: true, message: 'Citizen ID is required'});
-    } else if (!citizenGuard(req.token)) {
+    } else if (!CitizenGuard(req.token)) {
         res.json({error: true, message: 'Citizen ID is required'});
     } else if (!CitizenGuard(req.token) && !RaGuard(req.token)) {
         res.status(403);
