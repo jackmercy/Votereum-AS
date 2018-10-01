@@ -10,7 +10,12 @@ const saltRounds = 10;
 /* req JSON {
     "citizenId": "0432",
     "password": "123456"
-} */
+}
+- Response: {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjaXRpemVuSWQiOiIyMzIxIiwicm9sZSI6ImNpdGl6ZW4iLCJpc1ZvdGUiOmZhbHNlLCJpc0ZpcnN0VGltZUxvZ0luIjpmYWxzZSwiaGFzQmxvY2tjaGFpbkFjY291bnQiOmZhbHNlLCJpYXQiOjE1MzgzNjc1NzcsImV4cCI6MTUzODM3MTE3N30.2TMiGxGajwRT4yhJlRSf8PJAvAgZ3LbEnjAPeqP7-JU"
+}
+
+*/
 function postLogin(req, res) {
     console.log(req.body.citizenId + req.body.password);
 
