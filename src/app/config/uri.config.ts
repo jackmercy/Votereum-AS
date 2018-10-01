@@ -1,6 +1,7 @@
 export const URI_CONFIG = {
     AS_HOST_URI: 'localhost:5000',
     /* base api url */
+    BASE_AUTH: '/api/auth',
     BASE_USER_API: '/api/user',
     BASE_CONTRACT_API: '/api/contract',
     BASE_CANDIDATE_API: 'api/candidate',
@@ -10,7 +11,7 @@ export const URI_CONFIG = {
     BASE_EA_API: '/api/ea',
     /* user url */
     GET_USER_HASH_URL: '/getUserHash',
-    AUTH_URL: '/auth',
+    AUTH_URL: '/login',
     GET_USER_INFO_URL: '/getUserInfo',
     CHANGE_PASSWORD: '/change-password',
     /* candidate url */

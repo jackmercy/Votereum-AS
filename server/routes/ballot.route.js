@@ -43,7 +43,7 @@ router.route('/claimStoredAmount')
 
 
 /*-----------------Public----------------------*/
-router.route('/candidate/result')
+router.route('/result')
     .post(BallotController.postCandidateResult);
 
 

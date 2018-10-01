@@ -5,6 +5,7 @@ import Ballot  from '../models/ballot.model';
 
 
 
+
 /*-----------EA Section------------*/
 /*
 - GET: [/api/contract]
@@ -77,7 +78,7 @@ function postBallotInfo(req, res) {
             handlePostRequest('postBallotInfo', res, req.body);
             ballotInfo.save();
         }
-        
+
     });
 
 }
@@ -162,7 +163,7 @@ function postFinalizeBallot(req, res) {
 }
 */
 function postGiveRightToVote(req, res) {
-    if (!EaGuard(req.token)) {
+    if (!CitizenGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
     handlePostRequest('postGiveRightToVote', res, req.body);
@@ -258,7 +259,7 @@ function postClaimStoredAmount(req, res) {
 }
 */
 function postCandidateResult(req, res) {
-    if (!citizenGuard(req.token) && !EaGuard(req.token)) {
+    if (!CitizenGuard(req.token) && !EaGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
     handlePostRequest('postCandidateResult', res, req.body)
@@ -318,7 +319,7 @@ function handleGetRequest(method, res) {
                     },
                     { noAck: true }
                 );
-            });
+            });npm
         });
     });
 }

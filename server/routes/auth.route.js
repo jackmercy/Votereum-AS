@@ -11,10 +11,4 @@ router.route('/login')
 router.route('/register')
     .post(userController.postRegister);
 
-router.route('/getUserInfo')
-    .post(userController.postUserInfo);
-
-router.route('/change-password')
-    .post(userController.postChangePassword);
-
 export default router;

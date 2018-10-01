@@ -101,6 +101,7 @@ export class VotingComponent implements OnInit {
     };
     isSideBarActive: Boolean;
     hasBlockchainAccount: Boolean;
+    error: any;
 
 
     constructor(private _candidateService: CandidateService,
@@ -130,6 +131,10 @@ export class VotingComponent implements OnInit {
         this.candidates = this.mock_candidates.map(candidate => {
             candidate['isSelected'] = false;
             return candidate;
+        });
+        this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {}, error => {
+            this.error = error.error.message || error.message;
+            // this.isLoading =    false;
         });
 
         this.votingResult.citizenID =  this._userService.getId();

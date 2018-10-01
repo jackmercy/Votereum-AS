@@ -66,7 +66,7 @@ export class BallotService {
                 candidateIds.map(_candidateId =>
                     observables.push(
                         this._http.post(
-                            URI_CONFIG.BASE_BALLOT_API + '/candidate/result',
+                            URI_CONFIG.BASE_BALLOT_API + '/result',
                             JSON.stringify({ candidateId: _candidateId }),
                             { headers: this._messageService.getHttpOptions() }
                         ).pipe(
@@ -109,6 +109,13 @@ export class BallotService {
                 JSON.stringify({phrase: _phrase}),
                 { headers: this._messageService.getHttpOptions() }
             );
+    }
+    
+    giveRigthToVote(address: String): Observable<any> {
+        return this._http.post(
+            URI_CONFIG.BASE_BLOCKCHAIN_API + '/giveRight',
+            JSON.stringify({voterAddress: address}),
+            { headers: this._messageService.getHttpOptions() });
     }
 }
 
