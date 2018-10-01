@@ -12,16 +12,16 @@
             <form [formGroup]="myForm" class="from-gourp">
                 <!-- New password -->
                 <mat-form-field class="full-width-input password-input">
-                    <input type="password" matInput placeholder="New password" formControlName="password" required>
-                    <mat-error *ngIf="myForm.hasError('required', 'password')">
-                        Please enter your newpassword
+                    <input matInput type="password" placeholder="New password" formControlName="password" required>
+                    <mat-error *ngIf="myForm.hasError('required', ['password'])">
+                        Please enter your new password
                     </mat-error>
                 </mat-form-field>
                 <!-- New password -->
 
                 <!-- Confirm password -->
                 <mat-form-field class="full-width-input confirm-password-input">
-                    <input type="password" matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+                    <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
                         <mat-error *ngIf="myForm.hasError('notSame')">
                         Passwords do not match
                     </mat-error>  
