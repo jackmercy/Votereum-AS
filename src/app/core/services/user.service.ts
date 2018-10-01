@@ -28,7 +28,7 @@ export class UserService {
 
     login(citizenId: string, password: string): Observable<any> {
         sessionStorage.clear();
-        return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.AUTH_URL,
+        return this._http.post(URI_CONFIG.BASE_AUTH + URI_CONFIG.AUTH_URL,
             JSON.stringify({citizenId: citizenId, password: password}), { headers: this._messageService.getHttpOptions() })
             .pipe(
                 map((response: Response) => {
@@ -69,7 +69,7 @@ export class UserService {
 
 
     /* register(name: string, id: string, password: string): Observable<any> {
-        return this._http.post(URI_CONFIG.BASE_USER_API + '/register',
+        return this._http.post(URI_CONFIG.BASE_AUTH + '/register',
             JSON.stringify({name: name, id: id, password: password}), { headers: this._messageService.getHttpOptions() })
             .pipe(
                 map((response: Response) => {
@@ -92,6 +92,17 @@ export class UserService {
                     hasBlockchainAccount: user.hasBlockchainAccount
                 };
                 sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+            })
+        );
+    }
+
+    changePassword(citizenId: string, newPassword: string): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_AUTH + URI_CONFIG.CHANGE_PASSWORD,
+            JSON.stringify({citizenId: citizenId, newPassword: newPassword}), { headers: this._messageService.getHttpOptions() })
+        .pipe(
+            map((response: Response) => {
+                const res = response;
+                return res;
             })
         );
     }
@@ -120,6 +131,12 @@ export class UserService {
         const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
 
         return user.isVote;
+    }
+
+    isFirstLogin(): Boolean {
+        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+
+        return user.isFirstTimeLogIn;
     }
 
     hasBlockchainAccount(): Boolean {

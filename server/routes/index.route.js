@@ -2,19 +2,18 @@ import express         from 'express';
 import jwt             from 'jsonwebtoken';
 import userRoutes      from './user.route';
 import candidateRoutes from './candidate.route';
-import contractRoutes  from './contract.route';
+import authRoutes      from './auth.route';
 import citizenRoutes   from './citizen.route';
 import ballotRoutes    from './ballot.route';
 import bcAccountRoutes from './blockchain-account.route';
-import eaRoutes from './election-admin.route';
+import eaRoutes        from './election-admin.route';
 // import authRoutes from './auth.route';
 
 const router = express.Router(); // eslint-disable-line new-cap
 
 /* Base route: [/api] */
 
-router.use('/user', userRoutes);
-
+router.use('/auth', authRoutes);
 /** GET [/health-check]
  *  - Check service health */
 router.get('/check', (req, res) =>
@@ -56,6 +55,7 @@ router.use(function(req, res, next) {
     }
 });
 // End of route middleware to verify a token
+router.use('/user', userRoutes);
 router.use('/candidate', candidateRoutes);
 router.use('/citizen', citizenRoutes);
 router.use('/ballot', ballotRoutes);

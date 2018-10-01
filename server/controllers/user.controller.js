@@ -17,8 +17,6 @@ const saltRounds = 10;
 
 */
 function postLogin(req, res) {
-    console.log(req.body.citizenId + req.body.password);
-
     if(!req.body.password) {
         res.status(400);
         return res.send('Password is required');
@@ -77,6 +75,58 @@ function postLogin(req, res) {
 
 }
 
+/* POTS: [/change-password] */
+/* req JSON {
+    "citizenId": "0432",
+    "newPassword": "123456"
+} */
+function postChangePassword(req, res) {
+    if(!req.body.newPassword) {
+        res.status(400);
+        return res.send('Password is required');
+    } else if(!req.body.citizenId) {
+        res.status(400);
+        return res.send('Citizen ID is required');
+    }
+    const _id = req.body.citizenId;
+    const query = { citizenId: _id };
+
+    User.find(query, function(err, user) {
+        if(err) {
+            console.log('ERR');
+        } else if(user) {
+            bcrypt.hash(req.body.newPassword, saltRounds, function(err, _hash) {
+                if(err) {
+                    throw (err);
+                } else {
+                    // Store new hash in your password DB.
+                    
+                    const updateValues = {
+                        $set: { 
+                            hashPassword: _hash,
+                            isFirstTimeLogIn: false 
+                        }
+                    };
+                    User.updateOne(
+                        query,
+                        updateValues,
+                        { overwrite: true, upsert: false },
+                        function (err, rawResponse) {}
+                    );
+
+                    return res.json({
+                        message: 'Successfully changed password'
+                    });
+                }
+            });
+        } else {
+            res.status(400);
+            return res.json({
+                message: 'There was an error trying to send your message. Plase try again later'
+            });
+        }
+    }); 
+}
 
 /* POTS: [/register] */
 /* req JSON {
@@ -173,6 +223,7 @@ function postUserInfo(req, res) {
 export default {
     postLogin,
     postRegister,
-    postUserInfo
+    postUserInfo,
+    postChangePassword
 }
 

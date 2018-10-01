@@ -1,0 +1,36 @@
+@import './src/scss/variables';
+
+.col-layout {
+    width: 1280px;
+}
+
+.full-width-input {
+    width: 100%;
+}
+
+.greeting {
+    width: 1280px;
+    text-align: center;
+    margin-top: 100px;
+    .welcome {
+        color: $brand-primary;
+    }
+    .info-text {
+        color: $gray-dark;
+    }
+}
+
+.form-confirm {
+    width: 300px;
+    margin: auto;
+    margin-top: 50px;
+    .password-input {
+        padding-bottom: 10px;
+    }
+    .flex-center {
+        display: flex;
+        justify-content: center;
+        padding-top: 20px;
+    }
+}
+

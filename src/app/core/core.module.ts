@@ -11,6 +11,7 @@ import { VotedGuard }   from '@app/core/guards/voted.guard';
 import { CitizenGuard } from '@app/core/guards/citizen.guard';
 import { EaGuard }      from '@app/core/guards/ea.guard';
 import { RaGuard }      from '@app/core/guards/ra.guard';
+import { FirstLoginGuard }  from '@app/core/guards/first-login.guard';
 /* Services */
 import { CandidateService } from '@services/candidate.service';
 import { UserService }      from '@services/user.service';
@@ -40,7 +41,8 @@ import { throwIfAlreadyLoaded } from '@app/core/guards/module-import.guard';
         VotedGuard,
         CitizenGuard,
         EaGuard,
-        RaGuard
+        RaGuard,
+        FirstLoginGuard
     ]
 })
 export class CoreModule {

@@ -99,7 +99,7 @@ function postGenerateUserAccount(req, res) {
                     newUser.role = 'citizen';
                     newUser.hash = '0x';
                     newUser.isVote = false;
-                    newUser.isFirstTimeLogIn = false;
+                    newUser.isFirstTimeLogIn = true;
                     newUser.hasBlockchainAccount = false;
                     newUser.save();
                     /*  After successful store new User account

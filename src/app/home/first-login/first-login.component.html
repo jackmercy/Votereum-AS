@@ -1,0 +1,42 @@
+<div class="row justify-content-md-center">
+    <div class="col-md-auto col-layout">
+        <div class="greeting">
+            <div class="welcome text-h1">
+                Welcome to Ehter Vote
+            </div>
+            <div class="info-text text-h3">
+                Just one more step, change your default password and you are good to go!
+            </div>
+        </div>
+        <div class="form-confirm">
+            <form [formGroup]="myForm" class="from-gourp">
+                <!-- New password -->
+                <mat-form-field class="full-width-input password-input">
+                    <input matInput type="password" placeholder="New password" formControlName="password" required>
+                    <mat-error *ngIf="myForm.hasError('required', ['password'])">
+                        Please enter your new password
+                    </mat-error>
+                </mat-form-field>
+                <!-- New password -->
+
+                <!-- Confirm password -->
+                <mat-form-field class="full-width-input confirm-password-input">
+                    <input matInput type="password" placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher">
+                        <mat-error *ngIf="myForm.hasError('notSame')">
+                        Passwords do not match
+                    </mat-error>  
+                </mat-form-field>
+                <!-- Confirm password -->
+
+                <!-- Confirm button -->
+                <div class="flex-center">
+                    <button mat-stroked-button (click)="onChangePassword()" class="full-width-input change-password-btn"
+                                [disabled]="!myForm.valid">
+                        <span class="text-color-login-form">Change password</span>
+                    </button>
+                </div>
+                <!-- Confirm button -->
+            </form>
+        </div>    
+    </div>
+</div>
