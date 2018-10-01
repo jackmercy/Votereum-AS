@@ -8,11 +8,12 @@ import { SharedModule }      from '@app/shared/shared.module';
 import { HomeRoutingModule } from '@app/home/home-routing.module';
 
 /* Components */
-import { HomeMasterComponent } from './master/master.component';
-import { VotingComponent }     from './voting/voting.component';
-import { ScoreBoardComponent } from './score-board/score-board.component';
-import { VoteResultComponent } from './vote-result/vote-result.component';
+import { HomeMasterComponent }    from './master/master.component';
+import { VotingComponent }        from './voting/voting.component';
+import { ScoreBoardComponent }    from './score-board/score-board.component';
+import { VoteResultComponent }    from './vote-result/vote-result.component';
 import { AccountDialogComponent } from './account-dialog/account-dialog.component';
+import { FirstLoginComponent }    from './first-login/first-login.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -30,7 +31,8 @@ import { AccountDialogComponent } from './account-dialog/account-dialog.componen
         VotingComponent,
         ScoreBoardComponent,
         VoteResultComponent,
-        AccountDialogComponent
+        AccountDialogComponent,
+        FirstLoginComponent
     ],
     entryComponents: [
         AccountDialogComponent

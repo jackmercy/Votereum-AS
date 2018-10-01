@@ -92,6 +92,17 @@ export class UserService {
         );
     }
 
+    changePassword(citizenId: string, newPassword: string): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.CHANGE_PASSWORD,
+            JSON.stringify({citizenId: citizenId, newPassword: newPassword}), { headers: this._messageService.getHttpOptions() })
+        .pipe(
+            map((response: Response) => {
+                const res = response;
+                return res;
+            })
+        );
+    }
+
     isAuthorized(): Boolean {
         const token = sessionStorage.getItem(STRING_CONFIG.ACCESS_TOKEN);
         const isAuth = this._messageService.getLoginStatus();
@@ -116,6 +127,12 @@ export class UserService {
         const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
 
         return user.isVote;
+    }
+
+    isFirstLogin(): Boolean {
+        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+
+        return user.isFirstTimeLogIn;
     }
 
     hasBlockchainAccount(): Boolean {

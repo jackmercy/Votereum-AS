@@ -12,6 +12,7 @@ export const URI_CONFIG = {
     GET_USER_HASH_URL: '/getUserHash',
     AUTH_URL: '/auth',
     GET_USER_INFO_URL: '/getUserInfo',
+    CHANGE_PASSWORD: '/change-password',
     /* candidate url */
     CANDIDATE_LIST_URL: '/list',
     GET_CANDIDATE_BY_ID_URL: '/getCandidateById',

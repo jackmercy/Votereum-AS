@@ -11,7 +11,7 @@ button:focus {
 }
 
 body {
-    background-color: $primary-color !important;
+    background-color: $white !important;
     font-family: 'Roboto', sans-serif;
     font-family: 'Open Sans', sans-serif;
 }
@@ -105,3 +105,30 @@ body {
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 /* Material Icon */
+
+
+/* Text */
+.text-normal {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.text-small {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.text-h1 {
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.text-h2 {
+    font-size: 26px;
+    font-weight: 500;
+}
+
+.text-h3 {
+    font-size: 24px;
+    font-weight: 400;
+}

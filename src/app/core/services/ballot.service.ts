@@ -41,7 +41,7 @@ export class BallotService {
     getCandidateIds(): Observable<any> {
         return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/candidate', { headers: this._messageService.getHttpOptions() });
     }
-    
+
     /*
     - GET: [/api/ballot]
     - Response:

@@ -56,9 +56,9 @@ export class ScoreBoardComponent implements OnInit {
     gradient = false;
     showLegend = true;
     showXAxisLabel = true;
-    xAxisLabel = 'Votes';
+    xAxisLabel = 'Candidates';
     showYAxisLabel = true;
-    yAxisLabel = 'Candidates';
+    yAxisLabel = 'Votes';
 
     colorScheme = {
         domain: ['#4e31a5', '#9c25a7', '#3065ab', '#57468b', '#904497', '#46648b',

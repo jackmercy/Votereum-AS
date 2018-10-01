@@ -3,9 +3,9 @@ import userController from '../controllers/user.controller';
 
 var router = express.Router();
 
-/* Route: [/user] */
+/* Route: [/auth] */
 
-router.route('/auth')
+router.route('/login')
     .post(userController.postLogin);
 
 router.route('/register')
