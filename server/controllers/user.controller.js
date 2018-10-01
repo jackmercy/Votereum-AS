@@ -11,7 +11,7 @@ const saltRounds = 10;
     "citizenId": "0432",
     "password": "123456"
 } */
-function postLogin(req, res) {
+async function postLogin(req, res) {
     if(!req.body.password) {
         res.status(400);
         return res.send('Password is required');
@@ -22,52 +22,62 @@ function postLogin(req, res) {
 
     // handle login request in mongodb - should move those lines into model method
     // see documentation at : http://mongoosejs.com/docs/guide.html
-    User.findOne({citizenId: req.body.citizenId}, function(err, user) {
+    let user = await User.findOne({citizenId: req.body.citizenId}, function(err, user) {
         if(err) {
             console.log('ERR');
-        } else if(user) {
-
-            bcrypt.compare(req.body.password, user.hashPassword, function(err, _result) {
-                if (err) {
-                    res.status(500).json({
-                        error: true,
-                        message: 'Internal server error'
-                    });
-                } else if (_result) {
-                    // result == true
-                    const payload = {
-                        name: user.name, /* Username should get from citizen */
-                        citizenId: user.citizenId,
-                        role: user.role,
-                        isVote: user.isVote,
-                        isFirstTimeLogIn:  user.isFirstTimeLogIn,
-                        hasBlockchainAccount: user.hasBlockchainAccount
-                    }
-
-                    var token = jwt.sign(payload, app.get('jwtSecret'), {
-                        expiresIn: 3600 // expires in 1 hour
-                    });
-
-                    res.status(200);
-                    return res.json({token: token});
-                } else {
-                    res.status(400);
-                    return res.json({
-                        error: true,
-                        message: 'Invalid username or password'
-                    });
-                }
-            });
-
-        } else {
-            res.status(400);
-            return res.json({
-                error: true,
-                message: 'Invalid username or password'
-            });
         }
-    });
+    }).populate('Citizen');
 
+    if(user) {
+        bcrypt.compare(req.body.password, user.hashPassword, function(err, _result) {
+            if (err) {
+                res.status(500).json({
+                    error: true,
+                    message: 'Internal server error'
+                });
+            } else if (_result) {
+                // result == true
+                const payload = {
+                    citizenId: user.citizenId,
+                    role: user.role,
+                    isVote: user.isVote,
+                    isFirstTimeLogIn:  user.isFirstTimeLogIn,
+                    hasBlockchainAccount: user.hasBlockchainAccount
+                }
+                const _citizen = user.Citizen;
+                const citizenInfo = {
+                    name: _citizen.firstName + _citizen.lastName,
+                    birthDate: _citizen.birthDate,
+                    homeTown: _citizen.homeTown,
+                    gender: _citizen.gender,
+                    address: _citizen.address,
+                    picture: _citizen.picture
+                };
+
+                var token = jwt.sign(payload, app.get('jwtSecret'), {
+                    expiresIn: 3600 // expires in 1 hour
+                });
+
+                return res.status(200).json({
+                    token: token,
+                    citizenInfo
+                });
+            } else {
+                res.status(400);
+                return res.json({
+                    error: true,
+                    message: 'Invalid username or password'
+                });
+            }
+        });
+
+    } else {
+        res.status(400);
+        return res.json({
+            error: true,
+            message: 'Invalid username or password'
+        });
+    }
 }
 
 /* POTS: [/change-password] */

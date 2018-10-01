@@ -8,8 +8,8 @@
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: $primary-color;
-    color: $text-on-primary;
+    background: $brand-secondary;
+    color: $gray-lighter;
     transition: all 0.3s;
     /* custom font */
     font-weight: 600;
@@ -21,8 +21,8 @@
         padding: 20px 20px 0 20px;
         /* background: $primary-color;
         color: $text-on-primary; */
-        background: $primary-color;
-        color: $text-on-primary;
+        background: $brand-secondary;
+        color: $gray-lighter;
         /* border-bottom: 1px solid $primary-dark; */
         /* cursor: context-menu; */
     }
@@ -30,14 +30,14 @@
         padding-left: 0;
         list-style: none;
         p {
-            border-bottom: 1px solid $primary-dark;
+            border-bottom: 1px solid $gray-lighter;
             padding-bottom: 20px;
             padding-top: 20px;
             padding-right: 10px;
             padding-left: 15px;
         }
         .user-session {
-            color: $text-on-primary;
+            color: $gray-lighter;
             font-family: 'Poppins', sans-serif;
             /*font-size: 1.1em;
             font-weight: 300; */
@@ -47,7 +47,7 @@
             padding: 15px;
             display: block;
             cursor: pointer;
-            color: $text-on-primary;
+            color: $gray-lighter;
         }
         .menu-item.active {
             text-decoration: none;
@@ -59,7 +59,7 @@
         }
         .menu-item a:hover, a:focus {
             color: $secondary-color;
-            background-color: $text-hover-on-primary;
+            background-color: $brand-secondary-ultralight;
             text-decoration: none;
             transition: all 0.3s;
         }
