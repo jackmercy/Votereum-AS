@@ -160,9 +160,9 @@ export class UserService {
     }
 
     getCitizenInfo(): Object {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CITIZEN_INFO));
+        const citizenInfo = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CITIZEN_INFO));
 
-        return user.citizenInfo;
+        return citizenInfo;
     }
 
     getRole(): string {
