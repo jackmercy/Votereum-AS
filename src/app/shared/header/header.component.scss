@@ -6,17 +6,18 @@
     cursor: default;
 }
 .custom-nav {
-    background-color: $secondary-color;
+    background-color: white;
     width: 100vw;
-    height: 64px;
+    height: 65px;
 
     /* box-sizing: border-box;  */// should in ul
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+    /* box-shadow: 0 2px 5px 0 rgba(0,0,0,.3); */
+    border-bottom: 1px solid #8f497c;
     padding: 0 25px 0px 0px;
 }
 
 .text-color {
-    color: $text-on-secondary !important;
+    color: $brand-secondary !important;
 }
 
 .nav-link {

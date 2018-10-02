@@ -43,11 +43,11 @@ export class UserService {
                         const payload = {
                             isVote: decodedToken.isVote,
                             isFirstTimeLogIn: decodedToken.isFirstTimeLogIn,
-                            hasBlockchainAccount: decodedToken.hasBlockchainAccount,
-                            citizenInfo
+                            hasBlockchainAccount: decodedToken.hasBlockchainAccount
                         };
                         sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
                         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+                        sessionStorage.setItem(STRING_CONFIG.CITIZEN_INFO, JSON.stringify(citizenInfo));
                         this.isLoggedIn = true;
                     }
                     return res;
@@ -160,7 +160,7 @@ export class UserService {
     }
 
     getCitizenInfo(): Object {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CITIZEN_INFO));
 
         return user.citizenInfo;
     }
