@@ -34,6 +34,7 @@ export class UserService {
                 map((response: Response) => {
                     const res = response;
                     if (res['token']) {
+                        const citizenInfo = res['citizenInfo'];
                         this._messageService.changeLoginStatus(true);
                         /* write to session storage here */
                         const decodedToken = this.helper.decodeToken(res['token']);
@@ -42,7 +43,8 @@ export class UserService {
                         const payload = {
                             isVote: decodedToken.isVote,
                             isFirstTimeLogIn: decodedToken.isFirstTimeLogIn,
-                            hasBlockchainAccount: decodedToken.hasBlockchainAccount
+                            hasBlockchainAccount: decodedToken.hasBlockchainAccount,
+                            citizenInfo
                         };
                         sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
                         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
@@ -155,6 +157,12 @@ export class UserService {
     setHasBlockchainAccount(value) {
         sessionStorage.setItem('hasBlockchainAccount',
             JSON.stringify({ hasBlockchainAccount: value }));
+    }
+
+    getCitizenInfo(): Object {
+        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+
+        return user.citizenInfo;
     }
 
     getRole(): string {

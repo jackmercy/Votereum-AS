@@ -1,12 +1,12 @@
 <nav id="sidebar" [ngClass]="{'active-sidebar': isSideBarActive}">
     <div class="sidebar-header text-center">
         <!-- <i class="material-icons md-48">account_circle</i> -->
-        <img src="../../../assets/images/lily-collins.jpeg" class="user-avatar">
+        <img src="{{citizenInfo.picture}}" class="user-avatar">
     </div>
 
     <ul class="nav-list-unstyled components">
         <div class="user-session text-center">
-            <p>Hello Lilly Collins</p>
+            <p>Hello, {{citizenInfo.name}}</p>
         </div>
         <li routerLinkActive="active" *ngFor="let routesItem of routesItems" class="{{routesItem.class}} menu-item">
             <a class="item-text" [routerLink]="[routesItem.path]">

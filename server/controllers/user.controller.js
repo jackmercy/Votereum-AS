@@ -41,12 +41,12 @@ async function postLogin(req, res) {
                     citizenId: user.citizenId,
                     role: user.role,
                     isVote: user.isVote,
-                    isFirstTimeLogIn:  user.isFirstTimeLogIn,
+                    isFirstTimeLogIn: user.isFirstTimeLogIn,
                     hasBlockchainAccount: user.hasBlockchainAccount
                 }
                 const _citizen = user.Citizen;
                 const citizenInfo = {
-                    name: _citizen.firstName + _citizen.lastName,
+                    name: `${_citizen.firstName} ${_citizen.lastName}`,
                     birthDate: _citizen.birthDate,
                     homeTown: _citizen.homeTown,
                     gender: _citizen.gender,

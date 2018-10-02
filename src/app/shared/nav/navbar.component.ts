@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
     @Input('routesItems') routesItems: RouteInfo[];
 
     isSideBarActive: Boolean;
+    citizenInfo: Object;
 
     constructor(private _router: Router,
                 private _messageService: MessageService,
@@ -24,6 +25,7 @@ export class NavbarComponent implements OnInit {
         this._messageService.sideBarActive$.subscribe(
             isActive => this.isSideBarActive = isActive
         );
+        this.citizenInfo = this._userService.getCitizenInfo();
         /* this._router.events.filter(e => e instanceof RouterEvent).subscribe(
             e => {
                 this.currentModule = e['url'].toString();
