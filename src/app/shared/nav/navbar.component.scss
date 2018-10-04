@@ -51,15 +51,18 @@
         }
         .menu-item.active {
             text-decoration: none;
-            background-color: transparent;
-            -webkit-text-decoration-skip: objects;
+            background: -moz-linear-gradient(0deg, #8f497c 0%, #887095 10%, #8297ae 20%, #5F7389 32%, #3c5064 50%, #3C5064 55%, #3c5064 60%); /* ff3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%, #8f497c), color-stop(10%, #887095), color-stop(20%, #8297ae), color-stop(32%, #5F7389), color-stop(50%, #3c5064), color-stop(55%, #3C5064), color-stop(60%, #3c5064)); /* safari4+,chrome */
+            background: -webkit-linear-gradient(0deg, #8f497c 0%, #887095 10%, #8297ae 20%, #5F7389 32%, #3c5064 50%, #3C5064 55%, #3c5064 60%);
             .item-text {
-                color: $secondary-color !important;
+                color: $white !important;
             }
         }
         .menu-item a:hover, a:focus {
-            color: $secondary-color;
-            background-color: $brand-secondary-ultralight;
+            color: $white;
+            background: -moz-linear-gradient(0deg, #8f497c 0%, #887095 10%, #8297ae 20%, #5F7389 32%, #3c5064 50%, #3C5064 55%, #3c5064 60%); /* ff3.6+ */
+            background: -webkit-gradient(linear, left top, right top, color-stop(0%, #8f497c), color-stop(10%, #887095), color-stop(20%, #8297ae), color-stop(32%, #5F7389), color-stop(50%, #3c5064), color-stop(55%, #3C5064), color-stop(60%, #3c5064)); /* safari4+,chrome */
+            background: -webkit-linear-gradient(0deg, #8f497c 0%, #887095 10%, #8297ae 20%, #5F7389 32%, #3c5064 50%, #3C5064 55%, #3c5064 60%);
             text-decoration: none;
             transition: all 0.3s;
         }

@@ -43,7 +43,7 @@ function getBallotInfo(req, res) {
 /*
 - POST: [/api/ballot]
 - req.body:
-Condition: startRegPhase < endRegPhase < startVotingPhase < endVotingPhase
+Condition: now < startRegPhase < endRegPhase < startVotingPhase < endVotingPhase
 {
     "ballotName": "President Election",
     "fundAmount": 1000000,
@@ -75,8 +75,24 @@ function postBallotInfo(req, res) {
                 message: 'Duplicate ballot'
             });
         } else if(ballot.length === 0) {
-            handlePostRequest('postBallotInfo', res, req.body);
-            ballotInfo.save();
+            /* check condition */
+            const nowTs = global.GetTimestampNowInSeconds();
+            const startRegPhase = req.body.startRegPhase;
+            const endRegPhase = req.body.endRegPhase;
+            const startVotingPhase = req.body.startVotingPhase;
+            const endVotingPhase = req.body.endVotingPhase;
+
+            if (nowTs <= startRegPhase
+                && startRegPhase <= endRegPhase
+                && endRegPhase <= startVotingPhase
+                && startVotingPhase <= endVotingPhase) {
+                    handlePostRequest('postBallotInfo', res, req.body);
+                    ballotInfo.save();
+            } else {
+                return res.status(400).json({
+                    message: 'Phase timestamp is not valid'
+                });
+            }
         }
 
     });
@@ -166,6 +182,7 @@ function postGiveRightToVote(req, res) {
     if (!CitizenGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
+    /* check if in reg phase or not */
     handlePostRequest('postGiveRightToVote', res, req.body);
 }
 
@@ -319,7 +336,7 @@ function handleGetRequest(method, res) {
                     },
                     { noAck: true }
                 );
-            });npm
+            });
         });
     });
 }

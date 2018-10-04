@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BallotService }     from '@services/ballot.service';
+import { NgxChartsModule }   from '@swimlane/ngx-charts';
 import {
     MatDialog,
     MAT_DIALOG_DATA,
@@ -18,6 +19,27 @@ export class ManagementComponent implements OnInit {
     ballotInfo: any;
     phaseInfo: any;
     voterInfo: any;
+
+    /* Chart */
+    votedVoterChartData: any;
+    fundedVoterChartData: any;
+    registeredVoterChartData: any;
+    // options
+    registeredView: any[] = [350, 250];
+    voterView: any[] = [250, 250];
+    cardColor = '#3c5064';
+    bandColor = '#8f497c';
+    textColor = '#e3e8ee';
+    votedLabel: String = 'Number of Voted citizen';
+    fundedLabel: String = 'Number of Funded citizen';
+    designatedTotal: Number;
+    votedColorScheme = {
+        domain: ['rgb(48, 101, 171)']
+    };
+    fundedColorScheme = {
+        domain: ['#5AA454']
+    };
+    /* Chart */
 
     phases: Array<Object> = [
         {
@@ -67,7 +89,29 @@ export class ManagementComponent implements OnInit {
                 this.ballotInfo = data['ballotInfo'];
                 this.phaseInfo = data['phaseInfo'];
                 this.voterInfo = data['voterInfo'];
-                console.log(data);
+                /* this.registeredVoterChartData = [this.voterInfo['registeredVoterCount']];
+                this.designatedTotal = this.voterInfo['registeredVoterCount']['value'];
+                this.voterChartData = [this.voterInfo['votedVoterCount'], this.voterInfo['fundedVoterCount']]; */
+                this.registeredVoterChartData = [
+                    {
+                        name: 'Number of registered citizen',
+                        value: 60561589
+                    }
+                ];
+                this.designatedTotal = 60561589;
+                this.fundedVoterChartData = [
+                    {
+                        name: 'Funded citizen',
+                        value: 56901589
+                    }
+                ];
+                this.votedVoterChartData = [
+                    {
+                        name: 'Voted citizen',
+                        value: 44234173
+                    }
+                ];
+
             });
         this._ballotService.getBallotResult().subscribe();
         this.interval = false;
@@ -167,6 +211,11 @@ export class ManagementComponent implements OnInit {
                 }
             }
         });
+    }
+
+    /* Chart event */
+    onSelect(event) {
+        console.log(event);
     }
 
 }
