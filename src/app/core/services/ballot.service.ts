@@ -110,11 +110,18 @@ export class BallotService {
                 { headers: this._messageService.getHttpOptions() }
             );
     }
-    
+
     giveRigthToVote(address: String): Observable<any> {
         return this._http.post(
             URI_CONFIG.BASE_BLOCKCHAIN_API + '/giveRight',
             JSON.stringify({voterAddress: address}),
+            { headers: this._messageService.getHttpOptions() });
+    }
+
+    voteForCandidate(payload: Object): Observable<any> {
+        return this._http.post(
+            URI_CONFIG.BASE_BALLOT_API + '/vote',
+            JSON.stringify(payload),
             { headers: this._messageService.getHttpOptions() });
     }
 }

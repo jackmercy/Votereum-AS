@@ -51,7 +51,7 @@ export class BallotSetupComponent implements OnInit {
             fundAmount: ['',
                 Validators.required
             ],
-            maxCandidate: ['',
+            limitCandidate: ['',
                 Validators.required,
 
             ]

@@ -14,6 +14,7 @@ import { ScoreBoardComponent }    from './score-board/score-board.component';
 import { VoteResultComponent }    from './vote-result/vote-result.component';
 import { AccountDialogComponent } from './account-dialog/account-dialog.component';
 import { FirstLoginComponent }    from './first-login/first-login.component';
+import { PasswordEntryDialogComponent } from './password-entry-dialog/password-entry-dialog.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -32,10 +33,12 @@ import { FirstLoginComponent }    from './first-login/first-login.component';
         ScoreBoardComponent,
         VoteResultComponent,
         AccountDialogComponent,
-        FirstLoginComponent
+        FirstLoginComponent,
+        PasswordEntryDialogComponent
     ],
     entryComponents: [
-        AccountDialogComponent
+        AccountDialogComponent,
+        PasswordEntryDialogComponent
     ]
 })
 export class HomeModule { }

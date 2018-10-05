@@ -3,6 +3,7 @@ import BlockchainAccount from '../models/blockchain-account.model';
 import bcrypt            from 'bcrypt';
 import ballotController from './ballot.controller';
 import _ from 'lodash';
+import jwt from "jsonwebtoken";
 
 /* const variable */
 const saltRounds = 10;
@@ -13,7 +14,7 @@ const saltRounds = 10;
     "citizenId": "0432",
     "password": "123456"
     }
-*/
+ */
 function postStoreBlockchainAccount(req, res) {
     if (!CitizenGuard(req.token)) {
         res.status(403);
@@ -45,7 +46,7 @@ function postStoreBlockchainAccount(req, res) {
                                 $set:
                                     { hasBlockchainAccount: true }
                             };
-    
+
                             User.updateOne(
                                 query,
                                 updateValues,
@@ -60,12 +61,12 @@ function postStoreBlockchainAccount(req, res) {
 
                             ballotController.postGiveRightToVote(_req, res);
 
-/*                            // res status 200
-                            res.json({
-                                err: false,
-                                message: 'successful store new blockchain account',
-                                address: req.body.address
-                            });*/
+                            /*                            // res status 200
+                                                        res.json({
+                                                            err: false,
+                                                            message: 'successful store new blockchain account',
+                                                            address: req.body.address
+                                                        });*/
                         }
                     });
                 } else if (user && user.hasBlockchainAccount === true) {
@@ -88,7 +89,7 @@ function postStoreBlockchainAccount(req, res) {
             res.json({
                 error: true,
                 message: 'Something wrong with the server'
-        });
+            });
         }
     });
 
@@ -96,5 +97,5 @@ function postStoreBlockchainAccount(req, res) {
 }
 
 export default {
-    postStoreBlockchainAccount,
+    postStoreBlockchainAccount
 }

@@ -2,12 +2,13 @@ import { Component, OnInit }                      from '@angular/core';
 import { Router }                                 from '@angular/router';
 import { CandidateService }                       from '@services/candidate.service';
 import { UserService }                            from '@services/user.service';
-import { ContractService }                        from '@services/contract.service';
 import { MatSnackBar }                            from '@angular/material';
-import * as _                                     from 'lodash';
 import { MessageService }                         from '@services/message.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { AccountDialogComponent }                 from '@home/account-dialog/account-dialog.component';
+import { BallotService }                          from '@services/ballot.service';
+import * as _                                     from 'lodash';
+import { PasswordEntryDialogComponent }           from '@home/password-entry-dialog/password-entry-dialog.component';
 
 @Component({
     selector: 'app-voting',
@@ -101,12 +102,14 @@ export class VotingComponent implements OnInit {
     };
     isSideBarActive: Boolean;
     hasBlockchainAccount: Boolean;
+    ballotInfo: any;
     error: any;
+    private selectedCandidates: Array<String>;
 
 
     constructor(private _candidateService: CandidateService,
                 private _userService: UserService,
-                private _contractService: ContractService,
+                private _ballotService: BallotService,
                 private _router: Router,
                 private _messageService: MessageService,
                 public snackBar: MatSnackBar,
@@ -115,15 +118,15 @@ export class VotingComponent implements OnInit {
 
 
     ngOnInit() {
-/*        this._candidateService.getCandidates()
-            .subscribe(
-                data => {
-                    this.candidates = data;
-                },
-                error => {
-                    console.log(error);
-                }
-            );*/
+        /*        this._candidateService.getCandidates()
+                    .subscribe(
+                        data => {
+                            this.candidates = data;
+                        },
+                        error => {
+                            console.log(error);
+                        }
+                    );*/
         this._messageService.sideBarActive$.subscribe(
             isActive => this.isSideBarActive = isActive
         );
@@ -132,43 +135,40 @@ export class VotingComponent implements OnInit {
             candidate['isSelected'] = false;
             return candidate;
         });
-        this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {}, error => {
+
+        this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {
+            this.votingResult.citizenID =  this._userService.getId();
+            this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
+        }, error => {
             this.error = error.error.message || error.message;
+            console.log(this.error);
             // this.isLoading =    false;
         });
 
-        this.votingResult.citizenID =  this._userService.getId();
-        this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
-        console.log(this.hasBlockchainAccount);
+        this._ballotService.getBallotInfo().subscribe(
+            result => this.ballotInfo = result['ballotInfo'],
+            error => {
+                this.error = error.error.message || error.message;
+                console.log(this.error);
+            });
+
     }
 
     onVoteToBlockchain() {
-        this.votingResult.candidates = _.filter(this.candidates, 'isSelected').map(candidate => candidate['id']);
+        this.selectedCandidates = _.filter(this.candidates, 'isSelected').map(candidate => candidate['id']);
         /* Do check the list candidates is equal 4 or not */
-        if (this.votingResult.candidates.length > 4 && this.votingResult.candidates.length <= 6) {
-            this.snackBar.open('The maximum candidates you can vote for are 4 out of 6' , 'Got it', {
+        if (this.selectedCandidates.length < 1 || this.selectedCandidates.length > this.ballotInfo['limitCandidate']) {
+            this.snackBar.open('The maximum candidates you can vote for are ' +
+                this.ballotInfo['limitCandidate'] +
+                'out of ' + this.candidates.length , 'Got it', {
                 duration: 30000,
             });
-        } else if (this.votingResult.candidates.length <= 4 ) {
-            console.log(this.votingResult);
-/*           this._contractService.votingBlock(this.votingResult)
-            .subscribe( result => {
-                if (result.hash) {
-                    this._userService.updateUserHash(result.hash);
-                    this._userService.updateUserVote(result.isVote);
-                    this._router.navigate(['/home/vote-result']);
-                } else if (result.message) {
-                    this.snackBar.open(result.message , 'OK', {
-                        duration: 30000,
-                    });
-                },
-                error => {
-                    const msg = error.error.message;
-                    this.snackBar.open(msg , 'Got it', {
-                        duration: 3000,
-                    });
-                }
-            });*/
+        } else {
+            const signDialogRef = this.dialog.open(PasswordEntryDialogComponent, {
+                width: 'fit-content',
+                data: this.selectedCandidates
+            });
+
         }
     }
 
@@ -188,10 +188,10 @@ export class VotingComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(
-                result => {
-                    if (result) {
-                        location.reload();
-                    }
+            result => {
+                if (result) {
+                    location.reload();
+                }
             },
             error => {
                 const msg = error.error.message;

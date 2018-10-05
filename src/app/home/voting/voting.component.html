@@ -12,6 +12,10 @@
 
 </div>
 <div class="voting-grid">
+    <div *ngIf="ballotInfo">
+        <p class="header">Please select maximum {{ ballotInfo.limitCandidate }}
+            and minimum 1 out of {{ candidates.length }}</p>
+    </div>
     <div class="items">
         <!--A candidate-->
         <div class="item" *ngFor="let candidate of candidates" (click)="onCandidateSelected(candidate)">

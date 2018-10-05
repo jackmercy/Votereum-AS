@@ -44,6 +44,7 @@ import { NavbarComponent }        from '@shared/nav/navbar.component';
 import { ObjectKeysPipe } from './pipes/object-keys.pipe';
 import { ErrorFieldComponent } from './error-field/error-field.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 export const CUSTOM_FORMATS = {
     parse: {
@@ -98,7 +99,9 @@ export const CUSTOM_FORMATS = {
         NavbarComponent,
         HeaderComponent,
         FooterComponent,
-        ConfirmDialogComponent
+        ConfirmDialogComponent,
+        ErrorPageComponent
+
 
     ],
     declarations: [
@@ -111,7 +114,9 @@ export const CUSTOM_FORMATS = {
 
         ErrorFieldComponent,
 
-        UnauthorizedComponent
+        UnauthorizedComponent,
+
+        ErrorPageComponent
     ],
     providers: [
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},

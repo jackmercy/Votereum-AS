@@ -39,8 +39,9 @@ router.route('/resetTime')
 router.route('/claimStoredAmount')
     .post(BallotController.postClaimStoredAmount);
 
-/*------------------EA-----------------*/
-
+/*------------------Voter-----------------*/
+router.route('/vote')
+    .post(BallotController.postVoteForCandidates);
 
 /*-----------------Public----------------------*/
 router.route('/result')

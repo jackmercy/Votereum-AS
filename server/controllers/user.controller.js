@@ -36,7 +36,7 @@ function postLogin(req, res) {
                 if (err) {
                     res.status(500).json({
                         error: true,
-                        message: 'Internal server error'
+                        message: 'Wrong password or username'
                     });
                 } else if (_result) {
                     // result == true

@@ -5,11 +5,11 @@
         </p>
         <hr>
         <div>
-            <p *ngFor="let key of (ballotInfo | objectKeys) | slice: 0:3">
+            <p *ngFor="let key of (ballotInfo | objectKeys) | slice: 0:4">
                 <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
                 <span>{{ ballotInfo[key] }}</span>
             </p>
-            <p *ngFor="let key of (ballotInfo | objectKeys) | slice: 3">
+            <p *ngFor="let key of (ballotInfo | objectKeys) | slice: 4">
                 <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
                 <span>{{ (ballotInfo[key] / 1000000000) | number: '1.0-3'}} GWei</span>
             </p>
@@ -81,3 +81,7 @@
     </div>
 
 </div>
+<div *ngIf="!ballotInfo">
+    <app-error-page [errorMessage]="'Some thing is wrong'"></app-error-page>
+</div>
+

@@ -1,43 +1,17 @@
 import amqp    from 'amqplib/callback_api';
 import Web3    from 'web3';
 import Ballot  from '../models/ballot.model';
+import bcrypt from "bcrypt";
+import BlockchainAccount from "../models/blockchain-account.model";
+import * as _ from 'lodash';
+
 
 
 
 
 
 /*-----------EA Section------------*/
-/*
-- GET: [/api/contract]
-- Response:
-{
-    "ballotOverview" : {
-        "ballotInfo": {
-            "ballotName": "President Election",
-            "isFinalized": false,
-            "amount": 6000000000,
-            "storedAmount": 60000000000
-        },
-        "phaseInfo": {
-            "startRegPhase": "1543050000",
-            "endRegPhase": "1543080000",
-            "startVotingPhase": "1540370700",
-            "endVotingPhase": "1543049100",
-        },
-        "voterInfo": {
-             "registeredVoterCount": "0",
-             "votedVoterCount": "0",
-             "fundedVoterCount": "0",
-        }
 
-    }
-}*/
-function getBallotInfo(req, res) {
-    if (!EaGuard(req.token)) {
-        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
-    }
-    handleGetRequest('getBallotInfo', res);
-}
 
 
 /*
@@ -242,6 +216,83 @@ function postClaimStoredAmount(req, res) {
 
 /*-----------End EA Section------------*/
 
+/*-----------Voter Section------------*/
+/*
+- POST: [/api/ballot/vote]
+- req.body:
+{
+    "citizenIds": "2321"
+    "chainPassword": "123465"
+    "candidateIds": [
+        "1145",
+        "0327",
+        "7272"
+    ]
+}
+- res:
+"0xb69748c2df17e870b48366ca06942140071b5cb0d0f7757791134336dfa80716"
+*/
+function postVoteForCandidates(req, res) {
+    // Check access role
+    if (!CitizenGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+
+    // Check field
+    if(!req.body['chainPassword']) {
+        return res.status(400).json({
+            error: true,
+            message: 'Password is required'
+        });
+    } else if(!req.body.citizenId) {
+        return res.status(400).json({
+            error: true,
+            message: 'Citizen ID is required'
+        });
+    }
+
+    // Check valid password
+    BlockchainAccount.findOne({citizenId: req.body.citizenId}, function(err, account) {
+        if(err) {
+            console.log('ERR');
+        } else if(account) {
+            // problem: reveal user password
+            bcrypt.compare(req.body['chainPassword'], account.hashPassword, function(err, _result) {
+                if (err) {
+                    return res.status(500).json({
+                        error: true,
+                        message: 'Wrong password'
+                    });
+                }
+
+                // Add voter's address to req.body
+                if (_result) {
+                    req.body['address'] = account['address'];
+                    handlePostRequest('postVoteForCandidates', res, req.body)
+                } else {
+                    res.status(400);
+                    return res.json({
+                        error: true,
+                        message: 'Invalid password'
+                    });
+                }
+            });
+
+        } else {
+            res.status(400);
+            return res.json({
+                error: true,
+                message: 'Invalid password'
+            });
+        }
+    });
+
+
+}
+
+/*-----------End Voter Section------------*/
+
+
 /*-----------Public Section---------------*/
 /*
 - POST: [/api/ballot/candidate/result]
@@ -282,6 +333,92 @@ function getCandidates(req, res) {
     handleGetRequest('getCandidates', res);
 }
 
+/*
+- GET: [/api/contract]
+- Response:
+- For EA
+{
+    "ballotInfo": {
+        "ballotName": "President Election",
+        "isFinalized": false,
+        "limitCandidate": 3,
+        "amount": 6000000000,
+        "storedAmount": 60000000000
+    },
+    "phaseInfo": {
+        "startRegPhase": "1543050000",
+        "endRegPhase": "1543080000",
+        "startVotingPhase": "1540370700",
+        "endVotingPhase": "1543049100",
+    },
+    "voterInfo": {
+         "registeredVoterCount": "0",
+         "votedVoterCount": "0",
+         "fundedVoterCount": "0",
+    }
+
+}
+
+- For Public:
+{
+
+}
+*/
+function getBallotInfo(req, res) {
+    if (!EaGuard(req.token) && !CitizenGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+    var method = 'getBallotInfo';
+    var ballotQueue = 'ballot_queue.' + method;
+    amqp.connect('amqp://localhost', function(err, conn) {
+        conn.createChannel(function(err, ch) {
+            /* when we supply queue name as an empty string,
+            we create a non-durable queue with a generated name */
+            ch.assertQueue('', {exclusive: true}, function(err, q) {
+                var corr = generateUuid();
+
+                console.log('[AMQP] Request: ' + method);
+
+                ch.sendToQueue(
+                    ballotQueue, /* queue */
+                    new Buffer (''), /* content */
+                    /* option */
+                    {
+                        correlationId: corr, replyTo: q.queue
+                    }
+                );
+
+                ch.consume(q.queue, function(msg) {
+                        if (msg.properties.correlationId == corr) {
+                            console.log(' [AMQP] Got response: ' + method);
+
+                            // Handle returned data
+                            var data = JSON.parse(msg.content.toString());
+                            if (data['error']) {
+                                res.status(500);
+                            }
+
+                            if (EaGuard(req.token)) { res.json(data['message']); }
+                            if (CitizenGuard(req.token)) {
+                                const payload = {
+                                    ballotInfo: _.pick(data['message']['ballotInfo'], ['ballotName', 'limitCandidate']),
+                                    phaseInfo: data['message']['phaseInfo']
+                                };
+                                res.json(payload);
+                            }
+
+                            //-------------------------
+
+                            conn.close();
+                        }
+                    },
+                    { noAck: true }
+                );
+            });
+        });
+    });
+}
+
 /*---------- Amqp Utils--------*/
 //method = method name
 function handleGetRequest(method, res) {
@@ -308,18 +445,20 @@ function handleGetRequest(method, res) {
                         if (msg.properties.correlationId == corr) {
                             console.log(' [AMQP] Got response: ' + method);
 
+                            // Handle returned data
                             var data = JSON.parse(msg.content.toString());
                             if (data['error']) {
                                 res.status(500);
                             }
                             res.json(data['message']);
+                            //-------------------------
 
                             conn.close();
                         }
                     },
                     { noAck: true }
                 );
-            });npm
+            });
         });
     });
 }
@@ -351,7 +490,7 @@ function handlePostRequest(method, res, data) {
 
                             var data = JSON.parse(msg.content.toString());
                             if (data['error']) {
-                                res.status(500);
+                                res.status(500).json(data['message']);
                             }
                             res.json(data['message']);
 
@@ -378,6 +517,7 @@ export default {
     postHasRightToVote,
     postResetTime,
     postClaimStoredAmount,
+    postVoteForCandidates,
 
     postCandidateResult
 }

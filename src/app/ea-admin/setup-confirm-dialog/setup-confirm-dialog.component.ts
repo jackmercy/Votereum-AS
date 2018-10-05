@@ -34,7 +34,7 @@ export class SetupConfirmDialogComponent implements OnInit {
                 setInterval(() => this.onGetStatus(hash), 2000);
             },
             error => {
-                this.error = error.error.message;
+                this.error = error.error.message || error.message;
                 this.isLoading = false;
             }
         );

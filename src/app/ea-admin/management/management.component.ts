@@ -43,12 +43,15 @@ export class ManagementComponent implements OnInit {
     ];
     ballotInfoLabels: Object = {
         ballotName: 'Ballot name',
+        limitCandidate: 'Limit number of candidate per ballot',
         isFinalized: 'Finalized',
         address: 'Ballot address',
         amount: 'Fund amount',
+        
         registeredVoterCount: 'Number of registered citizen',
         votedVoterCount: 'Number of voted citizen',
         fundedVoterCount: 'Number of funded citizen',
+        
         startRegPhase: 'Start Register Phase at',
         endRegPhase: 'End Register Phase at',
         startVotingPhase: 'Start Voting Phase at',
@@ -67,7 +70,6 @@ export class ManagementComponent implements OnInit {
                 this.ballotInfo = data['ballotInfo'];
                 this.phaseInfo = data['phaseInfo'];
                 this.voterInfo = data['voterInfo'];
-                console.log(data);
             });
         this._ballotService.getBallotResult().subscribe();
         this.interval = false;
