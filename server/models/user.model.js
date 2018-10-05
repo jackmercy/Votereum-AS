@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
+import CitizenModel from './citizen.model';
 /**
  * User Schema
  */
+const Citizen = CitizenModel;
 const UserSchema = new mongoose.Schema({
     citizenId: {
         type: String,
@@ -30,6 +32,13 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     }
+}, { toObject: { virtuals: true }});
+
+UserSchema.virtual('Citizen', {
+    ref: 'Citizen',
+    localField: 'citizenId',
+    foreignField: 'citizenId',
+    justOne: true
 });
 /**
  * Add your
@@ -47,9 +56,4 @@ UserSchema.method({
 /**
  * Statics
  */
-
-UserSchema.statics.getUserByID = function(citizenId) {
-    return this.findOne({id: citizenId});
-}
-
 export default mongoose.model('User', UserSchema, 'user');

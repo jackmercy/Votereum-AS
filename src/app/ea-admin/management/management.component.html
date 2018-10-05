@@ -65,20 +65,52 @@
             User Management
         </p>
         <hr>
-        <div>
-            <p *ngFor="let key of (voterInfo | objectKeys)">
-                <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
-                <span>{{ voterInfo[key] }}</span>
-            </p>
+        <div class="row">
+            <!-- Registered Chart -->
+            <div class="col-4">
+                <ngx-charts-number-card
+                    [view]="registeredView"
+                    [results]="registeredVoterChartData"
+                    [cardColor] = "cardColor"
+                    [bandColor] = "bandColor"
+                    [textColor] = "textColor"
+                    (select)="onSelect($event)">
+                </ngx-charts-number-card>
+            </div>
+            <!-- Registered Chart -->
+
+            <!-- Funded Chart -->
+            <div class="col-4">
+                <ngx-charts-pie-grid
+                    [view]="voterView"
+                    [scheme]="fundedColorScheme"
+                    [results]="fundedVoterChartData"
+                    [label]="fundedLabel"
+                    [designatedTotal]="designatedTotal">
+                </ngx-charts-pie-grid>
+            </div>
+            <!-- Funded Chart -->
+
+            <!-- Voted Chart -->
+            <div class="col-4">
+                <ngx-charts-pie-grid
+                    [view]="voterView"
+                    [scheme]="votedColorScheme"
+                    [results]="votedVoterChartData"
+                    [label]="votedLabel"
+                    [designatedTotal]="designatedTotal">
+                </ngx-charts-pie-grid>
+            </div>
+            <!-- Voted Chart -->
         </div>
     </div>
 
-    <div class="ballot-section">
+    <!-- <div class="ballot-section">
         <p>
             Ballot Overview
         </p>
         <hr>
-    </div>
+    </div> -->
 
 </div>
 <div *ngIf="!ballotInfo">

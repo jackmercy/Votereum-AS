@@ -55,7 +55,12 @@ export class LoginComponent implements OnInit {
 
                 },
                 error => {
-                    const msg = error.error.message;
+                    let msg;
+                    if (error.status === 504) {
+                        msg = 'Something wrong with the server (Status: 504)';
+                    } else {
+                        msg = error.error.message;
+                    }
                     this.snackBar.open(msg , 'Got it', {
                         duration: 3000,
                     });

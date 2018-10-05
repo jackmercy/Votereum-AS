@@ -2,6 +2,7 @@ import { NgModule }     from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 /* Modules */
+import { NgxChartsModule }      from '@swimlane/ngx-charts';
 import { EaAdminRoutingModule } from '@app/ea-admin/ea-admin-routing.module';
 import { SharedModule }         from '@shared/shared.module';
 /* Components */
@@ -18,6 +19,7 @@ import { SetupConfirmDialogComponent } from './setup-confirm-dialog/setup-confir
         CommonModule,
         RouterModule,
         SharedModule,
+        NgxChartsModule,
 
         EaAdminRoutingModule
     ],

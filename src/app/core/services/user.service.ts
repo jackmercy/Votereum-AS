@@ -34,6 +34,7 @@ export class UserService {
                 map((response: Response) => {
                     const res = response;
                     if (res['token']) {
+                        const citizenInfo = res['citizenInfo'];
                         this._messageService.changeLoginStatus(true);
                         /* write to session storage here */
                         const decodedToken = this.helper.decodeToken(res['token']);
@@ -46,6 +47,7 @@ export class UserService {
                         };
                         sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
                         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+                        sessionStorage.setItem(STRING_CONFIG.CITIZEN_INFO, JSON.stringify(citizenInfo));
                         this.isLoggedIn = true;
                     }
                     return res;
@@ -96,9 +98,9 @@ export class UserService {
         );
     }
 
-    changePassword(citizenId: string, newPassword: string): Observable<any> {
-        return this._http.post(URI_CONFIG.BASE_AUTH + URI_CONFIG.CHANGE_PASSWORD,
-            JSON.stringify({citizenId: citizenId, newPassword: newPassword}), { headers: this._messageService.getHttpOptions() })
+    changePassword(newPassword: string): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.CHANGE_PASSWORD,
+            JSON.stringify({newPassword: newPassword}), { headers: this._messageService.getHttpOptions() })
         .pipe(
             map((response: Response) => {
                 const res = response;
@@ -139,6 +141,12 @@ export class UserService {
         return user.isFirstTimeLogIn;
     }
 
+    updateLocalIsFirstLogin() {
+        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+        user.isFirstTimeLogIn = false;
+        sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
+    }
+
     hasBlockchainAccount(): Boolean {
         const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
 
@@ -149,6 +157,12 @@ export class UserService {
     setHasBlockchainAccount(value) {
         sessionStorage.setItem('hasBlockchainAccount',
             JSON.stringify({ hasBlockchainAccount: value }));
+    }
+
+    getCitizenInfo(): Object {
+        const citizenInfo = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CITIZEN_INFO));
+
+        return citizenInfo;
     }
 
     getRole(): string {

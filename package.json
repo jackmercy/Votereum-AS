@@ -6,7 +6,7 @@
     "ng": "ng",
     "ui": "ng serve --aot --proxy-config proxy.config.json",
     "build-ui": "ng build --aot --prod",
-    "start": "nodemon server/app.js --exec babel-node",
+    "start": "nodemon --delay 1.5 server/app.js --exec babel-node",
     "build": "babel -d dist",
     "debug": "babel-node --inspect --inspect-brk=9215 server/app.js",
     "serve": "node dist/index.js",

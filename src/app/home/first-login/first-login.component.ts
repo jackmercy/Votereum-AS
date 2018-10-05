@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { UserService } from '@services/user.service';
-import { MatSnackBar } from '@angular/material';
+import { Router }            from '@angular/router';
+import { UserService }       from '@services/user.service';
+import { MatSnackBar }       from '@angular/material';
 import { FormControl, FormGroupDirective, NgForm, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -27,7 +28,9 @@ export class FirstLoginComponent implements OnInit {
     }
 
     constructor(private _userService: UserService,
-                private formBuilder: FormBuilder) {
+                private formBuilder: FormBuilder,
+                private _router: Router,
+                public snackBar: MatSnackBar) {
       this.myForm = this.formBuilder.group({
         password: ['', [Validators.required]],
         confirmPassword: ['']
@@ -47,14 +50,22 @@ export class FirstLoginComponent implements OnInit {
     }
 
     onChangePassword() {
-        const citizenId = this._userService.getId();
-        this._userService.changePassword(citizenId, this.newPassword.value)
+        const newPassword = this.newPassword.value;
+        this._userService.changePassword(newPassword)
             .subscribe(
                 data => {
-
+                    const msg = data.message;
+                    this.snackBar.open(msg , 'OK', {
+                        duration: 5000,
+                    });
+                    this._userService.updateLocalIsFirstLogin();
+                    this._router.navigate(['/home/voting']);
                 },
                 error => {
                     const msg = error.error.message;
+                    this.snackBar.open(msg , 'OK', {
+                        duration: 3000,
+                    });
                 }
             );
     }
