@@ -93,22 +93,28 @@ export class ManagementComponent implements OnInit {
                 this.phaseInfo = data['phaseInfo'];
                 this.voterInfo = data['voterInfo'];
 
+                /* this.designatedTotal = this.voterInfo['registeredVoterCount']; */
+                this.designatedTotal = 60561589;
+
                 this.registeredVoterChartData = [
                     {
                         name: 'Number of registered citizen',
+                        /* value: this.voterInfo['registeredVoterCount'] */
                         value: 60561589
+
                     }
                 ];
-                this.designatedTotal = 60561589;
                 this.fundedVoterChartData = [
                     {
                         name: 'Funded citizen',
+                        /* value: this.voterInfo['fundedVoterCount'] */
                         value: 56901589
                     }
                 ];
                 this.votedVoterChartData = [
                     {
                         name: 'Voted citizen',
+                        /* value: this.voterInfo['votedVoterCount'] */
                         value: 44234173
                     }
                 ];
