@@ -507,7 +507,7 @@ function handlePostRequest(method, res, data) {
 
                             var data = JSON.parse(msg.content.toString());
                             if (data['error']) {
-                                res.status(500).json(data['message']);
+                                res.status(500);
                             }
                             res.json(data['message']);
 

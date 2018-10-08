@@ -22,7 +22,7 @@ export class BallotService {
     }
     /*
     - GET: [/api/ballot]
-    - Response:
+    - Response: // not yet updated
     {
         "ballotName": "President Election",
         "startRegPhase": "1543050000",
@@ -44,7 +44,7 @@ export class BallotService {
 
     /*
     - GET: [/api/ballot]
-    - Response:
+    - Response: not yet updated
     {
         "ballotName": "President Election",
         "startRegPhase": "1543050000",

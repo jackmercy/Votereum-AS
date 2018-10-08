@@ -39,7 +39,7 @@
         <form class="vertical-form" [formGroup]="candidateFormGroup">
             <ng-template matStepLabel>Choose competitors</ng-template>
             <mat-selection-list #selectionList formControlName="selectedCandidates">
-                <mat-list-option *ngFor="let candidate of candidates" [value]="candidate['candidateId']">
+                <mat-list-option *ngFor="let candidate of candidates" [value]="candidate['id']">
                      {{ (candidate['title'] + ' ' + candidate['firstName'] + ' ' + candidate['lastName']) | titlecase }}
                 </mat-list-option>
             </mat-selection-list>
