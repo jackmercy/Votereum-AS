@@ -69,11 +69,11 @@ export class ManagementComponent implements OnInit {
         isFinalized: 'Finalized',
         address: 'Ballot address',
         amount: 'Fund amount',
-        
+
         registeredVoterCount: 'Number of registered citizen',
         votedVoterCount: 'Number of voted citizen',
         fundedVoterCount: 'Number of funded citizen',
-        
+
         startRegPhase: 'Start Register Phase at',
         endRegPhase: 'End Register Phase at',
         startVotingPhase: 'Start Voting Phase at',
