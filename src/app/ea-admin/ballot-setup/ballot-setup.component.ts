@@ -82,9 +82,11 @@ export class BallotSetupComponent implements OnInit {
             startVotingPhase: this.phasesSequenceFormGroup.get('startVotingPhase').value.format('x'),
             endVotingPhase: this.phasesSequenceFormGroup.get('endVotingPhase').value.format('x'),
         };
+        console.log(this.candidateList);
         const candidateListGroup = {
             candidateIds: this.candidateList.selectedOptions.selected
-                          .map(option => option.value)
+                          .map(option =>
+                              option.value)
         };
         const payload = Object.assign(
             {},
