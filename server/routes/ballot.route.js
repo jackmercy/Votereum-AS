@@ -22,9 +22,6 @@ router.route('/finalize')
     .get(BallotController.getIsFinalized);
 
 router.route('/candidate')
-    .get(BallotController.getCandidates);
-
-router.route('/candidate')
     .post(BallotController.postCandidates);
 
 router.route('/giveRight')
@@ -47,8 +44,8 @@ router.route('/vote')
 router.route('/result')
     .post(BallotController.postCandidateResult);
 
-
-
+router.route('/selected-candidates')
+    .get(BallotController.getCandidates);
 
 
 

@@ -92,7 +92,8 @@ export class BallotSetupComponent implements OnInit {
             {},
             ballotInfoGroup,
             phaseSequenceGroup,
-            candidateListGroup);
+            candidateListGroup
+        );
 
         this.confirmDialogRef = this._dialog.open(SetupConfirmDialogComponent, {
             width: 'fit-content',

@@ -1,9 +1,11 @@
 import amqp    from 'amqplib/callback_api';
 import Web3    from 'web3';
+import bcrypt  from "bcrypt";
 import Ballot  from '../models/ballot.model';
-import bcrypt from "bcrypt";
+import * as _  from 'lodash';
+import Candidate         from '../models/candidate.model';
 import BlockchainAccount from "../models/blockchain-account.model";
-import * as _ from 'lodash';
+
 
 
 
@@ -335,7 +337,7 @@ function postCandidateResult(req, res) {
 
 
 /*
-- GET: [/api/ballot/candidate]
+- GET: [/api/ballot/selected-candidates]
 - Response:
 {
     "candidateIds": [
@@ -347,7 +349,56 @@ function postCandidateResult(req, res) {
 }
 */
 function getCandidates(req, res) {
-    handleGetRequest('getCandidates', res);
+    /* handleGetRequest('getCandidates', res); */
+    const method = 'getCandidates';
+    const ballotQueue = 'ballot_queue.' + method;
+    amqp.connect('amqp://localhost', function(err, conn) {
+        conn.createChannel(function(err, ch) {
+            ch.assertQueue('', {exclusive: true}, function(err, q) {
+                var corr = generateUuid();
+                console.log('[AMQP] Request: ' + method);
+
+                ch.sendToQueue(
+                    ballotQueue, 
+                    new Buffer (''),
+                    {
+                        correlationId: corr, replyTo: q.queue
+                    }
+                );
+
+                ch.consume(q.queue, function(msg) {
+                        if (msg.properties.correlationId == corr) {
+                            console.log(' [AMQP] Got response: ' + method);
+
+                            // Handle returned data
+                            var data = JSON.parse(msg.content.toString());
+                            if (data['error']) {
+                                return res.status(500);
+                            }
+                            let candidateIds = data['message']["candidateIds"];
+                            let query = { candidateId: { $in: candidateIds}};
+
+                            Candidate.find(query, function(err, candidates) {
+                                if(err) {
+                                    console.log('ERR');
+                                } else if(candidates.length > 0) {
+                                    res.status(200).json(candidates);
+                                } else {
+                                    const message = {
+                                        message: 'No candidate is found'
+                                    }
+                                    res.json(message);
+                                }
+                            });
+                            //-------------------------
+                            conn.close();
+                        }
+                    },
+                    { noAck: true }
+                );
+            });
+        });
+    });
 }
 
 /*
@@ -466,6 +517,8 @@ function handleGetRequest(method, res) {
                             var data = JSON.parse(msg.content.toString());
                             if (data['error']) {
                                 res.status(500);
+
+                                return conn.close();
                             }
                             res.json(data['message']);
                             //-------------------------
@@ -507,7 +560,9 @@ function handlePostRequest(method, res, data) {
 
                             var data = JSON.parse(msg.content.toString());
                             if (data['error']) {
-                                res.status(500);
+                                res.status(500).json(data['message']);
+
+                                return conn.close();
                             }
                             res.json(data['message']);
 
