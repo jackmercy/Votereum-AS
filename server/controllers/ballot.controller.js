@@ -373,12 +373,14 @@ function getCandidates(req, res) {
                             // Handle returned data
                             var data = JSON.parse(msg.content.toString());
                             if (data['error']) {
-                                return res.status(500);
+                                res.status(500);
+                                return conn.close();
                             }
                             let candidateIds = data['message']["candidateIds"];
-                            let query = { candidateId: { $in: candidateIds}};
-
+                            let query = { id: { $in: candidateIds}};
+                            console.log(candidateIds);
                             Candidate.find(query, function(err, candidates) {
+
                                 if(err) {
                                     console.log('ERR');
                                 } else if(candidates.length > 0) {

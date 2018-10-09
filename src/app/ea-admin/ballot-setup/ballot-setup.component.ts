@@ -30,12 +30,6 @@ export class BallotSetupComponent implements OnInit {
 
     @ViewChild('selectionList') private candidateList: MatSelectionList;
 
-    typesOfShoes: Object[] = [{
-        name: 'sod'
-    },
-        { name: 'sdfdsf'}
-    ];
-
     constructor(private _formBuilder: FormBuilder,
                 private _eaService: ElectionAdminService,
                 private _ballotService: BallotService,
@@ -82,7 +76,7 @@ export class BallotSetupComponent implements OnInit {
             startVotingPhase: this.phasesSequenceFormGroup.get('startVotingPhase').value.format('x'),
             endVotingPhase: this.phasesSequenceFormGroup.get('endVotingPhase').value.format('x'),
         };
-        console.log(this.candidateList);
+
         const candidateListGroup = {
             candidateIds: this.candidateList.selectedOptions.selected
                           .map(option =>
@@ -94,6 +88,7 @@ export class BallotSetupComponent implements OnInit {
             phaseSequenceGroup,
             candidateListGroup
         );
+        console.log(candidateListGroup);
 
         this.confirmDialogRef = this._dialog.open(SetupConfirmDialogComponent, {
             width: 'fit-content',
