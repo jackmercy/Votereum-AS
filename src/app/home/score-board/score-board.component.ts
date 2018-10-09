@@ -45,10 +45,10 @@ export const single = [
 export class ScoreBoardComponent implements OnInit {
     single: any[];
 
-    /* votingData: any;
+     votingData: any;
     candidateNames: any;
     listCandidateIds: any;
-    result: any; */
+    result: any;
 
     // options
     showXAxis = true;
@@ -71,8 +71,10 @@ export class ScoreBoardComponent implements OnInit {
 
     ngOnInit() {
         // console.log(this._ballotService.getBallotResult().s);
-        /* this._ballotService.getBallotResult().subscribe(value =>
-            this.result = value ); */
+         this._ballotService.getBallotResult().subscribe(value => {
+             this.result = value;
+             console.log(this.result);
+         });
         Object.assign(this, { single });
     }
 

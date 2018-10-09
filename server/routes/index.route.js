@@ -30,7 +30,7 @@ router.use(function(req, res, next) {
     if (token) {
         // verifies secret and checks exp
         jwt.verify(token, app.get('jwtSecret'), function(err, decoded) {
-            console.log(`[x] token is ${decoded.role}`);
+
             if (err) {
                 console.error(err);
                 return res.json({ error: true, message: 'Failed to authenticate token.' });
@@ -38,6 +38,7 @@ router.use(function(req, res, next) {
                 return res.status(400).json({ error: true, message: 'Token is expired' });
             } else {
                 // if everything is good, save to request for use in other routes (e.g check user's role)
+                console.log(`[x] token is ${decoded.role}`);
                 req.token = decoded;
                 next();
             }
