@@ -9,6 +9,7 @@ import { AccountDialogComponent }                 from '@home/account-dialog/acc
 import { BallotService }                          from '@services/ballot.service';
 import * as _                                     from 'lodash';
 import { PasswordEntryDialogComponent }           from '@home/password-entry-dialog/password-entry-dialog.component';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-voting',
@@ -95,7 +96,7 @@ export class VotingComponent implements OnInit {
             'quote': 'Let us sacrifice our today so that our children can have a better tomorrow.'
         }
     ];
-    candidates: Array<Object>;
+    candidates: any;
     votingResult = {
         candidates: [],
         citizenID: ''
@@ -131,10 +132,17 @@ export class VotingComponent implements OnInit {
             isActive => this.isSideBarActive = isActive
         );
 
-        this.candidates = this.mock_candidates.map(candidate => {
-            candidate['isSelected'] = false;
-            return candidate;
-        });
+        this._ballotService.getSelectedCandidates().subscribe(
+            data => {
+                data.map(
+                    candidate => {
+                        candidate['isSelected'] = false;
+                        return candidate;
+                    }
+                );
+                this.candidates = data;
+            }
+        );
 
         this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {
             this.votingResult.citizenID =  this._userService.getId();
