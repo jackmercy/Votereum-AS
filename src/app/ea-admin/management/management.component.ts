@@ -69,11 +69,11 @@ export class ManagementComponent implements OnInit {
         isFinalized: 'Finalized',
         address: 'Ballot address',
         amount: 'Fund amount',
-        
+
         registeredVoterCount: 'Number of registered citizen',
         votedVoterCount: 'Number of voted citizen',
         fundedVoterCount: 'Number of funded citizen',
-        
+
         startRegPhase: 'Start Register Phase at',
         endRegPhase: 'End Register Phase at',
         startVotingPhase: 'Start Voting Phase at',
@@ -99,7 +99,7 @@ export class ManagementComponent implements OnInit {
                 this.registeredVoterChartData = [
                     {
                         name: 'Number of registered citizen',
-                        /* value: this.voterInfo['registeredVoterCount'] */
+                         // value: this.voterInfo['registeredVoterCount']
                         value: 60561589
 
                     }
@@ -107,7 +107,7 @@ export class ManagementComponent implements OnInit {
                 this.fundedVoterChartData = [
                     {
                         name: 'Funded citizen',
-                        /* value: this.voterInfo['fundedVoterCount'] */
+                         // value: this.voterInfo['fundedVoterCount']
                         value: 56901589
                     }
                 ];
@@ -186,6 +186,14 @@ export class ManagementComponent implements OnInit {
 
         this._ballotService.resetTime(_phase).subscribe(data => {
             this.interval = setInterval(() => this.onGetStatus(data, _phase), 12000);
+        }, error => {
+            const snackBar = this._snackBar.open(
+                'Your operation has failed. Please try again',
+                'OK', {
+                    duration: 3000,
+                });
+    
+            this.phases[_phase].isLoading = false;
         });
 
     }
@@ -216,7 +224,8 @@ export class ManagementComponent implements OnInit {
                     clearInterval(this.interval);
                 }
             }
-        });
+        })
+            .catch(error => console.log(error));
     }
 
     /* Chart event */

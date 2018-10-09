@@ -43,7 +43,7 @@ export class PasswordEntryDialogComponent implements OnInit {
     }
 
     onSignButtonClicked() {
-        this.selectedCandidates = this.data.map(candidate => this.convertToBytes32(candidate));
+        this.selectedCandidates = this.data;
         const account = {
             citizenId: this._userService.getId(),
             chainPassword: this.password.value,
@@ -54,6 +54,7 @@ export class PasswordEntryDialogComponent implements OnInit {
         this._ballotService.voteForCandidate(account).subscribe(() => {
             this.isLoading = false;
         }, error => {
+            console.log(error);
             this.error = error.error.message || error.message;
             this.isLoading = false;
         });

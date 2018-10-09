@@ -62,12 +62,13 @@ export class BallotService {
 
             this.getCandidateIds().subscribe(data => {
                 const candidateIds: Array<string> = data['candidateIds'];
-
+                
                 candidateIds.map(_candidateId =>
                     observables.push(
+                        // http call for candidate result
                         this._http.post(
                             URI_CONFIG.BASE_BALLOT_API + '/result',
-                            JSON.stringify({ candidateId: _candidateId }),
+                            JSON.stringify({ candidateID: _candidateId }),
                             { headers: this._messageService.getHttpOptions() }
                         ).pipe(
                             map(_result => {
