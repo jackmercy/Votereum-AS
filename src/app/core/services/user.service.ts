@@ -41,6 +41,7 @@ export class UserService {
                         console.log(decodedToken);
                         /* TODO: get citizen details (populate mongoose user + citizen) */
                         const payload = {
+                            role: decodedToken.role,
                             isVote: decodedToken.isVote,
                             isFirstTimeLogIn: decodedToken.isFirstTimeLogIn,
                             hasBlockchainAccount: decodedToken.hasBlockchainAccount

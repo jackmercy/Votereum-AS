@@ -1,7 +1,8 @@
 <nav id="sidebar" [ngClass]="{'active-sidebar': isSideBarActive}">
     <div class="sidebar-header text-center">
         <!-- <i class="material-icons md-48">account_circle</i> -->
-        <img src="{{citizenInfo['picture']}}" class="user-avatar">
+        <img *ngIf="isRoleAdmin" src="{{citizenInfo['picture']}}" class="user-avatar">
+        <img *ngIf="isRoleCitizen" src="{{citizenInfo['picture']}}" class="user-avatar pointer" (click)=onUserAvatarClicked()>
     </div>
 
     <ul class="nav-list-unstyled components">
