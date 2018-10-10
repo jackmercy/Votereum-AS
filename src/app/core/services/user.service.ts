@@ -159,6 +159,17 @@ export class UserService {
             JSON.stringify({ hasBlockchainAccount: value }));
     }
 
+    getVoterAddress(_citizenId: String): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_BLOCKCHAIN_API + URI_CONFIG.GET_VOTER_ADDRESS,
+            JSON.stringify({citizenId: _citizenId}), { headers: this._messageService.getHttpOptions() })
+        .pipe(
+            map((response: Response) => {
+                const res = response;
+                return res;
+            })
+        );
+    }
+
     getCitizenInfo(): Object {
         const citizenInfo = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CITIZEN_INFO));
 

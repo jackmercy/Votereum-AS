@@ -96,6 +96,48 @@ function postStoreBlockchainAccount(req, res) {
 
 }
 
+/** POTS: [/getAddress]
+ * req JSON {
+    "citizenId": "0432"
+    }
+ */
+async function postGetVoterAddress(req, res) {
+    if (!CitizenGuard(req.token)) {
+        res.status(403);
+        return res.json({error: true, message: 'You do not have permission to access this API'});
+    }
+
+    let _citizenId = req.body.citizenId;
+    let query = { citizenId: _citizenId };
+
+    let _user = await User.findOne(query, function(err, user) {
+        if (err) {
+            console.log(err);
+            return res.status(500).json({
+                message: 'Something wrong with the server'
+            });
+        } else {
+            _user = user;
+        }
+    });
+    
+    if (_user.hasBlockchainAccount === true ) {
+        BlockchainAccount.findOne(query, function(err, bcAccount) {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({
+                    message: 'Something wrong with the server'
+                });
+            } else if (bcAccount) {
+                return res.json({
+                    address: bcAccount.address
+                });
+            }
+        });
+    }
+}
+
 export default {
-    postStoreBlockchainAccount
+    postStoreBlockchainAccount,
+    postGetVoterAddress
 }
