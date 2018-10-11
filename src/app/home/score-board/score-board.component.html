@@ -1,7 +1,7 @@
 <div class="container-fluid wrapper score-grid no-gutters">
-    <ngx-charts-bar-vertical
+    <ngx-charts-bar-vertical *ngIf="!isGettingData"
         [scheme]="colorScheme"
-        [results]="single"
+        [results]="result"
         [gradient]="gradient"
         [xAxis]="showXAxis"
         [yAxis]="showYAxis"
@@ -12,4 +12,8 @@
         [yAxisLabel]="yAxisLabel"
         (select)="onSelect($event)">
     </ngx-charts-bar-vertical>
+    <div class="info-message" *ngIf="isGettingData">
+        <mat-spinner mode="indeterminate"></mat-spinner>
+        <p class="text-h1 text-center">This may take a while. Please wait</p>
+    </div>
 </div>

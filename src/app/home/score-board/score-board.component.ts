@@ -5,7 +5,7 @@ import { ContractService }  from '@services/contract.service';
 import { CandidateService } from '@services/candidate.service';
 import { BallotService }    from '@services/ballot.service';
 
-export const single = [
+/* export const result = [
     {
       'name': 'Germany',
       'value': 8940000
@@ -34,7 +34,7 @@ export const single = [
         'name': 'LalaLand',
         'value': 400000
     }
-];
+]; */
 
 
 @Component({
@@ -43,13 +43,12 @@ export const single = [
     styleUrls: ['./score-board.component.scss']
 })
 export class ScoreBoardComponent implements OnInit {
-    single: any[];
 
-     votingData: any;
+    votingData: any;
     candidateNames: any;
     listCandidateIds: any;
     result: any;
-
+    isGettingData: Boolean = true;
     // options
     showXAxis = true;
     showYAxis = true;
@@ -70,12 +69,13 @@ export class ScoreBoardComponent implements OnInit {
                 private _ballotService: BallotService) { }
 
     ngOnInit() {
+        this.isGettingData = true;
         // console.log(this._ballotService.getBallotResult().s);
-         this._ballotService.getBallotResult().subscribe(value => {
-             this.result = value;
-             console.log(this.result);
-         });
-        Object.assign(this, { single });
+        this._ballotService.getBallotResult().subscribe(value => {
+            this.result = value;
+            console.log(this.result);
+            this.isGettingData = false;
+        });
     }
 
     onSelect(event) {

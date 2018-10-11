@@ -10,3 +10,15 @@
 .wrapper {
     background-color: white;
 }
+
+.info-message {
+    padding: 100px;
+    width: 100%;
+    .text-h1 {
+        font-weight: 300;
+    }
+    mat-spinner {
+        margin: 0 auto
+    }
+
+}

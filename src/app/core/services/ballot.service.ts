@@ -3,11 +3,11 @@ import { Observable }         from 'rxjs/Observable';
 import { HttpClient }         from '@angular/common/http';
 import { URI_CONFIG }         from '@config/uri.config';
 import { httpOptions }        from '@config/string.config';
-import { map }                from 'rxjs/operators';
+import { map, retry }         from 'rxjs/operators';
 import { forkJoin }           from 'rxjs/observable/forkJoin';
 import { observable }         from 'rxjs/internal-compatibility';
 import { WEB3 }               from '@core/web3-token';
-import Web3                   from 'web3';
+import   Web3                 from 'web3';
 import { MessageService }     from '@services/message.service';
 
 
@@ -39,7 +39,8 @@ export class BallotService {
     }
 
     getCandidateIds(): Observable<any> {
-        return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/candidate', { headers: this._messageService.getHttpOptions() });
+        return this._http.get(URI_CONFIG.BASE_BALLOT_API + URI_CONFIG.SELECTED_CANDIDATES,
+            { headers: this._messageService.getHttpOptions() });
     }
 
     getSelectedCandidates(): Observable<any> {
@@ -66,20 +67,20 @@ export class BallotService {
             const observables: Array<Observable<Object>> = [];
 
             this.getCandidateIds().subscribe(data => {
-                const candidateIds: Array<string> = data['candidateIds'];
+                const candidateIds: Array<Object> = data;
 
                 candidateIds.map(_candidateId =>
                     observables.push(
                         // http call for candidate result
                         this._http.post(
                             URI_CONFIG.BASE_BALLOT_API + '/result',
-                            JSON.stringify({ candidateID: _candidateId }),
+                            JSON.stringify({ candidateID: _candidateId['id'] }),
                             { headers: this._messageService.getHttpOptions() }
                         ).pipe(
                             map(_result => {
                                 const candidateResult = {
-                                    name: _candidateId,
-                                    value:   _result['voteCount']
+                                    name: `${_candidateId['firstName']} ${_candidateId['lastName']}`,
+                                    value: _result['voteCount']
                                 };
                                 return candidateResult;
                             })

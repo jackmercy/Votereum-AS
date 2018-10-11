@@ -192,7 +192,6 @@ export class ManagementComponent implements OnInit {
                 'OK', {
                     duration: 3000,
                 });
-    
             this.phases[_phase].isLoading = false;
         });
 
