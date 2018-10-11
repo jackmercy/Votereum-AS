@@ -11,9 +11,9 @@
     </div>
 
 </div>
-<div class="voting-grid">
-    <div *ngIf="ballotInfo">
-        <p class="header">Please select maximum {{ ballotInfo.limitCandidate }}
+<div class="voting-grid" *ngIf="ballotInfo">
+    <div *ngIf="hasBlockchainAccount && !isVote">
+        <p class="header" >Please select maximum {{ ballotInfo.limitCandidate }}
             and minimum 1 out of {{ candidates.length }}</p>
     </div>
     <div class="items">

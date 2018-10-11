@@ -102,6 +102,7 @@ export class VotingComponent implements OnInit {
     };
     isSideBarActive: Boolean;
     hasBlockchainAccount: Boolean;
+    isVote: Boolean;
     ballotInfo: any;
     error: any;
     private selectedCandidates: Array<String>;
@@ -139,6 +140,7 @@ export class VotingComponent implements OnInit {
         this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {
             this.votingResult.citizenID =  this._userService.getId();
             this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
+            this.isVote = this._userService.isVoted();
         }, error => {
             this.error = error.error.message || error.message || error;
             console.log(this.error);
@@ -177,7 +179,7 @@ export class VotingComponent implements OnInit {
     }
 
     onCandidateSelected(candidate: Object) {
-        if (this.hasBlockchainAccount) {
+        if (this.hasBlockchainAccount && !this.isVote) {
             this.toggleItemSelection(candidate);
         }
     }

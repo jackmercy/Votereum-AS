@@ -21,6 +21,7 @@ export class PasswordEntryDialogComponent implements OnInit {
     isSuccess: boolean;
     isLoading: boolean;
     selectedCandidates: Array<string>;
+    interval: any;
 
 
     constructor(private _formBuilder: FormBuilder,
@@ -51,8 +52,9 @@ export class PasswordEntryDialogComponent implements OnInit {
         };
 
         this.isLoading = true;
-        this._ballotService.voteForCandidate(account).subscribe(() => {
+        this._ballotService.voteForCandidate(account).subscribe((hash) => {
             this.isLoading = false;
+            setInterval(() => this.onGetStatus(hash), 2000);
         }, error => {
             console.log(error);
             this.error = error.error.message || error.message;
@@ -74,6 +76,26 @@ export class PasswordEntryDialogComponent implements OnInit {
 
     getErrorMessage(control: AbstractControl) {
         return control.hasError('required') ? 'Mandatory information' : '';
+    }
+
+    onGetStatus(txHash: string) {
+        this._ballotService.getTxReceipt(txHash).then( (receipt) =>  {
+            if (receipt) {
+                const statusVal = Number(receipt['status']);
+
+                // success
+                if (statusVal === 1) {
+                    this.isLoading = false;
+                    this.isSuccess = true;
+                    clearInterval(this.interval);
+                } else if (statusVal === 0) {
+                    this.isLoading = false;
+                    this.error = 'Your operation has failed, please try again later!';
+                    // failed
+                    clearInterval(this.interval);
+                }
+            }
+        });
     }
 
 }
