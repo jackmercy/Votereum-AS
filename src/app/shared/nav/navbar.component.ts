@@ -3,6 +3,7 @@ import { MessageService }             from '@services/message.service';
 import { Router, RouterEvent }        from '@angular/router';
 import { UserService }                from '@services/user.service';
 import { RouteInfo }                  from '@config/interfaces/route-info.interface';
+import { roleConfig }                 from '@config/string.config';
 import 'rxjs/add/operator/filter';
 
 @Component({
@@ -16,7 +17,8 @@ export class NavbarComponent implements OnInit {
 
     isSideBarActive: Boolean;
     citizenInfo: Object;
-
+    isRoleCitizen: Boolean = false;
+    isRoleAdmin: Boolean = false;
     constructor(private _router: Router,
                 private _messageService: MessageService,
                 private _userService: UserService) { }
@@ -26,11 +28,18 @@ export class NavbarComponent implements OnInit {
             isActive => this.isSideBarActive = isActive
         );
         this.citizenInfo = this._userService.getCitizenInfo();
-        /* this._router.events.filter(e => e instanceof RouterEvent).subscribe(
-            e => {
-                this.currentModule = e['url'].toString();
-            }
-        ); */
+        const userRole = this._userService.getRole();
+        if (userRole === roleConfig.CITIZEN) {
+            this.isRoleCitizen = true;
+            this.isRoleAdmin = false;
+        } else if (userRole === roleConfig.EA || userRole === roleConfig.RA) {
+            this.isRoleAdmin = true;
+            this.isRoleCitizen = false;
+        }
+    }
+
+    onUserAvatarClicked() {
+        this._router.navigate(['/home/user-profile']);
     }
 
     onLogout() {

@@ -42,6 +42,11 @@ export class BallotService {
         return this._http.get(URI_CONFIG.BASE_BALLOT_API + '/candidate', { headers: this._messageService.getHttpOptions() });
     }
 
+    getSelectedCandidates(): Observable<any> {
+        return this._http.get(URI_CONFIG.BASE_BALLOT_API + URI_CONFIG.SELECTED_CANDIDATES,
+            { headers: this._messageService.getHttpOptions() });
+    }
+
     /*
     - GET: [/api/ballot]
     - Response: not yet updated
@@ -62,7 +67,7 @@ export class BallotService {
 
             this.getCandidateIds().subscribe(data => {
                 const candidateIds: Array<string> = data['candidateIds'];
-                
+
                 candidateIds.map(_candidateId =>
                     observables.push(
                         // http call for candidate result

@@ -55,7 +55,8 @@ async function postLogin(req, res) {
                 };
 
                 var token = jwt.sign(payload, app.get('jwtSecret'), {
-                    expiresIn: 3600 // expires in 1 hour
+                    /* expiresIn: 180 // expires in 3 mins */
+                    expiresIn: 3600 // expires in 1 hours
                 });
 
                 return res.status(200).json({

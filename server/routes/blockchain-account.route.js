@@ -12,4 +12,7 @@ router.route('/check').get(function(req, res) {
 router.route('/storeAccount')
     .post(BcAccountController.postStoreBlockchainAccount);
 
+router.route('/getAddress')
+    .post(BcAccountController.postGetVoterAddress);
+
 export default router;

@@ -32,4 +32,7 @@ export const URI_CONFIG = {
     CITIZEN_GENERATE_SYSTEM_ACCOUNT: '/generateUserAccount',
     /* Ballot url */
     FINALIZE_BALLOT: '/finalize',
+    SELECTED_CANDIDATES: '/selected-candidates',
+    /* Blockchain account API */
+    GET_VOTER_ADDRESS: '/getAddress'
 };

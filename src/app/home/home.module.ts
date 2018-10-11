@@ -15,6 +15,7 @@ import { VoteResultComponent }    from './vote-result/vote-result.component';
 import { AccountDialogComponent } from './account-dialog/account-dialog.component';
 import { FirstLoginComponent }    from './first-login/first-login.component';
 import { PasswordEntryDialogComponent } from './password-entry-dialog/password-entry-dialog.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -34,7 +35,8 @@ import { PasswordEntryDialogComponent } from './password-entry-dialog/password-e
         VoteResultComponent,
         AccountDialogComponent,
         FirstLoginComponent,
-        PasswordEntryDialogComponent
+        PasswordEntryDialogComponent,
+        UserProfileComponent
     ],
     entryComponents: [
         AccountDialogComponent,

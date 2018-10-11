@@ -41,6 +41,7 @@ export class UserService {
                         console.log(decodedToken);
                         /* TODO: get citizen details (populate mongoose user + citizen) */
                         const payload = {
+                            role: decodedToken.role,
                             isVote: decodedToken.isVote,
                             isFirstTimeLogIn: decodedToken.isFirstTimeLogIn,
                             hasBlockchainAccount: decodedToken.hasBlockchainAccount
@@ -157,6 +158,17 @@ export class UserService {
     setHasBlockchainAccount(value) {
         sessionStorage.setItem('hasBlockchainAccount',
             JSON.stringify({ hasBlockchainAccount: value }));
+    }
+
+    getVoterAddress(_citizenId: String): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_BLOCKCHAIN_API + URI_CONFIG.GET_VOTER_ADDRESS,
+            JSON.stringify({citizenId: _citizenId}), { headers: this._messageService.getHttpOptions() })
+        .pipe(
+            map((response: Response) => {
+                const res = response;
+                return res;
+            })
+        );
     }
 
     getCitizenInfo(): Object {
