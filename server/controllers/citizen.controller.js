@@ -19,6 +19,33 @@ function check(req, res) {
     }
 }
 
+/*
+Route: /api/citizen/total
+Method: GET
+Return: { 
+    totalCitizen: 234121
+}
+*/
+function getTotalCitizen(req, res) {
+    if (!EaGuard(req.token)) {
+        res.status(403);
+        return res.json({error: true, message: 'You do not have permission to access this API'});
+    }
+    let totalCitizen = Citizen.countDocuments().exec();
+
+    totalCitizen.then(num => {
+        if (num === 0) {
+            console.log(`ERROR when get total citizen`);
+            return res.status(500).json({
+                message: 'Something wrong with the sever'
+            });
+        } else if (num > 0) {
+            return res.json({
+                totalCitizen: num
+            });
+        }
+    });
+}
 
 /*
 Route: /api/citizen
@@ -225,6 +252,7 @@ function postGetCitizenHash(req, res) {
 
 export default {
     check,
+    getTotalCitizen,
     postCitizenById,
     postGenerateNewPassword,
     postGetCitizenHash,

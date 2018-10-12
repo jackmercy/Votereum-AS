@@ -4,11 +4,18 @@
 
 .ballot-section {
     margin-bottom: 2rem;
+    .light-weight-text {
+        font-weight: 300;
+    }
+    .ballot-head-text {
+        font-size: 22px;
+        font-weight: 500;
+    }
 }
 
 .phase-group-button {
     button {
-        margin: 10px;
+        width: 135px;
 
         &:first-child {
             margin-left: 0;
@@ -23,4 +30,77 @@
 /deep/ .ngx-charts .label {
     font-size: 14px !important;
     font-weight: normal;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.ballot-section-padding {
+    padding: 0 160px;
+}
+
+@media screen and (min-width: 960px) {
+    .ballot-title-text {
+        padding: 0 20px;
+    }
+    .hr-ballot {
+        margin: 0 20px;
+        margin-bottom: 20px;
+    }
+    .ballot-section-padding {
+        padding: 0 80px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .ballot-title-text {
+        padding: 0 20px;
+    }
+    .hr-ballot {
+        margin: 0 20px;
+        margin-bottom: 20px;
+    }
+    .ballot-section-padding {
+        padding: 0 120px;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .ballot-title-text {
+        padding: 0 20px;
+    }
+    .hr-ballot {
+        margin: 0 20px;
+        margin-bottom: 20px;
+    }
+    .ballot-section-padding {
+        padding: 0 160px;
+    }
+}
+
+@media screen and (min-width: 1680px) {
+    .ballot-title-text {
+        padding: 0 280px;
+    }
+    .hr-ballot {
+        margin: 0 280px;
+        margin-bottom: 20px;
+    }
+    .ballot-section-padding {
+        padding: 0 160px;
+    }
+}
+
+@media screen and (min-width: 1920px) {
+    .ballot-title-text {
+        padding: 0 280px;
+    }
+    .hr-ballot {
+        margin: 0 280px;
+        margin-bottom: 20px;
+    }
+    .ballot-section-padding {
+        padding: 0 160px;
+    }
 }

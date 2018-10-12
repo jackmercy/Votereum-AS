@@ -1,108 +1,142 @@
-<div *ngIf="ballotInfo">
-    <div class="ballot-section">
-        <p>
+<div class="container-fluid" *ngIf="ballotInfo">
+    <div class="container-fluid px-0 ballot-section">
+        <p class="row text-h1 light-weight-text no-gutters ballot-title-text">
             Ballot Management
         </p>
-        <hr>
-        <div>
-            <p *ngFor="let key of (ballotInfo | objectKeys) | slice: 0:4">
-                <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
-                <span>{{ ballotInfo[key] }}</span>
-            </p>
-            <p *ngFor="let key of (ballotInfo | objectKeys) | slice: 4">
-                <span style="font-weight: bold;">{{ getLabel(key) }}: </span>
-                <span>{{ (ballotInfo[key] / 1000000000) | number: '1.0-3'}} GWei</span>
-            </p>
+        <hr class="hr-ballot">
+        <div class="container ballot-section-padding">
+            <div class="row full-width">
+                <span class="col ballot-head-text padding-bottom-2">Ballot Information</span>
+            </div>
+            <div class="row full-width" *ngFor="let key of (ballotInfo | objectKeys) | slice: 0:4">
+                <span class="col-6">{{ getLabel(key) }} </span>
+                <span class="col-6">{{ ballotInfo[key] }}</span>
+            </div>
+            <div class="row full-width" *ngFor="let key of (ballotInfo | objectKeys) | slice: 4">
+                <span class="col-6">{{ getLabel(key) }} </span>
+                <span class="col-6">{{ (ballotInfo[key] / 1000000000) | number: '1.0-3'}} GWei</span>
+            </div>
         </div>
-
-        <br>
-
-        <div>
-            <p *ngFor="let phase of (phaseInfo | objectKeys)">
-                <span style="font-weight: bold;">{{ getLabel(phase) }}: </span>
-                <span>{{ phaseInfo[phase] | date: 'fullDate'}}</span>
-            </p>
+        
+        <div class="container ballot-section-padding">
+            <div class="row full-width">
+                <span class="col ballot-head-text padding-y-2">Ballot Timeline</span>
+            </div>
+            <div class="row full-width" *ngFor="let phase of (phaseInfo | objectKeys)">
+                <span class="col-6">{{ getLabel(phase) }} </span>
+                <span class="col-6">{{ phaseInfo[phase] | date: 'fullDate'}}</span>
+            </div>
         </div>
+        
+        <div class="container ballot-section-padding phase-group-button padding-top-2">
+            <div class="row">
+                <div class="col">
+                    <button mat-raised-button [disabled]="canDisableButton(phases[0]['key']) || phases[0]['isLoading']"
+                            (click)="resetTime(phases[0]['key'])">
+                        <span class="d-inline-block">{{ phases[0]['label'] }}</span>
+                        <span *ngIf="phases[0]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                            <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+                        </span>
+                    </button>
+                </div>
+                <div class="col">
+                    <button mat-raised-button [disabled]="canDisableButton(phases[1]['key']) || phases[1]['isLoading']"
+                            (click)="resetTime(phases[1]['key'])">
+                        <span class="d-inline-block">{{ phases[1]['label'] }}</span>
+                        <span *ngIf="phases[1]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                            <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+                        </span>
+                    </button>
+                </div>
+                <div class="col">
+                    <button mat-raised-button [disabled]="canDisableButton(phases[2]['key']) || phases[2]['isLoading']"
+                            (click)="onStartPhaseClicked()">
+                        <span class="d-inline-block">{{ phases[2]['label'] }}</span>
+                        <span *ngIf="phases[2]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                            <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+                        </span>
+                    </button>
+                </div>
+                <div class="col">
+                    <button mat-raised-button [disabled]="canDisableButton(phases[3]['key']) || phases[3]['isLoading']"
+                            (click)="resetTime(phases[3]['key'])">
+                        <span class="d-inline-block">{{ phases[3]['label'] }}</span>
+                        <span *ngIf="phases[3]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
+                            <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
+                        </span>
+                    </button>
+                </div>
+            </div>
+                
+            
 
-        <div class="phase-group-button">
+            
+            
 
-            <button mat-raised-button [disabled]="canDisableButton(phases[0]['key']) || phases[0]['isLoading']"
-                    (click)="resetTime(phases[0]['key'])">
-                <span class="d-inline-block">{{ phases[0]['label'] }}</span>
-                <span *ngIf="phases[0]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
-                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
-            </span>
-            </button>
-
-            <button mat-raised-button [disabled]="canDisableButton(phases[1]['key']) || phases[1]['isLoading']"
-                    (click)="resetTime(phases[1]['key'])">
-                <span class="d-inline-block">{{ phases[1]['label'] }}</span>
-                <span *ngIf="phases[1]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
-                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
-            </span>
-            </button>
-
-            <button mat-raised-button [disabled]="canDisableButton(phases[2]['key']) || phases[2]['isLoading']"
-                    (click)="onStartPhaseClicked()">
-                <span class="d-inline-block">{{ phases[2]['label'] }}</span>
-                <span *ngIf="phases[2]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
-                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
-            </span>
-            </button>
-
-            <button mat-raised-button [disabled]="canDisableButton(phases[3]['key']) || phases[3]['isLoading']"
-                    (click)="resetTime(phases[3]['key'])">
-                <span class="d-inline-block">{{ phases[3]['label'] }}</span>
-                <span *ngIf="phases[3]['isLoading']" class="d-inline-block" style="margin-left: 5px;">
-                <mat-spinner [diameter]="20" mode="indeterminate"></mat-spinner>
-            </span>
-            </button>
+            
         </div>
     </div>
 
-    <div class="ballot-section">
-        <p>
+    <div class="container-fluid px-0 ballot-section">
+        <p class="row text-h1 light-weight-text no-gutters ballot-title-text">
             User Management
         </p>
-        <hr>
-        <div class="row">
-            <!-- Registered Chart -->
-            <div class="col-4">
-                <ngx-charts-number-card
-                    [view]="registeredView"
-                    [results]="registeredVoterChartData"
-                    [cardColor] = "cardColor"
-                    [bandColor] = "bandColor"
-                    [textColor] = "textColor"
-                    (select)="onSelect($event)">
-                </ngx-charts-number-card>
-            </div>
-            <!-- Registered Chart -->
+        <hr class="hr-ballot">
+        <div class="container ballot-section-padding">
+            <div class="row full-width">
+                <!-- Funded Chart -->
+                <div class="col">
+                    <ngx-charts-pie-grid
+                        [view]="voterView"
+                        [scheme]="fundedColorScheme"
+                        [results]="fundedVoterChartData"
+                        [label]="fundedLabel"
+                        [designatedTotal]="designatedTotal">
+                    </ngx-charts-pie-grid>
+                </div>
+                <!-- Funded Chart -->
 
-            <!-- Funded Chart -->
-            <div class="col-4">
-                <ngx-charts-pie-grid
-                    [view]="voterView"
-                    [scheme]="fundedColorScheme"
-                    [results]="fundedVoterChartData"
-                    [label]="fundedLabel"
-                    [designatedTotal]="designatedTotal">
-                </ngx-charts-pie-grid>
+                <!-- Voted Chart -->
+                <div class="col">
+                    <ngx-charts-pie-grid
+                        [view]="voterView"
+                        [scheme]="votedColorScheme"
+                        [results]="votedVoterChartData"
+                        [label]="votedLabel"
+                        [designatedTotal]="designatedTotal">
+                    </ngx-charts-pie-grid>
+                </div>
+                <!-- Voted Chart -->
             </div>
-            <!-- Funded Chart -->
+            <div class="row full-width">
+                <!-- Total Citizen -->
+                <div class="col">
+                    <ngx-charts-number-card
+                        [view]="registeredView"
+                        [results]="totalVoterChartData"
+                        [cardColor] = "cardColor"
+                        [bandColor] = "secondBandColor"
+                        [textColor] = "textColor"
+                        (select)="onSelect($event)">
+                    </ngx-charts-number-card>
+                </div>
+                <!-- Total Citizen -->
 
-            <!-- Voted Chart -->
-            <div class="col-4">
-                <ngx-charts-pie-grid
-                    [view]="voterView"
-                    [scheme]="votedColorScheme"
-                    [results]="votedVoterChartData"
-                    [label]="votedLabel"
-                    [designatedTotal]="designatedTotal">
-                </ngx-charts-pie-grid>
+                <!-- Registered Chart -->
+                <div class="col">
+                    <ngx-charts-number-card
+                        [view]="registeredView"
+                        [results]="registeredVoterChartData"
+                        [cardColor] = "cardColor"
+                        [bandColor] = "bandColor"
+                        [textColor] = "textColor"
+                        (select)="onSelect($event)">
+                    </ngx-charts-number-card>
+                </div>
+                <!-- Registered Chart -->
             </div>
-            <!-- Voted Chart -->
         </div>
+        
     </div>
 
     <!-- <div class="ballot-section">

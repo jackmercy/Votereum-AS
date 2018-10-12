@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { BallotService }     from '@services/ballot.service';
-import { NgxChartsModule }   from '@swimlane/ngx-charts';
+import { Component, OnInit }    from '@angular/core';
+import { BallotService }        from '@services/ballot.service';
+import { ElectionAdminService } from '@services/election-admin.service';
+import { NgxChartsModule }      from '@swimlane/ngx-charts';
 import {
     MatDialog,
     MAT_DIALOG_DATA,
@@ -24,11 +25,13 @@ export class ManagementComponent implements OnInit {
     votedVoterChartData: any;
     fundedVoterChartData: any;
     registeredVoterChartData: any;
+    totalVoterChartData: any;
     // options
     registeredView: any[] = [350, 250];
     voterView: any[] = [250, 250];
     cardColor = '#3c5064';
     bandColor = '#8f497c';
+    secondBandColor = '#95B5EA';
     textColor = '#e3e8ee';
     votedLabel: String = 'Number of Voted citizen';
     fundedLabel: String = 'Number of Funded citizen';
@@ -44,12 +47,12 @@ export class ManagementComponent implements OnInit {
     phases: Array<Object> = [
         {
             key: 'startRegPhase',
-            label: 'Start reg day',
+            label: 'Start register day',
             isLoading: false
         },
         {
             key: 'endRegPhase',
-            label: 'End reg day',
+            label: 'End register day',
             isLoading: false,
         },
         {
@@ -84,7 +87,8 @@ export class ManagementComponent implements OnInit {
 
     constructor(private _ballotService: BallotService,
                 public _snackBar: MatSnackBar,
-                public dialog: MatDialog) { }
+                public dialog: MatDialog,
+                private _eaService: ElectionAdminService) { }
 
     ngOnInit() {
         this._ballotService.getBallotInfo().subscribe(
@@ -118,8 +122,17 @@ export class ManagementComponent implements OnInit {
                         value: 44234173
                     }
                 ];
-            });
-        this._ballotService.getBallotResult().subscribe();
+        });
+        this._eaService.getTotalCitizen().subscribe(
+            data => {
+                this.totalVoterChartData = [
+                    {
+                        name: 'Total citizen',
+                        value: data['totalCitizen']
+                    }
+                ];
+            }
+        );
         this.interval = false;
     }
 

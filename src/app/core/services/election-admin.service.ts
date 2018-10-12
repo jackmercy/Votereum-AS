@@ -17,4 +17,10 @@ export class ElectionAdminService {
         return this._http.get(URI_CONFIG.BASE_EA_API + '/list', { headers: this._messageService.getHttpOptions() })
         .pipe( map((response: Response) => response['candidates']) );
     }
+
+    getTotalCitizen(): Observable<any> {
+        return this._http.get(URI_CONFIG.BASE_CITIZEN_API + URI_CONFIG.CITIZEN_TOTAL,
+            { headers: this._messageService.getHttpOptions() })
+        .pipe( map((response: Response) => response) );
+    }
 }

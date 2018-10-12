@@ -30,6 +30,7 @@ export const URI_CONFIG = {
     CITIZEN_BY_ID: '',
     CITIZEN_GENERATE_PASSWORD: '/postGenerateNewPassword',
     CITIZEN_GENERATE_SYSTEM_ACCOUNT: '/generateUserAccount',
+    CITIZEN_TOTAL: '/total',
     /* Ballot url */
     FINALIZE_BALLOT: '/finalize',
     SELECTED_CANDIDATES: '/selected-candidates',

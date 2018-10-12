@@ -57,6 +57,7 @@ body {
 
 .page-content {
     padding: 40px;
+    padding-bottom: 0;
     min-height: calc(100vh - 65px);
     transition: all 0.3s;
     position: absolute;
@@ -131,4 +132,52 @@ body {
 .text-h3 {
     font-size: 24px;
     font-weight: 400;
+}
+
+/* padding */
+@for $space from 1 to 10 {
+    .padding-left-#{$space} {
+        padding-left: $space*10px !important;
+    }
+    .padding-right-#{$space} {
+        padding-right: $space*10px !important;
+    }
+    .padding-top-#{$space} {
+        padding-top: $space*10px !important;
+    }
+    .padding-bottom-#{$space} {
+        padding-bottom: $space*10px !important;
+    }
+    .padding-x-#{$space} {
+        padding-left: $space*10px !important;
+        padding-right: $space*10px !important;
+    }
+    .padding-y-#{$space} {
+        padding-top: $space*10px !important;
+        padding-bottom: $space*10px !important;
+    }
+}
+
+/* margin */
+@for $space from 1 to 10 {
+    .margin-left-#{$space} {
+        margin-left: $space*10px !important;
+    }
+    .margin-right-#{$space} {
+        margin-right: $space*10px !important;
+    }
+    .margin-top-#{$space} {
+        margin-top: $space*10px !important;
+    }
+    .margin-bottom-#{$space} {
+        margin-bottom: $space*10px !important;
+    }
+    .margin-x-#{$space} {
+        margin-left: $space*10px !important;
+        margin-right: $space*10px !important;
+    }
+    .margin-y-#{$space} {
+        margin-top: $space*10px !important;
+        margin-bottom: $space*10px !important;
+    }
 }
