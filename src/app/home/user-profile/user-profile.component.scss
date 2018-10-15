@@ -1,23 +1,65 @@
 .timeline-filter-bar-chart {
     .timeline {
-      .brush-background {
-        fill: rgba(0,0,0,0.05);
-      }
-  
-      .brush {
-        .selection {
-          fill: rgba(0, 0, 0, 0.1);
-          stroke-width: 1px;
-          stroke: #888888;
+        .brush-background {
+          fill: rgba(0,0,0,0.05);
         }
   
-        .handle {
-          fill-opacity: 0;
-        }
-      }
+        .brush {
+            .selection {
+                fill: rgba(0, 0, 0, 0.1);
+                stroke-width: 1px;
+                stroke: #888888;
+            }
   
-      .embedded-chart {
-        opacity: 0.6;
-      }
+            .handle {
+                fill-opacity: 0;
+            }
+        }
+  
+        .embedded-chart {
+            opacity: 0.6;
+        }
     }
-  }
+}
+.user-page {
+    padding: 0 40px;
+    .img-res {
+        width: 200px;
+        height: 200px;
+    }
+    .full-width {
+        width: 100%;
+        margin-left: -45px;
+        padding: 5px 0;
+    }
+    .title {
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 40px;
+        padding: 35px 0 45px;
+    }
+    .avatar {
+        width: 200px;
+        .avatar-icon {
+            width: 200px;
+            text-align: center;
+            font-size: 24px;
+            padding-top: 20px;
+        }
+    }
+}
+
+.icon-base {
+    font-size: 24px;
+    margin: 0 18px;
+    width: 24px;
+    height: 24px;
+}
+
+.profile {
+    .name {
+        font-size: 46px;
+        font-weight: 600;
+        line-height: 56px;
+    }
+}

@@ -34,7 +34,7 @@ var sPort = 5443;
 
 /* MongoDb */
 var db;
-db = mongoose.connect(GeneralConfig.MONGODB_CONNECTION_STRING, { useNewUrlParser: true } )
+db = mongoose.connect(GeneralConfig.MONGODB_CONNECTION_STRING)
     .then(() =>  console.log('connection successful to mongodb'))
     .catch((err) => console.error(err));
 /* MongoDb */

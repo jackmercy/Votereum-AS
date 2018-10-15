@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "ui": "ng serve --aot --proxy-config proxy.config.json",
+    "update-web-pack": "node web3-patch.js",
+    "ui": "ng serve --proxy-config proxy.config.json",
     "build-ui": "ng build --aot --prod",
     "start": "nodemon --delay 1.5 server/app.js --exec babel-node",
     "build": "babel -d dist",
@@ -54,11 +55,12 @@
     "rxjs": "^6.2.2",
     "rxjs-compat": "^6.2.2",
     "serve-favicon": "^2.5.0",
-    "web3": "^1.0.0-beta.34",
+    "web3": "^1.0.0-beta.36",
     "web3-typescript-typings": "^0.10.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.6.8",
     "@angular/cli": "6.0.8",
     "@angular/compiler-cli": "6.0.9",
     "@angular/language-service": "6.0.9",
@@ -83,8 +85,7 @@
     "protractor": "^5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "^2.7.2",
-    "@angular-devkit/build-angular": "~0.6.8"
+    "typescript": "^2.7.2"
   },
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.1.",
   "main": "app.js",

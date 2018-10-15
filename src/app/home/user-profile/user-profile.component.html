@@ -1,3 +1,84 @@
-<p>
-  user-profile works!
-</p>
+<div class="container-fluid user-page">
+    <div class="row title">
+        Your info
+    </div>
+    <div class="row">
+        <!-- Avatar -->
+        <div class="col-2 px-0 avatar">
+            <img src="{{userProfile['picture']}}" alt="Avatar" class="img-res rounded-circle">
+        </div>
+        <!-- Avatar -->
+
+        <!-- Citizen profile -->
+        <div class="col profile">
+            <!-- Name -->
+            <div class="row name">
+                {{userProfile['name']}}
+            </div>
+            <!-- Name -->
+
+            <!-- Profile -->
+            <div class="container mx-0 px-0 mt-5">
+                <!-- Birthday -->
+                <div class="row full-width">
+                    <span class="col-5">
+                        <i class="icon-base fas fa-birthday-cake"></i>
+                        <span>Birthday</span>
+                    </span>
+                    <span class="col-7">{{userProfile['birthDate'] | date: 'MM/dd/yyyy'}}</span>
+                </div>
+                <!-- Birthday -->
+
+                <!-- Gender -->
+                <div class="row full-width">
+                    <span class="col-5" >
+                        <i class="icon-base fas fa-transgender"></i>
+                        <span>Gender</span>  
+                    </span>
+                    <span class="col-7">
+                        {{userProfile['gender']}}
+                    </span>
+                </div>
+                <!-- Gender -->
+
+                <!-- Home Address -->
+                <div class="row full-width">
+                    <span class="col-5" >
+                        <i class="icon-base fas fa-map-marker-alt"></i>
+                        <span>Home address</span>
+                    </span>
+                    <span class="col-7">
+                        {{userProfile['address']}}
+                    </span>
+                </div>
+                <!-- Home Address -->
+
+                <!-- Hometown -->
+                <div class="row full-width">
+                    <span class="col-5">
+                        <i class="icon-base fas fa-home"></i>
+                        <span>Hometown</span>
+                    </span>
+                    <span class="col-7">
+                        {{userProfile['homeTown']}}
+                    </span>
+                </div>
+                <!-- Hometown -->
+
+                <!-- Ethereum Address -->
+                <div class="row full-width">
+                    <span class="col-5">
+                        <i class="icon-base fab fa-ethereum"></i>
+                        <span>Ethereum address</span>
+                    </span>
+                    <span class="col-7">
+                        {{voterAddress}}
+                    </span>
+                </div>
+                <!-- Ethereum Address -->
+            </div>
+            <!-- Profile -->
+        </div>
+        <!-- Citizen profile -->
+    </div>
+</div>
