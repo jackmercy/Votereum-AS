@@ -21,7 +21,7 @@ function postStoreBlockchainAccount(req, res) {
         return res.json({error: true, message: 'You do not have permission to access this API'});
     }
     var _id = req.body.citizenId;
-    const query = { citizenId: _id };
+    var query = { citizenId: _id };
     var bcAccount = BlockchainAccount.countDocuments(query).exec();
     bcAccount.then(n => {
         if (_id && n === 0) {
@@ -61,12 +61,12 @@ function postStoreBlockchainAccount(req, res) {
 
                             ballotController.postGiveRightToVote(_req, res);
 
-                            /*                            // res status 200
-                                                        res.json({
-                                                            err: false,
-                                                            message: 'successful store new blockchain account',
-                                                            address: req.body.address
-                                                        });*/
+                            /*// res status 200
+                            res.json({
+                                err: false,
+                                message: 'successful store new blockchain account',
+                                address: req.body.address
+                            });*/
                         }
                     });
                 } else if (user && user.hasBlockchainAccount === true) {

@@ -4,6 +4,7 @@ import bcrypt  from "bcrypt";
 import Ballot  from '../models/ballot.model';
 import * as _  from 'lodash';
 import Candidate         from '../models/candidate.model';
+import User              from '../models/user.model';
 import BlockchainAccount from "../models/blockchain-account.model";
 
 
@@ -269,9 +270,9 @@ function postVoteForCandidates(req, res) {
             message: 'Citizen ID is required'
         });
     }
-
+    const query = {citizenId: req.body.citizenId};
     // Check valid password
-    BlockchainAccount.findOne({citizenId: req.body.citizenId}, function(err, account) {
+    BlockchainAccount.findOne(query, function(err, account) {
         if(err) {
             console.log('ERR');
         } else if(account) {
@@ -287,7 +288,67 @@ function postVoteForCandidates(req, res) {
                 // Add voter's address to req.body
                 if (_result) {
                     req.body['address'] = account['address'];
-                    handlePostRequest('postVoteForCandidates', res, req.body)
+                    /* Handle request */
+                    let method = 'postVoteForCandidates';
+                    let ballotQueue = 'ballot_queue.' + method;
+                    amqp.connect('amqp://localhost', function(err, conn) {
+                        conn.createChannel(function(err, ch) {
+                            /* when we supply queue name as an empty string,
+                            we create a non-durable queue with a generated name */
+                            ch.assertQueue('', {exclusive: true}, function(err, q) {
+                                var corr = generateUuid();
+
+                                console.log('[AMQP] Request: ' + method);
+
+                                ch.sendToQueue(
+                                    ballotQueue, /* queue */
+                                    new Buffer (''), /* content */
+                                    /* option */
+                                    {
+                                        correlationId: corr, replyTo: q.queue
+                                    }
+                                );
+
+                                ch.consume(q.queue, function(msg) {
+                                        if (msg.properties.correlationId == corr) {
+                                            console.log(' [AMQP] Got response: ' + method);
+
+                                            // Handle returned data
+                                            var data = JSON.parse(msg.content.toString());
+                                            if (data['error']) {
+                                                res.status(500);
+
+                                                return conn.close();
+                                            }
+                                            /* get data */
+                                            let txHash = data['message'];
+                                            // update user
+                                            let updateValues = {
+                                                $set: { 
+                                                    hash: txHash,
+                                                    isVote: true
+                                                }
+                                            };
+                                            User.updateOne(
+                                                query,
+                                                updateValues,
+                                                { overwrite: true, upsert: false },
+                                                function (err, rawResponse) {}
+                                            );
+                                            //-------------------------
+                                            res.json({
+                                                hash: txHash
+                                            });
+                                            return conn.close();
+                                        }
+                                    },
+                                    { noAck: true }
+                                );
+                            });
+                        });
+                    });
+                    /* Handle request */
+                   
                 } else {
                     res.status(400);
                     return res.json({
