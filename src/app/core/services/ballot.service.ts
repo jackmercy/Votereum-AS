@@ -48,6 +48,15 @@ export class BallotService {
             { headers: this._messageService.getHttpOptions() });
     }
 
+    getDisplayPhases(): Observable<any> {
+        return this._http.get(URI_CONFIG.BASE_BALLOT_API + URI_CONFIG.DISPLAY_PHASES,
+            { headers: this._messageService.getHttpOptions() });
+    }
+
+    getBallotPhases(): Observable<any> {
+        return this._http.get(URI_CONFIG.BASE_BALLOT_API + URI_CONFIG.BALLOT_PHASES,
+            { headers: this._messageService.getHttpOptions() });
+    }
     /*
     - GET: [/api/ballot]
     - Response: not yet updated
