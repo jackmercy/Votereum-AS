@@ -18,6 +18,7 @@ import * as _ from 'lodash';
 export class ManagementComponent implements OnInit {
     finalizeDialogRef: MatDialogRef<FinalizeDialogComponent>;
     ballotInfo: any;
+    displayPhaseInfo: any;
     phaseInfo: any;
     voterInfo: any;
 
@@ -94,7 +95,7 @@ export class ManagementComponent implements OnInit {
         this._ballotService.getBallotInfo().subscribe(
             data => {
                 this.ballotInfo = data['ballotInfo'];
-                /* this.phaseInfo = data['phaseInfo']; */
+                 this.phaseInfo = data['phaseInfo'];
                 this.voterInfo = data['voterInfo'];
 
                 /* this.designatedTotal = this.voterInfo['registeredVoterCount']; */
@@ -134,7 +135,7 @@ export class ManagementComponent implements OnInit {
             }
         );
         this._ballotService.getDisplayPhases().subscribe(
-            data => this.phaseInfo = data
+            data => this.displayPhaseInfo = data
         );
         this.interval = false;
     }

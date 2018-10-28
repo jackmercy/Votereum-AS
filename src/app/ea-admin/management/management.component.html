@@ -17,14 +17,18 @@
                 <span class="col-6">{{ (ballotInfo[key] / 1000000000) | number: '1.0-3'}} GWei</span>
             </div>
         </div>
-        
+
+        <!--Ballot Timeline-->
         <div class="container ballot-section-padding">
             <div class="row full-width">
                 <span class="col ballot-head-text padding-y-2">Ballot Timeline</span>
             </div>
-            <div class="row full-width" *ngFor="let phase of (phaseInfo | objectKeys)">
+            <div class="row full-width" *ngFor="let phase of (displayPhaseInfo | objectKeys)">
                 <span class="col-6">{{ getLabel(phase) }} </span>
-                <span class="col-6">{{ phaseInfo[phase] | date: 'fullDate'}}</span>
+                <span class="col-6 row full-width">
+                    <span class="col-8">{{ displayPhaseInfo[phase] | date: 'fullDate'}}</span>
+                    <span class="col-4" *ngIf="canDisableButton(phase)">( Started )</span>
+                </span>
             </div>
         </div>
         
