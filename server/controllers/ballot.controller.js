@@ -58,13 +58,25 @@ function postBallotInfo(req, res) {
             const endRegPhase = req.body.endRegPhase;
             const startVotingPhase = req.body.startVotingPhase;
             const endVotingPhase = req.body.endVotingPhase;
+            /* ballot.currentBallot = true; */
 
             if (nowTs <= startRegPhase
                 && startRegPhase <= endRegPhase
                 && endRegPhase <= startVotingPhase
                 && startVotingPhase <= endVotingPhase) {
                     handlePostRequest('postBallotInfo', res, req.body);
-                    ballotInfo.save();
+                    let _updateValue = { $set: { currentBallot: false }};
+                    Ballot.updateMany({}, _updateValue, { overwrite: true, upsert: false }, function(err) {
+                        if (err) {
+                            console.log(err);
+                            res.status(500).json({
+                                message: 'Some thing wrong with the db'
+                            });
+                        } else {
+                            ballotInfo.currentBallot = true;
+                            ballotInfo.save();
+                        }
+                    });
             } else {
                 return res.status(400).json({
                     message: 'Phase timestamp is not valid'
@@ -124,7 +136,41 @@ function getIsFinalized(req, res) {
     handleGetRequest('getIsFinalized', res);
 }
 
+/** 
+ * GET: [/api/get-ballot-phases]
+ */
+function getBallotPhases(req, res) {
+    if (!EaGuard(req.token) && !CitizenGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+    handleGetRequest('getBallotPhases', res);
+}
 
+/** 
+ * GET: [/api/get-display-phases] 
+ */
+function getDisplayPhases(req, res) {
+    if (!EaGuard(req.token) && !CitizenGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+
+    let query = { currentBallot: true };
+    Ballot.findOne(query, function(err, _ballot) {
+        if (err) {
+            console.log(err);
+            res.status(500);
+        } else if (_ballot) {
+            const phaseInfo = {
+                startRegPhase: _ballot.startRegPhase,
+                endRegPhase: _ballot.endRegPhase,
+                startVotingPhase: _ballot.startVotingPhase,
+                endVotingPhase: _ballot.endVotingPhase
+            };
+
+            return res.json(phaseInfo);
+        }
+    }) 
+}
 /*
 - POST: [/api/ballot/finalize]
 - req.body:
@@ -642,6 +688,8 @@ function handlePostRequest(method, res, data) {
 /*---------- End Amqp Utils--------*/
 
 export default {
+    getDisplayPhases,
+    getBallotPhases,
     getBallotInfo,
     postBallotInfo,
     postCloseBallot,

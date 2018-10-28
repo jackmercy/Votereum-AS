@@ -47,8 +47,11 @@ router.route('/result')
 router.route('/selected-candidates')
     .get(BallotController.getCandidates);
 
+router.route('/get-ballot-phases')
+    .get(BallotController.getBallotPhases);
 
-
+router.route('/get-display-phases')
+    .get(BallotController.getDisplayPhases);
 /*router.route('/voteForCandidates')
     .post(BallotController.postVoteForCandidates);*/
 

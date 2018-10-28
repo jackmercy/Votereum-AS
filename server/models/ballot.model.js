@@ -31,6 +31,10 @@ const BallotSchema = new mongoose.Schema({
     candidateIDs: {
         type : [String],
         required: true
+    },
+    currentBallot: {
+        type: Boolean,
+        required: true
     }
 });
 
