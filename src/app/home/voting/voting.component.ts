@@ -9,7 +9,8 @@ import { AccountDialogComponent }                 from '@home/account-dialog/acc
 import { BallotService }                          from '@services/ballot.service';
 import * as _                                     from 'lodash';
 import { PasswordEntryDialogComponent }           from '@home/password-entry-dialog/password-entry-dialog.component';
-import { map } from 'rxjs/operators';
+import { map }                                    from 'rxjs/operators';
+import { forkJoin }           from 'rxjs/observable/forkJoin';
 
 @Component({
     selector: 'app-voting',
@@ -19,6 +20,7 @@ import { map } from 'rxjs/operators';
 export class VotingComponent implements OnInit {
     /* TODO: add citizen_id on vote => send token, AS check token -> citizen_id */
     candidates: any;
+    citizenId: string;
     votingResult = {
         candidates: [],
         citizenID: ''
@@ -28,7 +30,10 @@ export class VotingComponent implements OnInit {
     isVote: Boolean;
     ballotInfo: any;
     error: any;
-    private selectedCandidates: Array<String>;
+    selectedCandidates: Array<String>;
+    canVote: Boolean;
+    now: any;
+    phaseInfo: any;
 
 
     constructor(private _candidateService: CandidateService,
@@ -42,19 +47,62 @@ export class VotingComponent implements OnInit {
 
 
     ngOnInit() {
-        /*        this._candidateService.getCandidates()
-                    .subscribe(
-                        data => {
-                            this.candidates = data;
-                        },
-                        error => {
-                            console.log(error);
-                        }
-                    );*/
+        this.now = Date.now() / 1000;
+        this.citizenId = this._userService.getId();
         this._messageService.sideBarActive$.subscribe(
             isActive => this.isSideBarActive = isActive
         );
 
+        const observable = forkJoin(
+            this._ballotService.getSelectedCandidates(),
+            this._userService.updateUserInfoLocal(this.citizenId),
+            this._ballotService.getBallotInfo()
+        );
+        this._userService.getVoterAddress(this.citizenId).subscribe(
+            value => console.log(value),
+            error => console.log(error));
+
+        observable.subscribe(result => {
+
+            // Handle data of getSelectedCandidates
+            this.candidates = result[0].map(
+                candidate => {
+                    candidate['isSelected'] = false;
+                    return candidate;
+                }
+            );
+
+            // Handle data of updateUserInfoLocal
+            this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
+
+            // Handle data of getBallotInfo
+            this.ballotInfo = result[2]['ballotInfo'];
+            this.phaseInfo = result[2]['phaseInfo'];
+            console.log(result[2]);
+
+            // Check canVote
+            if (this.hasBlockchainAccount) {
+                this._userService.getVoterAddress(this.citizenId).subscribe(address => {
+                    this._ballotService.postHasRightToVote(address).subscribe(data => {
+                        const hasRight = data['hasRight'];
+                        const now = Date.now() / 1000;
+
+                        if (hasRight && this.hasBlockchainAccount && now > this.ballotInfo['votingPhase']) {
+                            this.canVote = true;
+                        } else {
+                            this.canVote = false;
+                        }
+                    });
+                });
+            } else {
+                this.canVote = this.hasBlockchainAccount;
+            }
+
+
+        }, error =>
+            console.log(error));
+
+/*
         this._ballotService.getSelectedCandidates().subscribe(
             data => {
                 data.map(
@@ -69,6 +117,8 @@ export class VotingComponent implements OnInit {
 
         this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {
             this.votingResult.citizenID =  this._userService.getId();
+
+            // Check if user can vote
             this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
             this.isVote = this._userService.isVoted();
         }, error => {
@@ -83,6 +133,7 @@ export class VotingComponent implements OnInit {
                 this.error = error.error.message || error.message;
                 console.log(this.error);
             });
+*/
 
     }
 

@@ -1,19 +1,25 @@
 <!--Sticky notif-->
 <div class="row justify-content-center sticky-ether-account"
      [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}"
-     *ngIf="!hasBlockchainAccount">
-    <div class="col">
+     *ngIf="!hasBlockchainAccount && ballotInfo">
+    <div *ngIf="!hasBlockchainAccount && now > phaseInfo['startRegPhase']" class="col">
         You haven't set up your blockchain account. You may not be eligible to submit your
         ballot when the time comes.
     </div>
-    <div class="col-3">
+    <div *ngIf="!hasBlockchainAccount && now > phaseInfo['startRegPhase']" class="col-3">
         <button class="btn btn-outline-light" (click)="onSetupAccountClicked()">Set up Blockchain Account</button>
     </div>
-
+    <div *ngIf="!hasBlockchainAccount && now < phaseInfo['startRegPhase']">
+        You haven't set up your blockchain account. You may not be eligible to submit your
+        ballot when the time comes. Come back after <span> {{ phaseInfo['startRegPhase'] | date: 'fullDate'}}</span>
+        to set up your blockchain account.
+    </div>
 </div>
-<div class="voting-grid" *ngIf="ballotInfo">
-    <div *ngIf="hasBlockchainAccount && !isVote">
-        <p class="header" >Please select maximum {{ ballotInfo.limitCandidate }}
+
+<!--Voting section-->
+<div class="voting-grid" *ngIf="phaseInfo">
+    <div *ngIf="canVote">
+        <p class="header" >Please select maximum {{ phaseInfo.limitCandidate }}
             and minimum 1 out of {{ candidates.length }}</p>
     </div>
     <div class="items">
@@ -48,9 +54,42 @@
     </div>
 
     <div class="row justify-content-center sticky-footer"
-         [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}" *ngIf="hasBlockchainAccount">
+         [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}" *ngIf="canVote">
         <button class="btn-lg btn-block w-50" color="primary" (click)="onVoteToBlockchain()" mat-raised-button>Vote</button>
     </div>
 </div>
+
+<!--Transaction tracker -->
+<!--<div class="container-fluid wrapper pt-3">
+    <div class="row no-gutters justify-content-center">
+        <p class="text-center display-4">Transaction successful!</p>
+    </div>
+    <div class="row no-gutters justify-content-center">
+        <i class="far fa-check-circle fa-4x text-success pb-4 pt-2"></i>
+    </div>
+    <div class="row no-gutters justify-content-center">
+        <div class="col-7">
+            <mat-divider></mat-divider>
+            <table class="table borderless">
+                <tbody>
+                <tr>
+                    <th scope="row" class="text-right w-25">TxHash</th>
+                    <td class="text-left" *ngIf="txReceipt">{{ txReceipt.transactionHash }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="text-right">Status</th>
+                    <td class="text-left" *ngIf="txReceipt">{{ txReceipt.status }}</td>
+                </tr>
+                <tr>
+                    <th scope="row" class="text-right">Date Issued</th>
+                    <td class="text-left" *ngIf="blockDetail">{{ blockDetail.timestamp }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+
+</div>-->
 
 

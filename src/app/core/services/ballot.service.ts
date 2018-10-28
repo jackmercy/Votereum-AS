@@ -57,6 +57,7 @@ export class BallotService {
         return this._http.get(URI_CONFIG.BASE_BALLOT_API + URI_CONFIG.BALLOT_PHASES,
             { headers: this._messageService.getHttpOptions() });
     }
+
     /*
     - GET: [/api/ballot]
     - Response: not yet updated
@@ -138,6 +139,24 @@ export class BallotService {
         return this._http.post(
             URI_CONFIG.BASE_BALLOT_API + '/vote',
             JSON.stringify(payload),
+            { headers: this._messageService.getHttpOptions() });
+    }
+
+    /*
+    - POST: [/api/ballot/hasRight]
+    - req.body:
+    {
+        "voterAddress": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
+    }
+    - Response:
+    {
+        "hasRight": true
+    }
+    */
+    postHasRightToVote(voterAddress: String): Observable<any> {
+        return this._http.post(
+            URI_CONFIG.BASE_BALLOT_API + '/hasRight',
+            JSON.stringify(voterAddress),
             { headers: this._messageService.getHttpOptions() });
     }
 }

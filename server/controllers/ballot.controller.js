@@ -210,25 +210,6 @@ function postGiveRightToVote(req, res) {
 }
 
 /*
-- POST: [/api/ballot/hasRight]
-- req.body:
-{
-    "voterAddress": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
-}
-- Response:
-{
-    "hasRight": true
-}
-*/
-function postHasRightToVote(req, res) {
-    if (!CitizenGuard(req.token)  && !EaGuard(req.token)) {
-        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
-    }
-    handlePostRequest('postHasRightToVote', res, req.body);
-}
-
-
-/*
 - GET: [/api/ballot/voterAddressList]
 - Response:
 {
@@ -281,6 +262,8 @@ function postClaimStoredAmount(req, res) {
 
 
 /*-----------End EA Section------------*/
+
+
 
 /*-----------Voter Section------------*/
 /*
@@ -417,7 +400,27 @@ function postVoteForCandidates(req, res) {
 
 }
 
+/*
+- POST: [/api/ballot/hasRight]
+- req.body:
+{
+    "voterAddress": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
+}
+- Response:
+{
+    "hasRight": true
+}
+*/
+function postHasRightToVote(req, res) {
+    if (!CitizenGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+    handlePostRequest('postHasRightToVote', res, req.body);
+}
+
 /*-----------End Voter Section------------*/
+
+
 
 
 /*-----------Public Section---------------*/
