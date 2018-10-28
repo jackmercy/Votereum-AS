@@ -287,7 +287,8 @@ function postVoteForCandidates(req, res) {
 
                 // Add voter's address to req.body
                 if (_result) {
-                    req.body['address'] = account['address'];
+                    const data = req.body;
+                    data['address'] = account['address'];
                     /* Handle request */
                     let method = 'postVoteForCandidates';
                     let ballotQueue = 'ballot_queue.' + method;
@@ -302,7 +303,7 @@ function postVoteForCandidates(req, res) {
 
                                 ch.sendToQueue(
                                     ballotQueue, /* queue */
-                                    new Buffer (''), /* content */
+                                    new Buffer (JSON.stringify(data)), /* content */
                                     /* option */
                                     {
                                         correlationId: corr, replyTo: q.queue
