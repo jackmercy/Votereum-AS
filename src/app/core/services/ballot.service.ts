@@ -146,17 +146,17 @@ export class BallotService {
     - POST: [/api/ballot/hasRight]
     - req.body:
     {
-        "voterAddress": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
+        "address": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
     }
     - Response:
     {
         "hasRight": true
     }
     */
-    postHasRightToVote(_voterAddress: String): Observable<any> {
+    postHasRightToVote(voterAddress: String): Observable<any> {
         return this._http.post(
             URI_CONFIG.BASE_BALLOT_API + '/hasRight',
-            JSON.stringify({voterAddress: _voterAddress}),
+            JSON.stringify( { address: voterAddress }),
             { headers: this._messageService.getHttpOptions() });
     }
 }

@@ -404,7 +404,7 @@ function postVoteForCandidates(req, res) {
 - POST: [/api/ballot/hasRight]
 - req.body:
 {
-    "voterAddress": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
+    "address": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
 }
 - Response:
 {

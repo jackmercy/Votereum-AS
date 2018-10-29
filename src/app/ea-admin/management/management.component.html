@@ -26,8 +26,8 @@
             <div class="row full-width" *ngFor="let phase of (displayPhaseInfo | objectKeys)">
                 <span class="col-6">{{ getLabel(phase) }} </span>
                 <span class="col-6 row full-width">
-                    <span class="col-8">{{ displayPhaseInfo[phase] | date: 'fullDate'}}</span>
-                    <span class="col-4" *ngIf="canDisableButton(phase)">( Started )</span>
+                    <span class="col-9">{{ displayPhaseInfo[phase] | date: 'fullDate'}}</span>
+                    <span class="col-3" *ngIf="canDisableButton(phase)">( Started )</span>
                 </span>
             </div>
         </div>
