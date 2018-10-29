@@ -60,7 +60,8 @@ export class VotingComponent implements OnInit {
         );
         this._userService.getVoterAddress(this.citizenId).subscribe(
             value => console.log(value),
-            error => console.log(error));
+            error => console.log(error)
+        );
 
         observable.subscribe(result => {
 
@@ -83,7 +84,7 @@ export class VotingComponent implements OnInit {
             // Check canVote
             if (this.hasBlockchainAccount) {
                 this._userService.getVoterAddress(this.citizenId).subscribe(address => {
-                    this._ballotService.postHasRightToVote(address).subscribe(data => {
+                    this._ballotService.postHasRightToVote(address['address']).subscribe(data => {
                         const hasRight = data['hasRight'];
                         const now = Date.now() / 1000;
 
