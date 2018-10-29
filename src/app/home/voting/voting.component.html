@@ -17,9 +17,9 @@
 </div>
 
 <!--Voting section-->
-<div class="voting-grid" *ngIf="phaseInfo">
+<div class="voting-grid" *ngIf="ballotInfo">
     <div *ngIf="canVote">
-        <p class="header" >Please select maximum {{ phaseInfo.limitCandidate }}
+        <p class="header" >Please select maximum {{ ballotInfo.limitCandidate }}
             and minimum 1 out of {{ candidates.length }}</p>
     </div>
     <div class="items">

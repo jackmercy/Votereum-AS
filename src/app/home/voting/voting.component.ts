@@ -43,9 +43,6 @@ export class VotingComponent implements OnInit {
                 private _messageService: MessageService,
                 public snackBar: MatSnackBar,
                 public dialog: MatDialog) { }
-
-
-
     ngOnInit() {
         this.now = Date.now() / 1000;
         this.citizenId = this._userService.getId();
@@ -82,18 +79,26 @@ export class VotingComponent implements OnInit {
 
             // Check canVote
             if (this.hasBlockchainAccount) {
-                this._userService.getVoterAddress(this.citizenId).subscribe(address => {
-                    this._ballotService.postHasRightToVote(address).subscribe(data => {
-                        const hasRight = data['hasRight'];
-                        const now = Date.now() / 1000;
+                this._userService.getVoterAddress(this.citizenId).subscribe(
+                    address => {
+                        this._ballotService.postHasRightToVote(address['address']).subscribe(
+                            data => {
+                                const hasRight = data['hasRight'];
+                                const now = Date.now() / 1000;
 
-                        if (hasRight && this.hasBlockchainAccount && now > this.ballotInfo['votingPhase']) {
-                            this.canVote = true;
-                        } else {
-                            this.canVote = false;
-                        }
+                                if (
+                                    hasRight &&
+                                    this.hasBlockchainAccount &&
+                                    now > Number(this.phaseInfo['startVotingPhase']) &&
+                                    now < Number(this.phaseInfo['endVotingPhase'])
+                                ) {
+                                    this.canVote = true;
+                                } else {
+                                    this.canVote = false;
+                                }
+                            },
+                            error => console.log(error));
                     });
-                });
             } else {
                 this.canVote = this.hasBlockchainAccount;
             }
@@ -102,38 +107,38 @@ export class VotingComponent implements OnInit {
         }, error =>
             console.log(error));
 
-/*
-        this._ballotService.getSelectedCandidates().subscribe(
-            data => {
-                data.map(
-                    candidate => {
-                        candidate['isSelected'] = false;
-                        return candidate;
+        /*
+                this._ballotService.getSelectedCandidates().subscribe(
+                    data => {
+                        data.map(
+                            candidate => {
+                                candidate['isSelected'] = false;
+                                return candidate;
+                            }
+                        );
+                        this.candidates = data;
                     }
                 );
-                this.candidates = data;
-            }
-        );
 
-        this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {
-            this.votingResult.citizenID =  this._userService.getId();
+                this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {
+                    this.votingResult.citizenID =  this._userService.getId();
 
-            // Check if user can vote
-            this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
-            this.isVote = this._userService.isVoted();
-        }, error => {
-            this.error = error.error.message || error.message || error;
-            console.log(this.error);
-            // this.isLoading =    false;
-        });
+                    // Check if user can vote
+                    this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
+                    this.isVote = this._userService.isVoted();
+                }, error => {
+                    this.error = error.error.message || error.message || error;
+                    console.log(this.error);
+                    // this.isLoading =    false;
+                });
 
-        this._ballotService.getBallotInfo().subscribe(
-            result => this.ballotInfo = result['ballotInfo'],
-            error => {
-                this.error = error.error.message || error.message;
-                console.log(this.error);
-            });
-*/
+                this._ballotService.getBallotInfo().subscribe(
+                    result => this.ballotInfo = result['ballotInfo'],
+                    error => {
+                        this.error = error.error.message || error.message;
+                        console.log(this.error);
+                    });
+        */
 
     }
 
