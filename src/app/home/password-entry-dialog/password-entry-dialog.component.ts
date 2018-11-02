@@ -22,7 +22,8 @@ export class PasswordEntryDialogComponent implements OnInit {
     isLoading: boolean;
     selectedCandidates: Array<string>;
     interval: any;
-
+    citizenId: string;
+    hash: string;
 
     constructor(private _formBuilder: FormBuilder,
                 private _userService: UserService,
@@ -50,11 +51,14 @@ export class PasswordEntryDialogComponent implements OnInit {
             chainPassword: this.password.value,
             candidateIds: this.selectedCandidates
         };
-
+        this.citizenId = this._userService.getId();
         this.isLoading = true;
         this._ballotService.voteForCandidate(account).subscribe((hash) => {
+            /* TODO: Vote succcess -> update current user infomation */
+            this._userService.updateLocalIsVoted(hash);
             this.isLoading = false;
-            setInterval(() => this.onGetStatus(hash), 2000);
+            this.isSuccess = true;
+            this.hash = hash;
         }, error => {
             console.log(error);
             this.error = error.error.message || error.message;
@@ -63,7 +67,11 @@ export class PasswordEntryDialogComponent implements OnInit {
     }
 
     onCancelClicked(willRedirect: boolean) {
-        this.dialogRef.close(willRedirect);
+        if (willRedirect) {
+            this.dialogRef.close(this.hash);
+        } else {
+            this.dialogRef.close('');
+        }
     }
 
     convertToBytes32(text) {
@@ -79,7 +87,7 @@ export class PasswordEntryDialogComponent implements OnInit {
     }
 
     onGetStatus(txHash: string) {
-        this._ballotService.getTxReceipt(txHash).then( (receipt) =>  {
+        /* this._ballotService.getTxReceipt(txHash).then( (receipt) =>  {
             if (receipt) {
                 const statusVal = Number(receipt['status']);
 
@@ -95,7 +103,7 @@ export class PasswordEntryDialogComponent implements OnInit {
                     clearInterval(this.interval);
                 }
             }
-        });
+        }); */
     }
 
 }

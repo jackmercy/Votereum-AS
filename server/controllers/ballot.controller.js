@@ -600,6 +600,27 @@ function getBallotInfo(req, res) {
     });
 }
 
+/** [/api/ballot/getTxReceipt]
+ * res: {
+ *    txHash: '0xkashdrfjkashdgfuit'
+ * }
+ */
+async function postGetTxReceipt(req, res) {
+    if (!CitizenGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+    let receipt =await web3.eth.getTransactionReceipt(req.body.txHash);
+    let payload;
+    if (receipt) {
+        let block = await web3.eth.getBlock(receipt['blockHash']);
+        payload = { ...{}, transactionHash: receipt['transactionHash'], status: receipt['status'], timestamp: block['timestamp']*1000}
+    } else {
+        payload = { ...{}, transactionHash: req.body.txHash, status: 'Pending', timestamp: ''}
+    }
+    res.json(payload);
+}
+
+
 /*---------- Amqp Utils--------*/
 //method = method name
 function handleGetRequest(method, res) {
@@ -706,5 +727,6 @@ export default {
     postClaimStoredAmount,
     postVoteForCandidates,
 
+    postGetTxReceipt,
     postCandidateResult
 }

@@ -220,41 +220,10 @@ async function postGenerateNewPassword(req, res) {
 
 }
 
-/* POST: [/getUserHash] 
-    req JSON {
-        "citizen_id": "0432"
-        JWT token in ver 2.0
-    }
-*/
-function postGetCitizenHash(req, res) {
-    if (!CitizenGuard(req.token) || !RaGuard(req.token)) {
-        res.status(403);
-        return res.json({error: true, message: 'You do not have permission to access this API'});
-    }
-    User.findOne({id: req.body.citizenID}, function(err, _user) {
-        if(err) {
-            console.log(err);
-        }
-        if(_user) {
-            const message = {
-                hash: _user.hash,
-                isVote: _user.isVote
-            }
-            res.json(message);
-        } else {
-            const message = {
-                message: 'Invalid citizen ID'
-            }
-            res.json(message);
-        }
-    });
-}
-
 export default {
     check,
     getTotalCitizen,
     postCitizenById,
     postGenerateNewPassword,
-    postGetCitizenHash,
     postGenerateUserAccount
 }

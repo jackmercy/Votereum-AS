@@ -31,7 +31,7 @@ export class SetupConfirmDialogComponent implements OnInit {
 
         this._ballotService.postBallotInfo(this.data).subscribe(
             hash => {
-                setInterval(() => this.onGetStatus(hash), 2000);
+                setInterval(() => this.onGetStatus(hash), 5000);
             },
             error => {
                 this.error = error.error.message || error.message;
@@ -45,7 +45,7 @@ export class SetupConfirmDialogComponent implements OnInit {
     }
 
     onGetStatus(txHash: string) {
-        this._ballotService.getTxReceipt(txHash).then( (receipt) =>  {
+        this._ballotService.getTxReceipt(txHash).subscribe( (receipt) =>  {
             if (receipt) {
                 const statusVal = Number(receipt['status']);
 

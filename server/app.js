@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import mongoose   from 'mongoose';
 import compress   from 'compression';
 import appRoot    from 'app-root-path';
+import Web3       from 'web3';
 // import favicon from 'serve-favicon';
 import morgan     from 'morgan';
 // import logger  from 'logger';
@@ -37,7 +38,7 @@ var db;
 db = mongoose.connect(GeneralConfig.MONGODB_CONNECTION_STRING, { 
     useNewUrlParser: true,
     useCreateIndex: true 
-}).then(() =>  console.log('connection successful to mongodb'))
+}).then(() =>  console.log('[x] MongoDB: Connected'))
     .catch((err) => console.error(err));
 /* MongoDb */
 
@@ -115,6 +116,17 @@ var httpServer = http.createServer(app, function(req, res) {
     res.writeHead(307, { "Location": "https://" + req.headers['host'] + req.url }); 
     res.end();
 });
+
+//Testnet
+global.web3 = new Web3('http://localhost:8545');
+if (web3) {
+    //console.log(global.ballotContract.option);
+    console.log('[x] Web3: Connected');
+}
+else {
+    console.log('error on connecting to Web3');
+}
+
 var httpsServer = https.createServer(credentials, app);
 httpServer.listen(port, function() {
     console.log('server is running on:' + port);

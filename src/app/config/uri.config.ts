@@ -36,6 +36,7 @@ export const URI_CONFIG = {
     SELECTED_CANDIDATES: '/selected-candidates',
     BALLOT_PHASES: '/get-ballot-phases',
     DISPLAY_PHASES: '/get-display-phases',
+    GET_TxRECEIPT: '/getTxReceipt',
     /* Blockchain account API */
     GET_VOTER_ADDRESS: '/getAddress'
 };

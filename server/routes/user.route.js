@@ -10,4 +10,7 @@ router.route('/getUserInfo')
 router.route('/change-password')
     .post(userController.postChangePassword);
 
+router.route('/getUserHash')
+    .post(userController.postGetUserHash);
+
 export default router;

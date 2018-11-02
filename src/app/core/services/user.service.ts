@@ -143,8 +143,14 @@ export class UserService {
     }
 
     updateLocalIsFirstLogin() {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
-        user.isFirstTimeLogIn = false;
+        const user = {...JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER)), isFirstTimeLogIn: false };
+
+        sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
+    }
+
+    updateLocalIsVoted(_txHash) {
+        const user = {...JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER)), isVote: true };
+
         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
     }
 
@@ -203,7 +209,7 @@ export class UserService {
     }
     */
 
-/*    setupChainAccount(account: Object): Observable<any> {
+    /*setupChainAccount(account: Object): Observable<any> {
         // Handle error later
         return new Observable((_observable) => {
             const storeAccount = this._http.post(
@@ -228,24 +234,16 @@ export class UserService {
             { headers: this._messageService.getHttpOptions() });
     }
 
-
-    /* Unused func */
-    getHash(): String {
-        const hash = JSON.parse(sessionStorage.getItem(STRING_CONFIG.HASH));
-
-        return hash;
-    }
-
-    updateUserHash(hash: String): void {
+    /* updateUserHash(hash: String): void {
         sessionStorage.setItem(STRING_CONFIG.HASH, JSON.stringify(hash));
-    }
+    } */
 
-    updateUserVote(isVoted: Boolean): void {
+    /* updateUserVote(isVoted: Boolean): void {
         const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
         user.isVote = isVoted;
 
         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
-    }
+    } */
 
     getUserHash(citizenId: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_HASH_URL,

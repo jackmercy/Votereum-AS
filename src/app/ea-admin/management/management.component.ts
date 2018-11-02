@@ -221,7 +221,7 @@ export class ManagementComponent implements OnInit {
     onGetStatus(txHash: string, _phase: string) {
         const phase = _.find(this.phases, { key: _phase });
 
-        this._ballotService.getTxReceipt(txHash).then( (receipt) =>  {
+        this._ballotService.getTxReceipt(txHash).subscribe( (receipt) =>  {
             if (receipt) {
                 const statusVal = Number(receipt['status']);
 
@@ -240,8 +240,7 @@ export class ManagementComponent implements OnInit {
                     clearInterval(this.interval);
                 }
             }
-        })
-            .catch(error => console.log(error));
+        }, error => console.log(error));
     }
 
     /* Chart event */

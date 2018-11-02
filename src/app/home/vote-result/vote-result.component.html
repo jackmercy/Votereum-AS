@@ -1,31 +1,39 @@
-<div class="container-fluid wrapper pt-3">
+<div class="container-fluid pt-3">
     <div class="row no-gutters justify-content-center"> 
-        <p class="text-center display-4">Transaction successful!</p>
-    </div>
-    <div class="row no-gutters justify-content-center">
-        <i class="far fa-check-circle fa-4x text-success pb-4 pt-2"></i>
+        <div class="row">
+            <p class="text-center display-4">{{txResultText}}</p>
+            <i *ngIf="txResultText === 'Transaction successful'" class="far fa-check-circle fa-4x text-success pb-4 pt-2"></i>
+        </div>
     </div>
     <div class="row no-gutters justify-content-center">
         <div class="col-7">
             <mat-divider></mat-divider>
-            <table class="table borderless">
+            <table class="table borderless container-fluid">
                 <tbody>
-                <tr>
+                <tr *ngIf="txReceipt['transactionHash']">
                     <th scope="row" class="text-right w-25">TxHash</th>
-                    <td class="text-left" *ngIf="txReceipt">{{ txReceipt.transactionHash }}</td>
+                    <td class="text-left">{{ txReceipt.transactionHash }}</td>
                 </tr>
-                <tr>
+                <tr *ngIf="txReceipt['status']">
                     <th scope="row" class="text-right">Status</th>
-                    <td class="text-left" *ngIf="txReceipt">{{ txReceipt.status }}</td>
+                    <td class="text-left" >{{ txReceipt.status }}</td>
                 </tr>
-                <tr>
+                <tr *ngIf="txReceipt['timestamp'] !== ''">
                     <th scope="row" class="text-right">Date Issued</th>
-                    <td class="text-left" *ngIf="blockDetail">{{ blockDetail.timestamp }}</td>
+                    <td class="text-left">{{ txReceipt.timestamp | date: 'long' }}</td>
                 </tr>
                 </tbody>
             </table>
             <mat-divider></mat-divider>
         </div>
     </div>
-    
+    <div class="row justify-content-center mt-3">
+        <div class="text-center">
+            For more detail about this transaction, please click here
+            <button mat-icon-button color="primary" (click)="onTxDetailClicked()">
+                <mat-icon>near_me</mat-icon>
+            </button>
+        </div>
+        
+    </div>
 </div>

@@ -117,8 +117,10 @@ export class BallotService {
             { headers: this._messageService.getHttpOptions() });
     }
 
-    getTxReceipt(txHash: string): Promise<any> {
-        return this.web3.eth.getTransactionReceipt(txHash);
+    getTxReceipt(txHash: string): Observable<any> {
+        return this._http.post(URI_CONFIG.BASE_BALLOT_API + URI_CONFIG.GET_TxRECEIPT,
+            JSON.stringify({ txHash: txHash }),
+            { headers: this._messageService.getHttpOptions() });
     }
 
     postFinalizeBallot(_phrase: String): Observable<any> {
@@ -153,10 +155,10 @@ export class BallotService {
         "hasRight": true
     }
     */
-    postHasRightToVote(voterAddress: String): Observable<any> {
+    postHasRightToVote(_voterAddress: String): Observable<any> {
         return this._http.post(
             URI_CONFIG.BASE_BALLOT_API + '/hasRight',
-            JSON.stringify( { address: voterAddress }),
+            JSON.stringify( { voterAddress: _voterAddress }),
             { headers: this._messageService.getHttpOptions() });
     }
 }

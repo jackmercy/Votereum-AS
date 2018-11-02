@@ -1,7 +1,7 @@
 import User   from '../models/user.model';
 import jwt    from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-
+import Web3   from 'web3';
 
 /* const variable */
 const saltRounds = 10;
@@ -183,7 +183,7 @@ function postRegister(req, res) {
 
 }
 
-/* POTS: [/getUserInfo] */
+/* POST: [/getUserInfo] */
 /* req JSON {
     "citizenId": "0432"
 } */
@@ -226,9 +226,40 @@ function postUserInfo(req, res) {
     });
 }
 
+
+/** POST: [/api/user/getUserHash]
+ *  req: {
+ *     citizenId: 456
+ * }
+ */
+function postGetUserHash(req, res) {
+    if (!CitizenGuard(req.token) && !RaGuard(req.token)) {
+        res.status(403);
+        return res.json({ message: 'You do not have permission to access this API'});
+    }
+    User.findOne({citizenId: req.body.citizenId}, function(err, _user) {
+        if(err) {
+            console.log(err);
+        }
+        if(_user) {
+            const message = {
+                hash: _user.hash,
+                isVote: _user.isVote
+            }
+            res.json(message);
+        } else {
+            const message = {
+                message: 'Invalid citizen ID'
+            }
+            res.json(message);
+        }
+    });
+}
+
 export default {
     postLogin,
     postRegister,
     postUserInfo,
-    postChangePassword
+    postChangePassword,
+    postGetUserHash
 }

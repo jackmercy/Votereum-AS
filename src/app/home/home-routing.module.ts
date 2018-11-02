@@ -22,7 +22,7 @@ const homeRoutes: Routes = [
         component: HomeMasterComponent,
         children: [
             { path: '', redirectTo: '/home/voting', pathMatch: 'full'},
-            { path: 'voting', canActivate: [ FirstLoginGuard ], component: VotingComponent },
+            { path: 'voting', canActivate: [ FirstLoginGuard, VotedGuard ], component: VotingComponent },
             { path: 'score-board', component: ScoreBoardComponent },
             { path: 'vote-result', component: VoteResultComponent },
             { path: 'first-login', component: FirstLoginComponent },

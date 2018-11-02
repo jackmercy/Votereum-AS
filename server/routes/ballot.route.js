@@ -39,6 +39,8 @@ router.route('/claimStoredAmount')
 /*------------------Voter-----------------*/
 router.route('/vote')
     .post(BallotController.postVoteForCandidates);
+router.route('/getTxReceipt')
+    .post(BallotController.postGetTxReceipt);
 
 /*-----------------Public----------------------*/
 router.route('/result')

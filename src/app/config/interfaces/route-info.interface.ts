@@ -12,6 +12,10 @@ export const regRoute: RouteInfo[] = [
 ];
 export const homeRoute: RouteInfo[] = [
     { path: 'voting', title: 'Voting', class: '' },
-    { path: 'score-board', title: 'Scoreboard', class: '' },
-    { path: 'vote-result', title: 'Vote result', class: '' }
+    { path: 'score-board', title: 'Scoreboard', class: '' }
+];
+
+export const homeRoute_Voted: RouteInfo[] = [
+    { path: 'vote-result', title: 'Vote result', class: '' },
+    { path: 'score-board', title: 'Scoreboard', class: '' }
 ];

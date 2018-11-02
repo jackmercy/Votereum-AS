@@ -64,7 +64,6 @@ router.use('/blockchainAccount', bcAccountRoutes);
 router.use('/ea', eaRoutes);
 router.get('/checkToken', (req, res) => {
         var callback = function() { console.log('[x] ETA work') };
-        StartRegPhase("election", callback);
         res.send('Hello hooman! with token');
     }  
 );

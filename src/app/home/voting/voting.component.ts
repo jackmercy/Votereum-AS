@@ -154,7 +154,14 @@ export class VotingComponent implements OnInit {
         } else {
             const signDialogRef = this.dialog.open(PasswordEntryDialogComponent, {
                 width: 'fit-content',
-                data: this.selectedCandidates
+                data: this.selectedCandidates,
+                disableClose: true
+            });
+
+            signDialogRef.afterClosed().subscribe(txHash => {
+                if (txHash.length > 0) {
+                    this._router.navigate(['/vote-result']);
+                }
             });
 
         }
@@ -173,6 +180,7 @@ export class VotingComponent implements OnInit {
     onSetupAccountClicked() {
         const dialogRef = this.dialog.open(AccountDialogComponent, {
             width: 'fit-content',
+            disableClose: true
         });
 
         dialogRef.afterClosed().subscribe(

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserService }       from '@services/user.service';
-import { ContractService }   from '@services/contract.service';
+import { BallotService }   from '@services/ballot.service';
 import { MatSnackBar }       from '@angular/material';
+import { timestamp } from 'rxjs/operators';
 
 @Component({
     selector: 'app-vote-result',
@@ -10,50 +11,47 @@ import { MatSnackBar }       from '@angular/material';
     styleUrls: ['./vote-result.component.scss']
 })
 export class VoteResultComponent implements OnInit {
-    txReceipt: any;
-    blockDetail: any;
-    txHash: any;
+    txReceipt: Object = {
+        transactionHash: '',
+        status: '',
+        timestamp: ''
+    };
     listenCondition: any;
+    txResultText: string;
+    txHash: string;
 
     constructor(private _userService: UserService,
-                private _contractService: ContractService,
+                private _ballotService: BallotService,
                 public snackBar: MatSnackBar) { }
 
     ngOnInit() {
-        this.listenCondition = false;
-        /* this.txHash = this._userService.getHash();
-        this.onGetStatus();
-        this.listenCondition = setInterval(() => this.onGetStatus(), 12000); */
+        const citizenId = this._userService.getId();
+        this._userService.getUserHash(citizenId).subscribe(
+            txHash => {
+                this.txHash = txHash['hash'];
+                this.onGetStatus(this.txHash);
+                this.listenCondition = setInterval(() => this.onGetStatus(this.txHash), 12000);
+            }
+        );
     }
 
-    onGetStatus() {
-        this._contractService.getTxReceipt(this.txHash)
+    private onGetStatus(txHash: string) {
+        this._ballotService.getTxReceipt(txHash)
             .subscribe(
-                receipt => {
-                    if (receipt) {
-                        this.txReceipt = receipt;
-                        const statusVal = Number(receipt['status']);
-                        if (statusVal === 1) {
-                            this.txReceipt['status'] = 'Success';
-                            clearInterval(this.listenCondition);
-                        } else if (statusVal === 0) {
-                            this.txReceipt['status'] = 'Failure';
-                            clearInterval(this.listenCondition);
-                        }
-                        this._contractService.getBlock(receipt['blockHash'])
-                            .subscribe(block => {
-                                this.blockDetail = block;
-                                const time = new Date(block['timestamp']);
-                                this.blockDetail['timestamp'] = time;
-                            });
+                data => {
+                    this.txReceipt = {...data};
+                    console.log(this.txReceipt);
+                    const statusVal = data['status'];
+                    if (statusVal === true) {
+                        this.txReceipt['status'] = 'Success';
+                        this.txResultText = 'Transaction successful';
+                        clearInterval(this.listenCondition);
+                    } else if (statusVal === false) {
+                        this.txReceipt['status'] = 'Failure';
+                        this.txResultText = 'Transaction Failed';
+                        clearInterval(this.listenCondition);
                     } else {
-                        this.txReceipt = {
-                            transactionHash: this.txHash,
-                            status: 'Pending'
-                        };
-                        this.blockDetail = {
-                            timestamp: ''
-                        };
+                        this.txResultText = 'Pending Confirmation';
                     }
                 },
                 error => {
@@ -63,5 +61,9 @@ export class VoteResultComponent implements OnInit {
                     });
                 }
         );
+    }
+
+    onTxDetailClicked() {
+        window.open(`https://rinkeby.etherscan.io/tx/${this.txHash}`, '_blank');
     }
 }
