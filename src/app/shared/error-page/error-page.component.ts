@@ -8,8 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ErrorPageComponent implements OnInit {
     @Input() errorMessage: any;
     constructor() { }
-    
+
     ngOnInit() {
     }
-    
+
 }
