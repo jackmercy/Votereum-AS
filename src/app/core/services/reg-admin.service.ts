@@ -1,7 +1,7 @@
 ///<reference path="../../config/uri.config.ts"/>
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable}   from 'rxjs/Observable';
+import {Observable}   from 'rxjs';
 
 import 'rxjs-compat/add/observable/of';
 

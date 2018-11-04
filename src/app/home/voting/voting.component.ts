@@ -10,7 +10,7 @@ import { BallotService }                          from '@services/ballot.service
 import * as _                                     from 'lodash';
 import { PasswordEntryDialogComponent }           from '@home/password-entry-dialog/password-entry-dialog.component';
 import { map }                                    from 'rxjs/operators';
-import { forkJoin }           from 'rxjs/observable/forkJoin';
+import { forkJoin }           from 'rxjs';
 
 @Component({
     selector: 'app-voting',

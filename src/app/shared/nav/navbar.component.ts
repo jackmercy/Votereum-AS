@@ -4,7 +4,7 @@ import { Router, RouterEvent }        from '@angular/router';
 import { UserService }                from '@services/user.service';
 import { RouteInfo }                  from '@config/interfaces/route-info.interface';
 import { roleConfig }                 from '@config/string.config';
-import 'rxjs/add/operator/filter';
+
 
 @Component({
     selector: 'app-navbar',

@@ -1,10 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
-import { Observable }         from 'rxjs/Observable';
+import { Observable ,  forkJoin }         from 'rxjs';
 import { HttpClient }         from '@angular/common/http';
 import { URI_CONFIG }         from '@config/uri.config';
 import { httpOptions }        from '@config/string.config';
 import { map, retry }         from 'rxjs/operators';
-import { forkJoin }           from 'rxjs/observable/forkJoin';
 import { observable }         from 'rxjs/internal-compatibility';
 import { WEB3 }               from '@core/web3-token';
 import   Web3                 from 'web3';

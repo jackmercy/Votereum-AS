@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable ,  forkJoin } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 import { URI_CONFIG } from '@config/uri.config';
 
@@ -9,7 +9,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { BallotService }    from '@services/ballot.service';
 import { MessageService }   from '@services/message.service';
 import { throwError }       from 'rxjs/internal/observable/throwError';
-import { forkJoin }         from 'rxjs/observable/forkJoin';
 
 
 
