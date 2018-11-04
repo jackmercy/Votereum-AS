@@ -43,28 +43,30 @@
             font-weight: 300; */
             line-height: 1.7em;
         }
-        .menu-item a {
-            padding: 15px;
-            display: block;
-            cursor: pointer;
-            color: $gray-lighter;
+        .menu-item {
+            font-size: 16px;
+            margin-bottom: 2px;
+            a {
+                padding: 15px;
+                display: block;
+                cursor: pointer;
+                color: $gray-lighter;
+            }
         }
         .menu-item.active {
             text-decoration: none;
-            background: -moz-linear-gradient(0deg, #8f497c 0%, #887095 10%, #8297ae 20%, #5F7389 32%, #3c5064 50%, #3C5064 55%, #3c5064 60%); /* ff3.6+ */
-            background: -webkit-gradient(linear, left top, right top, color-stop(0%, #8f497c), color-stop(10%, #887095), color-stop(20%, #8297ae), color-stop(32%, #5F7389), color-stop(50%, #3c5064), color-stop(55%, #3C5064), color-stop(60%, #3c5064)); /* safari4+,chrome */
-            background: -webkit-linear-gradient(0deg, #8f497c 0%, #887095 10%, #8297ae 20%, #5F7389 32%, #3c5064 50%, #3C5064 55%, #3c5064 60%);
+            background-color: #58636d;
+            font-size: 20px;
             .item-text {
                 color: $white !important;
+                border-left: 6px solid #8297ae;
             }
         }
         .menu-item a:hover, a:focus {
             color: $white;
-            background: -moz-linear-gradient(0deg, #8f497c 0%, #887095 10%, #8297ae 20%, #5F7389 32%, #3c5064 50%, #3C5064 55%, #3c5064 60%); /* ff3.6+ */
-            background: -webkit-gradient(linear, left top, right top, color-stop(0%, #8f497c), color-stop(10%, #887095), color-stop(20%, #8297ae), color-stop(32%, #5F7389), color-stop(50%, #3c5064), color-stop(55%, #3C5064), color-stop(60%, #3c5064)); /* safari4+,chrome */
-            background: -webkit-linear-gradient(0deg, #8f497c 0%, #887095 10%, #8297ae 20%, #5F7389 32%, #3c5064 50%, #3C5064 55%, #3c5064 60%);
             text-decoration: none;
             transition: all 0.3s;
+            background-color: #58636d;
         }
     }   
 }
