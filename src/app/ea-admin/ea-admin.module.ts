@@ -12,8 +12,6 @@ import { ManagementComponent } from './management/management.component';
 import { FinalizeDialogComponent } from './finalize-dialog/finalize-dialog.component';
 import { SetupConfirmDialogComponent } from './setup-confirm-dialog/setup-confirm-dialog.component';
 
-
-
 @NgModule({
     imports: [
         CommonModule,
