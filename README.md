@@ -1,6 +1,6 @@
 # ether-vote-as
 
-This project is ... Idk
+This project is an Ethereum-based voting system.
 ## Requirement
 Node.js version 9.11.0
 ## Development 
