@@ -6,7 +6,7 @@
     "ng": "ng",
     "update-web-pack": "node web3-patch.js",
     "ui": "ng serve --proxy-config proxy.config.json",
-    "build-ui": "ng build --aot --prod",
+    "build-ui": "ng build",
     "start": "nodemon --delay 1.5 server/app.js --exec babel-node",
     "build": "babel -d dist",
     "debug": "babel-node --inspect --inspect-brk=9215 server/app.js",
