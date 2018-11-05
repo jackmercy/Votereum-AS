@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-
-import { ContractService }  from '@services/contract.service';
-import { CandidateService } from '@services/candidate.service';
 import { BallotService }    from '@services/ballot.service';
 
-/* export const result = [
+/* export const _result = [
     {
       'name': 'Germany',
       'value': 8940000
@@ -34,8 +31,8 @@ import { BallotService }    from '@services/ballot.service';
         'name': 'LalaLand',
         'value': 400000
     }
-]; */
-
+];
+ */
 
 @Component({
     selector: 'app-score-board',
@@ -64,9 +61,7 @@ export class ScoreBoardComponent implements OnInit {
         '#32118d', '#a00fb3', '#1052a2', '#6e51bd', '#b63cc3', '#6c97cb', '#8671c1', '#b455be', '#7496c3']
     };
 
-    constructor(private _candidateService: CandidateService,
-                private _contractService: ContractService,
-                private _ballotService: BallotService) { }
+    constructor(private _ballotService: BallotService) { }
 
     ngOnInit() {
         this.isGettingData = true;

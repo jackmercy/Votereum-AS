@@ -41,7 +41,7 @@ import { STRING_CONFIG }    from '@config/string.config';
 export class AppModule {
     // Diagnostic only: inspect router configuration
     constructor(router: Router) {
-        console.log('Routes: ', JSON.stringify(router.config, undefined, 2));
+        /* console.log('Routes: ', JSON.stringify(router.config, undefined, 2)); */
     }
 }
 

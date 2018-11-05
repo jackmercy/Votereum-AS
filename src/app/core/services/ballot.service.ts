@@ -5,8 +5,6 @@ import { URI_CONFIG }         from '@config/uri.config';
 import { httpOptions }        from '@config/string.config';
 import { map, retry }         from 'rxjs/operators';
 import { observable }         from 'rxjs/internal-compatibility';
-import { WEB3 }               from '@core/web3-token';
-import   Web3                 from 'web3';
 import { MessageService }     from '@services/message.service';
 
 
@@ -16,8 +14,7 @@ import { MessageService }     from '@services/message.service';
 export class BallotService {
 
     constructor(private _http: HttpClient,
-                private _messageService: MessageService,
-                @Inject(WEB3) private web3: Web3) {
+                private _messageService: MessageService) {
     }
     /*
     - GET: [/api/ballot]

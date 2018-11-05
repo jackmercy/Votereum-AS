@@ -2,11 +2,11 @@
 <div class="row justify-content-center sticky-ether-account"
      [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}"
      *ngIf="!hasBlockchainAccount && ballotInfo">
-    <div *ngIf="!hasBlockchainAccount && now > phaseInfo['startRegPhase']" class="col">
+    <div *ngIf="!hasBlockchainAccount && now > phaseInfo['startRegPhase'] && now < phaseInfo['endRegPhase']" class="col">
         You haven't set up your blockchain account. You may not be eligible to submit your
         ballot when the time comes.
     </div>
-    <div *ngIf="!hasBlockchainAccount && now > phaseInfo['startRegPhase']" class="col-3">
+    <div *ngIf="!hasBlockchainAccount && now > phaseInfo['startRegPhase'] && now < phaseInfo['endRegPhase']" class="col-3">
         <button class="btn btn-outline-light" (click)="onSetupAccountClicked()">Set up Blockchain Account</button>
     </div>
     <div *ngIf="!hasBlockchainAccount && now < phaseInfo['startRegPhase']">

@@ -31,7 +31,7 @@ export class SetupConfirmDialogComponent implements OnInit {
 
         this._ballotService.postBallotInfo(this.data).subscribe(
             hash => {
-                setInterval(() => this.onGetStatus(hash), 5000);
+                this.interval = setInterval(() => this.onGetStatus(hash), 5000);
             },
             error => {
                 this.error = error.error.message || error.message;
