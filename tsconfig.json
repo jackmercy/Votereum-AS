@@ -11,6 +11,8 @@
       "@shared/*": ["app/shared/*"],
       "@home/*": ["app/home/*"],
       "@public/*": ["app/public/*"],
+      "@ea-admin": ["app/ea-admin/*"],
+      "@reg-admin": ["app/reg-admin/*"],
       "@assets/*": ["assets/*"],
       "@scss/*": ["scss/*"]
     },
@@ -29,5 +31,8 @@
       "es2017",
       "dom"
     ]
+  },
+  "angularCompilerOptions": {
+    "enableIvy": true
   }
 }
