@@ -606,7 +606,7 @@ function getBallotInfo(req, res) {
  * }
  */
 async function postGetTxReceipt(req, res) {
-    if (!CitizenGuard(req.token)) {
+    if (!CitizenGuard(req.token) && !EaGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
     let receipt =await web3.eth.getTransactionReceipt(req.body.txHash);

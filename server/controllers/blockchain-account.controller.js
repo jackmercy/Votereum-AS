@@ -134,6 +134,10 @@ async function postGetVoterAddress(req, res) {
                 });
             }
         });
+    } else {
+        return res.json({
+            address: 'None'
+        });
     }
 }
 
