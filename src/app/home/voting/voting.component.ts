@@ -10,7 +10,7 @@ import { BallotService }                          from '@services/ballot.service
 import * as _                                     from 'lodash';
 import { PasswordEntryDialogComponent }           from '@home/password-entry-dialog/password-entry-dialog.component';
 import { map }                                    from 'rxjs/operators';
-import { forkJoin }           from 'rxjs';
+import { forkJoin }                               from 'rxjs';
 
 @Component({
     selector: 'app-voting',
@@ -29,6 +29,7 @@ export class VotingComponent implements OnInit {
     hasBlockchainAccount: Boolean;
     isVote: Boolean;
     ballotInfo: any;
+    displayPhaseInfo: any;
     error: any;
     selectedCandidates: Array<String>;
     canVote: Boolean;
@@ -44,7 +45,8 @@ export class VotingComponent implements OnInit {
                 public snackBar: MatSnackBar,
                 public dialog: MatDialog) { }
     ngOnInit() {
-        this.now = Date.now() / 1000;
+        this.now = Date.now(); // unix format
+        this.isVote = this._userService.isVoted();
         this.citizenId = this._userService.getId();
         this._messageService.sideBarActive$.subscribe(
             isActive => this.isSideBarActive = isActive
@@ -53,7 +55,8 @@ export class VotingComponent implements OnInit {
         const observable = forkJoin(
             this._ballotService.getSelectedCandidates(),
             this._userService.updateUserInfoLocal(this.citizenId),
-            this._ballotService.getBallotInfo()
+            this._ballotService.getBallotInfo(),
+            this._ballotService.getDisplayPhases()
         );
         this._userService.getVoterAddress(this.citizenId).subscribe(
             value => console.log(value),
@@ -76,6 +79,10 @@ export class VotingComponent implements OnInit {
             this.ballotInfo = result[2]['ballotInfo'];
             this.phaseInfo = result[2]['phaseInfo'];
             console.log(result[2]);
+
+            // Handle data of getDisplayPhaseInfo
+            this.displayPhaseInfo = result[3];
+            console.log(this.displayPhaseInfo);
 
             // Check canVote
             if (this.hasBlockchainAccount) {
@@ -107,39 +114,6 @@ export class VotingComponent implements OnInit {
         }, error =>
             console.log(error));
 
-        /*
-                this._ballotService.getSelectedCandidates().subscribe(
-                    data => {
-                        data.map(
-                            candidate => {
-                                candidate['isSelected'] = false;
-                                return candidate;
-                            }
-                        );
-                        this.candidates = data;
-                    }
-                );
-
-                this._userService.updateUserInfoLocal(this._userService.getId()).subscribe(() => {
-                    this.votingResult.citizenID =  this._userService.getId();
-
-                    // Check if user can vote
-                    this.hasBlockchainAccount = this._userService.hasBlockchainAccount();
-                    this.isVote = this._userService.isVoted();
-                }, error => {
-                    this.error = error.error.message || error.message || error;
-                    console.log(this.error);
-                    // this.isLoading =    false;
-                });
-
-                this._ballotService.getBallotInfo().subscribe(
-                    result => this.ballotInfo = result['ballotInfo'],
-                    error => {
-                        this.error = error.error.message || error.message;
-                        console.log(this.error);
-                    });
-        */
-
     }
 
     onVoteToBlockchain() {
@@ -148,7 +122,7 @@ export class VotingComponent implements OnInit {
         if (this.selectedCandidates.length < 1 || this.selectedCandidates.length > this.ballotInfo['limitCandidate']) {
             this.snackBar.open('The maximum candidates you can vote for are ' +
                 this.ballotInfo['limitCandidate'] +
-                'out of ' + this.candidates.length , 'Got it', {
+                ' out of ' + this.candidates.length , 'Got it', {
                 duration: 30000,
             });
         } else {

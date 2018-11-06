@@ -1,27 +1,55 @@
 <!--Sticky notif-->
 <div class="row justify-content-center sticky-ether-account"
-     [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}"
-     *ngIf="!hasBlockchainAccount && ballotInfo">
-    <div *ngIf="!hasBlockchainAccount && now > phaseInfo['startRegPhase'] && now < phaseInfo['endRegPhase']" class="col">
-        You haven't set up your blockchain account. You may not be eligible to submit your
-        ballot when the time comes.
+    [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}"
+    *ngIf="!hasBlockchainAccount && ballotInfo">
+    <div *ngIf="!hasBlockchainAccount">
+        <!-- now < startReg -->
+        <div *ngIf="now < phaseInfo['startRegPhase']">
+            You haven't set up your blockchain account. You may not be eligible to submit your
+            ballot when the time comes. Come back after <span> {{ displayPhaseInfo['startRegPhase'] | date: 'fullDate'}}</span>
+            to set up your blockchain account.
+        </div>
+        <!-- now < startReg -->
+
+        <!-- startReg < now < endReg -->
+        <div class="row">
+            <div *ngIf="now > phaseInfo['startRegPhase'] && now < phaseInfo['endRegPhase']" class="col">
+                You haven't set up your blockchain account. You may not be eligible to submit your ballot when the time comes.<br>
+                <button class="btn btn-outline-light mt-2" (click)="onSetupAccountClicked()">Set up Blockchain Account</button>
+            </div>
+        </div>
+        <!-- startReg < now < endReg -->
+
+        <!-- now > endRegPhase -->
+        <div *ngIf="now > phaseInfo['endRegPhase']">
+            You had not set up your blockchain account in Register phase. You are not eligible to submit your ballot.
+        </div>
+        <!-- now > endRegPhase -->
     </div>
-    <div *ngIf="!hasBlockchainAccount && now > phaseInfo['startRegPhase'] && now < phaseInfo['endRegPhase']" class="col-3">
-        <button class="btn btn-outline-light" (click)="onSetupAccountClicked()">Set up Blockchain Account</button>
+</div>
+<div class="row justify-content-center sticky-ether-account"
+    [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}"
+    *ngIf="hasBlockchainAccount && ballotInfo">
+    <div class="col" *ngIf="canVote && !isVote">
+        Please select maximum {{ ballotInfo.limitCandidate }} and minimum 1 out of {{ candidates.length }} candidates
+        <button mat-stroked-button class="btn-vote ml-3" (click)="onVoteToBlockchain()">Vote</button>
     </div>
-    <div *ngIf="!hasBlockchainAccount && now < phaseInfo['startRegPhase']">
-        You haven't set up your blockchain account. You may not be eligible to submit your
-        ballot when the time comes. Come back after <span> {{ phaseInfo['startRegPhase'] | date: 'fullDate'}}</span>
-        to set up your blockchain account.
+
+    <div class="col" *ngIf="canVote && isVote">
+        You are late! The voting phase ended. You are not able to submit your vote anymore.
+    </div>
+
+    <div class="col" *ngIf="!canVote && now < phaseInfo['endVotingPhase']">
+        It is not time yet! Voting phase will start at <span> {{ displayPhaseInfo['startVotingPhase'] | date: 'fullDate'}}</span>
+    </div>
+
+    <div class="col" *ngIf="!canVote && now > phaseInfo['endVotingPhase']">
+        The voting phase ended.
     </div>
 </div>
 
 <!--Voting section-->
 <div class="voting-grid" *ngIf="ballotInfo">
-    <div *ngIf="canVote">
-        <p class="header" >Please select maximum {{ ballotInfo.limitCandidate }}
-            and minimum 1 out of {{ candidates.length }}</p>
-    </div>
     <div class="items">
         <!--A candidate-->
         <div class="item" *ngFor="let candidate of candidates" (click)="onCandidateSelected(candidate)">
@@ -53,10 +81,10 @@
         </div>
     </div>
 
-    <div class="row justify-content-center sticky-footer"
+    <!-- <div class="row justify-content-center sticky-footer"
          [ngStyle]="{ 'width': isSideBarActive ? 'calc(100% - 250px)' : '100%'}" *ngIf="canVote">
         <button class="btn-lg btn-block w-50" color="primary" (click)="onVoteToBlockchain()" mat-raised-button>Vote</button>
-    </div>
+    </div> -->
 </div>
 
 <!--Transaction tracker -->
