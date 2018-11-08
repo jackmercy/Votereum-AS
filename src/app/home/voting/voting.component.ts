@@ -133,8 +133,9 @@ export class VotingComponent implements OnInit {
             });
 
             signDialogRef.afterClosed().subscribe(txHash => {
+                /* console.log(`txHash is ${txHash}`); */
                 if (txHash.length > 0) {
-                    this._router.navigate(['/vote-result']);
+                    this._router.navigate(['/home/vote-result']);
                 }
             });
 
