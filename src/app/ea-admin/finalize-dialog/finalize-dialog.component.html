@@ -19,10 +19,10 @@
 
         <!-- Button group -->
         <div class="flex-center">
-            <button (click)="onCancelClicked(false)" class="full-width-input cancel-btn btn btn-outline-dark">
+            <button (click)="onCancelClicked(false)" mat-stroked-button class="full-width-input cancel-btn">
                 <span class="text-color-login-form"> Cancel </span>
             </button>
-            <button id="sign-in-btn" (click)="onFinalizeClicked()" class="full-width-input finalize-btn btn btn-primary">
+            <button id="sign-in-btn" (click)="onFinalizeClicked()" mat-flat-button color="accent" class="full-width-input finalize-btn">
                 <span class="text-color-login-form"> Finalize </span>
             </button>
         </div>
@@ -32,20 +32,28 @@
         <div *ngIf="error && !isLoading">
             <p>Error message: {{ error}}</p>
             <p>Try again later!</p>
-            <button (click)="onCancelClicked(false)" class="full-width-input setup btn btn-primary">
+            <button (click)="onCancelClicked(false)" mat-flat-button color="accent" class="full-width-input setup">
                 <span class="text-color-login-form">Close</span>
             </button>
         </div>
 
         <div *ngIf="isSuccess && !isLoading">
             Successfully start voting phase of the {{electionName}}!
-            <button (click)="onCancelClicked(true)" class="full-width-input setup btn btn-primary">
+            <button (click)="onCancelClicked(true)" mat-flat-button color="accent" class="full-width-input setup">
                 <span class="text-color-login-form">Close</span>
             </button>
         </div>
     </div>
 
     <div class="info-message" *ngIf="isLoading">
-        <mat-spinner mode="indeterminate"></mat-spinner>
+        <!-- <mat-spinner mode="indeterminate"></mat-spinner> -->
+        <div class="container-loader">
+            <svg class="spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+                 <circle cx="170" cy="170" r="160" stroke="#8f497c"/>
+                 <circle cx="170" cy="170" r="135" stroke="#3c5064"/>
+                 <circle cx="170" cy="170" r="110" stroke="#8f497c"/>
+                 <circle cx="170" cy="170" r="85" stroke="#3c5064"/>
+            </svg>
+        </div>
     </div>
 </div>
