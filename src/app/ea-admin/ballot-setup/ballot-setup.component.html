@@ -28,7 +28,7 @@
             </mat-form-field>
 
             <div>
-                <button class="step-button-padding" mat-stroked-button color="primary" matStepperNext  [disabled]="!ballotInfoFormGroup.valid">Next</button>
+                <button class="step-button-padding" mat-flat-button color="accent" matStepperNext  [disabled]="!ballotInfoFormGroup.valid">Next</button>
             </div>
         </form>
     </mat-step>
@@ -48,7 +48,7 @@
 
             <div>
                 <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
-                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                <button mat-flat-button color="accent" matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
@@ -104,7 +104,7 @@
 
             <div>
                 <button class="step-button-padding" mat-stroked-button matStepperPrevious>Back</button>
-                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                <button mat-flat-button color="accent" matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
@@ -116,7 +116,7 @@
             <p>You are now done.</p>
         <div class="row mb-3">
             <button class="step-button-padding" mat-stroked-button (click)="stepper.previous()">Back</button>
-            <button class="step-button-padding" mat-stroked-button color="primary" (click)="onSetupClicked()">Set up now</button>
+            <button class="step-button-padding" mat-flat-button color="accent" (click)="onSetupClicked()">Set up now</button>
         </div>
         <div class="row">
             <button mat-flat-button color="warn" (click)="stepper.reset()">Reset</button>

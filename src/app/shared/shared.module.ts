@@ -37,7 +37,6 @@ import {
 import { NotFoundComponent }      from '@app/shared/not-found/not-found.component';
 import { HeaderComponent }        from '@app/shared/header/header.component';
 import { FooterComponent }        from '@app/shared/footer/footer.component';
-import { ConfirmDialogComponent } from '@app/shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { NavbarComponent }        from '@shared/nav/navbar.component';
 
 /*Pipe*/
@@ -92,14 +91,12 @@ export const CUSTOM_FORMATS = {
         ReactiveFormsModule,
 
         NotFoundComponent,
-        ConfirmDialogComponent,
         ErrorFieldComponent,
         ObjectKeysPipe,
 
         NavbarComponent,
         HeaderComponent,
         FooterComponent,
-        ConfirmDialogComponent,
         ErrorPageComponent
 
 
@@ -109,7 +106,6 @@ export const CUSTOM_FORMATS = {
         NavbarComponent,
         HeaderComponent,
         FooterComponent,
-        ConfirmDialogComponent,
         ObjectKeysPipe,
 
         ErrorFieldComponent,

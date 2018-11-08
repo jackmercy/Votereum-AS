@@ -32,3 +32,70 @@ $brand-primary-lighter: #e4bdd5;
 $brand-primary-ultralight: #f1deea;
 $brand-danger: #b1162e;
 $brand-success: #5d9232;
+
+
+$md-brandprimary: (
+    50 : #f2e9ef,
+    100 : #ddc8d8,
+    200 : #c7a4be,
+    300 : #b180a3,
+    400 : #a06490,
+    500 : #8f497c,
+    600 : #874274,
+    700 : #7c3969,
+    800 : #72315f,
+    900 : #60214c,
+    A100 : #ffa1e0,
+    A200 : #ff6ecf,
+    A400 : #ff3bbe,
+    A700 : #ff22b5,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #ffffff,
+    )
+);
+
+$md-brandsecondary: (
+    50 : #e8eaec,
+    100 : #c5cbd1,
+    200 : #9ea8b2,
+    300 : #778593,
+    400 : #596a7b,
+    500 : #3c5064,
+    600 : #36495c,
+    700 : #2e4052,
+    800 : #273748,
+    900 : #1a2736,
+    A100 : #7ab4ff,
+    A200 : #4798ff,
+    A400 : #147bff,
+    A700 : #006ef9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #ffffff,
+        A700 : #ffffff,
+    )
+);

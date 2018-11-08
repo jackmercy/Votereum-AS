@@ -1,4 +1,4 @@
-<div class="row justify-content-md-center form-layout">
+<div class="row justify-content-md-center form-layout" *ngIf="!isLoading">
     <div class="col-md-auto col-layout">
         <div class="toolbar-box">
             <mat-toolbar class="login-toolbar">
@@ -25,15 +25,16 @@
 
             <!-- Sign in button -->
             <div class="flex-center">
-                <button id="sign-in-btn" mat-button (click)="onLogin()" class=" full-width-input"
+                <button id="sign-in-btn" mat-flat-button color="accent" (click)="onLogin()" class=" full-width-input"
                             [disabled]="!loginFormGroup.valid || canDisableSignInButton">
                     <span class="text-color-login-form">{{ pageStrings.LOGIN_BUTTON_TEXT }}</span>
                 </button>
             </div>
             <div class="sign-up-text">
                 <div class="checkbox session keep-signed">
-                    <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" formControlName="keepSignIn">
-                    <label class="session-text" for="styled-checkbox-1">{{ pageStrings.KEEP_SIGNED_IN_TEXT | uppercase }}</label>
+                    <!-- <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" formControlName="keepSignIn">
+                    <label class="session-text" for="styled-checkbox-1">{{ pageStrings.KEEP_SIGNED_IN_TEXT | uppercase }}</label> -->
+                    <mat-checkbox class="checkbox-login" formControlName="keepSignIn">{{ pageStrings.KEEP_SIGNED_IN_TEXT | uppercase }}</mat-checkbox>
                 </div>
                 <mat-divider class="session-divider" [vertical]="true"></mat-divider>
                 <div class="session forget-pwd">
@@ -41,5 +42,16 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+<div class="row justify-content-md-center centered-spinner" *ngIf="isLoading">
+    <!-- <mat-spinner mode="indeterminate"></mat-spinner> -->
+    <div class="container-loader">
+        <svg class="spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+             <circle cx="170" cy="170" r="160" stroke="#8f497c"/>
+             <circle cx="170" cy="170" r="135" stroke="#3c5064"/>
+             <circle cx="170" cy="170" r="110" stroke="#8f497c"/>
+             <circle cx="170" cy="170" r="85" stroke="#3c5064"/>
+        </svg>
     </div>
 </div>

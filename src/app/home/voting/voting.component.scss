@@ -138,9 +138,14 @@
     padding: 0!important;
 }
 
-/deep/ .mat-stroked-button:not([disabled]) {
-    border-color: #fff;
+.btn-vote {
+    .mat-stroked-button {
+        border-color: #fff !important;
+    }
 }
+/* /deep/ :not([disabled]) {
+    
+} */
 
 .btn-vote {
     width: 100px

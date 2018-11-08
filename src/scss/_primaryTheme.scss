@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+@import './src/scss/variables';
+
+@include mat-core();
+
+$theme-light-primary: mat-palette($md-brandsecondary, 500);
+$theme-light-accent:  mat-palette($md-brandprimary, 500, A100, A400);
+$theme-light-warn:    mat-palette($mat-red);
+
+$theme-light: mat-light-theme($theme-light-primary, $theme-light-accent, $theme-light-warn);
+
+@include angular-material-theme($theme-light);

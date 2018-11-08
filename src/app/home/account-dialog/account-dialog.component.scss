@@ -1,5 +1,5 @@
 @import './src/scss/variables';
-@import './src/scss/checkbox';
+@import '~@angular/material/theming';
 
 .form-layout {
     margin-top: 100px;
@@ -15,7 +15,7 @@
     height: 127px;
 }
 .login-toolbar {
-    background-color: $login-primary-color;
+    background-color: $brand-secondary;
     color: $text-on-secondary;
     height: inherit;
     padding-left: 40px;
@@ -37,15 +37,19 @@
     &.mat-button {
         /* border-radius: 25px; */
         margin-top: 1rem;
-        background-color: $login-primary-color;
+        background-color: $brand-secondary;
         color: $text-on-secondary;
     }
 }
 
-.btn-primary:disabled {
-    background-color: $primary-darker;
-    border-color: $primary-darker;
+.btn-primary {
+    background-color: $brand-primary;
+    :disabled {
+        background-color: $primary-darker;
+        border-color: $primary-darker;
+    }
 }
+    
 
 .cancel {
     margin-left: 5px;
@@ -68,8 +72,8 @@
     height: 50px;
     display: flex;
     justify-content: center;
-    border: 1px solid #fec107;
-    background-color: #fec107;
+    border: 1px solid $brand-success;
+    background-color: $brand-success;
     border-radius: 50%;
     margin-top: -75px;
     margin-left: 293px;

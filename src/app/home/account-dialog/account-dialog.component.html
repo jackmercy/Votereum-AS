@@ -40,11 +40,11 @@
 
         <!-- Button group -->
         <div class="flex-center">
-            <button id="sign-in-btn" (click)="onSetupClicked()" class="full-width-input setup btn btn-primary"
+            <button id="sign-in-btn" (click)="onSetupClicked()" mat-flat-button color="accent" class="full-width-input setup"
                     [disabled]="!accountForm.valid">
                 <span class="text-color-login-form"> SET UP ACCOUNT </span>
             </button>
-            <button (click)="onCancelClicked(false)" class="full-width-input cancel btn btn-primary">
+            <button (click)="onCancelClicked(false)" mat-stroked-button class="full-width-input cancel">
                 <span class="text-color-login-form"> CANCEL </span>
             </button>
         </div>
@@ -54,15 +54,15 @@
         <div *ngIf="error && !isLoading">
             <p>Error message: {{ error}}</p>
             <p>Try again later!</p>
-            <button (click)="onCancelClicked(false)" class="full-width-input setup btn btn-primary">
+            <button (click)="onCancelClicked(false)" mat-flat-button color="accent" class="full-width-input setup">
                 <span class="text-color-login-form">CLOSE</span>
             </button>
         </div>
 
         <div *ngIf="isSuccess && !isLoading">
             Successfully set up blockchain account!
-            <button (click)="onCancelClicked(true)" class="full-width-input setup btn btn-primary">
-                <span class="text-color-login-form">CLOSE</span>
+            <button (click)="onCancelClicked(true)" mat-flat-button color="accent" class="full-width-input setup">
+                <span class="text-color-login-form">OK</span>
             </button>
         </div>
     </div>

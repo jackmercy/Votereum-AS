@@ -1,5 +1,4 @@
 @import './src/scss/variables';
-@import './src/scss/checkbox';
 
 .form-layout {
     margin-top: 100px;
@@ -14,7 +13,7 @@
     height: 127px;
 }
 .login-toolbar {
-    background-color: $login-primary-color;
+    background-color: $brand-secondary;
     color: $text-on-secondary;
     height: inherit;
     padding-left: 40px;
@@ -33,11 +32,9 @@
 
 .full-width-input {
     width: 100%;
-    &.mat-button {
+    &.mat-flat-button {
         /* border-radius: 25px; */
         margin-top: 40px;
-        color: $text-on-secondary;
-        background-color: $secondary-color;
     }
 
 }
@@ -46,7 +43,7 @@
     display: flex;
     justify-content: center;
     #sign-in-btn {
-        border-radius: 5px;
+        border-radius: 2px;
         width: 100%;
     }
 }
@@ -56,8 +53,8 @@
     height: 50px;
     display: flex;
     justify-content: center;
-    border: 1px solid #fec107;
-    background-color: #fec107;
+    border: 1px solid $brand-success;
+    background-color: $brand-success;
     border-radius: 50%;
     margin-top: -75px;
     margin-left: 293px;
@@ -90,27 +87,21 @@
     .keep-signed {
         padding-left: 20px;
         padding-right: 20px;
+        padding-top: 2px;
     }
     .forget-pwd {
         padding-left: 20px;
         padding-right: 20px;
     }
+    .checkbox-login {
+        &.mat-checkbox {
+            font-size: 12px !important;
+            color: #969696;
+        }
+    }
 
 }
-/* Checkbox */
-/* .styled-checkbox {
-    // Box.
-    & + label:before {
-        border-width: 2px;
-        border-style: solid;
-        border-color: #a9a9a9;
-        border-radius: 2px;
-        content: '';
-        margin-right: 10px;
-        display: inline-block;
-        vertical-align: text-top;
-        width: 20px;
-        height: 20px;
-        background: white;
-    }
-} */
+
+.centered-spinner {
+    margin-top: 35vh;
+}

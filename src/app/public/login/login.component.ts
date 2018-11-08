@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     loginFormGroup: FormGroup;
     canDisableSignInButton: boolean;
     isLoggedIn: any;
+    isLoading: boolean;
     helper = new JwtHelperService();
 
     constructor(private _formBuilder: FormBuilder,
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
     onLogin() {
         // get value of keep sign in check box
         /* this._userService.isKeepSignIn(this.keepSignIn.value); */
-
+        this.isLoading = true;
         this._userService.login(this.citizenID.value, this.password.value)
             .subscribe(
                 data => {
@@ -51,6 +52,7 @@ export class LoginComponent implements OnInit {
                         } else if (decodedToken.role === roleConfig.RA) {
                             this._router.navigate(['/reg-admin/voter']);
                         }
+                        this.isLoading = false;
                     }
 
                 },
