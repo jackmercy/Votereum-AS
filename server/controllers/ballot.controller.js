@@ -189,26 +189,6 @@ function postFinalizeBallot(req, res) {
     handlePostRequest('postFinalizeBallot', res, req.body);
 }
 
-
-/*
-- POST: [/api/ballot/giveRight]
-- req.body:
-{
-    "voterAddress": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
-}
-- Response:
-{
-    "0xb69748c2df17e870b48366ca06942140071b5cb0d0f7757791134336dfa80716"
-}
-*/
-function postGiveRightToVote(req, res) {
-    if (!CitizenGuard(req.token)) {
-        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
-    }
-    /* check if in reg phase or not */
-    handlePostRequest('postGiveRightToVote', res, req.body);
-}
-
 /*
 - GET: [/api/ballot/voterAddressList]
 - Response:
@@ -418,6 +398,24 @@ function postHasRightToVote(req, res) {
     handlePostRequest('postHasRightToVote', res, req.body);
 }
 
+/*
+- POST: [/api/ballot/giveRight]
+- req.body:
+{
+    "voterAddress": "0x11a4c82c1e5CBE015c6d09df2F30fD1668a5E410"
+}
+- Response:
+{
+    "0xb69748c2df17e870b48366ca06942140071b5cb0d0f7757791134336dfa80716"
+}
+*/
+function postGiveRightToVote(req, res) {
+    if (!CitizenGuard(req.token)) {
+        return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
+    }
+    /* check if in reg phase or not */
+    handlePostRequest('postGiveRightToVote', res, req.body);
+}
 /*-----------End Voter Section------------*/
 
 
@@ -609,7 +607,7 @@ async function postGetTxReceipt(req, res) {
     if (!CitizenGuard(req.token) && !EaGuard(req.token)) {
         return res.status(403).json({error: true, message: 'You do not have permission to access this API'});
     }
-    let receipt =await web3.eth.getTransactionReceipt(req.body.txHash);
+    let receipt = await web3.eth.getTransactionReceipt(req.body.txHash);
     let payload;
     if (receipt) {
         let block = await web3.eth.getBlock(receipt['blockHash']);

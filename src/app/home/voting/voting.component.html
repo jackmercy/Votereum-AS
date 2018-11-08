@@ -6,7 +6,7 @@
         <!-- now < startReg -->
         <div *ngIf="now < phaseInfo['startRegPhase']">
             You haven't set up your blockchain account. You may not be eligible to submit your
-            ballot when the time comes. Come back after <span> {{ displayPhaseInfo['startRegPhase'] | date: 'fullDate'}}</span>
+            ballot when the time comes. Come back after <span class="info-message"> {{ displayPhaseInfo['startRegPhase'] | date: 'fullDate'}}</span>
             to set up your blockchain account.
         </div>
         <!-- now < startReg -->
@@ -40,7 +40,7 @@
     </div>
 
     <div class="col" *ngIf="!canVote && now < phaseInfo['startVotingPhase']">
-        It is not time yet! Voting phase will start at <span> {{ displayPhaseInfo['startVotingPhase'] | date: 'fullDate'}}</span>
+        It is not time yet! Voting phase will start at <span class="info-message"> {{ displayPhaseInfo['startVotingPhase'] | date: 'fullDate'}}</span>
     </div>
 
     <div class="col" *ngIf="!canVote && now > phaseInfo['startVotingPhase'] && now < phaseInfo['endVotingPhase']">

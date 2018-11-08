@@ -45,26 +45,21 @@ export class AccountDialogComponent implements OnInit {
 
     onSetupClicked() {
         this.isLoading = true;
-        this.web3.eth.personal.newAccount(this.password.value).then((_address) => {
-            const account = {
-                address: _address,
-                password: this.password.value,
-                citizenId: this._userService.getId()
-            };
-            this._userService.setupChainAccount(account)
-            .subscribe(() => {
-                    this.isSuccess = true;
-                    this.isLoading = false;
-                },
-                (error) => {
-                    this.error = error.error.message || error.message;
-                    this.isLoading =    false;
-                }
-            );
-        }).catch((error) => {
-            this.error = error.message;
-            this.isLoading = false;
-        });
+        const account = {
+            password: this.password.value,
+            citizenId: this._userService.getId()
+        };
+        this._userService.setupChainAccount(account).subscribe(
+            () => {
+                this.isSuccess = true;
+                this.isLoading = false;
+            },
+            (error) => {
+                this.error = error.error.message || error.message;
+                this.isLoading =    false;
+            }
+        );
+
     }
 
     onCancelClicked(willRedirect: boolean) {

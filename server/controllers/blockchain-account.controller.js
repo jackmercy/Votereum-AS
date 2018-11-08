@@ -4,6 +4,7 @@ import bcrypt            from 'bcrypt';
 import ballotController from './ballot.controller';
 import _ from 'lodash';
 import jwt from "jsonwebtoken";
+import amqp from "amqplib/callback_api";
 
 /* const variable */
 const saltRounds = 10;
@@ -11,6 +12,10 @@ const saltRounds = 10;
 /** POTS: [/storeAccount]
  * req JSON {
     "address": "0xa123ksansdf",
+    "citizenId": "0432",
+    "password": "123456"
+    }
+ req JSON {
     "citizenId": "0432",
     "password": "123456"
     }
@@ -29,47 +34,100 @@ function postStoreBlockchainAccount(req, res) {
             User.findOne(query, function(err, user) {
                 if (err) {
                     console.log(err);
-                } else if (user && user.hasBlockchainAccount === false) {
+                }
+
+                if (user && user.hasBlockchainAccount === false) {
                     let newBcAccount = new BlockchainAccount();
                     bcrypt.hash(req.body.password, saltRounds, function(err, _hash) {
                         if(err) {
                             /* throw (err); */
                             console.log(err);
-                        } else {
-                            // Store hash in your password DB.
-                            newBcAccount.address = req.body.address;
-                            newBcAccount.hashPassword = _hash;
-                            newBcAccount.citizenId = _id;
-                            newBcAccount.save();
-                            // update user
-                            const updateValues = {
-                                $set:
-                                    { hasBlockchainAccount: true }
-                            };
+                        } else { // Create new account
 
-                            User.updateOne(
-                                query,
-                                updateValues,
-                                { overwrite: true, upsert: false },
-                                function (err, rawResponse) {}
-                            );
+                            const method = 'postStoreBlockchainAccount';
+                            const data = req.body;
 
-                            var _req = _.cloneDeep(req);
-                            _req.body = {
-                                voterAddress: req.body.address
-                            };
+                            // Communicate with OBR
+                            var ballotQueue = 'ballot_queue.' + method;
+                            amqp.connect('amqp://localhost', function(err, conn) {
+                                conn.createChannel(function(err, ch) {
+                                    /* when we supply queue name as an empty string,
+                                    we create a non-durable queue with a generated name */
+                                    ch.assertQueue('', {exclusive: true}, function(err, q) {
+                                        var corr = generateUuid();
 
-                            ballotController.postGiveRightToVote(_req, res);
+                                        console.log('[AMQP] Request: ' + method);
 
-                            /*// res status 200
-                            res.json({
-                                err: false,
-                                message: 'successful store new blockchain account',
-                                address: req.body.address
-                            });*/
+                                        ch.sendToQueue(
+                                            ballotQueue, /* queue */
+                                            new Buffer (JSON.stringify(data)), /* content */
+                                            /* option */
+                                            {
+                                                correlationId: corr, replyTo: q.queue
+                                            }
+                                        );
+
+                                        ch.consume(
+                                            q.queue,
+                                            function(msg) {
+                                                if (msg.properties.correlationId == corr) {
+                                                    console.log(' [AMQP] Got response: ' + method);
+
+                                                    //Res: { "address": "0x302498cdaf4c"}
+                                                    var data = JSON.parse(msg.content.toString());
+                                                    if (data['error']) {
+                                                        res.status(500).json(data['message']);
+
+                                                        return conn.close();
+                                                    }
+                                                    /**Handle received data*/
+
+                                                    // Store hash in your password DB.
+                                                    newBcAccount.address = data['message']['address'];
+                                                    newBcAccount.hashPassword = _hash;
+                                                    newBcAccount.citizenId = _id;
+                                                    newBcAccount.save();
+                                                    // update user
+                                                    const updateValues = {
+                                                        $set:
+                                                            { hasBlockchainAccount: true }
+                                                    };
+
+                                                    User.updateOne(
+                                                        query,
+                                                        updateValues,
+                                                        { overwrite: true, upsert: false },
+                                                        function (err, rawResponse) {}
+                                                    );
+
+                                                    var _req = _.cloneDeep(req);
+                                                    _req.body = {
+                                                        voterAddress: data['message']['address']
+                                                    };
+
+                                                    ballotController.postGiveRightToVote(_req, res);
+
+                                                    /*// res status 200
+                                                    res.json({
+                                                        err: false,
+                                                        message: 'successful store new blockchain account',
+                                                        address: req.body.address
+                                                    });*/
+
+                                                    conn.close();
+                                                }
+                                            },
+                                            { noAck: true }
+                                        );
+                                    });
+                                });
+                            });
+
                         }
                     });
-                } else if (user && user.hasBlockchainAccount === true) {
+                }
+
+                if (user && user.hasBlockchainAccount === true) {
                     res.status(400);
                     res.json({
                         error: true,
@@ -78,19 +136,23 @@ function postStoreBlockchainAccount(req, res) {
                 }
             });
 
-        } else if (n >= 1) {
+        }
+
+        if (n >= 1) {
             res.status(400);
             res.json({
                 error: true,
                 message: 'Citizen have already had blockchain account'
             });
-        } else {
-            res.status(500);
-            res.json({
-                error: true,
-                message: 'Something wrong with the server'
-            });
         }
+
+    })
+    .catch(error => {
+        res.status(500);
+        res.json({
+            error: true,
+            message: 'Something wrong with the server'
+        });
     });
 
 
@@ -120,7 +182,7 @@ async function postGetVoterAddress(req, res) {
             _user = user;
         }
     });
-    
+
     if (_user.hasBlockchainAccount === true ) {
         BlockchainAccount.findOne(query, function(err, bcAccount) {
             if (err) {
@@ -139,6 +201,48 @@ async function postGetVoterAddress(req, res) {
             address: 'None'
         });
     }
+}
+
+function handlePostRequest(method, res, data) {
+    var ballotQueue = 'ballot_queue.' + method;
+    amqp.connect('amqp://localhost', function(err, conn) {
+        conn.createChannel(function(err, ch) {
+            /* when we supply queue name as an empty string,
+            we create a non-durable queue with a generated name */
+            ch.assertQueue('', {exclusive: true}, function(err, q) {
+                var corr = generateUuid();
+
+                console.log('[AMQP] Request: ' + method);
+
+                ch.sendToQueue(
+                    ballotQueue, /* queue */
+                    new Buffer (JSON.stringify(data)), /* content */
+                    /* option */
+                    {
+                        correlationId: corr, replyTo: q.queue
+                    }
+                );
+
+                ch.consume(q.queue, function(msg) {
+                        if (msg.properties.correlationId == corr) {
+                            console.log(' [AMQP] Got response: ' + method);
+
+                            var data = JSON.parse(msg.content.toString());
+                            if (data['error']) {
+                                res.status(500).json(data['message']);
+
+                                return conn.close();
+                            }
+                            res.json(data['message']);
+
+                            conn.close();
+                        }
+                    },
+                    { noAck: true }
+                );
+            });
+        });
+    });
 }
 
 export default {
