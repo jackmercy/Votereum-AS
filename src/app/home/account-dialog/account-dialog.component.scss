@@ -1,5 +1,4 @@
 @import './src/scss/variables';
-@import '~@angular/material/theming';
 
 .form-layout {
     margin-top: 100px;
@@ -123,22 +122,3 @@
     }
 
 }
-
-
-/* Checkbox */
-/* .styled-checkbox {
-    // Box.
-    & + label:before {
-        border-width: 2px;
-        border-style: solid;
-        border-color: #a9a9a9;
-        border-radius: 2px;
-        content: '';
-        margin-right: 10px;
-        display: inline-block;
-        vertical-align: text-top;
-        width: 20px;
-        height: 20px;
-        background: white;
-    }
-} */

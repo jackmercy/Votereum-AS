@@ -68,7 +68,15 @@
     </div>
 
     <div class="info-message" *ngIf="isLoading">
-        <mat-spinner mode="indeterminate"></mat-spinner>
+        <!-- <mat-spinner mode="indeterminate"></mat-spinner> -->
+        <div class="container-loader">
+            <svg class="spinner" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+                 <circle cx="170" cy="170" r="160" stroke="#8f497c"/>
+                 <circle cx="170" cy="170" r="135" stroke="#3c5064"/>
+                 <circle cx="170" cy="170" r="110" stroke="#8f497c"/>
+                 <circle cx="170" cy="170" r="85" stroke="#3c5064"/>
+            </svg>
+        </div>
     </div>
 
 

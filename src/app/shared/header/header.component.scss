@@ -45,5 +45,17 @@
 }
 /* Hamburger style */
 
+.banner {
+    background-image: url("../../../assets/brand/banner2.jpg");
+    height: 200px;
+    width: calc(100vw - 250px);
+    top: 65px;
+    left: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: fixed;
+    z-index: 1000;
+}
 
 /* Item style */
