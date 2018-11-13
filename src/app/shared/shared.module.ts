@@ -30,7 +30,8 @@ import {
     MatMenuModule,
     MatGridListModule,
     MatDividerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatExpansionModule
 } from '@angular/material';
 
 /*Component*/
@@ -87,6 +88,7 @@ export const CUSTOM_FORMATS = {
         MatGridListModule,
         MatDividerModule,
         MatProgressSpinnerModule,
+        MatExpansionModule,
         FormsModule,
         ReactiveFormsModule,
 

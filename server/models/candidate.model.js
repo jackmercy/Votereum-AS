@@ -25,41 +25,20 @@ const CandidateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-/*    party: {
+    hometown: {
         type: String,
         required: true
     },
-    homeStay: {
-        type: String,
+    birthDate: {
+        type : Number,
         required: true
     },
-    isWinner: {
-        type: Boolean,
-        required: true
-    },
-    totalAssets: {
-        type: Number,
-        require: function() {
-            return this.totalAssets > 1000000
-        }
-    },
-    brief: {
-        type: String,
-        required: true,
-        max: 185
-    },
-    biography: {
-        type: String,
-        required: true
-    },
-    education: String,
-    birthday: {
-        type: Date,
-        required: true
-    },*/
     avatar: {
         type: String,
         required: true
+    },
+    gender: {
+        type: String,
     }
 });
 

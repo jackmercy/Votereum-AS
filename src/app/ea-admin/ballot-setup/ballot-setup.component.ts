@@ -92,7 +92,7 @@ export class BallotSetupComponent implements OnInit {
 
         this.confirmDialogRef = this._dialog.open(SetupConfirmDialogComponent, {
             width: 'fit-content',
-            disableClose: false,
+            disableClose: true,
             data: payload
         });
 
