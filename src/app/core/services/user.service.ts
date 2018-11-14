@@ -1,29 +1,31 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable ,  forkJoin } from 'rxjs';
+import { Observable ,  forkJoin, timer  } from 'rxjs';
 import { map, retry } from 'rxjs/operators';
 import { URI_CONFIG } from '@config/uri.config';
+import { Router }     from '@angular/router';
 
 import { STRING_CONFIG }    from '@config/string.config';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BallotService }    from '@services/ballot.service';
 import { MessageService }   from '@services/message.service';
 import { throwError }       from 'rxjs/internal/observable/throwError';
-
-
-
+import { MatSnackBar }      from '@angular/material';
 @Injectable()
 export class UserService {
 
     /* Note: store user hash,token, name, id in sessionStorage */
-
     URI_CONFIG;
     STRING_CONFIG;
     helper = new JwtHelperService();
+    logoutTimer: any;
+    logOutTimeout: any;
 
     constructor(private _http: HttpClient,
                 private _ballotService: BallotService,
-                private _messageService: MessageService) { }
+                private _messageService: MessageService,
+                private _router: Router,
+                public snackBar: MatSnackBar) { }
 
     login(citizenId: string, password: string): Observable<any> {
         sessionStorage.clear();
@@ -49,16 +51,31 @@ export class UserService {
                         sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
                         sessionStorage.setItem(STRING_CONFIG.CITIZEN_INFO, JSON.stringify(citizenInfo));
                         this.isLoggedIn = true;
+
+                        this.autoLogout(decodedToken.exp);
                     }
                     return res;
                 })
             );
     }
 
+    autoLogout(exp) {
+        this.logOutTimeout = timer(exp * 1000 - Date.now());
+        this.logoutTimer = this.logOutTimeout.subscribe( () => {
+            if (this.isLoggedIn === true) {
+                this.snackBar.open('Your session has expired. Please log in, again!' , 'Got it', {
+                    duration: 5000,
+                });
+                this.logout();
+            }
+        });
+    }
+
     logout(): void {
         this._messageService.changeLoginStatus(false);
         sessionStorage.clear();
         localStorage.removeItem('isLoggedIn');
+        this._router.navigate(['']);
     }
 
     get isLoggedIn(): Boolean {

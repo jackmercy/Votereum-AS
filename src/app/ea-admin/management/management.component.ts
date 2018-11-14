@@ -36,6 +36,7 @@ export class ManagementComponent implements OnInit  {
     secondBandColor = '#95B5EA';
     textColor = '#e3e8ee';
     votedLabel: String = 'Number of Voted voters';
+    registeredLabel: String = 'Number of Registered voters';
     designatedTotal: Number;
     votedColorScheme = {
         domain: ['rgb(48, 101, 171)']
@@ -92,6 +93,7 @@ export class ManagementComponent implements OnInit  {
                 private _eaService: ElectionAdminService) { }
 
     ngOnInit() {
+        window.scroll(0, 0);
         this._ballotService.getBallotInfo().subscribe(
             data => {
                 console.log(data);
