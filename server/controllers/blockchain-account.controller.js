@@ -38,92 +38,108 @@ function postStoreBlockchainAccount(req, res) {
 
                 if (user && user.hasBlockchainAccount === false) {
                     let newBcAccount = new BlockchainAccount();
-                    bcrypt.hash(req.body.password, saltRounds, function(err, _hash) {
-                        if(err) {
-                            /* throw (err); */
-                            console.log(err);
-                        } else { // Create new account
-
-                            const method = 'postStoreBlockchainAccount';
-                            const data = req.body;
-
-                            // Communicate with OBR
-                            var ballotQueue = 'ballot_queue.' + method;
-                            amqp.connect('amqp://localhost', function(err, conn) {
-                                conn.createChannel(function(err, ch) {
-                                    /* when we supply queue name as an empty string,
-                                    we create a non-durable queue with a generated name */
-                                    ch.assertQueue('', {exclusive: true}, function(err, q) {
-                                        var corr = generateUuid();
-
-                                        console.log('[AMQP] Request: ' + method);
-
-                                        ch.sendToQueue(
-                                            ballotQueue, /* queue */
-                                            new Buffer (JSON.stringify(data)), /* content */
-                                            /* option */
-                                            {
-                                                correlationId: corr, replyTo: q.queue
-                                            }
-                                        );
-
-                                        ch.consume(
-                                            q.queue,
-                                            function(msg) {
-                                                if (msg.properties.correlationId == corr) {
-                                                    console.log(' [AMQP] Got response: ' + method);
-
-                                                    //Res: { "address": "0x302498cdaf4c"}
-                                                    var data = JSON.parse(msg.content.toString());
-                                                    if (data['error']) {
-                                                        res.status(500).json(data['message']);
-
-                                                        return conn.close();
-                                                    }
-                                                    /**Handle received data*/
-
-                                                    // Store hash in your password DB.
-                                                    newBcAccount.address = data['message']['address'];
-                                                    newBcAccount.hashPassword = _hash;
-                                                    newBcAccount.citizenId = _id;
-                                                    newBcAccount.save();
-                                                    // update user
-                                                    const updateValues = {
-                                                        $set:
-                                                            { hasBlockchainAccount: true }
-                                                    };
-
-                                                    User.updateOne(
-                                                        query,
-                                                        updateValues,
-                                                        { overwrite: true, upsert: false },
-                                                        function (err, rawResponse) {}
-                                                    );
-
-                                                    var _req = _.cloneDeep(req);
-                                                    _req.body = {
-                                                        voterAddress: data['message']['address']
-                                                    };
-
-                                                    ballotController.postGiveRightToVote(_req, res);
-
-                                                    /*// res status 200
-                                                    res.json({
-                                                        err: false,
-                                                        message: 'successful store new blockchain account',
-                                                        address: req.body.address
-                                                    });*/
-
-                                                    conn.close();
-                                                }
-                                            },
-                                            { noAck: true }
-                                        );
-                                    });
-                                });
+                    bcrypt.compare(req.body.password, user.hashPassword, function(err, _result) {
+                        if (err) {
+                            res.status(500).json({
+                                error: true,
+                                message: 'Internal server error'
                             });
-
+                        } else if (_result) {
+                            bcrypt.hash(req.body.password, saltRounds, function(err, _hash) {
+                                if(err) {
+                                    /* throw (err); */
+                                    console.log(err);
+                                } else { // Create new account
+    
+                                    const method = 'postStoreBlockchainAccount';
+                                    const data = req.body;
+    
+                                    // Communicate with OBR
+                                    var ballotQueue = 'ballot_queue.' + method;
+                                    amqp.connect('amqp://localhost', function(err, conn) {
+                                        conn.createChannel(function(err, ch) {
+                                            /* when we supply queue name as an empty string,
+                                            we create a non-durable queue with a generated name */
+                                            ch.assertQueue('', {exclusive: true}, function(err, q) {
+                                                var corr = generateUuid();
+    
+                                                console.log('[AMQP] Request: ' + method);
+    
+                                                ch.sendToQueue(
+                                                    ballotQueue, /* queue */
+                                                    new Buffer (JSON.stringify(data)), /* content */
+                                                    /* option */
+                                                    {
+                                                        correlationId: corr, replyTo: q.queue
+                                                    }
+                                                );
+    
+                                                ch.consume(
+                                                    q.queue,
+                                                    function(msg) {
+                                                        if (msg.properties.correlationId == corr) {
+                                                            console.log(' [AMQP] Got response: ' + method);
+    
+                                                            //Res: { "address": "0x302498cdaf4c"}
+                                                            var data = JSON.parse(msg.content.toString());
+                                                            if (data['error']) {
+                                                                res.status(500).json(data['message']);
+    
+                                                                return conn.close();
+                                                            }
+                                                            /**Handle received data*/
+    
+                                                            // Store hash in your password DB.
+                                                            newBcAccount.address = data['message']['address'];
+                                                            newBcAccount.hashPassword = _hash;
+                                                            newBcAccount.citizenId = _id;
+                                                            newBcAccount.save();
+                                                            // update user
+                                                            const updateValues = {
+                                                                $set:
+                                                                    { hasBlockchainAccount: true }
+                                                            };
+    
+                                                            User.updateOne(
+                                                                query,
+                                                                updateValues,
+                                                                { overwrite: true, upsert: false },
+                                                                function (err, rawResponse) {}
+                                                            );
+    
+                                                            var _req = _.cloneDeep(req);
+                                                            _req.body = {
+                                                                voterAddress: data['message']['address']
+                                                            };
+    
+                                                            ballotController.postGiveRightToVote(_req, res);
+    
+                                                            /*// res status 200
+                                                            res.json({
+                                                                err: false,
+                                                                message: 'successful store new blockchain account',
+                                                                address: req.body.address
+                                                            });*/
+    
+                                                            conn.close();
+                                                        }
+                                                    },
+                                                    { noAck: true }
+                                                );
+                                            });
+                                        });
+                                    });
+    
+                                }
+                            });
+                        } else {
+                            res.status(400);
+                            return res.json({
+                                error: true,
+                                message: 'Invalid password'
+                            });
                         }
+                        
                     });
                 }
 

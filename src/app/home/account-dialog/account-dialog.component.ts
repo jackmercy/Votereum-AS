@@ -34,7 +34,6 @@ export class AccountDialogComponent implements OnInit {
     ngOnInit() {
         this.accountForm = this._formBuilder.group({
             password: ['', Validators.required],
-            confirmPassword: ['', Validators.required],
             checked: [false]
         });
         this.canDisableSetupButton = true;
@@ -69,10 +68,6 @@ export class AccountDialogComponent implements OnInit {
 
     get password() {
         return this.accountForm.get('password');
-    }
-
-    get confirmPassword() {
-        return this.accountForm.get('confirmPassword');
     }
 
     getErrorMessage(control: AbstractControl) {

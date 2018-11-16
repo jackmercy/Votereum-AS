@@ -17,16 +17,11 @@
             <mat-error *ngIf="password.invalid">{{getErrorMessage(password)}}</mat-error>
         </mat-form-field>
 
-        <!-- Confirm password -->
-        <mat-form-field class="full-width-input">
-            <input type="password" id="input-confirmPassword" matInput
-                   placeholder="Confirm Password" formControlName="confirmPassword">
-            <mat-error *ngIf="confirmPassword.invalid">{{getErrorMessage(confirmPassword)}}</mat-error>
-        </mat-form-field>
         <div class="sign-up-text">
             <div>
-                <label class="session-text" >
-                    IMPORTANT: Please write it down and keep in a safe place.
+                <label class="session-text">
+                    Please enter your system password to set up your blockchain account. <br>
+                    <strong>IMPORTANT:</strong> 
                     You cannot change or recover this password once it is lost. In case of losing password, you can
                     only request for a new blockchain account in Registration Phrase.
                 </label>
