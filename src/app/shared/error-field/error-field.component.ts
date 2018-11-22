@@ -14,7 +14,8 @@ export class ErrorFieldComponent {
     validationMessage: any = {
         required: 'Mandatory information',
         minlength: 'You must provide at least 2 characters for this field',
-        pattern: 'Only number is allowed'
+        pattern: 'Only number is allowed',
+        regPhaseMismatch: 'regPhaseMismatch'
     };
 
     getErrorMessage(): string {

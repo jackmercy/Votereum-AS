@@ -1,4 +1,5 @@
 <div class="container-fluid" *ngIf="ballotInfo">
+    <!-- Ballot management -->
     <div class="container-fluid px-0 ballot-section">
         <p class="row text-h1 light-weight-text no-gutters ballot-title-text">
             Ballot Management
@@ -71,16 +72,74 @@
                     </button>
                 </div>
             </div>
-
-
-
-
-
-
-
         </div>
     </div>
+    <!-- Ballot management -->
 
+    <!-- Candidate management -->
+    <div class="container-fluid px-0 ballot-section">
+        <p class="row text-h1 light-weight-text no-gutters ballot-title-text">
+            Candidate Management
+        </p>
+        <hr class="hr-ballot">
+        <div class="container ballot-section-padding">
+            <div class="row full-width">
+                <div class="col">
+                    <mat-accordion class="list-candidate">
+                        <mat-expansion-panel *ngFor="let candidate of candidates" >
+                            <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                <p>{{ candidate['title'] + '. ' + candidate['firstName'] + ' ' + candidate['lastName'] | titlecase }}</p>
+                            </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <!-- Avatar - Gender -->
+                            <div class="row">
+                                <div class="col">
+                                    <img class="candidate-img" src="{{ candidate['avatar']}}" alt="Photo of candidate">
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="full-width">
+                                        <input matInput placeholder="Gender" value="{{ candidate['gender']}}" readonly>
+                                    </mat-form-field>  
+                                </div>
+                            </div>
+                            <!-- Avatar - Gender -->
+
+                            <!-- Birthday-Hometown -->
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field class="full-width">
+                                        <input matInput placeholder="Birthdate" value="{{ candidate['birthDate'] | date: 'fullDate'}}" readonly>
+                                    </mat-form-field>        
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="full-width">
+                                        <input matInput placeholder="Hometown" value="{{ candidate['hometown']}}" readonly>
+                                    </mat-form-field>  
+                                </div>
+                            </div>
+                            <!-- Birthday-Hometown -->
+
+                            <!-- Quote -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <mat-form-field class="full-width">
+                                        <input matInput placeholder="Quote" value="{{ candidate['quote'] }}" readonly>
+                                    </mat-form-field>  
+                                </div>
+                            </div>
+                            <!-- Quote -->
+
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Candidate management -->
+
+    <!-- User management -->
     <div class="container-fluid px-0 ballot-section">
         <p class="row text-h1 light-weight-text no-gutters ballot-title-text">
             User Management
@@ -92,9 +151,9 @@
                 <div class="col">
                     <ngx-charts-pie-grid
                         [view]="voterView"
-                        [scheme]="fundedColorScheme"
-                        [results]="fundedVoterChartData"
-                        [label]="fundedLabel"
+                        [scheme]="registeredColorScheme"
+                        [results]="registeredVoterChartData"
+                        [label]="registeredLabel"
                         [designatedTotal]="designatedTotal">
                     </ngx-charts-pie-grid>
                 </div>
@@ -116,7 +175,7 @@
                 <!-- Total Citizen -->
                 <div class="col">
                     <ngx-charts-number-card
-                        [view]="registeredView"
+                        [view]="totalVoterView"
                         [results]="totalVoterChartData"
                         [cardColor] = "cardColor"
                         [bandColor] = "secondBandColor"
@@ -125,30 +184,13 @@
                     </ngx-charts-number-card>
                 </div>
                 <!-- Total Citizen -->
-
-                <!-- Registered Chart -->
-                <div class="col">
-                    <ngx-charts-number-card
-                        [view]="registeredView"
-                        [results]="registeredVoterChartData"
-                        [cardColor] = "cardColor"
-                        [bandColor] = "bandColor"
-                        [textColor] = "textColor"
-                        (select)="onSelect($event)">
-                    </ngx-charts-number-card>
-                </div>
-                <!-- Registered Chart -->
             </div>
         </div>
 
     </div>
+    <!-- User management -->
 
-    <!-- <div class="ballot-section">
-        <p>
-            Ballot Overview
-        </p>
-        <hr>
-    </div> -->
+
 
 </div>
 <div *ngIf="!ballotInfo">

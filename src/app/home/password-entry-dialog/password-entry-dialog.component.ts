@@ -55,7 +55,7 @@ export class PasswordEntryDialogComponent implements OnInit {
             this._userService.updateLocalIsVoted(hash);
             this.isLoading = false;
             this.isSuccess = true;
-            this.hash = hash;
+            this.hash = hash['hash'];
         }, error => {
             console.log(error);
             this.error = error.error.message || error.message;
@@ -64,7 +64,8 @@ export class PasswordEntryDialogComponent implements OnInit {
     }
 
     onCancelClicked(willRedirect: boolean) {
-        if (willRedirect) {
+        if (willRedirect === true) {
+            console.log(this.hash);
             this.dialogRef.close(this.hash);
         } else {
             this.dialogRef.close('');

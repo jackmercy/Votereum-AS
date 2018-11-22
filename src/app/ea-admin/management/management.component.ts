@@ -2,6 +2,7 @@ import { Component, OnInit }    from '@angular/core';
 import { BallotService }        from '@services/ballot.service';
 import { ElectionAdminService } from '@services/election-admin.service';
 import { NgxChartsModule }      from '@swimlane/ngx-charts';
+
 import {
     MatDialog,
     MAT_DIALOG_DATA,
@@ -15,32 +16,32 @@ import * as _ from 'lodash';
     templateUrl: './management.component.html',
     styleUrls: ['./management.component.scss']
 })
-export class ManagementComponent implements OnInit {
+export class ManagementComponent implements OnInit  {
     finalizeDialogRef: MatDialogRef<FinalizeDialogComponent>;
     ballotInfo: any;
     displayPhaseInfo: any;
     phaseInfo: any;
     voterInfo: any;
+    candidates: any;
 
     /* Chart */
     votedVoterChartData: any;
-    fundedVoterChartData: any;
     registeredVoterChartData: any;
     totalVoterChartData: any;
     // options
-    registeredView: any[] = [350, 250];
+    totalVoterView: any[] = [350, 250];
     voterView: any[] = [250, 250];
     cardColor = '#3c5064';
     bandColor = '#8f497c';
     secondBandColor = '#95B5EA';
     textColor = '#e3e8ee';
-    votedLabel: String = 'Number of Voted citizen';
-    fundedLabel: String = 'Number of Funded citizen';
+    votedLabel: String = 'Number of Voted voters';
+    registeredLabel: String = 'Number of Registered voters';
     designatedTotal: Number;
     votedColorScheme = {
         domain: ['rgb(48, 101, 171)']
     };
-    fundedColorScheme = {
+    registeredColorScheme = {
         domain: ['#5AA454']
     };
     /* Chart */
@@ -92,40 +93,30 @@ export class ManagementComponent implements OnInit {
                 private _eaService: ElectionAdminService) { }
 
     ngOnInit() {
+        window.scroll(0, 0);
         this._ballotService.getBallotInfo().subscribe(
             data => {
+                console.log(data);
                 this.ballotInfo = data['ballotInfo'];
-                 this.phaseInfo = data['phaseInfo'];
+                this.phaseInfo = data['phaseInfo'];
                 this.voterInfo = data['voterInfo'];
-
-                /* this.designatedTotal = this.voterInfo['registeredVoterCount']; */
-                this.designatedTotal = 60561589;
 
                 this.registeredVoterChartData = [
                     {
-                        name: 'Number of registered citizen',
-                         // value: this.voterInfo['registeredVoterCount']
-                        value: 60561589
-
-                    }
-                ];
-                this.fundedVoterChartData = [
-                    {
-                        name: 'Funded citizen',
-                         // value: this.voterInfo['fundedVoterCount']
-                        value: 56901589
+                        name: 'Registered voter',
+                        value: this.voterInfo['registeredVoterCount']
                     }
                 ];
                 this.votedVoterChartData = [
                     {
-                        name: 'Voted citizen',
-                        /* value: this.voterInfo['votedVoterCount'] */
-                        value: 44234173
+                        name: 'Voted voter',
+                        value: this.voterInfo['votedVoterCount']
                     }
                 ];
         });
         this._eaService.getTotalCitizen().subscribe(
             data => {
+                this.designatedTotal = data['totalCitizen'];
                 this.totalVoterChartData = [
                     {
                         name: 'Total citizen',
@@ -137,8 +128,14 @@ export class ManagementComponent implements OnInit {
         this._ballotService.getDisplayPhases().subscribe(
             data => this.displayPhaseInfo = data
         );
+
+        this._ballotService.getSelectedCandidates().subscribe(
+            list => this.candidates = list
+        );
+
         this.interval = false;
     }
+
 
     // Disable when now is greater than fetched time
     canDisableButton(phrase: string) {
@@ -157,7 +154,7 @@ export class ManagementComponent implements OnInit {
 
         this.finalizeDialogRef = this.dialog.open(FinalizeDialogComponent, {
             width: 'fit-content',
-            disableClose: false
+            disableClose: true
         });
 
         this.finalizeDialogRef.componentInstance.electionName = this.ballotInfo['ballotName'];

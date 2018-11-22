@@ -14,14 +14,14 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput placeholder="Fund Amount" formControlName="fundAmount">
+                <input matInput type="number" placeholder="Fund Amount" formControlName="fundAmount">
                 <mat-error>
                     <app-error-field [errorCode]="ballotInfoFormGroup.get('fundAmount').errors" ></app-error-field>
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput placeholder="Max number of candidates that can be voted" formControlName="limitCandidate">
+                <input matInput type="number" placeholder="Max number of candidates that can be voted" formControlName="limitCandidate">
                 <mat-error>
                     <app-error-field [errorCode]="ballotInfoFormGroup.get('limitCandidate').errors" ></app-error-field>
                 </mat-error>
@@ -61,6 +61,8 @@
             <ng-template matStepLabel>Phases sequence</ng-template>
             <div class="container no-gutters no-padding-bootstrap">
                 <p>The phase timeline order should be: <br> Start register phase -> End register phase -> Start voting phase -> End voting phase</p>
+                <p>The start phases will begin at 0:00:00</p>
+                <p>The end phases will end at 23:59:59</p>
                 <!-- Register phase -->
                 <p style="margin-bottom: 0;"> Register Phase</p>
                 <div class="row">
@@ -69,6 +71,9 @@
                             <input matInput [matDatepicker]="startRegPhase" placeholder="1. Start register phase" formControlName="startRegPhase">
                             <mat-datepicker-toggle matSuffix [for]="startRegPhase"></mat-datepicker-toggle>
                             <mat-datepicker #startRegPhase></mat-datepicker>
+                            <mat-error>
+                                <app-error-field [errorCode]="phasesSequenceFormGroup.get('startRegPhase').errors" ></app-error-field>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-6">
@@ -76,6 +81,9 @@
                             <input matInput [matDatepicker]="endRegPhase" placeholder="2. End register phase" formControlName="endRegPhase">
                             <mat-datepicker-toggle matSuffix [for]="endRegPhase"></mat-datepicker-toggle>
                             <mat-datepicker #endRegPhase></mat-datepicker>
+                            <mat-error>
+                                <app-error-field [errorCode]="phasesSequenceFormGroup.get('endRegPhase').errors" ></app-error-field>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
@@ -89,6 +97,9 @@
                             <input matInput [matDatepicker]="startVotingPhase" placeholder="3. Start voting phase" formControlName="startVotingPhase">
                             <mat-datepicker-toggle matSuffix [for]="startVotingPhase"></mat-datepicker-toggle>
                             <mat-datepicker #startVotingPhase></mat-datepicker>
+                            <mat-error>
+                                <app-error-field [errorCode]="phasesSequenceFormGroup.get('startVotingPhase').errors" ></app-error-field>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="col-6">
@@ -96,6 +107,9 @@
                             <input matInput [matDatepicker]="endVotingPhase" placeholder="4. End voting phase" formControlName="endVotingPhase">
                             <mat-datepicker-toggle matSuffix [for]="endVotingPhase"></mat-datepicker-toggle>
                             <mat-datepicker #endVotingPhase></mat-datepicker>
+                            <mat-error>
+                                <app-error-field [errorCode]="phasesSequenceFormGroup.get('endVotingPhase').errors" ></app-error-field>
+                            </mat-error>
                         </mat-form-field>
                     </div>
                 </div>

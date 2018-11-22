@@ -15,7 +15,7 @@
 
 .phase-group-button {
     button {
-        width: 135px;
+        width: 150px;
 
         &:first-child {
             margin-left: 0;
@@ -102,5 +102,13 @@
     }
     .ballot-section-padding {
         padding: 0 160px;
+    }
+}
+
+.list-candidate {
+    .candidate-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
     }
 }

@@ -6,7 +6,7 @@ import {
     MatSnackBar }                                        from '@angular/material';
 /* import * as _moment          from 'moment';
 import { default as _rollupMoment }                      from 'moment'; */
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { MatSelectionList, MatStepper } from '@angular/material';
 import { ElectionAdminService }         from '@services/election-admin.service';
 import { BallotService }                from '@services/ballot.service';
@@ -70,17 +70,17 @@ export class BallotSetupComponent implements OnInit {
 
     onSetupClicked() {
         const ballotInfoGroup = this.ballotInfoFormGroup.getRawValue();
+
         const phaseSequenceGroup = {
-            startRegPhase: this.phasesSequenceFormGroup.get('startRegPhase').value.format('x'),
-            endRegPhase: this.phasesSequenceFormGroup.get('endRegPhase').value.format('x'),
-            startVotingPhase: this.phasesSequenceFormGroup.get('startVotingPhase').value.format('x'),
-            endVotingPhase: this.phasesSequenceFormGroup.get('endVotingPhase').value.format('x'),
+            startRegPhase: Number(this.phasesSequenceFormGroup.get('startRegPhase').value.format('x')),
+            endRegPhase: Number(this.phasesSequenceFormGroup.get('endRegPhase').value.format('x')) + 86400000 - 1,
+            startVotingPhase: Number(this.phasesSequenceFormGroup.get('startVotingPhase').value.format('x')),
+            endVotingPhase: Number(this.phasesSequenceFormGroup.get('endVotingPhase').value.format('x')) + 86400000 - 1,
         };
 
         const candidateListGroup = {
             candidateIds: this.candidateList.selectedOptions.selected
-                          .map(option =>
-                              option.value)
+                          .map(option => option.value)
         };
         const payload = Object.assign(
             {},
@@ -88,11 +88,11 @@ export class BallotSetupComponent implements OnInit {
             phaseSequenceGroup,
             candidateListGroup
         );
-        console.log(candidateListGroup);
+        console.log(payload);
 
         this.confirmDialogRef = this._dialog.open(SetupConfirmDialogComponent, {
             width: 'fit-content',
-            disableClose: false,
+            disableClose: true,
             data: payload
         });
 
@@ -104,3 +104,4 @@ export class BallotSetupComponent implements OnInit {
         });
     }
 }
+

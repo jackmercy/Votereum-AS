@@ -44,7 +44,6 @@ export class NavbarComponent implements OnInit {
 
     onLogout() {
         this._userService.logout();
-        this._router.navigate(['']);
     }
 
 }

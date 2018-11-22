@@ -2,7 +2,7 @@ import User   from '../models/user.model';
 import jwt    from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import Web3   from 'web3';
-
+import { RoleConfig }    from '../config/role.config';
 /* const variable */
 const saltRounds = 10;
 
@@ -54,10 +54,12 @@ async function postLogin(req, res) {
                     picture: _citizen.picture
                 };
 
-                var token = jwt.sign(payload, app.get('jwtSecret'), {
-                    /* expiresIn: 180 // expires in 3 mins */
-                    expiresIn: 3600 // expires in 1 hours
-                });
+                let token;
+                if (user.role === RoleConfig.CITIZEN) {
+                    token = jwt.sign(payload, app.get('jwtSecret'), { expiresIn: 600 }); // expires in 10 mins
+                } else if (user.role === RoleConfig.EA || user.role === RoleConfig.RA) {
+                    token = jwt.sign(payload, app.get('jwtSecret'), { expiresIn: 3600 }); // expires in 1 hours
+                }
 
                 return res.status(200).json({
                     token: token,

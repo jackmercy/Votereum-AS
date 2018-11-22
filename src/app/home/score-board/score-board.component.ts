@@ -55,10 +55,16 @@ export class ScoreBoardComponent implements OnInit {
     xAxisLabel = 'Candidates';
     showYAxisLabel = true;
     yAxisLabel = 'Votes';
-
     colorScheme = {
         domain: ['#4e31a5', '#9c25a7', '#3065ab', '#57468b', '#904497', '#46648b',
         '#32118d', '#a00fb3', '#1052a2', '#6e51bd', '#b63cc3', '#6c97cb', '#8671c1', '#b455be', '#7496c3']
+    };
+    yAxisTickFormatting = function(val) {
+        if (val % 1 === 0) {
+        return val.toLocaleString();
+      } else {
+        return '';
+      }
     };
 
     constructor(private _ballotService: BallotService) { }
