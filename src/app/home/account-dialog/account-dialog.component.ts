@@ -4,8 +4,6 @@ import { Router }                                              from '@angular/ro
 import { publicModuleStrings }                                 from '@config/string.config';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar }          from '@angular/material';
 import { UserService }                                         from '@services/user.service';
-import Web3                                                    from 'web3';
-import { WEB3 }                                                from '@core/web3-token';
 
 
 @Component({
@@ -28,8 +26,7 @@ export class AccountDialogComponent implements OnInit {
                 private _router: Router,
                 public snackBar: MatSnackBar,
                 public dialogRef: MatDialogRef<AccountDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: any,
-                @Inject(WEB3) private web3: Web3) { }
+                @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     ngOnInit() {
         this.accountForm = this._formBuilder.group({
