@@ -1,7 +1,5 @@
 import { Component, Inject, OnInit }                           from '@angular/core';
-import Web3                                                    from 'web3';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { WEB3 }                                                from '@core/web3-token';
 import { Router }                                              from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar }          from '@angular/material';
 import { AccountDialogComponent }                              from '@home/account-dialog/account-dialog.component';
@@ -31,8 +29,7 @@ export class PasswordEntryDialogComponent implements OnInit {
                 private _router: Router,
                 public snackBar: MatSnackBar,
                 public dialogRef: MatDialogRef<AccountDialogComponent>,
-                @Inject(MAT_DIALOG_DATA) public data: any,
-                @Inject(WEB3) private web3: Web3) { }
+                @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     ngOnInit() {
         this.passwordForm = this._formBuilder.group({
@@ -73,10 +70,6 @@ export class PasswordEntryDialogComponent implements OnInit {
         } else {
             this.dialogRef.close('');
         }
-    }
-
-    convertToBytes32(text) {
-        return this.web3.utils.asciiToHex(text);
     }
 
     get password() {
