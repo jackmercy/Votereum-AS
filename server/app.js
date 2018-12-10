@@ -117,7 +117,7 @@ var httpServer = http.createServer(app, function(req, res) {
     res.end();
 });
 
-//Testnet
+/* //Testnet
 global.web3 = new Web3('http://localhost:8545');
 if (web3) {
     //console.log(global.ballotContract.option);
@@ -125,7 +125,7 @@ if (web3) {
 }
 else {
     console.log('error on connecting to Web3');
-}
+} */
 
 var httpsServer = https.createServer(credentials, app);
 httpServer.listen(port, function() {

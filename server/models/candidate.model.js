@@ -13,11 +13,11 @@ const CandidateSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    first: {
+    firstName: {
         type: String,
         required: true
     },
-    last: {
+    lastName: {
         type: String,
         required: true
     },
