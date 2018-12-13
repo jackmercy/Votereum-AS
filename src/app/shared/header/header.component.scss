@@ -12,7 +12,7 @@
 
     /* box-sizing: border-box;  */// should in ul
     /* box-shadow: 0 2px 5px 0 rgba(0,0,0,.3); */
-    border-bottom: 1px solid $brand-secondary;
+    border-bottom: 1px solid #8f497c;
     padding: 0 25px 0px 0px;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .navbar-brand {
-    padding-left: 25px;
+    padding-left: 30px;
 }
 .middle-brand-text {
     margin-top: 3px;
@@ -46,7 +46,7 @@
 /* Hamburger style */
 
 .banner {
-    background-image: url("../../../assets/brand/banner1.png");
+    background-image: url("../../../assets/brand/banner1.jpg");
     height: 200px;
     width: calc(100vw - 250px);
     top: 65px;
