@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
 
                 },
                 error => {
+                    this.isLoading = false;
                     let msg;
                     if (error.status === 504) {
                         msg = 'Something wrong with the server (Status: 504)';

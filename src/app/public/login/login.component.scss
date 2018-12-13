@@ -16,7 +16,7 @@
     background-color: $brand-secondary;
     color: $text-on-secondary;
     height: inherit;
-    padding-left: 40px;
+    padding-left: 25px;
     font-size: 25px;
     font-weight: 300;
     /* box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15); */
@@ -46,6 +46,10 @@
         border-radius: 2px;
         width: 100%;
     }
+}
+
+#welcome {
+    margin-left: 10px;
 }
 
 .user-icon {

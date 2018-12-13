@@ -532,8 +532,7 @@ function getCandidates(req, res) {
     },
     "voterInfo": {
          "registeredVoterCount": "0",
-         "votedVoterCount": "0",
-         "fundedVoterCount": "0",
+         "votedVoterCount": "0"
     }
 
 }
