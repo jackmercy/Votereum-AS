@@ -6,7 +6,7 @@
     "ng": "ng",
     "update-web-pack": "node web3-patch.js",
     "ui": "ng serve --proxy-config proxy.config.json",
-    "ui-prod": "ng serve --proxy-config proxy.config.json --host 172.16.5.166 --port 8080 --disable-host-check",
+    "ui-prod": "ng serve --proxy-config proxy.prod.config.json --host 172.16.5.166 --port 8080 --disable-host-check",
     "build-ui": "ng build --prod",
     "start": "nodemon --delay 1.5 server/app.js --exec babel-node",
     "build": "babel -d dist",

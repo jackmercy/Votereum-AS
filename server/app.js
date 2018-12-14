@@ -30,6 +30,7 @@ var credentials = {key: privateKey, cert: certificate};
 global.app = express();
 
 var port = process.env.port || 5000;
+var app_evn = process.argv[2] || 'dev';
 var sPort = 5443;
 /* Init variable */
 
@@ -117,22 +118,38 @@ var httpServer = http.createServer(app, function(req, res) {
     res.end();
 });
 
+
 //Testnet
-// global.web3 = new Web3('http://localhost:8545');
-// if (web3) {
-//     //console.log(global.ballotContract.option);
-//     console.log('[x] Web3: Connected');
-// }
-// else {
-//     console.log('error on connecting to Web3');
-// }
+global.web3 = new Web3('http://localhost:8545');
+if (web3) {
+    //console.log(global.ballotContract.option);
+    console.log('[x] Web3: Connected');
+}
+else {
+    console.log('error on connecting to Web3');
+}
+
+let ipv4 = '172.16.5.166';
+let localhost = 'localhost';
 
 var httpsServer = https.createServer(credentials, app);
-httpServer.listen(port, function() {
-    console.log('server is running on:' + port);
-});
-httpsServer.listen(5443, function() {
-    console.log('server is running on:' + sPort);
-});
+
+if (app_evn === 'dev') {
+    httpServer.listen(port, localhost, function() {
+        console.log(`Dev Server is running on: ${localhost}:${port}`);
+    });
+    httpsServer.listen(sPort, localhost, function() {
+        console.log(`Dev Server is running on: ${localhost}:${sPort}`);
+    });
+}
+
+if (app_evn === 'prod') {
+    httpServer.listen(port, ipv4, function() {
+        console.log(`Production Server is running on: ${ipv4}:${port}`);
+    });
+    httpsServer.listen(sPort, ipv4, function() {
+        console.log(`Production Server is running on: ${ipv4}:${sPort}`);
+    });
+}
 
 export default app; 
