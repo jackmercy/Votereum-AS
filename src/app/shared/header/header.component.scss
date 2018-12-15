@@ -47,9 +47,10 @@
 
 .banner {
     background-image: url("../../../assets/brand/banner101.jpg");
-    height: 200px;
+    background-size: contain;
+    height: 150px;
     width: calc(100vw - 250px);
-    top: 65px;
+    top: 0;
     left: 250px;
     background-position: center;
     background-repeat: no-repeat;
@@ -57,5 +58,7 @@
     position: fixed;
     z-index: 1000;
 }
-
+@media only screen and (min-width: 600px) {
+    
+}
 /* Item style */

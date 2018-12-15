@@ -3,16 +3,16 @@
 $h1: 2rem;
 
 .voter-management {
-    .header {
+    /* .header {
         font-size: $h1;
         width: 100%;
-    }
+    } */
 
     .content {
         .user-profile {
             margin: 15px auto;
             background-color: #fff;
-            box-shadow: 4px 0 4px rgba(0,0,0,.1);
+            /* box-shadow: 4px 0 4px rgba(0,0,0,.1); */
             padding: 20px;
             width: 80%;   /* for laptop, desktop: 65% & 381px */
             height: 500px;
@@ -20,7 +20,7 @@ $h1: 2rem;
             .title {
                 margin-bottom: 0;
                 font-size: 1.2rem;
-            display: inline-block;
+                display: inline-block;
                 text-align: center;
                 width: 100%;
             }

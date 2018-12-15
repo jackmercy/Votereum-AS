@@ -3,6 +3,7 @@ import { MatSnackBar }       from '@angular/material';
 import { User }              from '@core/model/user';
 import { RegAdminService }   from '@services/reg-admin.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+
 @Component({
     selector: 'app-voter-management',
     templateUrl: './voter-management.component.html',
@@ -95,7 +96,10 @@ export class VoterManagementComponent implements OnInit {
             this.hasSystemAccount = data['hasSystemAccount'];
         }, error => {
             this.isCitizenExist = false;
-            console.log(error);
+            const msg = error.error.message;
+            this.snackBar.open(msg , 'Got it', {
+                duration: 3000,
+            });
         });
         this.generatedNewPassword = '';
         this.generatedUserId = '';
