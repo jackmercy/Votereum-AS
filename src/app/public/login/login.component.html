@@ -1,29 +1,49 @@
-<div class="row justify-content-md-center form-layout" *ngIf="!isLoading">
+<div class="row justify-content-md-center" *ngIf="!isLoading">
+    <div class="col greeting-text">
+        <div class="welcome-text">WELCOME TO</div>
+        <div class="logo">
+            <img  class="d-inline-block votereum-logo" src="../../../assets/brand/votereum_full.png"  alt="">
+        </div>
+        <div class="sub-title">
+            A secure online voting system. Building for a brighter tomorrow.
+        </div>
+    </div>
     <div class="col-md-auto col-layout">
         <div class="toolbar-box">
             <mat-toolbar class="login-toolbar">
-                <img src="../../../assets/brand/votereum_logo.png" width="51px" height="60px" class="d-inline-block align-top" alt="">
+                <!-- <img src="../../../assets/brand/votereum_logo.png" width="51px" height="60px" class="d-inline-block align-top" alt=""> -->
                 <span id="welcome" class="fill-remaining-space">
                     {{ pageStrings.SIGN_IN | uppercase }}
                 </span>
             </mat-toolbar>
         </div>
         <form [formGroup]="loginFormGroup" class="form-group">
-            <div class="user-icon">
+            <!-- <div class="user-icon">
                 <i class="fas fa-user-cog"></i>
-            </div>
-            <!-- Name -->
-            <mat-form-field class="full-width-input">
+            </div> -->
+            <!-- ID -->
+            <!-- <mat-form-field class="full-width-input">
                 <input id="input-id" matInput placeholder="{{ pageStrings.CITIZEN_ID }}" formControlName="citizendID">
                 <mat-error *ngIf="citizenID.invalid">{{getIdErrorMessage()}}</mat-error>
+            </mat-form-field> -->
+            <mat-form-field class="full-width-input" appearance="outline">
+                <mat-label>{{ pageStrings.CITIZEN_ID }}</mat-label>
+                <input id="input-id" matInput placeholder="Enter your ID" formControlName="citizendID">
+                <mat-error *ngIf="citizenID.invalid">{{getIdErrorMessage()}}</mat-error>
             </mat-form-field>
-
             <!-- ID -->
-            <mat-form-field class="full-width-input">
+
+            <!-- Password -->
+            <!-- <mat-form-field class="full-width-input">
                 <input id="input-password" type="password" matInput placeholder="{{ pageStrings.PASSWORD }}" formControlName="password">
                 <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+            </mat-form-field> -->
+            <mat-form-field class="full-width-input" appearance="outline">
+                    <mat-label>{{ pageStrings.PASSWORD }}</mat-label>
+                <input id="input-password" type="password" matInput placeholder="Enter your password" [type]="hidePwd ? 'password' : 'text'" formControlName="password">
+                <mat-icon matSuffix style="cursor: pointer;" (click)="hidePwd = !hidePwd">{{hidePwd ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
             </mat-form-field>
-
             <!-- Sign in button -->
             <div class="flex-center">
                 <button id="sign-in-btn" mat-flat-button color="accent" (click)="onLogin()" class=" full-width-input"
@@ -31,17 +51,15 @@
                     <span class="text-color-login-form">{{ pageStrings.LOGIN_BUTTON_TEXT }}</span>
                 </button>
             </div>
-            <div class="sign-up-text">
+            <!-- <div class="sign-up-text">
                 <div class="checkbox session keep-signed">
-                    <!-- <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" formControlName="keepSignIn">
-                    <label class="session-text" for="styled-checkbox-1">{{ pageStrings.KEEP_SIGNED_IN_TEXT | uppercase }}</label> -->
                     <mat-checkbox class="checkbox-login" formControlName="keepSignIn">{{ pageStrings.KEEP_SIGNED_IN_TEXT | uppercase }}</mat-checkbox>
                 </div>
                 <mat-divider class="session-divider" [vertical]="true"></mat-divider>
                 <div class="session forget-pwd">
                     <a class="session-text">{{ pageStrings.FORGET_PASSWORD | uppercase }}</a>
                 </div>
-            </div>
+            </div> -->
         </form>
     </div>
 </div>

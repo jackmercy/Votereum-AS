@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     isLoggedIn: any;
     isLoading: boolean;
     helper = new JwtHelperService();
+    hidePwd: boolean;
 
     constructor(private _formBuilder: FormBuilder,
                 private _userService: UserService,
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
             keepSignIn: [false]
         });
         this.canDisableSignInButton = false;
+        this.hidePwd = true;
     }
 
     onLogin() {
