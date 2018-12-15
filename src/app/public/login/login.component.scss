@@ -2,8 +2,15 @@
 
 
 
-.form-layout {
-    margin-top: 100px;
+.public-bg {
+    background: url('../../../assets/images/login-bg.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 100vh;
+    min-width: 1280px;
+
 }
 
 .greeting-text {
