@@ -74,16 +74,17 @@ export class UserService {
     logout(): void {
         this._messageService.changeLoginStatus(false);
         sessionStorage.clear();
-        localStorage.removeItem('isLoggedIn');
         this._router.navigate(['']);
     }
 
     get isLoggedIn(): Boolean {
-        return JSON.parse(localStorage.getItem('isLoggedIn') || 'false');
+        /* return JSON.parse(localStorage.getItem('isLoggedIn') || 'false'); */
+        return this._messageService.getLoginStatus();
     }
 
     set isLoggedIn(value: Boolean) {
-        localStorage.setItem('isLoggedIn', value.toString());
+        /* localStorage.setItem('isLoggedIn', value.toString()); */
+        this._messageService.changeLoginStatus(value);
     }
 
 
@@ -174,12 +175,6 @@ export class UserService {
         const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
 
         return user.hasBlockchainAccount;
-    }
-
-    /* refactor */
-    setHasBlockchainAccount(value) {
-        sessionStorage.setItem('hasBlockchainAccount',
-            JSON.stringify({ hasBlockchainAccount: value }));
     }
 
     getVoterAddress(_citizenId: String): Observable<any> {

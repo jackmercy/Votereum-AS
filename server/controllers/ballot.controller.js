@@ -285,17 +285,36 @@ function postVoteForCandidates(req, res) {
         if(err) {
             console.log('ERR');
         } else if(account) {
+            // check isVote
+            if (account.isVote === true) {
+                return res.status(400).json({
+                    error: true,
+                    message: 'Rejected. You have already voted on this ballot.'
+                });
+            }
             // problem: reveal user password
             bcrypt.compare(req.body['chainPassword'], account.hashPassword, function(err, _result) {
                 if (err) {
                     return res.status(500).json({
                         error: true,
-                        message: 'Wrong password'
+                        message: 'Internal Server Error. Try again later'
                     });
                 }
 
-                // Add voter's address to req.body
+                // process vote
                 if (_result) {
+                    // update local database
+                    const updateValues = {
+                        $set:
+                            { isVote: true }
+                    };
+                    User.updateOne(
+                        query,
+                        updateValues,
+                        { overwrite: true, upsert: false },
+                        function (err, rawResponse) {}
+                    )
+                    // Add voter's address to req.body
                     const data = req.body;
                     data['address'] = account['address'];
                     /* Handle request */
