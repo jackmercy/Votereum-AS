@@ -48,12 +48,16 @@ export class UserService {
                             hasBlockchainAccount: decodedToken.hasBlockchainAccount
                         };
                         sessionStorage.setItem(STRING_CONFIG.ACCESS_TOKEN, JSON.stringify(res['token']));
-                        sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
                         sessionStorage.setItem(STRING_CONFIG.CITIZEN_INFO, JSON.stringify(citizenInfo));
                         this.isLoggedIn = true;
-
+                        // sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+                        // current user
+                        this._messageService.setIsVoteValue(payload.isVote);
+                        this._messageService.setIsFirstTimeLogInValue(payload.isFirstTimeLogIn);
+                        this._messageService.setHasBlockchainAccountSourceValue(payload.hasBlockchainAccount);
                         this.autoLogout(decodedToken.exp);
                     }
+
                     return res;
                 })
             );
@@ -111,7 +115,10 @@ export class UserService {
                     isFirstTimeLogIn: user.isFirstTimeLogIn,
                     hasBlockchainAccount: user.hasBlockchainAccount
                 };
-                sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+                // sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(payload));
+                this._messageService.setIsVoteValue(payload.isVote);
+                this._messageService.setIsFirstTimeLogInValue(payload.isFirstTimeLogIn);
+                this._messageService.setHasBlockchainAccountSourceValue(payload.hasBlockchainAccount);
             })
         );
     }
@@ -148,33 +155,29 @@ export class UserService {
     }
 
     isVoted(): Boolean {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+        const isVote = this._messageService.getIsVoteValue();
 
-        return user.isVote;
+        return isVote;
     }
 
     isFirstLogin(): Boolean {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+        const isFirstTimeLogIn = this._messageService.getIsFirstTimeLogInValue();
 
-        return user.isFirstTimeLogIn;
-    }
-
-    updateLocalIsFirstLogin() {
-        const user = {...JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER)), isFirstTimeLogIn: false };
-
-        sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
-    }
-
-    updateLocalIsVoted(_txHash) {
-        const user = {...JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER)), isVote: true };
-
-        sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
+        return isFirstTimeLogIn;
     }
 
     hasBlockchainAccount(): Boolean {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
+        const hasBlockchainAccount = this._messageService.getHasBlockchainAccountSourceValue();
 
-        return user.hasBlockchainAccount;
+        return hasBlockchainAccount;
+    }
+
+    updateLocalIsFirstLogin() {
+        this._messageService.setIsFirstTimeLogInValue(false);
+    }
+
+    updateLocalIsVoted(_txHash) {
+        this._messageService.setIsVoteValue(true);
     }
 
     getVoterAddress(_citizenId: String): Observable<any> {
@@ -245,16 +248,6 @@ export class UserService {
             { headers: this._messageService.getHttpOptions() });
     }
 
-    /* updateUserHash(hash: String): void {
-        sessionStorage.setItem(STRING_CONFIG.HASH, JSON.stringify(hash));
-    } */
-
-    /* updateUserVote(isVoted: Boolean): void {
-        const user = JSON.parse(sessionStorage.getItem(STRING_CONFIG.CURRENT_USER));
-        user.isVote = isVoted;
-
-        sessionStorage.setItem(STRING_CONFIG.CURRENT_USER, JSON.stringify(user));
-    } */
 
     getUserHash(citizenId: string): Observable<any> {
         return this._http.post(URI_CONFIG.BASE_USER_API + URI_CONFIG.GET_USER_HASH_URL,

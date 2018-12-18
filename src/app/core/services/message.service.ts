@@ -11,9 +11,17 @@ export class MessageService {
     // Observable string sources
     private sideBarActiveSource = new BehaviorSubject<Boolean>(true);
     private isLoginSource = new BehaviorSubject<Boolean>(false);
+    // init value using token
+    private isVoteSource = new BehaviorSubject<Boolean>(false);
+    private isFirstTimeLogInSource = new BehaviorSubject<Boolean>(true);
+    private hasBlockchainAccountSource = new BehaviorSubject<Boolean>(false);
     // Observable string streams
     sideBarActive$ = this.sideBarActiveSource.asObservable();
     isLogin$ = this.isLoginSource.asObservable();
+    // Observable streams - current user
+    isVoteSource$ = this.isVoteSource.asObservable();
+    isFirstTimeLogInSource$ = this.isFirstTimeLogInSource.asObservable();
+    hasBlockchainAccountSource$ = this.hasBlockchainAccountSource.asObservable();
 
     constructor(private _http: HttpClient) {}
 
@@ -21,10 +29,6 @@ export class MessageService {
     toggleSideBar() {
         const toggle = !this.sideBarActiveSource.getValue();
         this.sideBarActiveSource.next(toggle);
-    }
-
-    changeLoginStatus(status: Boolean) {
-        this.isLoginSource.next(status);
     }
 
     getHttpOptions(): any {
@@ -46,7 +50,38 @@ export class MessageService {
         return headers;
     }
 
+    changeLoginStatus(status: Boolean) {
+        this.isLoginSource.next(status);
+    }
+
     getLoginStatus(): Boolean {
         return this.isLoginSource.getValue();
+    }
+
+    // isVote
+    setIsVoteValue(value: Boolean) {
+        this.isVoteSource.next(value);
+    }
+
+    getIsVoteValue(): Boolean {
+        return this.isVoteSource.getValue();
+    }
+
+    // isFirstTimeLogIn
+    setIsFirstTimeLogInValue(value: Boolean) {
+        this.isFirstTimeLogInSource.next(value);
+    }
+
+    getIsFirstTimeLogInValue(): Boolean {
+        return this.isFirstTimeLogInSource.getValue();
+    }
+
+    // hasBlockchainAccount
+    setHasBlockchainAccountSourceValue(value: Boolean) {
+        this.hasBlockchainAccountSource.next(value);
+    }
+
+    getHasBlockchainAccountSourceValue(): Boolean {
+        return this.hasBlockchainAccountSource.getValue();
     }
 }
