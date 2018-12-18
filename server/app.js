@@ -61,10 +61,17 @@ app.use(express.static(path.join(appRoot.path, 'dist')));
 /* Serve UI ---------------------*/
 
 app.use(function (req, res, next) {
-
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    var allowedOrigins = ['http://localhost:4200', 'http://172.16.5.166:8080', 'https://172.16.5.166:8080'];
+    var origin = req.headers.origin;
 
+    if (allowedOrigins.indexOf(origin) > -1){
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    } else {
+        // default origin
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    }
+    
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
