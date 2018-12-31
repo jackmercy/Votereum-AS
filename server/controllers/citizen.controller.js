@@ -197,7 +197,7 @@ async function postGenerateNewPassword(req, res) {
                         $set:
                             { hashPassword: _hash }
                     };
-                    Citizen.updateOne(
+                    User.updateOne(
                         query,
                         updateValues,
                         { overwrite: true, upsert: false },

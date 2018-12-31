@@ -143,17 +143,7 @@ export class UserService {
         } else if (isAuth === false && isLoggedIn === true) {
             if (token) {
                 this._messageService.changeLoginStatus(true);
-                // hanlder if reload page
-                /* const decodedToken = this.helper.decodeToken(token);
-                const payload = {
-                    isVote: decodedToken.isVote,
-                    isFirstTimeLogIn: decodedToken.isFirstTimeLogIn,
-                    hasBlockchainAccount: decodedToken.hasBlockchainAccount
-                };
-                this._messageService.setIsVoteValue(payload.isVote);
-                this._messageService.setIsFirstTimeLogInValue(payload.isFirstTimeLogIn);
-                this._messageService.setHasBlockchainAccountSourceValue(payload.hasBlockchainAccount); */
-                this.updateUserInfoLocal(this.getId());
+                
                 return true;
             }
             return false;

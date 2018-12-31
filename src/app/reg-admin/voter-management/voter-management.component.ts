@@ -75,6 +75,9 @@ export class VoterManagementComponent implements OnInit {
                     this.generatedUserId = data['userId'];
                     this.generatedUserPassword = data['defaultPassword'];
                 } else if (data['err']) {
+                    this.snackBar.open(data['message'] , 'Got it', {
+                        duration: 3000,
+                    });
                     console.log(data['message']);
                 }
             },

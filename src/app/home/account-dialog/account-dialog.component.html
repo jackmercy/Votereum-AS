@@ -13,14 +13,14 @@
         </div>
         <!-- Password -->
         <mat-form-field class="full-width-input">
-            <input type="password" matInput placeholder="Password" formControlName="password">
+            <input type="password" matInput placeholder="Re-enter your password" formControlName="password">
             <mat-error *ngIf="password.invalid">{{getErrorMessage(password)}}</mat-error>
         </mat-form-field>
 
         <div class="sign-up-text">
             <div>
                 <label class="session-text">
-                    Please enter your system password to set up your blockchain account. <br>
+                    Please re-enter your system password to set up your blockchain account. <br>
                     <strong>IMPORTANT:</strong> 
                     You cannot change or recover this password once it is lost. In case of losing password, you can
                     only request for a new blockchain account in Registration Phrase.
@@ -35,7 +35,7 @@
         <!-- Button group -->
         <div class="flex-center">
             <button id="sign-in-btn" (click)="onSetupClicked()" mat-flat-button color="accent" class="full-width-input setup"
-                    [disabled]="!accountForm.valid">
+                    [disabled]="!accountForm.valid || !checked.value">
                 <span class="text-color-login-form"> SET UP ACCOUNT </span>
             </button>
             <button (click)="onCancelClicked(false)" mat-stroked-button class="full-width-input cancel">

@@ -59,8 +59,8 @@ export class VotingComponent implements OnInit {
             this._ballotService.getDisplayPhases()
         );
         this._userService.getVoterAddress(this.citizenId).subscribe(
-            value => console.log(value),
-            error => console.log(error));
+            value => console.log(),
+            error => console.log());
 
         observable.subscribe(result => {
 
@@ -78,11 +78,11 @@ export class VotingComponent implements OnInit {
             // Handle data of getBallotInfo
             this.ballotInfo = result[2]['ballotInfo'];
             this.phaseInfo = result[2]['phaseInfo'];
-            console.log(result[2]);
+        
 
             // Handle data of getDisplayPhaseInfo
             this.displayPhaseInfo = result[3];
-            console.log(this.displayPhaseInfo);
+           
 
             // Check canVote
             if (this.hasBlockchainAccount) {

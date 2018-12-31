@@ -13,7 +13,7 @@ export class MessageService {
     private isLoginSource = new BehaviorSubject<Boolean>(false);
     // init value using token
     private isVoteSource = new BehaviorSubject<Boolean>(false);
-    private isFirstTimeLogInSource = new BehaviorSubject<Boolean>(true);
+    private isFirstTimeLogInSource = new BehaviorSubject<Boolean>(false);
     private hasBlockchainAccountSource = new BehaviorSubject<Boolean>(false);
     // Observable string streams
     sideBarActive$ = this.sideBarActiveSource.asObservable();

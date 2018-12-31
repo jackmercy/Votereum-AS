@@ -15,12 +15,19 @@ export class HomeMasterComponent implements OnInit {
                 private _userService: UserService) { }
 
     ngOnInit() {
-        const isVoted = this._userService.isVoted();
-        if (isVoted === false) {
-            this.routesItems = homeRoute;
-        } else if (isVoted === true) {
-            this.routesItems = homeRoute_Voted;
-        }
+        let isVoted;
+        let _id = this._userService.getId();
+        this._userService.updateUserInfoLocal(_id).subscribe(
+            () => {
+                isVoted = this._userService.isVoted(); 
+                if (isVoted === false) {
+                    this.routesItems = homeRoute;
+                } else if (isVoted === true) {
+                    this.routesItems = homeRoute_Voted;
+                }
+            }
+        );
+
         this._messageService.sideBarActive$.subscribe(
             isActive => this.isSideBarActive = isActive
         );

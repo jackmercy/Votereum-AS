@@ -28,7 +28,10 @@
                 <span class="col-6">{{ getLabel(phase) }} </span>
                 <span class="col-6 row full-width">
                     <span class="col-9">{{ displayPhaseInfo[phase] | date: 'fullDate'}}</span>
-                    <span class="col-3" *ngIf="canDisableButton(phase)">( Started )</span>
+                    <span class="col-3" *ngIf="canDisableButton(phase)">
+                        <i class="material-icons" style="color: #309944;">
+                        check
+                        </i></span>
                 </span>
             </div>
         </div>
