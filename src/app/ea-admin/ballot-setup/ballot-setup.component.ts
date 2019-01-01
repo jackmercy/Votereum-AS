@@ -88,7 +88,7 @@ export class BallotSetupComponent implements OnInit {
             phaseSequenceGroup,
             candidateListGroup
         );
-        console.log(payload);
+        /* console.log(payload); */
 
         this.confirmDialogRef = this._dialog.open(SetupConfirmDialogComponent, {
             width: 'fit-content',

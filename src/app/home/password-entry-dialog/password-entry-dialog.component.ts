@@ -65,7 +65,7 @@ export class PasswordEntryDialogComponent implements OnInit {
 
     onCancelClicked(willRedirect: boolean) {
         if (willRedirect === true) {
-            console.log(this.hash);
+            /* console.log(this.hash); */
             this.dialogRef.close(this.hash);
         } else {
             this.dialogRef.close('');

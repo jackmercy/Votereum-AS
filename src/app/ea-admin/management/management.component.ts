@@ -96,7 +96,7 @@ export class ManagementComponent implements OnInit  {
         window.scroll(0, 0);
         this._ballotService.getBallotInfo().subscribe(
             data => {
-                console.log(data);
+                /* console.log(data); */
                 this.ballotInfo = data['ballotInfo'];
                 this.phaseInfo = data['phaseInfo'];
                 this.voterInfo = data['voterInfo'];
@@ -242,7 +242,7 @@ export class ManagementComponent implements OnInit  {
 
     /* Chart event */
     onSelect(event) {
-        console.log(event);
+        /* console.log(event); */
     }
 
 }

@@ -39,7 +39,7 @@ export class UserService {
                         this._messageService.changeLoginStatus(true);
                         /* write to session storage here */
                         const decodedToken = this.helper.decodeToken(res['token']);
-                        console.log(decodedToken);
+                        /* console.log(decodedToken); */
                         /* TODO: get citizen details (populate mongoose user + citizen) */
                         const payload = {
                             role: decodedToken.role,
@@ -143,7 +143,7 @@ export class UserService {
         } else if (isAuth === false && isLoggedIn === true) {
             if (token) {
                 this._messageService.changeLoginStatus(true);
-                
+
                 return true;
             }
             return false;

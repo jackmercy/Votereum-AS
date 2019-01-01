@@ -40,7 +40,7 @@ export class VoteResultComponent implements OnInit {
             .subscribe(
                 data => {
                     this.txReceipt = {...data};
-                    console.log(this.txReceipt);
+                    /* console.log(this.txReceipt); */
                     const statusVal = data['status'];
                     if (statusVal === true) {
                         this.txReceipt['status'] = 'Success';

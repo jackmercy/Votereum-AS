@@ -41,7 +41,7 @@ export class AccountDialogComponent implements OnInit {
 
     onSetupClicked() {
         this.isLoading = true;
-        console.log(this.checked.value);
+        /* console.log(this.checked.value); */
         const account = {
             password: this.password.value,
             citizenId: this._userService.getId()

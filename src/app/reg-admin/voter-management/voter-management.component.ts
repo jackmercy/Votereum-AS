@@ -78,7 +78,7 @@ export class VoterManagementComponent implements OnInit {
                     this.snackBar.open(data['message'] , 'Got it', {
                         duration: 3000,
                     });
-                    console.log(data['message']);
+                    /* console.log(data['message']); */
                 }
             },
             error => {
@@ -93,7 +93,7 @@ export class VoterManagementComponent implements OnInit {
     searchUser() {
         this.userId = this.idFormControl.value;
         this._regAdminService.getCitizenInfo(this.userId).subscribe(data => {
-            console.log(data);
+            /* console.log(data); */
             this.user = <User> data;
             this.isCitizenExist = true;
             this.hasSystemAccount = data['hasSystemAccount'];

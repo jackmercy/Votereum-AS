@@ -78,11 +78,11 @@ export class VotingComponent implements OnInit {
             // Handle data of getBallotInfo
             this.ballotInfo = result[2]['ballotInfo'];
             this.phaseInfo = result[2]['phaseInfo'];
-        
+
 
             // Handle data of getDisplayPhaseInfo
             this.displayPhaseInfo = result[3];
-           
+
 
             // Check canVote
             if (this.hasBlockchainAccount) {

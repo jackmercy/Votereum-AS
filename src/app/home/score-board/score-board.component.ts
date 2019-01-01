@@ -74,12 +74,12 @@ export class ScoreBoardComponent implements OnInit {
         // console.log(this._ballotService.getBallotResult().s);
         this._ballotService.getBallotResult().subscribe(value => {
             this.result = value;
-            console.log(this.result);
+            /* console.log(this.result); */
             this.isGettingData = false;
         });
     }
 
     onSelect(event) {
-        console.log(event);
+       /*console.log(event); */
     }
 }
