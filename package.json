@@ -99,7 +99,9 @@
     "url": "https://github.com/jackmercy/Ether-Vote-AS + https://github.com/jackmercy/Ether-Vote-OBR"
   },
   "keywords": [
-    "blockchain"
+    "blockchain",
+    "votereum",
+    "E-voting"
   ],
   "author": "Jack - Lilly",
   "bugs": {
