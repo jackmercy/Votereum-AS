@@ -1,4 +1,4 @@
-# ether-vote-as
+# Votereum - AS
 
 This project is an Ethereum-based voting system.
 ## Requirement
