@@ -2,45 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { BallotService }    from '@services/ballot.service';
 
-/* export const _result = [
-    {
-      'name': 'Germany',
-      'value': 8940000
-    },
-    {
-      'name': 'USA',
-      'value': 5000000
-    },
-    {
-      'name': 'France',
-      'value': 7200000
-    },
-    {
-        'name': 'Vietnam',
-        'value': 9200000
-    },
-    {
-        'name': 'IT',
-        'value': 5000000
-    },
-    {
-        'name': 'Canada',
-        'value': 800000
-    },
-    {
-        'name': 'LalaLand',
-        'value': 400000
-    }
-];
- */
-
 @Component({
     selector: 'app-score-board',
     templateUrl: './score-board.component.html',
     styleUrls: ['./score-board.component.scss']
 })
 export class ScoreBoardComponent implements OnInit {
-
+    view: any[] = [900, 500];
     votingData: any;
     candidateNames: any;
     listCandidateIds: any;

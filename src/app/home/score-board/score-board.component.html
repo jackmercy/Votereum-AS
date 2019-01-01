@@ -1,6 +1,7 @@
-<div class="container-fluid wrapper score-grid no-gutters">
+<div class="container-fluid wrapper score-grid no-gutters justify-content-center">
     <ngx-charts-bar-vertical *ngIf="!isGettingData"
         [scheme]="colorScheme"
+        [view]="view"
         [results]="result"
         [gradient]="gradient"
         [xAxis]="showXAxis"

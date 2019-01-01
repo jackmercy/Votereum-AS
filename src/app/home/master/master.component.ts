@@ -16,10 +16,10 @@ export class HomeMasterComponent implements OnInit {
 
     ngOnInit() {
         let isVoted;
-        let _id = this._userService.getId();
+        const _id = this._userService.getId();
         this._userService.updateUserInfoLocal(_id).subscribe(
             () => {
-                isVoted = this._userService.isVoted(); 
+                isVoted = this._userService.isVoted();
                 if (isVoted === false) {
                     this.routesItems = homeRoute;
                 } else if (isVoted === true) {
