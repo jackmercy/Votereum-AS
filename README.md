@@ -11,7 +11,6 @@
 
 # Votereum: An Ethereum-based E-voting system
 
----
 
 ### Requirement
 * Node.js version 9.11.0
