@@ -8,14 +8,19 @@
     />
   </a>
 </p>
+
 # Votereum: An Ethereum-based E-voting system
+
 ---
+
 ### Requirement
 * Node.js version 9.11.0
 * MongoDB ver 3.6 and above
 * Angular CLI
 * RabbitMQ Server installed
+
 -------------
+
 # AS server
 
 #### Development 
