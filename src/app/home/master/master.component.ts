@@ -27,6 +27,22 @@ export class HomeMasterComponent implements OnInit {
                 }
             }
         );
+        isVoted = this._userService.isVoted();
+        if (isVoted === false) {
+            this.routesItems = homeRoute;
+        } else if (isVoted === true) {
+            this.routesItems = homeRoute_Voted;
+        }
+
+        this._messageService.isVoteSource$.subscribe(
+            value => {
+                if (value === false) {
+                    this.routesItems = homeRoute;
+                } else if (value === true) {
+                    this.routesItems = homeRoute_Voted;
+                }
+            }
+        );
 
         this._messageService.sideBarActive$.subscribe(
             isActive => this.isSideBarActive = isActive
